@@ -1,12 +1,13 @@
 /**
  * 포스트 리스트 페이지
  */
-import Button from '../components/common/Button';
+import HeaderContainer from '../containers/common/HeaderContainer';
 const PostListPage = () => {
   return (
-    <div>
-      <Button>버튼</Button>
-    </div>
+    <>
+      <HeaderContainer />
+      <div>게시판 메인</div>
+    </>
   );
 };
 
