@@ -30,6 +30,14 @@ const RegisterForm = () => {
       setError('빈 칸을 모두 입력해주세요.');
       return;
     }
+    const emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    if(!emailRegex.test(email)){
+      setError('이메일 형식이 옳지 않습니다.');
+      dispatch(changeField({ form: 'register', key: 'email', value: '' }));
+    
+      return ;
+    }
+
     //비밀번호가 일치하지 않는 경우
     if (password !== passwordConfirm) {
       setError('비밀번호가 일치하지 않습니다.');
@@ -38,6 +46,16 @@ const RegisterForm = () => {
         changeField({ form: 'register', key: 'passwordConfirm', value: '' }),
       );
       return;
+    }
+    var pwRegex = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+    
+    if(!(pwRegex.test(password)||pwRegex.test(passwordConfirm))){
+      setError('비밀번호는 숫자, 문자, 특수문자를 포함한 8~15자이어야 합니다.');
+      dispatch(changeField({ form: 'register', key: 'password', value: '' }));
+      dispatch(
+        changeField({ form: 'register', key: 'passwordConfirm', value: '' }),
+      );
+      return ;
     }
     dispatch(register({ email, password }));
   };
