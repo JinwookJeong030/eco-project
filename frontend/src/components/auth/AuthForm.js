@@ -73,6 +73,15 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             value={form.passwordConfirm}
           />
         )}
+        {type === 'register' && (
+          <StyledInput
+            autocomplete="name"
+            name="name"
+            placeholder="닉네임"
+            onChange={onChange}
+            value={form.name}
+          />
+        )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Button cyan fullWidth style={{ marginTop: '1rem' }}>
           {text}

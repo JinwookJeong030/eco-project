@@ -23,19 +23,20 @@ const RegisterForm = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    const { email, password, passwordConfirm } = form;
+    const { email, password, passwordConfirm, name } = form;
 
     //빈칸이 존재하는 경우
     if ([email, password, passwordConfirm].includes('')) {
       setError('빈 칸을 모두 입력해주세요.');
       return;
     }
-    const emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    if(!emailRegex.test(email)){
+    const emailRegex =
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    if (!emailRegex.test(email)) {
       setError('이메일 형식이 옳지 않습니다.');
       dispatch(changeField({ form: 'register', key: 'email', value: '' }));
-    
-      return ;
+
+      return;
     }
 
     //비밀번호가 일치하지 않는 경우
@@ -47,17 +48,18 @@ const RegisterForm = () => {
       );
       return;
     }
-    var pwRegex = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-    
-    if(!(pwRegex.test(password)||pwRegex.test(passwordConfirm))){
+    const pwRegex =
+      /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+
+    if (!(pwRegex.test(password) || pwRegex.test(passwordConfirm))) {
       setError('비밀번호는 숫자, 문자, 특수문자를 포함한 8~15자이어야 합니다.');
       dispatch(changeField({ form: 'register', key: 'password', value: '' }));
       dispatch(
         changeField({ form: 'register', key: 'passwordConfirm', value: '' }),
       );
-      return ;
+      return;
     }
-    dispatch(register({ email, password }));
+    dispatch(register({ email, password, name }));
   };
 
   useEffect(() => {
@@ -71,11 +73,14 @@ const RegisterForm = () => {
         setError('알수없는 오류');
         return;
       }
-      if (authError.response.status === 409) {
+      if (authError.response.status === 429) {
         setError('이미 존재하는 계정입니다.');
         return;
       }
-
+      if (authError.response.status === 439) {
+        setError('이미 존재하는 닉네임입니다.');
+        return;
+      }
       console.log('회원가입 실패');
       console.log(authError);
       return;
