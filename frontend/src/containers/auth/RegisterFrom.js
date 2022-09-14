@@ -88,21 +88,13 @@ const RegisterForm = () => {
     if (auth) {
       console.log('회원가입 성공');
       console.log(auth);
-      dispatch(check());
+      alert('회원가입 성공! 로그인 페이지로 이동합니다');
+      dispatch(initializeForm('auth'));
+      navigate('/login');
+
       return;
     }
   }, [auth, authError, dispatch]);
-
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-      try {
-        localStorage.setItem('user', JSON.stringify(user));
-      } catch (e) {
-        console.log('localStorage is not working');
-      }
-    }
-  }, [navigate, user]);
 
   return (
     <AuthForm
