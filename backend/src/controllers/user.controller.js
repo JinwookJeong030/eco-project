@@ -1,5 +1,5 @@
 const User = require('../models/user.model.js');
-// const jwt = require('../modules/jwt');
+const jwt = require('../modules/jwt.js');
 
 exports.register = (req, res) => {
   if (!(req.body.email && req.body.password && req.body.name)) {
@@ -47,11 +47,21 @@ exports.register = (req, res) => {
 
 // 전체 조회
 exports.login = (req, res) => {
-  User.login((err, data) => {
+  const user = new User({
+    email: req.body.email,
+    password: req.body.password,
+  });
+
+  User.login(user, (err, data) => {
     if (err)
-      res.status(500).send({
-        message: err.message || 'Some error occurred while retrieving User.',
+      return res.status(500).send({
+        message: 'error',
       });
-    else res.send(data);
+    else {
+      const jwtToken = jwt.sign(data);
+      return res.send({
+        token: jwtToken.token,
+      });
+    }
   });
 };

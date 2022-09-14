@@ -1,16 +1,16 @@
 const randToken = require('rand-token');
 const jwt = require('jsonwebtoken');
-const secretKey = require('../config/secretKey').secretKey;
-const options = require('../config/secretKey').options;
+const secretKey = require('../config/secretKey.js').secretKey;
+const options = require('../config/secretKey.js').options;
 const TOKEN_EXPIRED = -3;
 const TOKEN_INVALID = -2;
 
 module.exports = {
-  sign: async (user) => {
+  sign: (user) => {
     /* 현재는 idx와 email을 payload로 넣었지만 필요한 값을 넣으면 됨! */
     const payload = {
-      idx: user.user_id,
       email: user.email,
+      password: user.password,
     };
     const result = {
       //sign메소드를 통해 access token 발급!
@@ -19,7 +19,7 @@ module.exports = {
     };
     return result;
   },
-  verify: async (token) => {
+  verify: (token) => {
     let decoded;
     try {
       // verify를 통해 값 decode!
