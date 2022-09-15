@@ -53,11 +53,11 @@ exports.login = (req, res) => {
   });
 
   User.login(user, (err, data) => {
-    if (err)
+    if (!data) {
       return res.status(500).send({
         message: 'error',
       });
-    else {
+    } else {
       const jwtToken = jwt.sign(data);
       return res.send({
         token: jwtToken.token,
