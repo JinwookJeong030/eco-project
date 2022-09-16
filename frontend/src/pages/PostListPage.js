@@ -7,10 +7,10 @@ const PostListPage = () => {
   return (
     <>
       <HeaderContainer />
-      <span>
+      
       <NavContainer/>
       <div>게시판 메인</div>
-   </span>
+
     </>
   );
 };
