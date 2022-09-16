@@ -42,4 +42,24 @@ User.login = (user, result) => {
   );
 };
 
+User.selectUserInfo = (user, result)=> {
+  sql.query(
+    "SELECT * FROM user WHERE userNo = " +
+      user.userNo +
+      ";",
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+
+      console.log('selectUserInfo: ', res[0]);
+      result(null, res[0]);
+    },
+  );
+};
+
+
+
 module.exports = User;

@@ -1,42 +1,59 @@
-const randToken = require('rand-token');
+const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
-const secretKey = require('../config/secretKey.js').secretKey;
-const options = require('../config/secretKey.js').options;
-const TOKEN_EXPIRED = -3;
-const TOKEN_INVALID = -2;
-
+const redisClient = require('./redis');
+const secretKey = require('../config/secretKey').secretKey;
+const options = require('../config/secretKey').options;
+const refreshOptions = require('../config/secretKey').refreshOptions;
 module.exports = {
-  sign: (user) => {
-    /* 현재는 idx와 email을 payload로 넣었지만 필요한 값을 넣으면 됨! */
-    const payload = {
+  sign: (user) => { // access token 발급
+    const payload = { // access token에 들어갈 payload
+      userNo: user.userNo,
       email: user.email,
-      password: user.password,
     };
-    const result = {
-      //sign메소드를 통해 access token 발급!
-      token: jwt.sign(payload, secretKey, options),
-      refreshToken: randToken.uid(256),
-    };
-    return result;
+
+    return jwt.sign(payload, secretKey, options);
   },
-  verify: (token) => {
-    let decoded;
+  verify: (token) => { // access token 검증
+    let decoded = null;
     try {
-      // verify를 통해 값 decode!
       decoded = jwt.verify(token, secretKey);
+      return {
+        ok: true,
+        userNo: decoded.userNo,
+        email: decoded.email,
+      };
     } catch (err) {
-      if (err.message === 'jwt expired') {
-        console.log('expired token');
-        return TOKEN_EXPIRED;
-      } else if (err.message === 'invalid token') {
-        console.log('invalid token');
-        console.log(TOKEN_INVALID);
-        return TOKEN_INVALID;
-      } else {
-        console.log('invalid token');
-        return TOKEN_INVALID;
-      }
+      return {
+        ok: false,
+        message: err.message,
+      };
     }
-    return decoded;
   },
+  refresh: () => { // refresh token 발급
+    return jwt.sign({}, secretKey, refreshOptions);
+  },
+  refreshVerify: async (token, userId) => { // refresh token 검증
+    /* redis 모듈은 기본적으로 promise를 반환하지 않으므로,
+       promisify를 이용하여 promise를 반환하게 해줍니다.*/
+    const getAsync = promisify(redisClient.get).bind(redisClient);
+    
+    try {
+      const data = await getAsync(userId); // refresh token 가져오기
+      if (token === data) {
+        try {
+          jwt.verify(token, secretKey);
+          return true;
+        } catch (err) {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } catch (err) {
+      return false;
+    }
+  },
+  logout: async (token) =>{
+    
+  }
 };

@@ -13,7 +13,7 @@ const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] =
 const LOGOUT = 'user/LOGOUT';
 
 export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
-export const check = createAction(CHECK);
+export const check = createAction(CHECK,(user)=>(user));
 export const logout = createAction(LOGOUT);
 
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
@@ -30,6 +30,8 @@ function* logoutSaga() {
   try {
     yield call(authAPI.logout);
     localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
   } catch (e) {
     console.log(e);
   }

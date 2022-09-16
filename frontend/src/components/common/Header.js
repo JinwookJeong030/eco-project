@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Responsive from './Responsive';
 import Button from './Button';
+import Nav from './Nav'
 import { Link } from 'react-router-dom';
 
 const HeaderBlock = styled.div`
@@ -8,6 +9,7 @@ const HeaderBlock = styled.div`
   width: 100%;
   background: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  z-index: 10;
 `;
 
 const Wrapper = styled(Responsive)`
@@ -26,7 +28,8 @@ const Wrapper = styled(Responsive)`
   }
 `;
 const Spacer = styled.div`
-  height: 4rem;
+  height: 100%;
+  background: red;
 `;
 
 const UserInfo = styled.div`
@@ -54,7 +57,11 @@ const Header = ({ user, onLogout }) => {
           )}
         </Wrapper>
       </HeaderBlock>
-      <Spacer />
+        <Spacer>
+          <Nav>
+            
+          </Nav>
+      </Spacer>
     </>
   );
 };

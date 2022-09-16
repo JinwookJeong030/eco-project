@@ -27,7 +27,7 @@ const Nav = () => {
     return (
         <>
         <NavBlock>
-            <Wrapper>dfdf</Wrapper>
+            <Wrapper></Wrapper>
             <></>
         </NavBlock>
         <Spacer />

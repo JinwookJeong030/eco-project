@@ -66,6 +66,9 @@ const RegisterForm = () => {
     dispatch(initializeForm('register'));
   }, [dispatch]);
 
+
+
+
   //회원가입 실패 처리 DB
   useEffect(() => {
     if (authError) {

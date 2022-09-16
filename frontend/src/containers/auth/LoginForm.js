@@ -12,7 +12,8 @@ const LoginForm = ({ history }) => {
     form: auth.login,
     auth: auth.auth,
     authError: auth.authError,
-    user: user.uesr,
+    user: user.user,
+    
   }));
 
   const [error, setError] = useState(null);
@@ -23,7 +24,13 @@ const LoginForm = ({ history }) => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+   
+
     const { email, password } = form;
+    if(!(email&&password)){
+      setError("이메일, 패스워드를 입력해주세요.");
+      return;
+    }
     dispatch(login({ email, password }));
   };
 
@@ -35,17 +42,19 @@ const LoginForm = ({ history }) => {
     if (authError) {
       console.log('오류 발생');
       console.log(authError);
-      setError('로그인 실패 ' + authError);
+      setError('이메일 또는 비밀번호가 옳지 않습니다.' );
       return;
     }
     if (auth) {
-      console.log('로그인 성공');
-      console.log(check());
+      setError("");
+      dispatch(check());
     }
   }, [auth, authError, dispatch]);
 
   useEffect(() => {
+    console.log(user);
     if (user) {
+     
       navigate('/');
       try {
         localStorage.setItem('user', JSON.stringify(user));
