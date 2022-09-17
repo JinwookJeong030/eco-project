@@ -14,7 +14,7 @@ const LOGOUT = 'user/LOGOUT';
 
 export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
 export const check = createAction(CHECK,(user)=>(user));
-export const hidingMenu = createAction(HIDING_MENU);
+export const hidingMenu = createAction(HIDING_MENU,(hidingState)=>(hidingState));
 export const logout = createAction(LOGOUT);
 
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
@@ -45,7 +45,7 @@ export function* userSaga() {
 }
 const initialState = {
   user: null,
-  hidingMenuState:false,
+  hidingState:false,
   checkError: null,
 };
 
@@ -63,7 +63,7 @@ const user = handleActions(
       checkError: error,
     }),
     [LOGOUT]: (state) => ({ ...state, user: null }),
-    [HIDING_MENU]: (state) =>({...state, hidingMenuState: true})
+    [HIDING_MENU]: (state,{payload: hidingState}) =>({...state, hidingState})
   },
   initialState,
 );

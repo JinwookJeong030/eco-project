@@ -5,11 +5,11 @@ import user, { hidingMenu } from '../../modules/user';
 
 const NavContainer = () => {
   const dispatch = useDispatch();
-  const {hidingMenuState}= useSelector(({ user }) => ({ hidingMenuState: user.hidingMenu }));
+  const {hidingState}= useSelector(({ user }) => ({ hidingState: user.hidingState }));
   const onHidingMenu =()=>{
-    dispatch(hidingMenu());
+    dispatch(hidingMenu(!hidingState));
   }
-  return <Nav onHidingMenu={onHidingMenu} hiding={hidingMenuState}/>;
+  return <Nav onHidingMenu={onHidingMenu} hidingState={hidingState}/>;
 };
 
 export default NavContainer;
