@@ -1,4 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
+import { useSelector } from 'react-redux';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/createRequestSaga';
@@ -6,14 +7,14 @@ import { takeLatest, call } from 'redux-saga/effects';
 import * as authAPI from '../lib/api/auth';
 
 const TEMP_SET_USER = 'user/TEMP_SET_USER';
-
+const HIDING_MENU ='user/HIDING_MENU'; 
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] =
   createRequestActionTypes('user/CHECK');
-
 const LOGOUT = 'user/LOGOUT';
 
 export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
 export const check = createAction(CHECK,(user)=>(user));
+export const hidingMenu = createAction(HIDING_MENU);
 export const logout = createAction(LOGOUT);
 
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
@@ -44,6 +45,7 @@ export function* userSaga() {
 }
 const initialState = {
   user: null,
+  hidingMenuState:false,
   checkError: null,
 };
 
@@ -61,6 +63,7 @@ const user = handleActions(
       checkError: error,
     }),
     [LOGOUT]: (state) => ({ ...state, user: null }),
+    [HIDING_MENU]: (state) =>({...state, hidingMenuState: true})
   },
   initialState,
 );
