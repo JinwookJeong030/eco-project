@@ -6,6 +6,7 @@ import palette from '../../lib/styles/palette';
 
 const PostListBlock = styled(Responsive)`
   margin-top: 3rem;
+  
 `;
 
 const WritePostButtonWrapper = styled.div`
@@ -13,8 +14,16 @@ const WritePostButtonWrapper = styled.div`
   justify-content: flex-end;
   margin-bottom: 3rem;
 `;
-
 const PostItemBlock = styled.div`
+display: flex;
+margin-bottom:1rem;
+border: thin solid ;
+border-color: #424242;
+box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
+
+`
+const PostItemInfoBlock = styled.div`
+
   padding-top: 3rem;
   padding-bottom: 3rem;
   /* 맨 위 포스트는 padding-top 없음 */
@@ -52,26 +61,23 @@ const SubInfo = styled.div`
   }
 `;
 
-const Tags = styled.div`
-  margin-top: 0.5rem;
-  .tag {
-    display: inline-block;
-    color: ${palette.cyan[7]};
-    text-decoration: none;
-    margin-right: 0.5rem;
-    &:hover {
-      color: ${palette.cyan[6]};
-    }
-  }
-`;
+
+const Image = styled.img`
+width: 10rem;
+height: 10rem;
+border: solid thin;
+margin: 1rem;
+`
 const PostItem = () => {
     return (
-      <PostItemBlock>
+    <PostItemBlock>
+        <Image src={process.env.PUBLIC_URL + "eco-icon.png"}/>
+        <PostItemInfoBlock>
         <h2>제목</h2>
         <SubInfo username="username" publishedDate={new Date()} />
-        <Tags tags={['태그1', '태그2', '태그3']} />
-        <p>포스트 내용의 일부분..</p>
-      </PostItemBlock>
+        <p>포스트 내용</p>
+      </PostItemInfoBlock>
+    </PostItemBlock>
     );
   };
 
@@ -87,6 +93,14 @@ const PostItem = () => {
           <PostItem />
           <PostItem />
           <PostItem />
+          <PostItem />
+          <PostItem />
+          <PostItem />
+          <PostItem />
+          <PostItem />
+          <PostItem />
+          <PostItem />
+
         </div>
       </PostListBlock>
     );
