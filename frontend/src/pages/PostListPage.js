@@ -3,13 +3,14 @@
  */
 import HeaderContainer from '../containers/common/HeaderContainer';
 import NavContainer from '../containers/common/NavContainer';
+import PostList from '../components/post/PostList'
 const PostListPage = () => {
   return (
     <>
       <HeaderContainer />
       
       <NavContainer/>
-      <div>게시판 메인</div>
+      <PostList />
 
     </>
   );

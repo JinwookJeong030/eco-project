@@ -6,8 +6,10 @@ import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive';
 
 const EditorBlock = styled(Responsive)`
+
     padding-top: 5rem;
     padding-bottom: 5rem;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
 `
 const TitleInput = styled.input`
   outline: none;

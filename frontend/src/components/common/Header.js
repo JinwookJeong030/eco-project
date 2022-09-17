@@ -11,6 +11,11 @@ const HeaderBlock = styled.div`
 
 `;
 
+const HeaderIcon = styled.img`
+width:4rem;
+height:4rem;
+vertical-align: bottom;
+`
 const Wrapper = styled(Responsive)`
   height: 4rem;
   display: flex;
@@ -18,8 +23,9 @@ const Wrapper = styled(Responsive)`
   justify-content: space-between;
   .logo {
     font-size: 1.125rem;
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: 2px;
+    margin-right: auto;
   }
   .right {
     display: flex;
@@ -41,6 +47,9 @@ const Header = ({ user, onLogout }) => {
     <>
       <HeaderBlock>
         <Wrapper>
+          <Link  to="/">
+        <HeaderIcon  src={ process.env.PUBLIC_URL + "eco-icon.png" } />
+        </Link>
           <Link to="/" className="logo">
             EcoWeb
           </Link>
