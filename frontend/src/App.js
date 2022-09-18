@@ -10,7 +10,9 @@ import ClassListPage from './pages/class/ClassListPage';
 import ClassPage from './pages/class/ClassPage';
 import EditClassPage from './pages/class/EditClassPage';
 import MypagePage from './pages/mypage/MypagePgae'
+import MainMission from './pages/mission/MainMissionPage'
 import NotFound from './pages/NotFound'
+
 function App() {
   return (
     <Routes>
@@ -29,14 +31,14 @@ function App() {
       </Route>
       <Route path="/post/edit" element={<EditPostPage />} />
       {/*모임 메뉴*/}
-      <Route path="/class/edit" element={<EditClassPage />} />
       <Route path="/class/list" element={<ClassListPage />} />
+      <Route path="/class/edit" element={<EditClassPage />} />
       <Route path="/class/@:classname">
         <Route index element={<ClassListPage />} />
         <Route path=":classId" element={<ClassPage />} />
       </Route>
       {/*미션 & 식물 메뉴*/}
-
+      <Route path="/mission/myMission" element={<MainMission />} />
       {/*마이페이지 메뉴*/}
       <Route path="/mypage" element={<MypagePage />} />
       {/*기타*/}

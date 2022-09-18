@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import Responsive from '../common/Responsive';
+import Responsive from '../common/ResponsiveHeader';
 
 const PostViewerBlock = styled(Responsive)`
   margin-top: 4rem;

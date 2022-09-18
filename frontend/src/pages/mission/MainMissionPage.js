@@ -2,7 +2,9 @@
  * 미션&식물 페이지
  */
 
- import HeaderContainer from '../../containers/common/HeaderContainer';
+ import MyMission from '../../components/mission/MyMission';
+import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner';
+import HeaderContainer from '../../containers/common/HeaderContainer';
 import NavContainer from '../../containers/common/NavContainer';
  const ClassPage= () => {
    
@@ -10,7 +12,9 @@ import NavContainer from '../../containers/common/NavContainer';
    <>      
    <HeaderContainer />
    <NavContainer/>
-    미션&amp;페이지입니다.
+   <ContentsBoxContainer title="미션&amp;식물">
+    <MyMission/>
+   </ContentsBoxContainer>
    </>);
  };
  

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ResponsiveBlock = styled.div`
+const ResponsiveHeaderBlock = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
   width: 1024px;
@@ -15,8 +15,8 @@ const ResponsiveBlock = styled.div`
   }
 `;
 
-const Responsive = ({ children, ...rest }) => {
-  return <ResponsiveBlock {...rest}>{children}</ResponsiveBlock>;
+const ResponsiveHeader = ({ children, ...rest }) => {
+  return <ResponsiveHeaderBlock {...rest}>{children}</ResponsiveHeaderBlock>;
 };
 
-export default Responsive;
+export default ResponsiveHeader;

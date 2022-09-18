@@ -2,7 +2,8 @@
  * 모임 페이지
  */
 
- import HeaderContainer from '../../containers/common/HeaderContainer';
+ import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner';
+import HeaderContainer from '../../containers/common/HeaderContainer';
 import NavContainer from '../../containers/common/NavContainer';
  const ClassPage= () => {
    
@@ -10,7 +11,8 @@ import NavContainer from '../../containers/common/NavContainer';
    <>      
    <HeaderContainer />
    <NavContainer/>
-    모임 페이지입니다.
+   <ContentsBoxContainer title="내 모임">
+   </ContentsBoxContainer>
    </>);
  };
  

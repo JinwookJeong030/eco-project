@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Responsive from './Responsive';
+import Responsive from './ResponsiveHeader';
 import Button from './Button';
 import { Link } from 'react-router-dom';
 
@@ -48,7 +48,7 @@ const Header = ({ user, onLogout }) => {
       <HeaderBlock>
         <Wrapper>
           <Link  to="/">
-        <HeaderIcon  src={ process.env.PUBLIC_URL + "eco-icon.png" } />
+        <HeaderIcon  src={ process.env.PUBLIC_URL + "/eco-icon.png" } />
         </Link>
           <Link to="/" className="logo">
             EcoWeb

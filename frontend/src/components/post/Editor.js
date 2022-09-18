@@ -3,7 +3,7 @@ import Quill from 'quill';
 import 'quill/dist/quill.bubble.css';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import Responsive from '../common/Responsive';
+import Responsive from '../common/ResponsiveHeader';
 
 const EditorBlock = styled(Responsive)`
 

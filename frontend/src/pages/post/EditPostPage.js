@@ -1,7 +1,7 @@
 /**
  * 글쓰기 페이지
  */
-import Responsive from '../../components/common/Responsive.js'
+import Responsive from '../../components/common/ResponsiveHeader.js'
 import Editor from '../../components/post/Editor.js';
 import TagBox from '../../components/post/TagBox';
 import PostActionBtn from '../../components/post/PostActionBtn';
@@ -17,13 +17,13 @@ const EditPostPage = () => {
   <HeaderContainer />
   <NavContainer/>
   <ContentsBoxContainer title="글 쓰기">
-  <Responsive>
+
 
   <Editor/>
   <TagBox />
   <PostActionBtn />
 
-</Responsive>
+
 
   </ContentsBoxContainer>
  

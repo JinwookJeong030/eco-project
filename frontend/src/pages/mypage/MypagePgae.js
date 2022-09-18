@@ -4,7 +4,7 @@
 
  import HeaderContainer from '../../containers/common/HeaderContainer';
 import NavContainer from '../../containers/common/NavContainer';
-import MypageTemplate from '../../components/mypage/MypageTemplate'
+import MypageForm from '../../containers/mypage/MypageForm'
 import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner';
  const ClassPage= () => {
    
@@ -13,7 +13,7 @@ import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner'
    <HeaderContainer />
    <NavContainer/>
    <ContentsBoxContainer title="마이페이지">
-   <MypageTemplate />
+   <MypageForm />
 
    </ContentsBoxContainer>
     

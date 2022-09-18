@@ -31,6 +31,14 @@ const buttonStyle = css`
         background: ${palette.green[1]};
       }
     `}
+  ${(props)=>
+  props.myPage && css`
+    margin: 15px;
+    width: 20rem;
+    height: 2.5rem;
+    
+
+  `}
 `;
 const StyledButton = styled.button`
   ${buttonStyle}

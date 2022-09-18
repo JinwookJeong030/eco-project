@@ -2,15 +2,20 @@
  * 모임 리스트 페이지
  */
 
- import HeaderContainer from '../../containers/common/HeaderContainer';
+ import ContentsBox from '../../components/common/ContentsBox';
+import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner';
+import HeaderContainer from '../../containers/common/HeaderContainer';
 import NavContainer from '../../containers/common/NavContainer';
+import ClassListContanier from '../../containers/class/ClassListForm'
  const ClassListPage= () => {
    
    return (
    <>      
    <HeaderContainer />
    <NavContainer/>
-    모임 게시판 메인입니다.
+   <ContentsBoxContainer title="모임">
+    <ClassListContanier/>
+   </ContentsBoxContainer>
    </>);
  };
  

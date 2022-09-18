@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import Responsive from './Responsive';
+import Responsive from './ResponsiveHeader';
 import Button from './Button';
 import { Link } from 'react-router-dom';
 
 
-const ContentsBoxBlock = styled.div`
+const ContentsBoxBlock = styled(Responsive)`
+
     height: calc( 100vh - 4rem ) ;  
     width: calc( 100% - ${(props)=>props.hidingState? '4rem':'13rem'});
     margin-left: ${(props)=>props.hidingState? '4rem':'13rem'};

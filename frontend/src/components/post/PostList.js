@@ -1,22 +1,20 @@
 
 import styled from 'styled-components';
-import Responsive from '../common/Responsive';
+import Responsive from '../common/ResponsiveHeader';
 import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
 
 const PostListBlock = styled(Responsive)`
-  margin-top: 3rem;
   
 `;
 
 const WritePostButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 3rem;
 `;
 const PostItemBlock = styled.div`
 display: flex;
-margin-bottom:1rem;
+margin-top:1rem;
 border: thin solid ;
 border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
@@ -24,9 +22,9 @@ box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 `
 const PostItemInfoBlock = styled.div`
 
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  /* 맨 위 포스트는 padding-top 없음 */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
   &:first-child {
     padding-top: 0;
   }
@@ -60,7 +58,13 @@ const SubInfo = styled.div`
     content: '\\B7'; /* 가운뎃점 문자 */
   }
 `;
-
+const Title= styled.h2`
+  margin:0;
+  
+`
+const Contents =styled.div`
+  margin-Top: 10px;
+`
 
 const Image = styled.img`
 width: 10rem;
@@ -73,9 +77,9 @@ const PostItem = () => {
     <PostItemBlock>
         <Image src={process.env.PUBLIC_URL + "eco-icon.png"}/>
         <PostItemInfoBlock>
-        <h2>제목</h2>
+        <Title>제목</Title>
         <SubInfo username="username" publishedDate={new Date()} />
-        <p>포스트 내용</p>
+        <Contents>포스트 내용</Contents>
       </PostItemInfoBlock>
     </PostItemBlock>
     );
@@ -85,7 +89,7 @@ const PostItem = () => {
     return (
       <PostListBlock>
         <WritePostButtonWrapper>
-          <Button cyan to="/write">
+          <Button cyan to="/post/edit">
             새 글 작성하기
           </Button>
         </WritePostButtonWrapper>

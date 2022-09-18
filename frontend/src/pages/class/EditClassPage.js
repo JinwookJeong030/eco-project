@@ -2,7 +2,8 @@
  * 모임 생성 페이지
  */
 
- import HeaderContainer from '../../containers/common/HeaderContainer';
+ import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner';
+import HeaderContainer from '../../containers/common/HeaderContainer';
 import NavContainer from '../../containers/common/NavContainer';
  const EditClassPage = () => {
    
@@ -10,7 +11,8 @@ import NavContainer from '../../containers/common/NavContainer';
    <>      
    <HeaderContainer />
    <NavContainer/>
-    모임 게시판 생성 페이지입니다.
+   <ContentsBoxContainer title="모임 생성">
+   </ContentsBoxContainer>
    </>);
  };
  

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import Responsive from './Responsive';
-import Button from './Button';
+
 import { Link } from 'react-router-dom';
 
 const NavBlock = styled.div`
@@ -71,13 +70,13 @@ const Nav = ({onHidingMenu ,hidingState}) => {
         <NavBlock  hidingState={hidingState}>
       
             <Wrapper >
-              <MenuIcon src={process.env.PUBLIC_URL +"menu-icon.png"}onClick={onHidingMenu}/>
+              <MenuIcon src={process.env.PUBLIC_URL +"/menu-icon.png"}onClick={onHidingMenu}/>
               <Link to='/'><Menu>
-                <Icon src={process.env.PUBLIC_URL +"post-icon.png"}/>{hidingState?'':'게시판'}</Menu></Link>
-                <Link to='/'><Menu><Icon src={process.env.PUBLIC_URL +"class-icon.png"}/>{hidingState?'':'모임'}</Menu></Link>
-                <Link to='/'> <Menu><Icon src={process.env.PUBLIC_URL +"mission-icon.png"}/>{hidingState?'':'미션&식물'}</Menu></Link>
+                <Icon src={process.env.PUBLIC_URL +"/post-icon.png"}/>{hidingState?'':'게시판'}</Menu></Link>
+                <Link to='/class/list'><Menu><Icon src={process.env.PUBLIC_URL +"/class-icon.png"}/>{hidingState?'':'모임'}</Menu></Link>
+                <Link to='/mission/myMission'> <Menu><Icon src={process.env.PUBLIC_URL +"/mission-icon.png"}/>{hidingState?'':'미션&식물'}</Menu></Link>
                 <Link to='/mypage'>
-                  <Menu><Icon src={process.env.PUBLIC_URL +"mypage-icon.png"}/>{hidingState?'':'마이페이지'}</Menu>
+                  <Menu><Icon src={process.env.PUBLIC_URL +"/mypage-icon.png"}/>{hidingState?'':'마이페이지'}</Menu>
                 </Link>
 
            </Wrapper>
