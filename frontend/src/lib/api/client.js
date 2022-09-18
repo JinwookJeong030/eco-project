@@ -10,7 +10,7 @@ client.interceptors.request.use(function (config){
    client.defaults.headers.common["authorization"] = `Bearer ${localStorage.getItem('accessToken')}`;
    client.defaults.headers.common["refresh"] = localStorage.getItem('refreshToken');
    return config;
-})
+});
 
 /**
  * //api 주소 다른곳 사용

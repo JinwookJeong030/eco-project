@@ -1,7 +1,7 @@
 /**
  * 글쓰기 페이지
  */
-import Responsive from '../../components/common/ResponsiveHeader.js'
+import Responsive from '../../components/common/Responsive.js'
 import HeaderContainer from '../../containers/common/HeaderContainer';
 import NavContainer from '../../containers/common/NavContainer.js';
 import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner.js';

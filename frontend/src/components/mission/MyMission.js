@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
-import Responsive from '../common/ResponsiveHeader';
+import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 const MyMissionBlock = styled(Responsive)`
   margin-top: 1rem;

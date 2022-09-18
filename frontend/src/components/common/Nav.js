@@ -3,15 +3,15 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const NavBlock = styled.div`
-.hid {
-  width: 5rem;
-  }
 
 height: calc( 100vh - 4rem );  
 width: ${props=>(props.hidingState? '3rem':'12rem' )};
 background: #81F781;
 float:left;
-
+border-right: solid thin #088A68;
+.hid {
+  width: 5rem;
+  }
 `;
 const Wrapper = styled.ul`
 margin:0;
@@ -21,7 +21,7 @@ list-style:none;
 width:100%;
 padding-left:0;
 
-border-bottom: solid thin;
+border-bottom: solid thin #088A68;
  
 `;
 const MenuIcon = styled.img`
@@ -49,7 +49,7 @@ font-size: 1.2rem;
 color:#088A68;
 display: normal;
 width:100%;
-border-top: solid thin;
+border-top: solid thin #088A68;
 
 &:hover{
   color:#81F781;

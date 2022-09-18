@@ -1,6 +1,6 @@
 
 import styled from 'styled-components';
-import Responsive from '../common/ResponsiveHeader';
+import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
 

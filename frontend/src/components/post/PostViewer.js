@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import Responsive from '../common/ResponsiveHeader';
+import Responsive from '../common/Responsive';
 
 const PostViewerBlock = styled(Responsive)`
   margin-top: 4rem;
@@ -50,25 +50,36 @@ const PostContent = styled.div`
   color: ${palette.gray[8]};
 `;
 
-const PostViewer = () => {
+const PostViewer = ({ post, error, loading }) => {
+  // 에러 발생 시
+  if (error) {
+    if (error.response && error.response.status === 404) {
+      return <PostViewerBlock>존재하지 않는 포스트입니다.</PostViewerBlock>;
+    }
+    return <PostViewerBlock>오류 발생!</PostViewerBlock>
+  }
+
+  // 로딩 중이거나 아직 포스트 데이터가 없을 때
+  if (loading || !post) {
+    return null;
+  }
+
+  const { title, body, user, publishedDate,  } = post;
+
   return (
     <PostViewerBlock>
       <PostHead>
-        <h1>제목</h1>
+        <h1>{title}</h1>
         <SubInfo>
           <span>
-            <b>test</b>
+            <b>{user.username}</b>
           </span>
-          <span>{new  Date().toLocaleDateString()}</span>
+          <span>{new  Date(publishedDate).toLocaleDateString()}</span>
         </SubInfo>
-        <Tags>
-          <div className="tag">#태그1</div>
-          <div className="tag">#태그2</div>
-          <div className="tag">#태그3</div>
-        </Tags>
+       
       </PostHead>
       <PostContent
-        dangerouslySetInnerHTML={{ __html: '<p>HTML <b>내용</b>입니다.</p>' }}
+        dangerouslySetInnerHTML={{ __html: body }}
       />
     </PostViewerBlock>
   );

@@ -1,9 +1,9 @@
 
 import styled from 'styled-components';
-import Responsive from '../common/ResponsiveHeader';
+import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
-
+import { Link } from "react-router-dom";
 const PostListBlock = styled(Responsive)`
   
 `;
@@ -72,40 +72,53 @@ height: 10rem;
 border: solid thin;
 margin: 1rem;
 `
-const PostItem = () => {
+const PostItem = ({ post }) => {
+  const { publishedDate, user, tags, title, body, _id } = post;
     return (
+    
     <PostItemBlock>
         <Image src={process.env.PUBLIC_URL + "eco-icon.png"}/>
         <PostItemInfoBlock>
-        <Title>제목</Title>
-        <SubInfo username="username" publishedDate={new Date()} />
-        <Contents>포스트 내용</Contents>
+        <Link to={`/@${user.username}/${_id}`}><Title>제목</Title></Link>
+        <SubInfo username="username" publishedDate={new Date(publishedDate)} />
+        <Contents>{body}</Contents>
       </PostItemInfoBlock>
     </PostItemBlock>
+ 
     );
   };
+  const ExPostItem = () => {
 
-  const PostList = () => {
+      return (
+      
+      <PostItemBlock>
+          <Image src={process.env.PUBLIC_URL + "eco-icon.png"}/>
+          <PostItemInfoBlock>
+          <Title>제목</Title>
+          <SubInfo username="username" publishedDate={new Date()} />
+          <Contents>내용</Contents>
+        </PostItemInfoBlock>
+      </PostItemBlock>
+   
+      );
+    };
+  const PostList = ({ posts, loading, error, showWriteButton }) => {
+    if (error) {
+      return <PostListBlock> <ExPostItem/><ExPostItem/><ExPostItem/><ExPostItem/><ExPostItem/><ExPostItem/><ExPostItem/></PostListBlock>
+    }
+  /**에러처리 */
     return (
       <PostListBlock>
         <WritePostButtonWrapper>
-          <Button cyan to="/post/edit">
+        {showWriteButton && (<Button cyan to="/post/edit">
             새 글 작성하기
-          </Button>
+          </Button>)}
         </WritePostButtonWrapper>
-        <div>
-          <PostItem />
-          <PostItem />
-          <PostItem />
-          <PostItem />
-          <PostItem />
-          <PostItem />
-          <PostItem />
-          <PostItem />
-          <PostItem />
-          <PostItem />
-
-        </div>
+        {!loading && posts && (<div>
+          {posts.map(post => (
+            <PostItem post={post} key={post._id} />
+          ))}
+        </div>)}
       </PostListBlock>
     );
   };

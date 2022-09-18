@@ -4,7 +4,7 @@ import './EditorQuill.css'
 import Quill from "quill";
 import 'react-quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
-import Responsive from "../common/ResponsiveHeader";
+import Responsive from "../common/Responsive";
 import styled from "styled-components";
 import PostActionBtn from "./PostActionBtn";
 
@@ -126,7 +126,7 @@ const Editor =({title, body, onChangeField })=>{
 
 
   const onChangeTitle = e => {
-    onChangeField({ key: 'title', value: e.current.value });
+    onChangeField({ key: 'title', value: e.target.value });
   };
   const exOption = () =>{
     const result = [];
