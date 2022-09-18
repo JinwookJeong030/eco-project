@@ -24,6 +24,15 @@ const palette = {
     '#0c8599',
     '#0b7285',
   ],
+  green:[
+    
+    '#04B486',
+    '#088A68',
+    '#81F781',
+
+
+
+  ]
 };
 
 export default palette;

@@ -7,11 +7,11 @@ const NavBlock = styled.div`
 .hid {
   width: 5rem;
   }
-position: fixed;
-height: 100%;  
+
+height: calc( 100vh - 4rem );  
 width: ${props=>(props.hidingState? '3rem':'12rem' )};
 background: #81F781;
-  
+float:left;
 
 `;
 const Wrapper = styled.ul`
@@ -62,10 +62,7 @@ border-top: solid thin;
 }
 `
 
-const Spacer = styled.nav`
 
-
-`;
 
 const Nav = ({onHidingMenu ,hidingState}) => {
 
@@ -75,14 +72,17 @@ const Nav = ({onHidingMenu ,hidingState}) => {
       
             <Wrapper >
               <MenuIcon src={process.env.PUBLIC_URL +"menu-icon.png"}onClick={onHidingMenu}/>
-              <Menu><Icon src={process.env.PUBLIC_URL +"post-icon.png"}/>{hidingState?'':'게시판'}</Menu>
-              <Menu><Icon src={process.env.PUBLIC_URL +"class-icon.png"}/>{hidingState?'':'모임'}</Menu>
-              <Menu><Icon src={process.env.PUBLIC_URL +"mission-icon.png"}/>{hidingState?'':'미션&식물'}</Menu>
-              <Menu><Icon src={process.env.PUBLIC_URL +"mypage-icon.png"}/>{hidingState?'':'마이페이지'}</Menu>
-              
+              <Link to='/'><Menu>
+                <Icon src={process.env.PUBLIC_URL +"post-icon.png"}/>{hidingState?'':'게시판'}</Menu></Link>
+                <Link to='/'><Menu><Icon src={process.env.PUBLIC_URL +"class-icon.png"}/>{hidingState?'':'모임'}</Menu></Link>
+                <Link to='/'> <Menu><Icon src={process.env.PUBLIC_URL +"mission-icon.png"}/>{hidingState?'':'미션&식물'}</Menu></Link>
+                <Link to='/mypage'>
+                  <Menu><Icon src={process.env.PUBLIC_URL +"mypage-icon.png"}/>{hidingState?'':'마이페이지'}</Menu>
+                </Link>
+
            </Wrapper>
         </NavBlock>
-        <Spacer/>
+      
         
         </>
     );

@@ -14,28 +14,38 @@ const AuthTemplateBlock = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const Icon =styled.image`
+vertical-align: bottom;
+width: 50px;
+height:50px;
 
+`
 const WhiteBox = styled.div`
   .logo-area {
+    font-size:30px;
     display: block;
     padding-bottom: 2rem;
     text-align: center;
     font-weight: bold;
     letter-spacing: 2px;
   }
+  
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
   padding: 2rem;
   width: 360px;
   background: white;
   border-radius: 2px;
+  border: solid thin;
 `;
 
 const AuthTemplate = ({ children }) => {
   return (
     <AuthTemplateBlock>
       <WhiteBox>
+    
         <div className="logo-area">
-          <Link to="/">EcoWeb</Link>
+       
+          <Link to="/">  <Icon src={ process.env.PUBLIC_URL + "eco-icon.png" }/>EcoWeb</Link>
         </div>
         {children}
       </WhiteBox>
