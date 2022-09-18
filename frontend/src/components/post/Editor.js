@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from "react";
+import ReactQuill from 'react-quill';
 import Quill from "quill";
+import 'react-quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
+import Responsive from "../common/ResponsiveHeader";
 import styled from "styled-components";
 import palette from "../../lib/styles/palette";
-import Responsive from "../common/ResponsiveHeader";
 
 const EditorBlock = styled(Responsive)`
   /* 페이지 위아래 여백 지정 */
@@ -33,37 +35,61 @@ const QuillWrapper = styled.div`
     left: 0px;
   }
 `;
-var toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block'],
 
-  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-  [{ 'direction': 'rtl' }],                         // text direction
-
-  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-  [{ 'font': [] }],
-  [{ 'align': [] }],
-
-  ['clean']                                         // remove formatting button
-];
-const Editor = ({ onChangeField }) => {
+const CustomToolbar = () => (
+  <div id="toolbar">
+    <select className="ql-header">
+      <option value="1"></option>
+      <option value="2"></option>
+    </select>
+    <button className="ql-bold"></button>
+    <button className="ql-italic"></button>
+    <select className="ql-color">
+      <option value="red"></option>
+      <option value="green"></option>
+      <option value="blue"></option>
+      <option value="orange"></option>
+      <option value="violet"></option>
+      <option value="#d0d1d2"></option>
+      <option selected></option>
+    </select>
+    <select className="ql-background"></select>
+    <button className="ql-link"></button>
+    <button className="ql-image"></button>
+  </div>
+);
+const Editor =({title, body, onChangeField })=>{
   const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
-  const quillInstance =  useRef(null); // Quill 인스턴스를 설정
+  const quillInstance =  useRef(null); 
+
+  const modules = {
+    toolbar: [
+      //[{ 'font': [] }],
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline','strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      ['link', 'image'],
+      [{ 'align': [] }, { 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      ['clean']
+    ],
+  }
+  const  formats = [
+    //'font',
+    'header',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image',
+    'align', 'color', 'background',        
+  ]
+
+
+
 
   useEffect(() => {
     quillInstance.current = new Quill(quillElement.current, {
-      theme: 'bubble',
+      theme: 'snow',
       placeholder: '내용을 작성하세요...',
-      modules: {
-        toolbar: toolbarOptions
-      },
-      
+      modules,
     });
 
     // quill에 text-change 이벤트 핸들러 등록
@@ -77,20 +103,20 @@ const Editor = ({ onChangeField }) => {
   }, [onChangeField]);
 
   const onChangeTitle = e => {
-    onChangeField({ key: 'title', value: e.target.value });
+    onChangeField({ key: 'title', value: e.current.value });
   };
-
-  return (
-    <EditorBlock>
-      <TitleInput 
-        placeholder="제목을 입력하세요." 
-        onChange={onChangeTitle} 
-      />
-      <QuillWrapper>
-        <div ref={quillElement} />
-      </QuillWrapper>
-    </EditorBlock>
-  );
-};
-
+        return( <EditorBlock>
+          <TitleInput 
+            placeholder="제목을 입력하세요." 
+            onChange={onChangeTitle} 
+            value={title}
+          />
+            <QuillWrapper>
+                <div 
+                   ref={quillElement} />
+            </QuillWrapper>
+            </EditorBlock>
+        )
+    
+}
 export default Editor;
