@@ -1,10 +1,16 @@
 const sql = require('./db.js');
+const crypto = require('crypto');
+const salt = crypto.randomBytes(128).toString('base64');
+const hashPassword =(password)=>{ 
+  
+  return crypto.createHash('sha512').update(password + salt).digest('hex');
+};
 
 // 생성자
 const User = function (user) {
   this.userNo = user.userNo;
   this.email = user.email;
-  this.password = user.password;
+  this.password = hashPassword(user.password);
   this.name = user.name;
 };
 

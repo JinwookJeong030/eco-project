@@ -15,9 +15,9 @@ exports.register = (req, res) => {
   });
   const emailRegex =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-  const pwRegex = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 
-  if (!(emailRegex.test(user.email) && pwRegex.test(user.password))) {
+
+  if (!(emailRegex.test(user.email))) {
     return res.status(400).send({
       message: 'Email or password format is incorrect',
     });
