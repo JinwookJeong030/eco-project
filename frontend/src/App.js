@@ -3,7 +3,7 @@ import React from 'react';
 import PostListPage from './pages/post/PostListPage';
 import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/auth/LoginPage';
-import PostPage from './pages/post/PostPage';
+import PostViewPage from './pages/post/PostViewerPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import EditPostPage from './pages/post/EditPostPage';
 import ClassListPage from './pages/class/ClassListPage';
@@ -27,7 +27,7 @@ function App() {
       {/*게시글 작성메뉴*/}
       <Route path="/post/@:username">
         <Route index element={<PostListPage />} />
-        <Route path=":postId" element={<PostPage />} />
+        <Route path=":postId" element={<PostViewPage />} />
       </Route>
       <Route path="/post/edit" element={<EditPostPage />} />
       {/*모임 메뉴*/}
