@@ -8,10 +8,12 @@ const hashPassword =(password)=>{
 
 // 생성자
 const User = function (user) {
-  this.userNo = user.userNo;
-  this.email = user.email;
-  this.password = hashPassword(user.password);
-  this.name = user.name;
+  this.user_id = user.user_id;
+  this.user_email = user.user_email;
+  this.user_password = hashPassword(user.user_password);
+  this.user_name = user.user_name;
+  this.user_regdate = user.user_regdate;
+  this.user_point = user.user_point;
 };
 
 // user 튜플 추가

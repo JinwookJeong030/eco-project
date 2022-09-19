@@ -3,21 +3,21 @@ const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
 
 exports.register = (req, res) => {
-  if (!(req.body.email && req.body.password && req.body.name)) {
+  if (!(req.body.user_email && req.body.user_password && req.body.user_name)) {
     return res.status(400).send({
       message: 'Content can not be empty',
     });
   }
   const user = new User({
-    email: req.body.email,
-    password: req.body.password,
-    name: req.body.name,
+    user_email: req.body.user_email,
+    user_password: req.body.user_password,
+    user_name: req.body.user_name,
   });
   const emailRegex =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
 
-  if (!(emailRegex.test(user.email))) {
+  if (!(emailRegex.test(user.user_email))) {
     return res.status(400).send({
       message: 'Email or password format is incorrect',
     });
