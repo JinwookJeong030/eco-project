@@ -24,8 +24,8 @@ Post.selectAllPosts = (result) => {
       return;
     }
 
-    console.log('Select All Posts: ', { res });
-    result(null, { res });
+    console.log('Select All Posts: ',  res );
+    result(null,  res );
   });
 };
 module.exports = Post;

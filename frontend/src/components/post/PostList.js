@@ -73,15 +73,15 @@ border: solid thin;
 margin: 1rem;
 `
 const PostItem = ({ post }) => {
-  const { publishedDate, user, tags, title, body, _id } = post;
+
     return (
     
     <PostItemBlock>
-        <Image src={process.env.PUBLIC_URL + "eco-icon.png"}/>
+        <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <PostItemInfoBlock>
-        <Link to={`/@${user.username}/${_id}`}><Title>제목</Title></Link>
-        <SubInfo username="username" publishedDate={new Date(publishedDate)} />
-        <Contents>{body}</Contents>
+        <Link to={`/@${post.post_user}/${post.post_id}`}><Title>{post.post_title}</Title></Link>
+        
+        <Contents>{post.post_contents}</Contents>
       </PostItemInfoBlock>
     </PostItemBlock>
  
@@ -104,7 +104,7 @@ const PostItem = ({ post }) => {
     };
   const PostList = ({ posts, loading, error, showWriteButton }) => {
     if (error) {
-      return <PostListBlock> <ExPostItem/><ExPostItem/><ExPostItem/><ExPostItem/><ExPostItem/><ExPostItem/><ExPostItem/></PostListBlock>
+      return <PostListBlock>게시판을 불러올 수 없습니다...</PostListBlock>
     }
   /**에러처리 */
     return (
@@ -115,8 +115,10 @@ const PostItem = ({ post }) => {
           </Button>)}
         </WritePostButtonWrapper>
         {!loading && posts && (<div>
-          {posts.map(post => (
-            <PostItem post={post} key={post._id} />
+          {
+
+          posts.map(post => (
+            <PostItem post={post} key={post.post_id} />
           ))}
         </div>)}
       </PostListBlock>

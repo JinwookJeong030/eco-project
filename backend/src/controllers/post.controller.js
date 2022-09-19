@@ -12,14 +12,11 @@ exports.posts = async (req, res) => {
           message: 'selectAllPost is error!',
         });
       } else {
-        posts.push(data);
+      
   
-        res.status(200).send({ // client에게 토큰 모두를 반환합니다.
-            ok: true,
-            data: {
-              posts
-            },
-      });
+        res.send(// client에게 토큰 모두를 반환합니다.
+        data
+            );
     } 
     });
   };
