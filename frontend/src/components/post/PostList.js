@@ -79,7 +79,7 @@ const PostItem = ({ post }) => {
     <PostItemBlock>
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <PostItemInfoBlock>
-        <Link to={`/@${post.post_user}/${post.post_id}`}><Title>{post.post_title}</Title></Link>
+        <Link to={`/post/@${post.post_user}/${post.post_id}`}><Title>{post.post_title}</Title></Link>
         
         <Contents>{post.post_contents}</Contents>
       </PostItemInfoBlock>

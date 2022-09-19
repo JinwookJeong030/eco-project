@@ -7,7 +7,7 @@ const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
   background: white;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.08);
 
 `;
 
@@ -56,11 +56,11 @@ const Header = ({ user, onLogout }) => {
           {user ? (
             <div className="right">
               <UserInfo>{user.name}</UserInfo>
-              <Button onClick={onLogout}> 로그아웃</Button>
+              <Button  onClick={onLogout}> 로그아웃</Button>
             </div>
           ) : (
             <div className="right">
-              <Button to="/login"> 로그인</Button>
+              <Button cyan to="/login"> 로그인</Button>
             </div>
           )}
         </Wrapper>

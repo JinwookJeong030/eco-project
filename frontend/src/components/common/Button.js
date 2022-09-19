@@ -31,6 +31,14 @@ const buttonStyle = css`
         background: ${palette.green[1]};
       }
     `}
+    ${(props) =>
+      props.green &&
+      css`
+        background: ${palette.green[0]};
+        &:hover {
+          background: ${palette.green[1]};
+        }
+      `}
   ${(props)=>
   props.myPage && css`
     margin: 15px;
