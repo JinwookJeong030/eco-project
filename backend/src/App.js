@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 //DB 연동
 require('./routes/user.routes.js')(app);
-
+require('./routes/post.routes.js')(app);
 //포트넘버 설정
 
 app.listen(port, () => {

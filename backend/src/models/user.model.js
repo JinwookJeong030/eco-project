@@ -23,8 +23,8 @@ User.register = (user, result) => {
       return;
     }
 
-    console.log('Created user: ', { userNo: res.inseertId, ...user });
-    result(null, { userNo: res.inseertId, ...user });
+    console.log('Created user: ', {  ...user });
+    result(null, { ...user });
   });
 };
 
