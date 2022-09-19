@@ -27,12 +27,12 @@ exports.register = (req, res) => {
     if (err) {
       if (
         err.sqlMessage ===
-        "Duplicate entry '" + user.email + "' for key 'user.email'"
+        "Duplicate entry '" + user.user_email + "' for key 'user.user_email'"
       ) {
         return res.status(429).send({ message: err.sqlMessage });
       } else if (
         err.sqlMessage ===
-        "Duplicate entry '" + user.name + "' for key 'user.name'"
+        "Duplicate entry '" + user.user_name + "' for key 'user.name'"
       ) {
         return res.status(439).send({ message: err.sqlMessage });
       } else {
@@ -48,15 +48,15 @@ exports.register = (req, res) => {
 
 // 로그인
 exports.login = async (req, res) => {
-  if (!(req.body.email && req.body.password)) {
+  if (!(req.body.user_email && req.body.user_password)) {
     
     return res.status(400).send({
       message: 'Content can not be empty',
     });
   }
   const user = new User({
-    email: req.body.email,
-    password: req.body.password,
+    user_email: req.body.user_email,
+    user_password: req.body.user_password,
   });
 
   User.login(user, (err, data) => {
@@ -64,6 +64,7 @@ exports.login = async (req, res) => {
       return res.status(419).send({
         code: 419,
         message: 'password is incorrect',
+        user: user.user_password
       });
     } else {
       const resUser = data;
@@ -71,7 +72,7 @@ exports.login = async (req, res) => {
       const accessToken = jwt.sign(resUser);
       const refreshToken = jwt.refresh();
       // 발급한 refresh token을 redis에 key를 user의 userNo로 하여 저장합니다.
-    redisClient.set(user.email, refreshToken);
+    redisClient.set(user.user_email, refreshToken);
 
     res.status(200).send({ // client에게 토큰 모두를 반환합니다.
       ok: true,
@@ -88,7 +89,7 @@ exports.check =async (req,res) =>{
 
 
   const reqUser = new User({
-    userNo: req.userNo ,
+    user_id: req.user_id ,
   });
 
   User.selectUserInfo(reqUser, (err, data) => {
@@ -100,9 +101,9 @@ exports.check =async (req,res) =>{
     } else {
 
       res.send({
-        userNo: data.userNo,
-        email : data.email,
-        name : data.name,
+        user_id: data.user_id,
+        user_email : data.user_email,
+        user_name : data.user_name,
         message:"onLogin is successful"
     
       })

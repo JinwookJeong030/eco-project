@@ -32,10 +32,10 @@ User.register = (user, result) => {
 
 User.login = (user, result) => {
   sql.query(
-    "SELECT * FROM user WHERE email ='" +
-      user.email +
-      "' AND password = '" +
-      user.password +
+    "SELECT * FROM user WHERE user_email ='" +
+      user.user_email +
+      "' AND user_password = '" +
+      user.user_password +
       "';",
     (err, res) => {
       if (err) {
@@ -52,8 +52,8 @@ User.login = (user, result) => {
 
 User.selectUserInfo = (user, result)=> {
   sql.query(
-    "SELECT * FROM user WHERE userNo = " +
-      user.userNo +
+    "SELECT * FROM user WHERE user_id = " +
+      user.user_id +
       ";",
     (err, res) => {
       if (err) {
