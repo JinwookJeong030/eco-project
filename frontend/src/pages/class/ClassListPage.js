@@ -6,7 +6,7 @@
 import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner';
 import HeaderContainer from '../../containers/common/HeaderContainer';
 import NavContainer from '../../containers/common/NavContainer';
-import ClassListContanier from '../../containers/class/ClassListForm'
+import ClassListContanier from '../../containers/class/ClassListContainer'
  const ClassListPage= () => {
    
    return (

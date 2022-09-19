@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
-
+import { Link } from "react-router-dom";
 const ClassListBlock = styled(Responsive)`
 border: solid thin;
 box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
@@ -73,50 +73,58 @@ height: 10rem;
 border: solid thin;
 margin: 1rem;
 `
-const ClassItem = () => {
+const ClassItem = ({ class_1 }) => {
     return (
     <ClassItemBlock>
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <ClassItemInfoBlock>
-        <Title>모임 이름</Title>
-        <Contents>모임 설명</Contents>
-        <SubInfo username="username" publishedDate={new Date()} />
+        <Link to={`/class/@${class_1.class_user}/${class_1.post_id}`}><Title>{class_1.class_name}</Title></Link>
+        
+        <Contents>{class_1.class_contents}</Contents>
+
       </ClassItemInfoBlock>
     </ClassItemBlock>
     );
   };
-
-  const PostList = () => {
+const ClassItemError =()=>{return <div>모임을 불러올 수 없습니다...<p/></div>;}
+  const ClassList = ({ classes, loading, error, showWriteButton }) => {
     return (
       <>
            
       <ClassListBlock>
         <Title>나의 모임</Title>
         <WriteClassButtonWrapper>
-          <Button cyan to="/class/edit">
-            새 모임 생성 
-          </Button>
+        {showWriteButton && (<Button cyan to="/class/edit">
+            새 글 작성하기
+          </Button>)}
         </WriteClassButtonWrapper>
-        <div>
-          <ClassItem />
-          <ClassItem />
-          
 
-        </div>
+        
+        {true? <ClassItemError/>:(!loading && classes && (<div>
+          {
+
+          classes.map(class_1 => (
+            <ClassItem class={class_1} key={class_1.class_id} />
+          ))}
+        </div>))}
+
+
+
+        
       </ClassListBlock>
       <ClassListBlock>
       <Title>전체 모임</Title>
-      <ClassItem />
-          <ClassItem />
-          <ClassItem />
-          <ClassItem />
-          <ClassItem />
-          <ClassItem />
-          <ClassItem />
-          <ClassItem />
+   
+      {true? <ClassItemError/>:(!loading && classes && (<div>
+          {
+
+          classes.map(class_1 => (
+            <ClassItem class={class_1} key={class_1.class_id} />
+          ))}
+        </div>))}
            </ClassListBlock>
       </>
     );
   };
   
-  export default PostList;
+  export default ClassList;

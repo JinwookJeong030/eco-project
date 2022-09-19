@@ -7,7 +7,7 @@ import PostViewPage from './pages/post/PostViewerPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import EditPostPage from './pages/post/EditPostPage';
 import ClassListPage from './pages/class/ClassListPage';
-import ClassPage from './pages/class/ClassPage';
+import ClassViewerPage from './pages/class/ClassViewerPage';
 import EditClassPage from './pages/class/EditClassPage';
 import MypagePage from './pages/mypage/MypagePgae'
 import MainMission from './pages/mission/MainMissionPage'
@@ -35,7 +35,7 @@ function App() {
       <Route path="/class/edit" element={<EditClassPage />} />
       <Route path="/class/@:classname">
         <Route index element={<ClassListPage />} />
-        <Route path=":classId" element={<ClassPage />} />
+        <Route path=":classId" element={<ClassViewerPage />} />
       </Route>
       {/*미션 & 식물 메뉴*/}
       <Route path="/mission/myMission" element={<MainMission />} />
