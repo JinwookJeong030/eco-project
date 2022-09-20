@@ -50,18 +50,18 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
       <form onSubmit={onSubmit}>
         <StyledInput
           autocomplete="email"
-          name="email"
+          name="user_email"
           placeholder="이메일"
           onChange={onChange}
-          value={form.email}
+          value={form.user_email}
         />
         <StyledInput
           autocomplete="new-password"
-          name="password"
+          name="user_password"
           placeholder="비밀번호"
           type="password"
           onChange={onChange}
-          value={form.password}
+          value={form.user_password}
         />
         {type === 'register' && (
           <StyledInput
@@ -76,10 +76,10 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
         {type === 'register' && (
           <StyledInput
             autocomplete="name"
-            name="name"
+            name="user_name"
             placeholder="닉네임"
             onChange={onChange}
-            value={form.name}
+            value={form.user_name}
           />
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}

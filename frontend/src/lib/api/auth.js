@@ -3,9 +3,9 @@ import client from './client';
 
 const JWT_EXPIRRY_TIME = 24 * 3600 * 1000;
 
-export const login = ({ email, password }) =>
+export const login = ({ user_email, user_password }) =>
   client
-    .post('/auth/login', { email, password }).then(response=>{      
+    .post('/auth/login', { user_email, user_password }).then(response=>{      
   onLoginSuccess(response);
 return response;})
 .catch((error) => {
@@ -26,16 +26,16 @@ export const onRefresh = () => {
 
 const onLoginSuccess = (response) => {
 
-  localStorage.setItem('accessToken',response.data.data.accessToken);
-  localStorage.setItem('refreshToken',response.data.data.refreshToken);
+  localStorage.setItem('accessToken',response.data.result.accessToken);
+  localStorage.setItem('refreshToken',response.data.result.refreshToken);
   client.defaults.headers.common["authorization"] = `Bearer ${localStorage.getItem('accessToken')}`;
   client.defaults.headers.common["refresh"] = `${localStorage.getItem('refreshToken')}`;
   // accessToken 만료하기 1분 전에 로그인 연장
   setTimeout(onRefresh, JWT_EXPIRRY_TIME - 60000);
 };
 
-export const register = ({ email, password, name }) =>
-  client.post('/auth/register', { email, password, name }).then().catch();
+export const register = ({ user_email, user_password, user_name }) =>
+  client.post('/auth/register', { user_email, user_password, user_name });
 
 export const check = () => client.get('/auth/check');
 

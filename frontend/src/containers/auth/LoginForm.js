@@ -26,12 +26,12 @@ const LoginForm = ({ history }) => {
     e.preventDefault();
    
 
-    const { email, password } = form;
-    if(!(email&&password)){
+    const { user_email, user_password } = form;
+    if(!(user_email&&user_password)){
       setError("이메일, 패스워드를 입력해주세요.");
       return;
     }
-    dispatch(login({ email, password }));
+    dispatch(login({ user_email, user_password }));
   };
 
   useEffect(() => {

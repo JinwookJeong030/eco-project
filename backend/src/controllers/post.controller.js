@@ -14,9 +14,13 @@ exports.posts = async (req, res) => {
       } else {
       
   
-        res.send(// client에게 토큰 모두를 반환합니다.
-        data
-            );
+        return res.send({
+          code:200,
+          message: 'selectAllPosts is successful',
+          result:{
+            data
+          }
+         } );
     } 
     });
   };
