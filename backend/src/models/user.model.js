@@ -1,6 +1,7 @@
 const sql = require('./db.js');
 const crypto = require('crypto');
 const salt = crypto.randomBytes(128).toString('base64');
+/**salt 수정해야됨... */
 const hashPassword =(password)=>{ 
   
   return crypto.createHash('sha512').update(password + salt).digest('hex');

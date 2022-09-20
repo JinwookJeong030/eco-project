@@ -7,8 +7,8 @@ const refreshOptions = require('../config/secretKey').refreshOptions;
 module.exports = {
   sign: (user) => { // access token 발급
     const payload = { // access token에 들어갈 payload
-      userNo: user.userNo,
-      email: user.email,
+      user_id: user.user_id,
+      user_email: user.user_email,
     };
 
     return jwt.sign(payload, secretKey, options);
@@ -19,8 +19,8 @@ module.exports = {
       decoded = jwt.verify(token, secretKey);
       return {
         ok: true,
-        userNo: decoded.userNo,
-        email: decoded.email,
+        user_id: decoded.user_id,
+        user_email: decoded.user_email,
       };
     } catch (err) {
       return {
@@ -32,13 +32,13 @@ module.exports = {
   refresh: () => { // refresh token 발급
     return jwt.sign({}, secretKey, refreshOptions);
   },
-  refreshVerify: async (token, userId) => { // refresh token 검증
+  refreshVerify: async (token, user_id) => { // refresh token 검증
     /* redis 모듈은 기본적으로 promise를 반환하지 않으므로,
        promisify를 이용하여 promise를 반환하게 해줍니다.*/
     const getAsync = promisify(redisClient.get).bind(redisClient);
     
     try {
-      const data = await getAsync(userId); // refresh token 가져오기
+      const data = await getAsync(user_id); // refresh token 가져오기
       if (token === data) {
         try {
           jwt.verify(token, secretKey);
