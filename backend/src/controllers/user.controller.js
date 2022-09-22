@@ -1,8 +1,8 @@
 const User = require('../models/user.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
-
 exports.register = (req, res) => {
+
   if (!(req.body.user_email && req.body.user_password && req.body.user_name)) {
     return res.status(400).send({
       code:400,
@@ -14,17 +14,16 @@ exports.register = (req, res) => {
     user_password: req.body.user_password,
     user_name: req.body.user_name,
   });
+
   const emailRegex =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-
-
   if (!(emailRegex.test(user.user_email))) {
     return res.status(400).send({
       code: 400,
       message: 'Email or password format is incorrect'
     });
   }
-  // 데이터베이스에 저장
+// 데이터베이스에 저장
   User.register(user, (err, data) => {
     if (err) {
       if (
@@ -57,11 +56,9 @@ exports.register = (req, res) => {
     }
   });
 };
-
 // 로그인
 exports.login = async (req, res) => {
   if (!(req.body.user_email && req.body.user_password)) {
-    
     return res.status(400).send({
       code:400,
       message: 'Content can not be empty',
@@ -72,39 +69,51 @@ exports.login = async (req, res) => {
     user_password: req.body.user_password,
   });
 
-  User.login(user, (err, data) => {
-    if (!data) {
-      return res.status(419).send({
-        code: 419,
-        message: 'password is incorrect'
+  User.selectSalt(user,(err,data)=> {
+    if(!data){
+      return res.status(409).send({
+        code: 409,
+        message: 'email is incorrect'
       });
-    } else {
-      const resUser = data;
-      const accessToken = jwt.sign(resUser);
-      const refreshToken = jwt.refresh();
-      // 발급한 refresh token을 redis에 key를 user의 userNo로 하여 저장합니다.
-    redisClient.set(user.user_email, refreshToken);
-
-    res.status(200).send({ // client에게 토큰 모두를 반환합니다.
-      code: 200,
-      message:"login is successful",
-      result:{
-       
-        accessToken,
-        refreshToken,
-      }
+    }else {
+      const resSalt = data.salt;
+    User.login(user,resSalt, (err, data) => {
+      if (!data) {
+        return res.status(419).send({
+          code: 419,
+          message: 'password is incorrect'
+        });
+      } else {
+        const resUser = data;
+        const accessToken = jwt.sign(resUser);
+        const refreshToken = jwt.refresh();
+              //발급한 refresh token을 redis에 key를 user의 userNo로 하여 저장합니다.
+        redisClient.set(user.user_email, refreshToken);
+        res.status(200).send({ 
+              //client에게 토큰 모두를 반환합니다.
+        code: 200,
+        message:"login is successful",
+        result:{
+          accessToken,
+          refreshToken,
+        }
+      });
+     } 
     });
-  } 
-  });
+
+  }
+  }
+  
+  
+  )
+
+ 
 };
 // 유저 이름
 exports.check =async (req,res) =>{
-
-
   const reqUser = new User({
     user_id: req.user_id ,
   });
-
   User.selectUserInfo(reqUser, (err, data) => {
     if (!data) {
       return res.status(419).send({
@@ -112,7 +121,6 @@ exports.check =async (req,res) =>{
         message: 'onLogin is incorrect',
       });
     } else {
-
       res.send({
         code: 200,
         message:"onLogin is successful",
@@ -123,8 +131,7 @@ exports.check =async (req,res) =>{
         }
       })
     };
-  
-  }
+   }
   );
 };
 exports.logout =async (req,res) =>{

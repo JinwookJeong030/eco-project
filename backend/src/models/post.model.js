@@ -3,15 +3,15 @@ const sql = require("./db.js");
 // 생성자
 const Post = function (post) {
     this.post_id =post.post_id
-    this.user = post.user;
-    this.category = post.category;
-    this.title = post.title;
-    this.contents = post.contents;
-    this.regdate = post.regdate;
-    this.update = post.update;
-    this.views = post.views;
-    this.recommand = post.recommand;
-    this.report = post.report;
+    this.post_user = post.post_user;
+    this.post_category = "임시";
+    this.post_title = post.post_title;
+    this.post_contents = post.post_contents;
+    this.post_regdate = post.post_regdate;
+    this.post_update = post.post_update;
+    this.post_views = post.post_views;
+    this.post_recommand = post.post_recommand;
+    this.post_report = post.post_report;
     
   };
 
@@ -28,4 +28,24 @@ Post.selectAllPosts = (result) => {
     result(null,  res );
   });
 };
+Post.insertPost =(post ,result) =>{
+
+  const postReq = new Post({
+    post_user: post.post_user,
+    post_title: post.post_title,
+    post_contents: post.post_contents, 
+  })
+
+  sql.query("INSERT INTO post SET ?",postReq, (err,res)=>{
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+    console.log('Select All Posts: ',  res);
+    result(null,  res);
+
+  });
+
+}
 module.exports = Post;

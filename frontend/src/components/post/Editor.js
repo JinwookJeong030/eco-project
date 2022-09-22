@@ -85,7 +85,7 @@ var Parchment = Quill.import('parchment');
     Parchment.register(lineHeightClass);
     Parchment.register(lineHeightStyle);
 
-const Editor =({title, body, onChangeField })=>{
+const Editor =({title, body, onChangeField, onPublish, onCancel })=>{
   const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
   const quillInstance =  useRef(null); 
 
@@ -149,7 +149,7 @@ const Editor =({title, body, onChangeField })=>{
                 <EditBody 
                    ref={quillElement}  />
             
-              <PostActionBtn Styled='margin: 5rem;'/>
+              <PostActionBtn Styled='margin: 5rem;' onPublish={onPublish} onCancel={onCancel}/>
             </QuillWrapper>
             </EditorBlock>
 

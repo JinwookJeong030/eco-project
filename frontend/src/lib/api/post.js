@@ -10,5 +10,5 @@ export const listPosts = ({ page, username }) => {
       page,
       username
     });
-    return client.get(`/posts?${queryString}`);
+    return client.get(`/post/posts?${queryString}`);
   };

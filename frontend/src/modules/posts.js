@@ -13,7 +13,7 @@ const [
 
 export const listPosts = createAction(
   LIST_POSTS,
-  ({ username, page }) => ({  username, page }),
+  ({ user_name, page }) => ({  user_name, page }),
 );
 
 const listPostsSaga = createRequestSaga(LIST_POSTS, postsAPI.listPosts);
@@ -30,7 +30,7 @@ const posts = handleActions(
   {
     [LIST_POSTS_SUCCESS]: (state, { payload: posts }) => ({
       ...state,
-      posts,
+      posts: posts.result.posts,
     }),
     [LIST_POSTS_FAILURE]: (state, { payload: error }) => ({
       ...state,
