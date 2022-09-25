@@ -51,6 +51,7 @@ const PostContent = styled.div`
 `;
 
 const PostViewer = ({ post, error, loading }) => {
+  
   // 에러 발생 시
   if (error) {
     if (error.response && error.response.status === 404) {
@@ -64,22 +65,22 @@ const PostViewer = ({ post, error, loading }) => {
     return null;
   }
 
-  const { title, body, user, publishedDate,  } = post;
+  const { post_title, post_contents, post_user, post_regdate,  } = post;
 
   return (
     <PostViewerBlock>
       <PostHead>
-        <h1>{title}</h1>
+        <h1>{post_title}</h1>
         <SubInfo>
           <span>
-            <b>{user.username}</b>
+            <b>{post_user}</b>
           </span>
-          <span>{new  Date(publishedDate).toLocaleDateString()}</span>
+          <span>{new  Date(post_regdate).toLocaleDateString()}</span>
         </SubInfo>
        
       </PostHead>
       <PostContent
-        dangerouslySetInnerHTML={{ __html: body }}
+        dangerouslySetInnerHTML={{ __html: post_contents }}
       />
     </PostViewerBlock>
   );

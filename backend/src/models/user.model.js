@@ -7,7 +7,6 @@ const Salt = function (salt) {
 };
 
 
-
 /**salt 수정해야됨... */
 const hashPassword =(password, salt)=>{ 
   return crypto.createHash('sha512').update(password + salt).digest('hex');

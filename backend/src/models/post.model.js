@@ -16,7 +16,7 @@ const Post = function (post) {
     
   };
 
-  // user 튜플 추가
+  //post 전체 조회
 Post.selectAllPosts = (result) => {
   sql.query('SELECT * FROM post', (err, res) => {
     if (err) {
@@ -28,6 +28,20 @@ Post.selectAllPosts = (result) => {
     console.log('Select All Posts: ',  res );
     result(null,  res );
   });
+};
+  //post_id를 통한 post 조회 
+Post.selectPostFromId =(id,result)=>{
+  sql.query('SELECT * FROM post WHERE post_id = '+id+" ;", (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+
+    console.log('Select All Posts: ',  res);
+    result(null,  res);
+  });
+
 };
 Post.insertPost =(post ,result) =>{
 

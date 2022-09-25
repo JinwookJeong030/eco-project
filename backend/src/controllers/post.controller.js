@@ -2,7 +2,7 @@ const Post = require('../models/post.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
 
-exports.posts = async (req, res) => {
+exports.list = async (req, res) => {
 
     Post.selectAllPosts((err, data) => {
       if (!data) {
@@ -21,9 +21,28 @@ exports.posts = async (req, res) => {
     } 
     });
   };
-exports.post = async (req, res) =>{
+
+exports.view = async (req, res) =>{
+     Post.selectPostFromId(req.params.id,(err, data) => {
+      if (!data) {
+        return res.status(419).send({
+          code: 419,
+          message: 'selectPostFromId is error!'
+        });
+      } else {
+        return res.send({
+          code:200,
+          message: 'selectPostFromId is successful',
+          result:{
+            post: data
+          }
+        });
+    } 
+    });
+
+
   
-}
+};
 exports.write = async (req, res) =>{
 
   const postReq = new Post(

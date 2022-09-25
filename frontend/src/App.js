@@ -25,9 +25,9 @@ function App() {
    
 
       {/*게시글 작성메뉴*/}
-      <Route path="/post/@:username">
+      <Route path="/post/view">
         <Route index element={<PostListPage />} />
-        <Route path=":postId" element={<PostViewPage />} />
+        <Route path=":id" element={<PostViewPage />} />
       </Route>
       <Route path="/post/edit" element={<EditPostPage />} />
       {/*모임 메뉴*/}

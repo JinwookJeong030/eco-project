@@ -11,9 +11,9 @@ module.exports = (app) => {
     // //글삭제
     app.delete('/api/post/delete',authJwt, post.delete);
     // 글조회
-    app.get('/api/post/${id}', post.post);
+    app.get('/api/post/view/:id', post.view);
     // 전체글 조회 -
-    app.get('/api/post/posts', post.posts);
+    app.get('/api/post/list', post.list);
    
 
     // 댓글작성

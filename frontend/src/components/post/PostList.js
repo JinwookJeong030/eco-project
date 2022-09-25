@@ -72,6 +72,9 @@ height: 10rem;
 border: solid thin;
 margin: 1rem;
 `
+const PostContent = styled.div`
+
+`;
 const PostItem = ({ post }) => {
 
     return (
@@ -79,9 +82,13 @@ const PostItem = ({ post }) => {
     <PostItemBlock>
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <PostItemInfoBlock>
-        <Link to={`/post/@${post.post_user}/${post.post_id}`}><Title>{post.post_title}</Title></Link>
-        
-        <Contents>{post.post_contents}</Contents>
+        <Link to={`/post/view/${post.post_id}`}><Title>{post.post_title}</Title></Link>
+       
+        <Contents> 
+        <PostContent
+        dangerouslySetInnerHTML={{ __html: post.post_contents }}
+      />
+        </Contents>
       </PostItemInfoBlock>
     </PostItemBlock>
  
