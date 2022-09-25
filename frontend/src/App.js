@@ -18,11 +18,13 @@ function App() {
     <Routes>
       
       <Route path="/" element={<PostListPage />} />
+       
+      <Route path="/post/list" element={<PostListPage />} />
       {/*로그인, 회원가입*/}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
      
-   
+    
 
       {/*게시글 작성메뉴*/}
       <Route path="/post/view">

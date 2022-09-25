@@ -8,7 +8,6 @@ const PostViewerContainer = () => {
 
   // 처음 마운트될 때 포스트 읽기 API 요청
   const { id } = useParams();
-  console.log("dfdf"+{id});
   const dispatch = useDispatch();
   const { post, error, loading } = useSelector(({ post, loading }) => ({
     post: post.post,

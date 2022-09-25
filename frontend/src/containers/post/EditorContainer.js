@@ -32,8 +32,7 @@ const EditorContainer = () => {
 
   useEffect(() => {
     if (post) {
-      const { _id, user } = post;
-      navigate.push(`/@${user.user_name}/${_id}`);
+      navigate('/post/list');
     }
     if (postError) {
       console.log(postError);

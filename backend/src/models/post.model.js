@@ -38,8 +38,8 @@ Post.selectPostFromId =(id,result)=>{
       return;
     }
 
-    console.log('Select All Posts: ',  res);
-    result(null,  res);
+    console.log('Select Post: ',  res[0]);
+    result(null,  res[0]);
   });
 
 };

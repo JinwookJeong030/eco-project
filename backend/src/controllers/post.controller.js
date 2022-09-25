@@ -34,7 +34,7 @@ exports.view = async (req, res) =>{
           code:200,
           message: 'selectPostFromId is successful',
           result:{
-            post: data
+           post: data
           }
         });
     } 
