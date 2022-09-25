@@ -9,7 +9,6 @@ const WriteActionButtonsContainer = ({ history }) => {
   const { title, body, tags, post, postError } = useSelector(({ write }) => ({
     title: write.title,
     body: write.body,
-    tags: write.tags,
     post: write.post,
     postError: write.postError,
   }));
@@ -20,7 +19,6 @@ const WriteActionButtonsContainer = ({ history }) => {
       writePost({
         title,
         body,
-        tags,
       }),
     );
   };
