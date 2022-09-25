@@ -1,7 +1,7 @@
 import client from './client';
 import qs from 'qs';
 
-export const writePost = ({title, body }) => client.post('/post',{title,body});
+export const writePost = ({post_title, post_contents }) => client.post('/post/write',{post_title,post_contents});
 
 export const readPost = id => client.get(`/post/${id}`);
 

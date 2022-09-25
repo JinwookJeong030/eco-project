@@ -4,6 +4,7 @@ const sql = require("./db.js");
 const Post = function (post) {
     this.post_id =post.post_id
     this.post_user = post.post_user;
+    this.post_mission= "임시";
     this.post_category = "임시";
     this.post_title = post.post_title;
     this.post_contents = post.post_contents;

@@ -25,7 +25,15 @@ exports.post = async (req, res) =>{
   
 }
 exports.write = async (req, res) =>{
-  Post.insertPost(req.body, (err,data)=>{
+
+  const postReq = new Post(
+    {
+      post_user: req.user_id,
+      post_title: req.body.post_title,
+      post_contents: req.body.post_contents,
+    }
+  )
+  Post.insertPost(postReq, (err,data)=>{
     if(!data){
       return res.status(419).send({
         code: 419,

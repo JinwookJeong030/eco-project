@@ -6,9 +6,11 @@ import { check } from '../../modules/user';
 import { useNavigate } from 'react-router-dom';
 
 const MypageForm = ({ history }) => {
-
+  const { user } = useSelector(({ user }) => ({ user: user.user }));
+  const dispatch = useDispatch();
   return (
     <Mypage
+    user ={user}
     />
   );
 };

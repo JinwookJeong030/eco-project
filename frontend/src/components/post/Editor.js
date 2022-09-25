@@ -118,7 +118,7 @@ const Editor =({title, body, onChangeField, onPublish, onCancel })=>{
     quill.off();
     quill.on('text-change', (delta, oldDelta, source) => {
       if (source === 'user') {
-        onChangeField({ key: 'body', value: quill.root.innerHTML });
+        onChangeField({ key: 'post_contents', value: quill.root.innerHTML });
       }
     });
   }, [onChangeField]);
@@ -126,7 +126,7 @@ const Editor =({title, body, onChangeField, onPublish, onCancel })=>{
 
 
   const onChangeTitle = e => {
-    onChangeField({ key: 'title', value: e.target.value });
+    onChangeField({ key: 'post_title', value: e.target.value });
   };
   const exOption = () =>{
     const result = [];

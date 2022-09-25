@@ -89,14 +89,12 @@ const MyPostInfoBlock =()=>{
   )
 }
 
-const Mypage = ({ children }) => {
-  const email='example@google.com';
-  const nickName='닉네임';
+const Mypage = ({user}) => {
 
   return (
     <>
     <MypageBlock>
-    <MyInfoBlock email={email} maxlength={18} nickName={nickName}/>
+    <MyInfoBlock email={user.user_email||'example@google.com'} maxlength={18} nickName={user.user_name||'닉네임'}/>
 
     <MyPasswordBlock/>
 

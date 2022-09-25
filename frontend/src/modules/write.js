@@ -16,9 +16,9 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
 }));
-export const writePost = createAction(WRITE_POST, ({ title, body }) => ({
-  title,
-  body,
+export const writePost = createAction(WRITE_POST, ({ post_title, post_contents }) => ({
+  post_title,
+  post_contents,
 }));
 
 // 사가 생성
@@ -28,8 +28,8 @@ export function* writeSaga() {
 }
 
 const initialState = {
-  title: '',
-  body: '',
+  post_title: '',
+  post_contents: '',
   post: null,
   postError: null,
 };

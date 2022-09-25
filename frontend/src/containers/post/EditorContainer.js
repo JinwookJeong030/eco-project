@@ -7,14 +7,14 @@ import { useNavigate } from "../../../node_modules/react-router-dom/index";
 const EditorContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { title, body, post, postError } = useSelector(({ write }) => ({
-    title: write.title,
-    body: write.body,
+  const { post_title, post_contents, post, postError } = useSelector(({ write }) => ({
+    post_title: write.post_title,
+    post_contents: write.post_contents,
     post: write.post,
     postError: write.postError,
   }));
   const onPublish = () => {
-    dispatch(writePost(title,body));
+    dispatch(writePost({post_title,post_contents}));
   };
   const onCancel = () => {
     navigate.goBack();
@@ -33,7 +33,7 @@ const EditorContainer = () => {
   useEffect(() => {
     if (post) {
       const { _id, user } = post;
-      navigate.push(`/@${user.username}/${_id}`);
+      navigate.push(`/@${user.user_name}/${_id}`);
     }
     if (postError) {
       console.log(postError);
