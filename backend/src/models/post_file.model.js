@@ -3,9 +3,9 @@ const sql = require("./db.js");
 //생성자
 const Post_file = function (post_file) {
     this.pf_id = post_file.pf_id;
-    this.post = post_file.post;
-    this.path = post_file.path;
-    this.name = post_file.name;
-    this.type = post_file.type;
-    this.size = post_file.size;
+    this.pf_post = post_file.pf_post;
+    this.pf_path = post_file.pf_path;
+    this.pf_name = post_file.pf_name;
+    this.pf_type = post_file.pf_type;
+    this.pf_size = post_file.pf_size;
 };

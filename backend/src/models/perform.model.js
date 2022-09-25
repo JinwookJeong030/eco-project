@@ -3,9 +3,9 @@ const sql = require("./db.js");
 //생성자
 const Perform = function (perform) {
     this.perform_id =perform.perform_id;
-    this.mission = perform.mission;
-    this.user = perform.user;
-    this.start_date = perform.start_date;
-    this.end_date = perform.end_date;
-    this.refresh = perform.refresh;
+    this.perform_mission = perform.perform_mission;
+    this.perform_user = perform.perform_user;
+    this.perform_start = perform.perform_start;
+    this.perform_end = perform.perform_end;
+    this.perform_refresh = perform.perform_refresh;
 };

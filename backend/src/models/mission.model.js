@@ -3,8 +3,7 @@ const sql = require("./db.js");
 //생성자
 const Mission = function (mission) {
     this.mission_id = mission.mission_id;
-    this.title = mission.title;
-    this.contents = mission.contents;
-    this.category = mission.category;
-    this.point = mission.point;
+    this.mission_title = mission.mission_title;
+    this.mission_contents = mission.mission_contents;
+    this.mission_point = mission.mission_point;
 };
