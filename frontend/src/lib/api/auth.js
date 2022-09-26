@@ -7,21 +7,15 @@ export const login = ({ user_email, user_password }) =>
   client
     .post('/auth/login', { user_email, user_password }).then(response=>{      
   onLoginSuccess(response);
-return response;})
-.catch((error) => {
-  // ... 로그인 실패 처리
-});
+return response;});
 
 export const onRefresh = () => {
   axios
     .get('/auth/refresh')
     .then(response=>{
       onLoginSuccess(response);
-      
     return response;})
-    .catch((error) => {
-      // ... 로그인 실패 처리
-    });
+    ;
 };
 
 const onLoginSuccess = (response) => {

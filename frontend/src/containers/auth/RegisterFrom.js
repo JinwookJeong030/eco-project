@@ -14,6 +14,10 @@ const RegisterForm = () => {
     authError: auth.authError,
     user: user.user,
   }));
+  useEffect(() => {
+    dispatch(initializeForm('register'));
+
+  }, [dispatch]);
 
   const [error, setError] = useState(null);
 
@@ -62,16 +66,12 @@ const RegisterForm = () => {
     dispatch(register({ user_email, user_password, user_name }));
   };
 
-  useEffect(() => {
-    dispatch(initializeForm('register'));
-  }, [dispatch]);
-
-
-
-
   //회원가입 실패 처리 DB
   useEffect(() => {
     if (authError) {
+      if(authError ==={}){
+      return;
+      }
       if (authError.response.status === 500) {
         setError('알수없는 오류');
         return;
@@ -87,6 +87,9 @@ const RegisterForm = () => {
       console.log('회원가입 실패');
       console.log(authError);
       return;
+    }
+    else{
+      setError('');
     }
     if (auth) {
       console.log('회원가입 성공');
