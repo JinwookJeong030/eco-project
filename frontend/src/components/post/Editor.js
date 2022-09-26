@@ -11,7 +11,7 @@ import PostActionBtn from "./PostActionBtn";
 const EditorBlock = styled(Responsive)`
   /* 페이지 위아래 여백 지정 */
   padding-top: 1rem;
-  padding-bottom: 6.5rem;
+
   border: solid thin;
   
   

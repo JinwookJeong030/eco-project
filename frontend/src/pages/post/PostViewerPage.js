@@ -8,18 +8,22 @@ import PostViewerContainer from '../../containers/post/PostViewerContainer';
 import WhiteBox from '../../components/common/WhiteBox'
 import ReplyEditor from '../../components/post/ReplyEditor';
 import ReplyList from '../../components/post/ReplyList'
-import PostManagement from '../../components/post/PostManagement';
+
+import PostManagementContainer from '../../containers/post/PostManagementContainer';
+import AskModal from '../../components/common/AskModal';
 const PostViewerPage = () => {
   return <>
+
    <HeaderContainer />
    <NavContainer/>
    <ContentsBoxContainer title="" >
-   <PostManagement/>
+   <PostManagementContainer/>
     <WhiteBox>
     <PostViewerContainer/>
     <ReplyList/>
     <ReplyEditor/>
     </WhiteBox>
+ 
    </ContentsBoxContainer>
 
   </>;

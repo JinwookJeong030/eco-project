@@ -1,6 +1,8 @@
 import Button from "../common/Button";
 import styled from "styled-components";
 import Responsive from "../common/Responsive";
+import { useState } from "react";
+import AskRemoveModal from "./AskRemoveModal";
 const PostManagementBlock =styled(Responsive)`
 display:flex;
 
@@ -17,16 +19,38 @@ const PostManagementBtn = styled(Button)`
 
 `;
 
-const PostManagement = ()=>{
-
-    return(
+const PostManagement = ({user , id, onEdit, onRemove })=>{
+  const [modal, setModal] = useState(false);
+  const onRemoveClick = () => {
+    setModal(true);
+  }
+  const onCancel = () => {
+    setModal(false);
+  }
+  const onConfirm = () => {
+    setModal(false);
+    onRemove()
+  }
+    
+    return(<>
       <PostManagementBlock>
-        <PostManagementDiv>
-      <PostManagementBtn gray>수정</PostManagementBtn>
-      <PostManagementBtn gray>삭제</PostManagementBtn>
+        <PostManagementDiv>{
+       user?  <> 
+   
+      <PostManagementBtn gray OnClick={onEdit}>수정</PostManagementBtn>
+
+      <PostManagementBtn gray OnClick={onRemoveClick}>삭제</PostManagementBtn>
+      </>:<></>}
       <PostManagementBtn green>뒤로가기</PostManagementBtn>
       </PostManagementDiv>
+     
       </PostManagementBlock>
+      <AskRemoveModal
+        visible={modal}
+        onConfirm={onConfirm}
+        onCancel={onCancel}
+      /> 
+      </>
     )
   }
 export default PostManagement;

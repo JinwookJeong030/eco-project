@@ -7,7 +7,7 @@ module.exports = (app) => {
     // 글작성
     app.post('/api/post/write',authJwt, post.write);
     // 글수정
-    app.post('/api/post/eidt',authJwt, post.edit);
+    app.post('/api/post/edit',authJwt, post.edit);
     // //글삭제
     app.delete('/api/post/delete',authJwt, post.delete);
     // 글조회

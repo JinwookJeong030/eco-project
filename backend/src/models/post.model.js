@@ -18,7 +18,7 @@ const Post = function (post) {
 
   //post 전체 조회
 Post.selectAllPosts = (result) => {
-  sql.query('SELECT * FROM post', (err, res) => {
+  sql.query('SELECT * FROM post ORDER BY post_regdate DESC', (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -63,4 +63,46 @@ Post.insertPost =(post ,result) =>{
   });
 
 }
+Post.updatePost =(post, result)=>{
+  const postReq = new Post({
+    post_id: post.post_id,
+    post_title: post.post_title,
+    post_contents: post.post_contents, 
+    post_user: post.post_user,
+  })
+
+  sql.query("Update post SET post_title ='"+postReq.post_title+"' , post_contents = '"+postReq.post_contents+"' WHERE post_id = "+postReq.post_id+" AND post_user = "+postReq.post_user+" ;", 
+  (err,res)=>{
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+    console.log('Update Post: ',  res);
+    result(null,  res);
+
+  });
+
+}
+
+Post.deletePost =(post, result)=>{
+  const postReq = new Post({
+    post_id: post.post_id,
+    post_user: post.post_user,
+  })
+
+  sql.query("DELETE FROM post WHERE post_id = "+postReq.post_id+" AND post_user = "+postReq.post_user+" ;", 
+  (err,res)=>{
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+    console.log('Delete Post: ',  res);
+    result(null,  res);
+
+  });
+
+}
+
 module.exports = Post;

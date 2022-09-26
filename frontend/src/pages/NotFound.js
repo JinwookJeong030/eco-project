@@ -28,7 +28,7 @@ const Box = styled.div`
   font-weight: bold;
   letter-spacing: 2px;
 }
-box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
+box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 padding: 2rem;
 width: 540px;
 background: white;

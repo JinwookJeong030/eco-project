@@ -12,6 +12,7 @@ import EditClassPage from './pages/class/EditClassPage';
 import MypagePage from './pages/mypage/MypagePgae'
 import MainMission from './pages/mission/MainMissionPage'
 import NotFound from './pages/NotFound'
+import RankingPage from './pages/ranking/RankingPage';
 
 function App() {
   return (
@@ -43,6 +44,8 @@ function App() {
       <Route path="/mission/myMission" element={<MainMission />} />
       {/*마이페이지 메뉴*/}
       <Route path="/mypage" element={<MypagePage />} />
+      {/*랭킹 메뉴*/}
+      <Route path="/ranking" element={<RankingPage/>} />
       {/*기타*/}
       <Route path="/*" element={<NotFound/>} />
 

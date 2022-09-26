@@ -1,14 +1,11 @@
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
+import Responsive from '../common/Responsive';
 
-const AuthTemplateBlock = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background: ${palette.gray[2]};
+const AuthTemplateBlock = styled(Responsive)`
+  margin-top:8rem;
+  z-index:0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,7 +30,7 @@ const WhiteBox = styled.div`
     
   }
   
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
+  box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
   padding: 2rem;
   width: 360px;
   background: white;

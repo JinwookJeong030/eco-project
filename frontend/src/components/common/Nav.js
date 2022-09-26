@@ -42,6 +42,7 @@ const Icon = styled.img`
  margin-right: 18px;
 `
 const Menu = styled.li`
+
 padding-top: 15px;
 padding-bottom: 15px;
 
@@ -63,7 +64,7 @@ border-top: solid thin #088A68;
 
 
 
-const Nav = ({onHidingMenu ,hidingState}) => {
+const Nav = ({user, onHidingMenu ,hidingState}) => {
 
     return (
         <>
@@ -74,10 +75,17 @@ const Nav = ({onHidingMenu ,hidingState}) => {
               <Link to='/'><Menu>
                 <Icon src={process.env.PUBLIC_URL +"/post-icon.png"}/>{hidingState?'':'게시판'}</Menu></Link>
                 <Link to='/class/list'><Menu><Icon src={process.env.PUBLIC_URL +"/class-icon.png"}/>{hidingState?'':'모임'}</Menu></Link>
+
+            <Link to='/ranking'> <Menu><Icon src={process.env.PUBLIC_URL +"/ranking-icon.png"}/>{hidingState?'':'랭킹'}</Menu></Link>
+            
+            {user? <>
                 <Link to='/mission/myMission'> <Menu><Icon src={process.env.PUBLIC_URL +"/mission-icon.png"}/>{hidingState?'':'미션&식물'}</Menu></Link>
                 <Link to='/mypage'>
                   <Menu><Icon src={process.env.PUBLIC_URL +"/mypage-icon.png"}/>{hidingState?'':'마이페이지'}</Menu>
                 </Link>
+                </>
+                :<></>
+}
 
            </Wrapper>
         </NavBlock>

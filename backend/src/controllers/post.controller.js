@@ -83,10 +83,50 @@ exports.write = async (req, res) =>{
 }
 exports.edit =async (req,res) =>{
 
-}
-exports.delete =async (req,res) =>{
+  const postReq = new Post(
+    {
+      post_user: req.user_id,
+      post_id:  req.body.post_id,
+      post_title: req.body.post_title,
+      post_contents: req.body.post_contents,
+    }
+  )
+  Post.updatePost(postReq, (err,data)=>{
+    if(!data){
+      return res.status(419).send({
+        code: 419,
+        message: 'updatePost is error!',
+      });
+    }else{
+      return res.send({
+        code:200,
+        message: 'updatePost is successful', 
+       });
+    }
+  })
 
 }
+exports.delete =async (req,res) =>{
+  const postReq = new Post(
+    {
+      post_user: req.user_id,
+      post_id:  req.body.post_id,
+    });
+    Post.deletePost(postReq, (err,data)=>{
+      if(!data){
+        return res.status(419).send({
+          code: 419,
+          message: 'deletePost is error!',
+        });
+      }else{
+        return res.send({
+          code:200,
+          message: 'deletePost is successful', 
+         });
+      }
+    })
+}
+
 exports.reply_write = async (req,res) =>{
 
 }

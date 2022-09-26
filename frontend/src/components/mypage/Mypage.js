@@ -3,6 +3,7 @@ import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
 import Responsive from '../common/Responsive';
 import Button from '../common/Button';
+import { useNavigate } from '../../../node_modules/react-router-dom/index';
 const MypageBlock = styled(Responsive)`
   margin-top: 1rem;
 
@@ -90,7 +91,12 @@ const MyPostInfoBlock =()=>{
 }
 
 const Mypage = ({user}) => {
-
+  const navigator = useNavigate();
+  if(!user){
+    navigator('/login');
+    return;
+  }
+  else{
   return (
     <>
     <MypageBlock>
@@ -101,7 +107,7 @@ const Mypage = ({user}) => {
     <MyPostInfoBlock/>
     </MypageBlock>
     </>
-  );
+  );}
 };
 
 export default Mypage;
