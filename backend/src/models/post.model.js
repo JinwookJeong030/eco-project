@@ -4,8 +4,7 @@ const sql = require("./db.js");
 const Post = function (post) {
     this.post_id =post.post_id
     this.post_user = post.post_user;
-    this.post_mission= "임시";
-    this.post_category = "임시";
+    this.post_category = 0;
     this.post_title = post.post_title;
     this.post_contents = post.post_contents;
     this.post_regdate = post.post_regdate;
@@ -31,7 +30,7 @@ Post.selectAllPosts = (result) => {
 };
   //post_id를 통한 post 조회 
 Post.selectPostFromId =(id,result)=>{
-  sql.query('SELECT * FROM post WHERE post_id = '+id+" ;", (err, res) => {
+  sql.query('SELECT post.* ,user.user_name FROM post,user WHERE post.post_user =user.user_id AND post.post_id = '+id+" ;", (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);

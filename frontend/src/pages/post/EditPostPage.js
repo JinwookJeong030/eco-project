@@ -13,13 +13,7 @@ const EditPostPage = () => {
   <HeaderContainer />
   <NavContainer/>
   <ContentsBoxContainer title="글 쓰기">
-
-
   <EditorContainer/>
- 
-
-
-
   </ContentsBoxContainer>
  
   </>);

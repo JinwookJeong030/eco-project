@@ -5,12 +5,19 @@ import HeaderContainer from '../../containers/common/HeaderContainer';
 import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner';
 import NavContainer from '../../containers/common/NavContainer';
 import PostViewerContainer from '../../containers/post/PostViewerContainer';
+import WhiteBox from '../../components/common/WhiteBox'
+import ReplyEditor from '../../components/post/ReplyEditor';
+import ReplyList from '../../components/post/ReplyList'
 const PostViewerPage = () => {
   return <>
    <HeaderContainer />
    <NavContainer/>
-   <ContentsBoxContainer title="글 쓰기">
+   <ContentsBoxContainer title="" >
+    <WhiteBox>
     <PostViewerContainer/>
+    <ReplyList/>
+    <ReplyEditor/>
+    </WhiteBox>
    </ContentsBoxContainer>
 
   </>;

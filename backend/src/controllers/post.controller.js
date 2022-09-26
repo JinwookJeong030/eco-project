@@ -23,6 +23,9 @@ exports.list = async (req, res) => {
   };
 
 exports.view = async (req, res) =>{
+
+
+    
      Post.selectPostFromId(req.params.id,(err, data) => {
       if (!data) {
         return res.status(419).send({
@@ -30,13 +33,25 @@ exports.view = async (req, res) =>{
           message: 'selectPostFromId is error!'
         });
       } else {
+        
         return res.send({
           code:200,
           message: 'selectPostFromId is successful',
           result:{
-           post: data
+           post:{
+           post_id:data.post_id,
+           post_user:data.post_user,
+           post_category:data.post_category,
+           post_title:data.post_title,
+           post_contents:data.post_contents,
+           post_regdate:data.post_regdate,
+           post_update:data.post_update,
+           post_views:data.post_views,
+           post_recommand:data.post_recommand,
+           post_report:data.post_report,
+           user_name:data.user_name,
           }
-        });
+        }});
     } 
     });
 

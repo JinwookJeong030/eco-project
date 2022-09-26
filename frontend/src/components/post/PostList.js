@@ -4,6 +4,7 @@ import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
 import { Link } from "react-router-dom";
+import {WhitePostsItemBox} from '../common/WhiteBox';
 const PostListBlock = styled(Responsive)`
   
 `;
@@ -11,14 +12,9 @@ const PostListBlock = styled(Responsive)`
 const WritePostButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-`;
-const PostItemBlock = styled.div`
-display: flex;
-margin-top:1rem;
-border: thin solid ;
-border-color: #424242;
-box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 
+`;
+const PostItemBlock = styled(WhitePostsItemBox)`
 `
 const PostItemInfoBlock = styled.div`
 
@@ -60,11 +56,12 @@ const SubInfo = styled.div`
 `;
 const Title= styled.h2`
   margin:0;
+  overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
   
 `
-const Contents =styled.div`
-  margin-Top: 10px;
-`
+
 
 const Image = styled.img`
 width: 10rem;
@@ -74,41 +71,31 @@ margin: 1rem;
 `
 const PostContent = styled.div`
 
+width: 33rem; 
+height:7rem;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
 `;
 const PostItem = ({ post }) => {
 
     return (
-    
+      <Link to={`/post/view/${post.post_id}`}>
     <PostItemBlock>
+        
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <PostItemInfoBlock>
-        <Link to={`/post/view/${post.post_id}`}><Title>{post.post_title}</Title></Link>
-       
-        <Contents> 
+        <Title>{post.post_title}</Title>
         <PostContent
         dangerouslySetInnerHTML={{ __html: post.post_contents }}
       />
-        </Contents>
+       
       </PostItemInfoBlock>
+   
     </PostItemBlock>
- 
+    </Link>
     );
   };
-  const ExPostItem = () => {
-
-      return (
-      
-      <PostItemBlock>
-          <Image src={process.env.PUBLIC_URL + "eco-icon.png"}/>
-          <PostItemInfoBlock>
-          <Title>제목</Title>
-          <SubInfo username="username" publishedDate={new Date()} />
-          <Contents>내용</Contents>
-        </PostItemInfoBlock>
-      </PostItemBlock>
-   
-      );
-    };
   const PostList = ({ posts, loading, error, showWriteButton }) => {
     if (error) {
       return <PostListBlock>게시판을 불러올 수 없습니다...</PostListBlock>
