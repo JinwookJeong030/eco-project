@@ -4,7 +4,6 @@ import palette from '../../lib/styles/palette';
 import Responsive from './Responsive';
 
 const WhiteBoxBlock= styled(Responsive)`
-margin-top: 4rem;
 
 `;
 

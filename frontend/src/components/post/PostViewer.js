@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import Button from '../common/Button';
 import Responsive from '../common/Responsive';
 import ReplyEditor from  './ReplyEditor';
+
+
 
 
 const PostHead = styled.div`
@@ -68,7 +71,7 @@ const PostViewer = ({ post, error, loading }) => {
 
   return (
     <>
-  
+
       <PostHead>
         <h1>{post_title}</h1>
         <SubInfo>
