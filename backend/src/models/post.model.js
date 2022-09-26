@@ -30,8 +30,8 @@ Post.selectAllPosts = (result) => {
   });
 };
   //post_id를 통한 post 조회 
-Post.selectPostFromId =(id,result)=>{
-  sql.query('SELECT post.* ,user.user_name FROM post,user WHERE post.post_user =user.user_id AND post.post_id = '+id+" ;", (err, res) => {
+Post.selectPostFromId =(post_id,result)=>{
+  sql.query('SELECT post.* ,user.user_name FROM post,user WHERE post.post_user =user.user_id AND post.post_id = '+post_id+" ;", (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);

@@ -13,9 +13,12 @@ import MypagePage from './pages/mypage/MypagePgae'
 import MainMission from './pages/mission/MainMissionPage'
 import NotFound from './pages/NotFound'
 import RankingPage from './pages/ranking/RankingPage';
+import { Helmet } from 'react-helmet-async';
 
 function App() {
   return (
+    <>
+    <Helmet><title>ECO_WEB</title></Helmet>
     <Routes>
       
       <Route path="/" element={<PostListPage />} />
@@ -50,6 +53,7 @@ function App() {
       <Route path="/*" element={<NotFound/>} />
 
     </Routes>
+    </>
   );
 }
 

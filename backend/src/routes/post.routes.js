@@ -9,9 +9,9 @@ module.exports = (app) => {
     // 글수정
     app.post('/api/post/edit',authJwt, post.edit);
     // //글삭제
-    app.delete('/api/post/delete',authJwt, post.delete);
+    app.delete('/api/post/delete/:post_id',authJwt, post.delete);
     // 글조회
-    app.get('/api/post/view/:id', post.view);
+    app.get('/api/post/view/:post_id', post.view);
     // 전체글 조회 -
     app.get('/api/post/list', post.list);
    

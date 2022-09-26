@@ -26,7 +26,7 @@ exports.view = async (req, res) =>{
 
 
     
-     Post.selectPostFromId(req.params.id,(err, data) => {
+     Post.selectPostFromId(req.params.post_id,(err, data) => {
       if (!data) {
         return res.status(419).send({
           code: 419,
@@ -110,7 +110,7 @@ exports.delete =async (req,res) =>{
   const postReq = new Post(
     {
       post_user: req.user_id,
-      post_id:  req.body.post_id,
+      post_id:  req.params.post_id,
     });
     Post.deletePost(postReq, (err,data)=>{
       if(!data){
