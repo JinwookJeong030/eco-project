@@ -38,7 +38,7 @@ Post.selectPostFromId =(post_id,result)=>{
       return;
     }
 
-    console.log('Select Post: ',  res[0]);
+    console.log('selectPostFromId Post: ',  res[0]);
     result(null,  res[0]);
   });
 

@@ -1,4 +1,5 @@
 const Post = require('../models/post.model.js');
+const Reply = require('../models/reply.model.js');
 const Category = require('../models/category.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
@@ -159,12 +160,52 @@ exports.delete =async (req,res) =>{
     })
 }
 
+exports.reply_select = async (req, res) =>{
+  Reply.selectReplysFromPostId(req.params.post_id,(err, data) => {
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'selectReplysFromPostId is error!',
+      });
+    } else {
+      return res.send({
+        code:200,
+        message: 'selectReplysFromPostId is successful',
+        result:{
+          replys:data
+        }
+      });
+  } 
+  });
+}
+
 exports.reply_write = async (req,res) =>{
+  
+  const replyReq = new Reply(
+    {
+      reply_post: req.body.reply_post,
+      reply_user: req.user_id,
+      reply_contents: req.body.reply_content,
+      reply_type: req.body.reply_type,
+      reply_order: req.body.reply_order,
+      reply_group_id: req.body.reply_group_id,
+    }
+  )
+  Reply.insertReply(replyReq, (err,data)=>{
+    if(!data){
+      return res.status(419).send({
+        code: 419,
+        message: 'insertReply is error!',
+      });
+    }else{
+      return res.send({
+        code:200,
+        message: 'insertReply is successful', 
+       });
+    }
+  })
 
 }
 exports.reply_delete = async (req,res) =>{
-
-}
-exports.reply_select = async (req,res) =>{
 
 }

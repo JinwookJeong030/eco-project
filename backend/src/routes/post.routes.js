@@ -14,16 +14,17 @@ module.exports = (app) => {
     app.get('/api/post/view/:post_id', post.view);
     // 전체글 조회 -
     app.get('/api/post/list', post.list);
-   
 
+    // 댓글조회
+    app.get('/api/reply/:post_id', post.reply_select);
     // 댓글작성
     app.post('/api/reply/write',authJwt, post.reply_write);
     // 댓글삭제
     app.delete('/api/reply/delete',authJwt, post.reply_delete);
-    // 댓글조회
-    app.get('/api/reply/${id}', post.reply_select);
-    //
+    
+    //카테고리 조회
     app.get('/api/categorys',post.categorys);
+    //미션 조회 => 내 미션조회로 수정해야됨
     app.get('/api/missions',post.missions);
 
   };

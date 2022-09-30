@@ -9,3 +9,5 @@ const Post_file = function (post_file) {
     this.pf_type = post_file.pf_type;
     this.pf_size = post_file.pf_size;
 };
+
+module.exports = Post_file;
