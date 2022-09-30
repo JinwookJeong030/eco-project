@@ -23,8 +23,14 @@ module.exports = (app) => {
     // 댓글조회
     app.get('/api/reply/${id}', post.reply_select);
 
+    //모임 생성
+    app.post('/api/commu/create', commu.create);
     //모임 전체조회
     app.get('/api/commu/search', commu.search);
+    //commu_id로 조회
+    app.get('/api/commu/findcommu', commu.findcommu);
+    //commu_id로 삭제
+    app.delete('/api/commu/deletecommu', commu.deletecommu);
 
   };
   

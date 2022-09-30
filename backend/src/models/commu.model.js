@@ -39,7 +39,7 @@ Commu.create = (newCommu, result)=>{
   };
 
     //commu_id를 통한 모임 조회 
-Commu.selectCommuFromId =(commu_id,result)=>{
+Commu.findCommuFromId =(commu_id,result)=>{
     sql.query('SELECT commu.* FROM commu WHERE commu.commu_id = commu.commu_id = '+commu_id+" ;", (err, res) => {
       if (err) {
         console.log('error: ', err);
