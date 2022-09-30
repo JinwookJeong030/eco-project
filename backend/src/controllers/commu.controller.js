@@ -1,39 +1,48 @@
-const commu = require('../models/commu.model.js');
+const Commu = require('../models/commu.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
 // 보내는 방식 res.send()
 // 새 객체 생성
-exports.create = (req,res)=>{
-  if(!req.body){
-      res.status(400).send({
-          message: "Content can not be empty!"
-      });
-  };
+exports.create = async (req,res)=>{
 
-  const commu = new Commu({
-      commu_id : req.body.commu_id,
+  const commuReq = new Commu({
+      commu_leader : req.user_id,
       commu_name : req.body.commu_name,
-      commu_leader : req.body.commu_leader
+      commu_contents: req.body.commu_contents,
   });
   //db저장
-  Commu.create(commu, (err, data) =>{
+  Commu.insertCommu(commuReq, (err, data) =>{
     if(err){
-        res.status(500).send({
-            message:
-            err.message || "fail."
-        });
-    };
+       return res.status(500).send({
+          code: 500,  
+          message:err.message || "fail."
+        }
+        );
+    }else{
+      return res.send({
+        code: 200,
+        message:'insertCommu is successful!',
+      })
+    }
+
+
 })
 };
 // 전체 조회 
-exports.search = (req,res)=>{
+exports.list = (req,res)=>{
   Commu.selectAllCommus((err, data) => {
       if (err)
-        res.status(500).send({
-          message:
-            err.message || "fail."
+        res.status(400).send({
+          code: 400,
+          message: err.message || "fail."
         });
-      else res.send(data);
+      else res.send({
+        code: 200,
+        message:'selectAllCommus is seccessful!',
+        result:{
+          commus:data
+        }
+      });
     });
 };
 // commu_id로 조회
@@ -49,7 +58,7 @@ exports.findcommu = (req,res)=>{
             message: "Error retrieving Customer with id " + req.params.customerId
           });
         }
-      } else res.send(data);
+      } else res.send({data});
     });
 };
 // commu_id로 삭제

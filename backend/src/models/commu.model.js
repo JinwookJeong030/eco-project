@@ -11,21 +11,21 @@ const Commu = function (commu) {
 };
 
  // Commu 튜플 추가 
-Commu.create = (newCommu, result)=>{
-  sql.query("INSERT INTO commu SET ?", newCommu, (err, res)=>{
+Commu.insertCommu = (commuReq, result)=>{
+  sql.query("INSERT INTO commu SET ?", commuReq, (err, res)=>{
       if(err){
           console.log("error: ", err);
           result(err, null);
           return;
       }
 
-      console.log("Created commu: ",{ ...newCommu });
+      console.log("Created commu: ",res);
       result(null, res );
   });
 };
 
   //모임 전체 조회
-  Commu.selectAllCommus = (result) => {
+Commu.selectAllCommus = (result) => {
     sql.query('SELECT * FROM commu ORDER BY commu_regdate DESC', (err, res) => {
       if (err) {
         console.log('error: ', err);
@@ -73,3 +73,5 @@ Commu.findCommuFromId =(commu_id,result)=>{
     });
   
   }
+
+  module.exports = Commu;
