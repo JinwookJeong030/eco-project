@@ -24,7 +24,13 @@ const EditorBlock = styled(Responsive)`
   }
   
 `;
-const CategorySelect= styled.select`
+const CategoryBlock = styled(Responsive)`
+display: flex;
+flex-direction: column;
+padding:0;
+`
+
+const Select= styled.select`
 width: 18rem;
 height: 2rem;
 font-size: 1.2rem;
@@ -85,13 +91,9 @@ var Parchment = Quill.import('parchment');
     Parchment.register(lineHeightClass);
     Parchment.register(lineHeightStyle);
 
-const Editor =({title, body, onChangeField, onPublish, onCancel })=>{
+const Editor =({categorys,category, missions, title,onChangeField, onPublish, onCancel })=>{
   const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
   const quillInstance =  useRef(null); 
-
- 
-
-
 
   useEffect(() => {
     
@@ -128,18 +130,32 @@ const Editor =({title, body, onChangeField, onPublish, onCancel })=>{
   const onChangeTitle = e => {
     onChangeField({ key: 'post_title', value: e.target.value });
   };
-  const exOption = () =>{
-    const result = [];
-    for (let i = 0; i < 5; i++) {
-      result.push(<option key={i}>주제 {i}</option>);
-    }
-    return result;
+  const onChangeCategory = e =>{
+    onChangeField({ key: 'post_category', value: e.target.value });
+  }
+  const onChangeMission = e =>{
+    onChangeField({ key: 'post_mission', value: 'e.target.value' });
   }
 
+
         return( <EditorBlock>
-          <CategorySelect>
-          {exOption()}
-            </CategorySelect>
+          <CategoryBlock>{categorys?
+          <Select
+                 placeholder="카테고리를 선택하세요." 
+                 onChange={onChangeCategory} 
+          >
+          
+          {categorys.map(category =>(<option value={category.category_id}>{category.category_name}</option>))}
+            </Select>:<></>
+}
+            {(category === "4")?<Select
+               placeholder="미션을 선택하세요." 
+               onChange={onChangeMission} 
+            >
+            {missions===[]?missions.map(mission =>(<option value={mission.mission_id}>{mission.mission_name}</option>)):<option><option>현재 미션이 없습니다...</option></option>}
+            </Select>:<>
+           </>}
+          </CategoryBlock>
           <TitleInput 
             placeholder="제목을 입력하세요." 
             onChange={onChangeTitle} 

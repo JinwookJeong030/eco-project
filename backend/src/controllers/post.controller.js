@@ -1,4 +1,5 @@
 const Post = require('../models/post.model.js');
+const Category = require('../models/category.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
 
@@ -23,8 +24,6 @@ exports.list = async (req, res) => {
   };
 
 exports.view = async (req, res) =>{
-
-
     
      Post.selectPostFromId(req.params.post_id,(err, data) => {
       if (!data) {
@@ -58,6 +57,37 @@ exports.view = async (req, res) =>{
 
   
 };
+
+exports.categorys = async (req, res)=>{
+  Post.selectAllCategory((err, data) => {
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'selectAllCategory is error!',
+      });
+    } else {
+      return res.send({
+        code:200,
+        message: 'selectAllCategory is successful',
+        result:{
+          categorys:data
+        }
+      });
+  } 
+  });
+
+}
+exports.missions =async (req, res)=>{
+  return res.send({
+    code:200,
+    message: 'selectAllCategory is successful',
+    result:{
+      missions:[]
+    }
+  });
+}
+
+
 exports.write = async (req, res) =>{
 
   const postReq = new Post(
@@ -65,6 +95,8 @@ exports.write = async (req, res) =>{
       post_user: req.user_id,
       post_title: req.body.post_title,
       post_contents: req.body.post_contents,
+      post_category: req.body.post_category,
+      post_mission: 0,
     }
   )
   Post.insertPost(postReq, (err,data)=>{

@@ -4,8 +4,8 @@ const sql = require("./db.js");
 const Post = function (post) {
     this.post_id =post.post_id
     this.post_user = post.post_user;
-    this.post_category = 0;
-    this.post_mission = 0;
+    this.post_category = post.post_category;
+    this.post_mission = post.post_category;
     this.post_title = post.post_title;
     this.post_contents = post.post_contents;
     this.post_regdate = new Date();
@@ -43,6 +43,7 @@ Post.selectPostFromId =(post_id,result)=>{
   });
 
 };
+//게시글 삽입
 Post.insertPost =(post ,result) =>{
 
   const postReq = new Post({
@@ -63,6 +64,8 @@ Post.insertPost =(post ,result) =>{
   });
 
 }
+
+// 게시글 수정
 Post.updatePost =(post, result)=>{
   const postReq = new Post({
     post_id: post.post_id,
@@ -85,6 +88,7 @@ Post.updatePost =(post, result)=>{
 
 }
 
+// 게시글 삭제
 Post.deletePost =(post, result)=>{
   const postReq = new Post({
     post_id: post.post_id,
@@ -104,5 +108,19 @@ Post.deletePost =(post, result)=>{
   });
 
 }
+
+//카테고리 조회
+Post.selectAllCategory = (result) => {
+  sql.query('SELECT * FROM category', (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+
+    console.log('Select All Categorys: ',  res );
+    result(null,  res );
+  });
+};
 
 module.exports = Post;

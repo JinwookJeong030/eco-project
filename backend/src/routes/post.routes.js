@@ -22,8 +22,9 @@ module.exports = (app) => {
     app.delete('/api/reply/delete',authJwt, post.reply_delete);
     // 댓글조회
     app.get('/api/reply/${id}', post.reply_select);
-
     //
+    app.get('/api/categorys',post.categorys);
+    app.get('/api/missions',post.missions);
 
   };
   
