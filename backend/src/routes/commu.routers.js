@@ -23,7 +23,8 @@ module.exports = (app) => {
     // 댓글조회
     app.get('/api/reply/${id}', post.reply_select);
 
-    //
+    //모임 전체조회
+    app.get('/api/commu/search', commu.search);
 
   };
   
