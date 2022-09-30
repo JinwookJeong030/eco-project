@@ -16,7 +16,7 @@ module.exports = (app) => {
     app.get('/api/post/list', post.list);
 
     // 댓글조회
-    app.get('/api/reply/:post_id', post.reply_select);
+    app.get('/api/reply/list/:post_id', post.reply_select);
     // 댓글작성
     app.post('/api/reply/write',authJwt, post.reply_write);
     // 댓글삭제

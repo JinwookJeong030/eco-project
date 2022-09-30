@@ -20,3 +20,6 @@ import qs from 'qs';
   export const editPost =({post_id, post_title, post_contents}) => client.post('/post/edit',{post_id, post_title, post_contents});
 
   export const deletePost =({post_id}) => client.delete(`/post/delete/${post_id}`);
+
+
+  export const listReplys = post_id => client.get(`/reply/list/${post_id}`);
