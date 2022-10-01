@@ -48,26 +48,29 @@ height:2rem;
 margin-right:0.5rem;
 margin-bottom:0rem;
 `
-const ReplyEditorItem = ({user})=>{
+const ReplyEditorItem = ({user, onChangeReplys})=>{
 
 
     return (<ReplyEditorBackground>
             <InputReplyDiv>
             <NickName><b>{user.user_name}</b></NickName>
-            <InputReplyContents/>
+            <InputReplyContents onChange={onChangeReplys}/>
             </InputReplyDiv>
             <SubmitBtn green>등록</SubmitBtn>
         </ReplyEditorBackground>);
 
 }
 
-const ReplyEditor = ({}) => {
+const ReplyEditor = ({user, onChangeField, onPublish, onCancel }) => {
   const userEx = {
     user_name:'닉네임'
 }
+  const onChangeReplys= e=>{
+    onChangeField({ key: 'reply_contents', value: e.target.value });
+  }
   return (
     <ReplyEditorBlock>
-    <ReplyEditorItem user={userEx}/>
+    <ReplyEditorItem user={user?user:userEx} onChangeReplys={onChangeReplys}/>
     </ReplyEditorBlock>
   );
 };

@@ -185,7 +185,7 @@ exports.reply_write = async (req,res) =>{
     {
       reply_post: req.body.reply_post,
       reply_user: req.user_id,
-      reply_contents: req.body.reply_content,
+      reply_contents: req.body.reply_contents,
       reply_type: req.body.reply_type,
       reply_order: req.body.reply_order,
       reply_group_id: req.body.reply_group_id,

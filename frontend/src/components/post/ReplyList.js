@@ -71,7 +71,7 @@ const ReplyItem = ({ reply }) => {
     
     <ReplyItemBlock>
         <ReplyItemInfoBlock>
-            <NickName>{reply.reply_name}</NickName>
+            <NickName>{reply.user_name}</NickName>
             <Contents>{reply.reply_contents}</Contents>
             <Regdate>{reply.reply_regdate}</Regdate>
             <DeleteBtn>x</DeleteBtn>
@@ -81,32 +81,14 @@ const ReplyItem = ({ reply }) => {
 };
   const ReplyList = ({ replys, loading, error, showWriteButton }) => {
     
-    const replysArray = [
-        {
-            reply_id: 0,
-            reply_name: '유저1',
-            reply_contents: '테스트 내용이에요',
-            reply_regdate:'09.30 23:18:21',
-        },
-        {
-            reply_id: 1,
-            reply_name: '유저2df',
-            reply_contents: '테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요테스트내용이에요',
-            reply_regdate:'09.30 23:18:21',
-        }
-    ]
+  
     if (error) {
-      return <>게시판을 불러올 수 없습니다...</>
+      return <>댓글을 불러올 수 없습니다...</>
     }
   /**에러처리 */
     return (
       <ReplyListBlock>
-       <div>
-          {
-            replysArray.map(reply => (
-            <ReplyItem reply={reply} key={reply.reply_id} />
-          ))}
-        </div>
+  
         {!loading && replys && (<div>
           {
             replys.map(reply => (

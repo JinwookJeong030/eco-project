@@ -32,7 +32,7 @@ Reply.insertReply =(reply ,result) =>{
     const replyReq = new Reply({
         reply_post: reply.reply_post,
         reply_user: reply.reply_user,
-        reply_content: reply.reply_content,
+        reply_contents: reply.reply_contents,
         reply_type: reply.reply_type,
         reply_order: reply.reply_order,
         reply_group_id: reply.reply_group_id,
