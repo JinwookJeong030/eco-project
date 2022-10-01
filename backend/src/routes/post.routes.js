@@ -27,5 +27,10 @@ module.exports = (app) => {
     //미션 조회 => 내 미션조회로 수정해야됨
     app.get('/api/missions',post.missions);
 
+    
+    // 내가 쓴 글 조회
+    app.get('/api/mypage/myPostList',authJwt,post.myPostList);
+    // 내가 쓴 댓글 조회
+    app.get('/api/mypage/myReplyList',authJwt,post.myReplyList);
   };
   

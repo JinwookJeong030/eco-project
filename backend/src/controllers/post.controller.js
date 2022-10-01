@@ -228,3 +228,42 @@ exports.reply_write = async (req,res) =>{
 exports.reply_delete = async (req,res) =>{
 
 }
+exports.myPostList = async(req, res) =>{
+
+  Post.selectMyPosts(req.user_id,(err, data) => {
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'selectMyPosts is error!',
+      });
+    } else {
+      return res.send({
+        code:200,
+        message: 'selectMyPosts is successful',
+        result:{
+          myPosts:data
+        }
+      });
+  } 
+  });
+}
+exports.myReplyList = async(req, res) =>{
+
+  
+  Reply.selectMyReplys(req.user_id,(err, data) => {
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'selectMyPosts is error!',
+      });
+    } else {
+      return res.send({
+        code:200,
+        message: 'selectMyPosts is successful',
+        result:{
+          myReplys:data
+        }
+      });
+  } 
+  });
+}

@@ -141,5 +141,7 @@ exports.logout =async (req,res) =>{
     message: 'logout is successful'
   })
 };
+exports.changePw =async (req,res) =>{
 
+};
 

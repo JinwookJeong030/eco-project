@@ -90,4 +90,21 @@ Reply.insertReply =(reply ,result) =>{
     
   }
 
+ //내가 쓴 댓글 조회 
+ Reply.selectMyReplys =(reply_user,result)=>{
+  sql.query('SELECT reply.* ,user.user_name FROM reply,user WHERE reply.reply_user =user.user_id AND reply.reply_user = '+reply_user+" ;", (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+
+    console.log('selectMyReplys : ',  res);
+    result(null,  res);
+  });
+
+};
+
+
+
   module.exports = Reply;

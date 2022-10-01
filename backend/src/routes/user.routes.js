@@ -12,7 +12,10 @@ module.exports = (app) => {
   app.post('/api/auth/login', user.login);
  
   app.get('/api/auth/check',authJwt, user.check);
-  // //로그아웃
+  //로그아웃
   app.post("/api/auth/logout",authJwt, user.logout);
+  //토큰 재설정
   app.get('/api/auth/refresh',refresh);
+  // 비밀번호 변경
+  app.post('/api/mypage/changePw',authJwt, user.changePw);
 };
