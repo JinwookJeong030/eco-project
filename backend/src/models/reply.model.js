@@ -48,7 +48,46 @@ Reply.insertReply =(reply ,result) =>{
       result(null,  res);
   
     });
+
   
+  }
+  Reply.SelectReplyIdFromUserId=(reply, result)=>{
+    const replyReq = new Reply({
+      reply_post: reply.reply_post,
+      reply_user: reply.reply_user,
+      reply_contents: reply.reply_contents,
+      reply_type: reply.reply_type,
+      reply_order: reply.reply_order,
+      reply_group_id: reply.reply_group_id,
+  })
+
+  sql.query("Select reply_id FROM reply WHERE reply_user = " + replyReq.reply_user+" ORDER BY reply_id DESC ;", (err,res)=>{
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+    console.log('SelectReplyIdFromUserId : ',  res[0]);
+    result(null,  res[0]);
+
+  });
+  };
+
+
+  Reply.UpdateReplyGroupId =(reply_id, result)=>{
+    
+
+  sql.query("UPDATE reply SET reply_group_id = "+reply_id+" WHERE reply_id = "+reply_id+" ;",(err,res)=>{
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+    console.log('UpdateReplyGroupId ',  res);
+    result(null,  res);
+
+  });
+    
   }
 
   module.exports = Reply;

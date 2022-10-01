@@ -191,20 +191,39 @@ exports.reply_write = async (req,res) =>{
       reply_group_id: req.body.reply_group_id,
     }
   )
-  Reply.insertReply(replyReq, (err,data)=>{
+   Reply.insertReply(replyReq, (err,data)=>{
     if(!data){
       return res.status(419).send({
         code: 419,
         message: 'insertReply is error!',
       });
-    }else{
-      return res.send({
-        code:200,
-        message: 'insertReply is successful', 
-       });
     }
   })
 
+
+   Reply.SelectReplyIdFromUserId(replyReq , (err,data)=>{
+    if(!data){
+      console.log("data:",data);
+      data;
+      return;
+    }
+    Reply.UpdateReplyGroupId(data.reply_id , (err,data)=>{
+      if(!data){
+        return res.status(419).send({
+          code: 419,
+          message: 'UpdateReplyGroupId is error!',
+        });
+      }else{
+        return res.send({
+          code:200,
+          message: 'insertReply,UpdateReplyGroupId is successful', 
+         });
+      }
+    })
+  
+  })
+
+   
 }
 exports.reply_delete = async (req,res) =>{
 
