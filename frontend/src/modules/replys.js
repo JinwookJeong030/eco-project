@@ -80,15 +80,14 @@ const replys = handleActions(
       reply: null,
       replyError: null,
     }),
-    // 포스트 작성 성공
     [WRITE_REPLY_SUCCESS]: (state, { payload: reply }) => ({
       ...state,
       reply,
     }),
-    // 포스트 작성 실패
-    [WRITE_REPLY_FAILURE]: (state, { payload: replysError }) => ({
+
+    [WRITE_REPLY_FAILURE]: (state, { payload: replyError }) => ({
       ...state,
-      replysError,
+      replyError,
     }),
 
 

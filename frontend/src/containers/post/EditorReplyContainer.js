@@ -6,9 +6,11 @@ import ReplyEditor from "../../components/post/ReplyEditor";
 
 const EditorContainer = () => {
   const dispatch = useDispatch();
-  const {reply_post} =useParams();
+  const {id} =useParams();
+  
   const navigate = useNavigate();
-  const { reply_contents, reply_type,reply_order,reply_group_id, reply, replyError } = useSelector(({ replys }) => ({
+  const {reply_post, reply_contents, reply_type,reply_order,reply_group_id, reply, replyError } = useSelector(({ replys }) => ({
+    reply_post: id,
     reply_contents:replys.reply_contents,
     reply_type:replys.reply_type,
     reply_order:replys.reply_order,
@@ -16,6 +18,7 @@ const EditorContainer = () => {
     reply:replys.reply,
     replyError:replys.replyError
   }));
+  console.log(reply_post);
   const onPublish = () => {
     dispatch(writeReply({reply_post, reply_contents,reply_type,reply_order, reply_group_id}));
   };
@@ -37,7 +40,7 @@ const EditorContainer = () => {
 
   useEffect(() => {
     if (reply) {
-      navigate('/post/view/'+reply_post);
+      navigate(0);
     }
     if (replyError) {
       console.log(replyError);

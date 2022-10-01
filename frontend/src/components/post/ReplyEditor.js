@@ -48,7 +48,7 @@ height:2rem;
 margin-right:0.5rem;
 margin-bottom:0rem;
 `
-const ReplyEditorItem = ({user, onChangeReplys})=>{
+const ReplyEditorItem = ({user, onChangeReplys, onPublish})=>{
 
 
     return (<ReplyEditorBackground>
@@ -56,7 +56,7 @@ const ReplyEditorItem = ({user, onChangeReplys})=>{
             <NickName><b>{user.user_name}</b></NickName>
             <InputReplyContents onChange={onChangeReplys}/>
             </InputReplyDiv>
-            <SubmitBtn green>등록</SubmitBtn>
+            <SubmitBtn green onClick={onPublish}>등록</SubmitBtn>
         </ReplyEditorBackground>);
 
 }
@@ -70,7 +70,9 @@ const ReplyEditor = ({user, onChangeField, onPublish, onCancel }) => {
   }
   return (
     <ReplyEditorBlock>
-    <ReplyEditorItem user={user?user:userEx} onChangeReplys={onChangeReplys}/>
+    <ReplyEditorItem user={user?user:userEx} onChangeReplys={onChangeReplys}
+    onPublish={onPublish}
+    />
     </ReplyEditorBlock>
   );
 };

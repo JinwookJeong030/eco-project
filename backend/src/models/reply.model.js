@@ -13,7 +13,7 @@ const Reply = function (reply) {
 };
   //post_id를 통한 replys 조회 
   Reply.selectReplysFromPostId =(post_id,result)=>{
-    sql.query('SELECT reply.* ,user.user_name FROM reply,user WHERE reply.reply_user =user.user_id AND reply.reply_post = '+post_id+" ;", (err, res) => {
+    sql.query('SELECT reply.* ,user.user_name FROM reply,user WHERE reply.reply_user =user.user_id AND reply.reply_post = '+post_id+" ORDER BY reply.reply_regdate;", (err, res) => {
       if (err) {
         console.log('error: ', err);
         result(err, null);
