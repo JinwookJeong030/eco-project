@@ -115,4 +115,36 @@ User.selectUserInfo = (user, result)=> {
 
 
 
+User.updatePassword = (user, result)=> {
+  
+  const salt =crypto.randomBytes(128).toString('base64');
+  
+  user.user_password = hashPassword(user.user_password, salt);
+
+  sql.query("UPDATE user SET user_password = '"+user.user_password+"'  WHERE user_id = " +
+  user.user_id +
+  " ;", 
+  (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+    const SaltInfo =new Salt({salt_user_email:user.user_email,
+      salt:salt});
+
+    sql.query('UPDATE salt SET salt = "'+ SaltInfo.salt +'" WHERE salt_user_email ="'+SaltInfo.salt_user_email+'" ;', (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }}
+      );
+    
+    console.log('updatePassword : ', res);
+    result(null,  res);
+  });
+};
+
+
 module.exports = User;

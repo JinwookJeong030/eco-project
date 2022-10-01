@@ -248,7 +248,6 @@ exports.myPostList = async(req, res) =>{
   });
 }
 exports.myReplyList = async(req, res) =>{
-
   
   Reply.selectMyReplys(req.user_id,(err, data) => {
     if (!data) {

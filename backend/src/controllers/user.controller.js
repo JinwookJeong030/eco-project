@@ -143,5 +143,27 @@ exports.logout =async (req,res) =>{
 };
 exports.changePw =async (req,res) =>{
 
+  const reqUser = new User({
+    user_id: req.user_id ,
+    user_email: req.user_email,
+    user_password: req.body.user_password,
+  });
+  User.updatePassword(reqUser, (err, data) => {
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'changePw is incorrect',
+      });
+    } else {
+      res.send({
+        code: 200,
+        message:"changePw is successful",
+      })
+    };
+   }
+  );
+
+
+
 };
 
