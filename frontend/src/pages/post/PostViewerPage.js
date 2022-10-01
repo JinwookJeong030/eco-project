@@ -7,7 +7,7 @@ import NavContainer from '../../containers/common/NavContainer';
 import PostViewerContainer from '../../containers/post/PostViewerContainer';
 import WhiteBox from '../../components/common/WhiteBox'
 import EditorReplyContainer from '../../containers/post/EditorReplyContainer';
-import PostListContainer from '../../containers/post/ReplyListContainer'
+import ReplyListContainer from '../../containers/post/ReplyListContainer'
 
 import PostManagementContainer from '../../containers/post/PostManagementContainer';
 import AskModal from '../../components/common/AskModal';
@@ -20,7 +20,7 @@ const PostViewerPage = () => {
    <PostManagementContainer/>
     <WhiteBox>
     <PostViewerContainer/>
-    <PostListContainer/>
+    <ReplyListContainer/>
     <EditorReplyContainer/>
     </WhiteBox>
  

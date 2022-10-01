@@ -50,6 +50,7 @@ export function* replysSaga() {
 }
 
 const initialState = {
+  addReplyState: null,
   reply_contents: null,
   reply_type: 0,
   reply_order: 0,
@@ -58,6 +59,7 @@ const initialState = {
   replyError:null,
   replys: null,
   replysError: null,
+ 
 };
 
 const replys = handleActions(

@@ -5,6 +5,9 @@ import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
 import { Link } from "react-router-dom";
 import {WhitePostsItemBox} from '../common/WhiteBox';
+import ReplyEditor from './ReplyEditor';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 const ReplyListBlock = styled.div`
 flex-wrap: nowrap;
 `;
@@ -33,6 +36,10 @@ flex-wrap: nowrap;
 font-size: 0.9rem;
 flex-wrap: nowrap;
 `
+const AddReplyEditor =styled(ReplyEditor)`
+
+`
+
 const NickName = styled.div`
 width:7rem;
 flex-wrap: nowrap;
@@ -78,11 +85,24 @@ font-size: 1rem;
 padding-top:0;
 `;
 
-const ReplyItem = ({ reply }) => {
+const ReplyItem = ({onChangeField, reply, addReplyState }) => {
+  const reply_group_id = reply.reply_group_id;
+  const onChangeAddReplyState= ()=>{
 
+
+    addReplyState? (
+    reply_group_id===addReplyState?
+    onChangeField({ key: 'addReplyState', value: null  })
+    :
+      onChangeField({ key: 'addReplyState', value: reply_group_id  })
+
+    ):(
+    onChangeField({ key: 'addReplyState', value: reply_group_id  }));
+
+  }
     return (
     
-    <ReplyItemBlock>
+    <ReplyItemBlock onClick={onChangeAddReplyState}>
         <ReplyItemInfoBlock>
             <NickName>{reply.user_name}</NickName>
             <Contents>{reply.reply_contents}</Contents>
@@ -92,11 +112,14 @@ const ReplyItem = ({ reply }) => {
     </ReplyItemBlock>
     );
 };
-const AddReplyItem =({reply})=>{
-
+const AddReplyItem =({onChangeField, reply})=>{
+  const reply_group_id = reply.reply_group_id;
+  const onChangeAddReplyState= ()=>{
+    onChangeField({ key: 'addReplyState', value: reply_group_id  });
+  }
   return(
   <AddReplyItemBlock>
-        <ReplyItemInfoBlock>
+        <ReplyItemInfoBlock onClick={onChangeAddReplyState}>
             <NickName>{reply.user_name}</NickName>
             <Contents>{reply.reply_contents}</Contents>
             <Regdate>{reply.reply_regdate}</Regdate>
@@ -106,9 +129,19 @@ const AddReplyItem =({reply})=>{
   )
 
 }
-  const ReplyList = ({ replys, loading, error, showWriteButton }) => {
+
+  const ReplyList = ({addReplyState, replys, loading, error,onChangeField, onPublic }) => {
+
+    const [flag,setFlag] =useState(true);
     
-  
+    const flagEditor =()=>{
+      if(flag === true)
+      setFlag(false)
+      else
+      setFlag(true);
+    }
+
+
     if (error) {
       return <>댓글을 불러올 수 없습니다...</>
     }
@@ -118,12 +151,22 @@ const AddReplyItem =({reply})=>{
   
         {!loading && replys && (<div>
           {
-            replys.map(reply => (
+            replys.map(reply => (<>
+   
+
+              {
               reply.reply_type===0?
-            <ReplyItem reply={reply} key={reply.reply_id} />:
+            <ReplyItem onChangeField={onChangeField} reply={reply} key={reply.reply_id} 
+            addReplyState={addReplyState}/>:
             <AddReplyItem
+            onChangeField={onChangeField}
             reply={reply} key={reply.reply_id}
-            />
+            />}
+                    { reply.reply_group_id=== addReplyState&& reply.reply_type===0?(<>
+            <AddReplyEditor/>
+            </>
+            ):<></>}
+            </>
           ))}
         </div>)}
       </ReplyListBlock>

@@ -1,21 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import qs from "qs";
-import { useParams,useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ReplyList from "../../components/post/ReplyList";
-import { listReplys, unloadReplys } from "../../modules/replys";
+import { changeField, listReplys, unloadReplys, writeReply } from "../../modules/replys";
 
-const PostListContainer = () => {
+const ReplyListContainer = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const { replys, error, loading } = useSelector(
+  const {addReplyState, reply_post,reply_contents,reply_order,reply_type,reply_group_id,replys, replysError, loading } = useSelector(
     ({ replys, loading }) => ({
+      addReplyState: replys.addReplyState,
+      reply_post: id,
+      reply_contents: replys.reply_contents,
+      reply_type_: 1,
+      reply_order:replys.reply_order,
+      reply_group_id: replys.reply_group_id,
       replys: replys.replys,
-      error: replys.replysError,
+      replysError: replys.replysError,
       loading: loading['replys/LIST_REPLYS'],
     }),
   );
+  const onPublish = (e) => {
+    e.preventDefault();
+    dispatch(writeReply({reply_post, reply_contents,reply_type,reply_order, reply_group_id}));
+  };
+
+
+  const onChangeField = 
+  useCallback(payload => dispatch(changeField(payload)), 
+  [dispatch]);
+
 
   useEffect(() => {
     dispatch(listReplys(id));
@@ -27,11 +43,13 @@ const PostListContainer = () => {
   return (
     <ReplyList
       loading={loading}
-      error={error}
+      error={replysError}
+      addReplyState={addReplyState}
       replys={replys}
-      
+      onChangeField={onChangeField}
+      onPublish={onPublish}
     />
   );
 };
 
-export default PostListContainer;
+export default ReplyListContainer;

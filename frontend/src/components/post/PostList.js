@@ -81,7 +81,7 @@ const PostItem = ({ post }) => {
 
     return (
       <Link to={`/post/view/${post.post_id}`}>
-    <PostItemBlock>
+      <PostItemBlock>
         
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <PostItemInfoBlock>
