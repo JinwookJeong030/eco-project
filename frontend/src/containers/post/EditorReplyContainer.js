@@ -18,7 +18,6 @@ const EditorContainer = () => {
     reply:replys.reply,
     replyError:replys.replyError
   }));
-  console.log(reply_post);
   const onPublish = () => {
     dispatch(writeReply({reply_post, reply_contents,reply_type,reply_order, reply_group_id}));
   };

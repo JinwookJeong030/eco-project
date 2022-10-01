@@ -20,6 +20,19 @@ flex-wrap: nowrap;
 font-size: 0.9rem;
 flex-wrap: nowrap;
 `
+const AddReplyItemBlock = styled.div`
+margin-top:0.5rem;
+margin-bottom:0.5rem;
+border: thin solid ;
+border-color: #424242;
+box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.1);
+padding:1rem 1.2rem 0rem 1.2rem;
+margin-left: 2rem;
+background: #eeeeee;
+flex-wrap: nowrap;
+font-size: 0.9rem;
+flex-wrap: nowrap;
+`
 const NickName = styled.div`
 width:7rem;
 flex-wrap: nowrap;
@@ -79,6 +92,20 @@ const ReplyItem = ({ reply }) => {
     </ReplyItemBlock>
     );
 };
+const AddReplyItem =({reply})=>{
+
+  return(
+  <AddReplyItemBlock>
+        <ReplyItemInfoBlock>
+            <NickName>{reply.user_name}</NickName>
+            <Contents>{reply.reply_contents}</Contents>
+            <Regdate>{reply.reply_regdate}</Regdate>
+            <DeleteBtn>x</DeleteBtn>
+        </ReplyItemInfoBlock>
+    </AddReplyItemBlock>
+  )
+
+}
   const ReplyList = ({ replys, loading, error, showWriteButton }) => {
     
   
@@ -92,7 +119,11 @@ const ReplyItem = ({ reply }) => {
         {!loading && replys && (<div>
           {
             replys.map(reply => (
-            <ReplyItem reply={reply} key={reply.reply_id} />
+              reply.reply_type===0?
+            <ReplyItem reply={reply} key={reply.reply_id} />:
+            <AddReplyItem
+            reply={reply} key={reply.reply_id}
+            />
           ))}
         </div>)}
       </ReplyListBlock>
