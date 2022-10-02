@@ -12,12 +12,14 @@ const EditorContainer = () => {
 
   const {user} = useSelector(({user})=>({user: user.user}));
 
-  const {reply_post, reply_contents, reply_type,reply_order,reply_group_id, reply, replyError } = useSelector(({ replys }) => ({
+  let {reply_post, reply_contents,reply_add_contents, reply_type,reply_order,reply_group_id,addReplyState, reply, replyError } = useSelector(({ replys }) => ({
     reply_post: id,
     reply_contents:replys.reply_contents,
+    reply_add_contents:replys.reply_add_contents,
     reply_type:replys.reply_type,
     reply_order:replys.reply_order,
     reply_group_id:replys.reply_group_id,
+    addReplyState: replys.addReplyState,
     reply:replys.reply,
     replyError:replys.replyError
   }));
@@ -28,9 +30,7 @@ const EditorContainer = () => {
   const onPublish = () => {
     dispatch(writeReply({reply_post, reply_contents,reply_type,reply_order, reply_group_id}));
   };
-  const onCancel = () => {
-    navigate.goBack();
-  };
+ 
 
   const onChangeField = 
   useCallback(payload => dispatch(changeField(payload)), 
@@ -53,7 +53,8 @@ const EditorContainer = () => {
     }
   }, [navigate, reply, replyError]);  
 
-  return <ReplyEditor user={user} onLocationLogin={onLocationLogin} onChangeField={onChangeField} onPublish={onPublish} onCancel={onCancel}/>;
+  return <ReplyEditor user={user} onLocationLogin={onLocationLogin} onChangeField={onChangeField} onPublish={onPublish}
+  />;
 };
 
 export default EditorContainer;

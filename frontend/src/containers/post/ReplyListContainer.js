@@ -14,18 +14,19 @@ const ReplyListContainer = () => {
     ({ replys, loading }) => ({
       addReplyState: replys.addReplyState,
       reply_post: id,
-      reply_contents: replys.reply_contents,
-      reply_type_: 1,
+      reply_contents: replys.reply_add_contents,
+      reply_type: 1,
       reply_order:replys.reply_order,
-      reply_group_id: replys.reply_group_id,
+      reply_group_id: replys.addReplyState,
       replys: replys.replys,
       replysError: replys.replysError,
       loading: loading['replys/LIST_REPLYS'],
     }),
   );
+  
   const onPublish = (e) => {
-    e.preventDefault();
     dispatch(writeReply({reply_post, reply_contents,reply_type,reply_order, reply_group_id}));
+   
   };
 
 
@@ -36,11 +37,12 @@ const ReplyListContainer = () => {
 
   useEffect(() => {
     dispatch(listReplys(id));
+
     // 언마운트될 때 리덕스에서 포스트 데이터 없애기
     return () => {
       dispatch(unloadReplys());
     };
-  }, [dispatch, id]);
+  }, [dispatch, id,]);
   return (
     <ReplyList
       user={user}

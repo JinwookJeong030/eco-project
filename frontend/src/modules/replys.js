@@ -52,6 +52,7 @@ export function* replysSaga() {
 const initialState = {
   addReplyState: null,
   reply_contents: null,
+  reply_add_contents:null,
   reply_type: 0,
   reply_order: 0,
   reply_group_id: 0,
@@ -61,6 +62,15 @@ const initialState = {
   replysError: null,
  
 };
+const setReplyList =(replys)=>{
+  let arrReplys = replys;
+ 
+  if(arrReplys&&!(arrReplys[arrReplys.length - 1].reply_type===2)){arrReplys.push({reply_id:0, reply_type: 2, 
+    reply_group_id:arrReplys[arrReplys.length-1].reply_group_id+1});
+  }
+  return arrReplys;
+
+}
 
 const replys = handleActions(
   {
@@ -71,7 +81,10 @@ const replys = handleActions(
     }),
     [LIST_REPLYS_SUCCESS]: (state, { payload: replys }) => ({
       ...state,
-      replys: replys.result.replys,
+      replys: setReplyList(replys.result.replys)
+      
+      
+      ,
     }),
     [LIST_REPLYS_FAILURE]: (state, { payload: error }) => ({
       ...state,

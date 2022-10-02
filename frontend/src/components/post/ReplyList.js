@@ -37,7 +37,7 @@ font-size: 0.9rem;
 flex-wrap: nowrap;
 `
 const AddReplyEditor =styled(ReplyEditor)`
-  margin:100rem;
+
 `
 
 const NickName = styled.div`
@@ -129,18 +129,15 @@ const AddReplyItem =({onChangeField, reply, addReplyState})=>{
 
 }
 
-  const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, onPublic }) => {
+const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, onPublish }) => {
 
 
     if (error) {
       return <>댓글을 불러올 수 없습니다...</>
     }
     const addState =true;
-    let arrReplys = replys;
-    if(arrReplys&&!(arrReplys[arrReplys.length - 1].reply_type===2)){arrReplys.push({reply_id:0, reply_type: 2, 
-      reply_group_id:arrReplys[arrReplys.length-1].reply_group_id+1});
-}
-console.log(arrReplys);
+  
+
 
     /**에러처리 */
     return (
@@ -148,10 +145,15 @@ console.log(arrReplys);
   
         {!loading && replys && (<div>
           {
-            arrReplys.map(reply => (<div key={reply.reply_id}>
-            { user&&reply.reply_group_id-1=== addReplyState&& (reply.reply_type===0||reply.reply_type===2)?(
-            <AddReplyEditor user={user} addState={addState}/>
-            ):<></>}
+            replys.map(reply => (<div key={reply.reply_id}>
+              
+            { 
+            //대댓글 작성 
+            user&&reply.reply_group_id-1=== addReplyState&& (reply.reply_type===0||reply.reply_type===2)?(
+            <AddReplyEditor user={user} addState={addState} onChangeField={onChangeField} onPublish={onPublish}/>
+            ):
+            <></>
+            }
 
               {
                 reply.reply_type===2?<></>:

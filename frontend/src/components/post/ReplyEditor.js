@@ -92,12 +92,14 @@ const ReplyEditorItem = ({user, onChangeReplys, onPublish, addState})=>{
 
 }
 
-const ReplyEditor = ({user,onLocationLogin, onChangeField, onPublish, onCancel,addState }) => {
+const ReplyEditor = ({user,onLocationLogin, onChangeField, onPublish,addState }) => {
   const userEx = {
     user_name:'닉네임'
 }
   const onChangeReplys= e=>{
-    onChangeField({ key: 'reply_contents', value: e.target.value });
+    !addState?
+    onChangeField({ key: 'reply_contents', value: e.target.value }):
+    onChangeField({ key: 'reply_add_contents', value: e.target.value });
   }
   return (
 user?
