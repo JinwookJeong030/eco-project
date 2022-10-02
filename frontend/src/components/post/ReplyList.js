@@ -6,7 +6,7 @@ import palette from '../../lib/styles/palette';
 import { Link } from "react-router-dom";
 import {WhitePostsItemBox} from '../common/WhiteBox';
 import ReplyEditor from './ReplyEditor';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 const ReplyListBlock = styled.div`
 flex-wrap: nowrap;
@@ -85,9 +85,9 @@ font-size: 1rem;
 padding-top:0;
 `;
 
-const onChangeAddReplyState= (onChangeField,reply, addReplyState)=>{
+const onChangeAddReplyState= (onSetTrueFlag,onChangeField, reply, addReplyState)=>{
   const reply_group_id = reply.reply_group_id;
-
+  onSetTrueFlag();
   addReplyState? (
   reply_group_id===addReplyState?
   onChangeField({ key: 'addReplyState', value: null  })
@@ -99,12 +99,12 @@ const onChangeAddReplyState= (onChangeField,reply, addReplyState)=>{
 
 }
 
-const ReplyItem = ({onChangeField, reply, addReplyState }) => {
+const ReplyItem = ({onSetTrueFlag, onChangeField, reply, addReplyState }) => {
   
  
     return (
     
-    <ReplyItemBlock onClick={()=>onChangeAddReplyState(onChangeField, reply, addReplyState )}>
+    <ReplyItemBlock onClick={()=>onChangeAddReplyState(onSetTrueFlag, onChangeField, reply, addReplyState )}>
         <ReplyItemInfoBlock>
             <NickName><b>{reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
@@ -114,10 +114,10 @@ const ReplyItem = ({onChangeField, reply, addReplyState }) => {
     </ReplyItemBlock>
     );
 };
-const AddReplyItem =({onChangeField, reply, addReplyState})=>{
+const AddReplyItem =({onSetTrueFlag,onChangeField, reply, addReplyState})=>{
  
   return(
-  <AddReplyItemBlock onClick={()=>onChangeAddReplyState(onChangeField, reply, addReplyState )}>
+  <AddReplyItemBlock onClick={()=>onChangeAddReplyState(onSetTrueFlag,onChangeField, reply, addReplyState )}>
         <ReplyItemInfoBlock>
             <NickName><b>↳  {reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
@@ -129,8 +129,15 @@ const AddReplyItem =({onChangeField, reply, addReplyState})=>{
 
 }
 
-const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, onPublish }) => {
+const ReplyList = ({user,addReplyState,addIndex, replys, loading, error,onChangeField, onPublish }) => {
 
+  const [flag,setFlag] = useState(false);
+  const onSetTrueFlag=()=>{
+    setFlag(true)
+  }
+  const onSetFalseFlag=()=>{
+    setFlag(false)
+  }
 
     if (error) {
       return <>댓글을 불러올 수 없습니다...</>
@@ -145,28 +152,34 @@ const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, on
   
         {!loading && replys && (<div>
           {
-            replys.map(reply => (<div key={reply.reply_id}>
+            replys.map((reply) => (<div key={reply.reply_id}>
               
-            { 
-            //대댓글 작성 
-            user&&reply.reply_group_id-1=== addReplyState&& (reply.reply_type===0||reply.reply_type===2)?(
-            <AddReplyEditor user={user} addState={addState} onChangeField={onChangeField} onPublish={onPublish}/>
-            ):
-            <></>
-            }
 
               {
                 reply.reply_type===2?<></>:
               reply.reply_type===0?
-            <ReplyItem onChangeField={onChangeField} reply={reply} 
+            <ReplyItem 
+    
+            onChangeField={onChangeField} reply={reply} 
             key={reply.reply_id} 
-            addReplyState={addReplyState}/>:
+            addReplyState={addReplyState}
+            onSetTrueFlag={onSetTrueFlag}
+            />:
             <AddReplyItem
+          
             onChangeField={onChangeField}
             reply={reply} key={reply.reply_id}
             addReplyState={addReplyState}
+            onSetTrueFlag={onSetTrueFlag}
             />}
-                   
+                   { 
+            //대댓글 작성 
+            user && reply.reply_group_id===addReplyState &&(reply.reply_type===0||reply.reply_type===2)?(<>
+            <AddReplyEditor user={user} addState={addState} onChangeField={onChangeField} onPublish={onPublish}/>
+          
+            </>):
+            <></>
+            }
             </div>
           ))}
         </div>)}
