@@ -1,8 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css }  from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Responsive from './Responsive';
 
+
+const whiteBoxStyle = css`
+${(props) =>
+  props.hoverGrey &&
+  css`
+  &:hover {
+    background: ${palette.gray[0]};
+  }
+  &:active{
+    background: ${palette.gray[2]};
+  }
+`}
+`;
 const WhiteBoxBlock= styled(Responsive)`
 
 `;
@@ -27,7 +40,7 @@ border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 padding:0rem 0rem 0rem 0rem;
 flex-wrap: nowrap;
-
+${whiteBoxStyle}
 `
 
 export const WhiteBox = ({children}) => {
@@ -39,10 +52,10 @@ export const WhiteBox = ({children}) => {
       </WhiteBoxBlock>
     );
   };
-export const WhitePostsItemBox= ({children}) => {
+export const WhitePostsItemBox= ({children, whiteBoxStyle}) => {
     return (
   
-      <PostsItemBlock>
+      <PostsItemBlock hoverGrey={whiteBoxStyle}>
         {children}
       </PostsItemBlock>
     );

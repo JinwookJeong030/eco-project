@@ -28,9 +28,14 @@ module.exports = (app) => {
     app.get('/api/missions',post.missions);
 
     
+
+    app.get('/api/post/recommendsUp/:post_id',authJwt, post.recommendsUp);
+
     // 내가 쓴 글 조회
     app.get('/api/mypage/myPostList',authJwt,post.myPostList);
     // 내가 쓴 댓글 조회
     app.get('/api/mypage/myReplyList',authJwt,post.myReplyList);
+
+
   };
   

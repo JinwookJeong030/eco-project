@@ -14,7 +14,7 @@ const PostHead = styled.div`
   margin-bottom: 0.5rem;
 
   h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     line-height: 1.5;
     margin: 0;
   }
@@ -44,12 +44,44 @@ const SubInfo = styled.div`
 const PostContents = styled.div`
   font-size: 1.2rem;
   color: ${palette.gray[8]};
+  padding-top: 0.5rem;
+  padding-bottom:2rem;
 `;
-
-const ReplyItem = styled.div`
-
-
+const ImgBtnBlock = styled.div`
+  display:flex;
+  flex-direction: row;
+  padding:0;
+  margin-left:auto;
+  width: 10rem;
+  height:5rem;
 `
+const ImgBtn = styled.a`
+  width: 2.5rem;
+  height:2.5rem;
+  margin-left:auto;
+  margin-top:auto;
+  margin-bottom:auto;
+  margin-right:0;
+  padding:0;
+
+  &:hover{
+    background:${palette.gray[1]};
+  }
+  &:active(
+
+  );
+  
+`
+
+const ContentsButtonBlock = ()=>{
+
+
+  return <ImgBtnBlock>
+    <ImgBtn src={ process.env.PUBLIC_URL + "/heart1-icon.png" }/>
+    <ImgBtn src={ process.env.PUBLIC_URL + "/heart0-icon.png" }/>
+  </ImgBtnBlock>
+}
+
 
 const PostViewer = ({ post, error, loading }) => {
   
@@ -66,8 +98,8 @@ const PostViewer = ({ post, error, loading }) => {
     return null;
   }
 
-  const { post_title, post_contents, user_name, post_regdate,  } = post;
-  let viewCnt=0, recommend=0, reply= 0;
+  const { post_title, post_contents, user_name, post_regdate, post_views, post_recommend, post_report, replyCnt } = post;
+
 
   return (
     <>
@@ -78,12 +110,11 @@ const PostViewer = ({ post, error, loading }) => {
           <span>
             <b>{user_name}</b>
           </span>
-          <span>{new  Date(post_regdate).toLocaleDateString()}</span>
+          <span>{new  Date(post_regdate).toLocaleString()}</span>
           <SubInfoRight>
-            <span>조회수 {viewCnt}</span>
-            
-            <span>추천 {recommend}</span>
-            <span>댓글 {reply}</span>
+            <span>조회수 {post_views}</span>
+            <span>추천 {post_recommend}</span>
+            <span>댓글 {replyCnt}</span>
           </SubInfoRight>
         </SubInfo>
        
@@ -91,6 +122,9 @@ const PostViewer = ({ post, error, loading }) => {
       <PostContents
         dangerouslySetInnerHTML={{ __html: post_contents }}
       />
+      <ContentsButtonBlock>
+
+      </ContentsButtonBlock>
    
     </>
   );

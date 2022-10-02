@@ -25,7 +25,14 @@ exports.list = async (req, res) => {
   };
 
 exports.view = async (req, res) =>{
-    
+ await Post.updatePostViews(req.params.post_id,(err, data) => {
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'updatePostViews is error!'
+      });
+    } 
+  });
      Post.selectPostFromId(req.params.post_id,(err, data) => {
       if (!data) {
         return res.status(419).send({
@@ -47,14 +54,15 @@ exports.view = async (req, res) =>{
            post_regdate:data.post_regdate,
            post_update:data.post_update,
            post_views:data.post_views,
-           post_recommand:data.post_recommand,
+           post_recommend:data.post_recommend,
            post_report:data.post_report,
            user_name:data.user_name,
+           replyCnt: data.replyCnt,
           }
         }});
     } 
     });
-
+  
 
   
 };
@@ -255,6 +263,28 @@ exports.reply_delete = async (req,res) =>{
   })
 
 }
+
+
+
+//추천수 증가
+exports.recommendsUp = async(req, res) =>{
+  Post.updatePostRecommend(req.params.post_id,(err, data) => {
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'updatePostViews is error!'
+      });
+    } else {
+      
+      return res.send({
+        code:200,
+        message: 'updatePostViews is successful',
+        });
+  } 
+  });
+}
+
+
 exports.myPostList = async(req, res) =>{
 
   Post.selectMyPosts(req.user_id,(err, data) => {

@@ -57,8 +57,10 @@ const QuillWrapper = styled.div`
   /* 최소 크기 지정 및 padding 제거 */
   .ql-editor {
     padding: 0;
-    min-height: 320px;
+    min-height: 400px;
+    max-height: 580px;
     font-size: 1.125rem;
+    max-length: '2';
     line-height: 1.5;
   }
   .ql-editor.ql-blank::before {
@@ -160,10 +162,13 @@ const Editor =({categorys,category, missions, title,onChangeField, onPublish, on
             placeholder="제목을 입력하세요." 
             onChange={onChangeTitle} 
             value={title}
+            maxLength="50"
           />
             <QuillWrapper>
                 <EditBody 
-                   ref={quillElement}  />
+                   ref={quillElement}  
+                   maxLength="500"
+                   />
             
               <PostActionBtn Styled='margin: 5rem;' onPublish={onPublish} onCancel={onCancel}/>
             </QuillWrapper>

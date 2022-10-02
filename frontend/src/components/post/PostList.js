@@ -12,9 +12,12 @@ const PostListBlock = styled(Responsive)`
 const WritePostButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  
 
 `;
 const PostItemBlock = styled(WhitePostsItemBox)`
+
+
 `
 const PostItemInfoBlock = styled.div`
 
@@ -32,9 +35,7 @@ const PostItemInfoBlock = styled.div`
     font-size: 2rem;
     margin-bottom: 0;
     margin-top: 0;
-    &:hover {
-      color: ${palette.gray[6]};
-    }
+  
   }
 
   p {
@@ -56,10 +57,11 @@ const SubInfo = styled.div`
 `;
 const Title= styled.h2`
   margin:0;
-  overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
-  
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow:hidden; 
+  text-overflow:ellipsis;
+  width:40rem;
 `
 
 
@@ -68,27 +70,37 @@ width: 10rem;
 height: 10rem;
 border: solid thin;
 margin: 1rem;
+padding:0;
+`
+const PostNickName = styled.div`
+width: 10rem; 
+height:2rem;
+font: bold;
+margin:0;
+padding:0;
 `
 const PostContent = styled.div`
-
+padding:0;
 width: 33rem; 
-height:7rem;
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
+height:3rem;
+overflow:hidden; 
+text-overflow:ellipsis;
 `;
-const PostItem = ({ post }) => {
 
+const PostItem = ({ post }) => {
+  const extractTextPattern = /(<([^>]+)>)/gi;
+ 
+  const post_contents = post.post_contents.replace(extractTextPattern, '')
     return (
       <Link to={`/post/view/${post.post_id}`}>
-      <PostItemBlock>
+      <PostItemBlock whiteBoxStyle>
         
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <PostItemInfoBlock>
         <Title>{post.post_title}</Title>
-        <PostContent
-        dangerouslySetInnerHTML={{ __html: post.post_contents }}
-      />
+        <PostNickName><b>{post.user_name}</b></PostNickName>
+        <PostContent>{post_contents}</PostContent>
+        {new Date(post.post_regdate).toLocaleString()}
        
       </PostItemInfoBlock>
    
@@ -110,7 +122,6 @@ const PostItem = ({ post }) => {
         </WritePostButtonWrapper>
         {!loading && posts && (<div>
           {
-
           posts.map(post => (
             <PostItem post={post} key={post.post_id} />
           ))}

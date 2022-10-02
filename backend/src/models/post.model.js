@@ -11,14 +11,14 @@ const Post = function (post) {
     this.post_regdate = new Date();
     this.post_update = post.post_update;
     this.post_views = post.post_views;
-    this.post_recommand = post.post_recommand;
+    this.post_recommend = post.post_recommend;
     this.post_report = post.post_report;
     
   };
 
   //post 전체 조회
 Post.selectAllPosts = (result) => {
-  sql.query('SELECT * FROM post ORDER BY post_regdate DESC', (err, res) => {
+  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id ORDER BY post_regdate DESC', (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -31,7 +31,10 @@ Post.selectAllPosts = (result) => {
 };
   //post_id를 통한 post 조회 
 Post.selectPostFromId =(post_id,result)=>{
-  sql.query('SELECT post.* ,user.user_name FROM post,user WHERE post.post_user =user.user_id AND post.post_id = '+post_id+" ;", (err, res) => {
+  sql.query('SELECT post.* ,user.user_name,COUNT(reply.reply_id) as replyCnt FROM post '+
+  'LEFT OUTER JOIN reply ON post.post_id = reply.reply_post '+
+  'LEFT OUTER JOIN user ON post.post_user = user.user_id '+
+  'WHERE post_id = '+post_id+' ;', (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -52,7 +55,7 @@ Post.insertPost =(post ,result) =>{
     post_contents: post.post_contents, 
     post_category: post.post_category,
     post_views: 0,
-    post_recommand:0,
+    post_recommend:0,
     post_report:0
   })
 
@@ -144,5 +147,30 @@ Post.selectAllCategory = (result) => {
     });
   };
 
-
+  //조회수 증가
+  Post.updatePostViews = (post_id, result) => {
+    sql.query('UPDATE post SET post_views = post_views + 1  WHERE post_id = '+post_id+' ;', (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+  
+      console.log('updatePostViews: ',  res );
+      result(null,  res);
+    });
+  };
+  //추천수 증가
+  Post.updatePostRecommend = (post_id, result) => {
+    sql.query('UPDATE post SET post_views = post_views + 1  WHERE post_id = '+post_id+' ;', (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+  
+      console.log('updatePostRecommand: ',  res );
+      result(null,  res);
+    });
+  };
 module.exports = Post;
