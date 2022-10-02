@@ -1,7 +1,7 @@
 const User = require('../models/user.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
 
   if (!(req.body.user_email && req.body.user_password && req.body.user_name)) {
     return res.status(400).send({
@@ -114,7 +114,7 @@ exports.check =async (req,res) =>{
   const reqUser = new User({
     user_id: req.user_id ,
   });
-  User.selectUserInfo(reqUser, (err, data) => {
+   User.selectUserInfo(reqUser, (err, data) => {
     if (!data) {
       return res.status(419).send({
         code: 419,

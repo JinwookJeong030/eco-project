@@ -9,6 +9,7 @@ const ReplyListContainer = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
+  const {user}= useSelector(({user})=>({user: user.user}));
   const {addReplyState, reply_post,reply_contents,reply_order,reply_type,reply_group_id,replys, replysError, loading } = useSelector(
     ({ replys, loading }) => ({
       addReplyState: replys.addReplyState,
@@ -42,6 +43,7 @@ const ReplyListContainer = () => {
   }, [dispatch, id]);
   return (
     <ReplyList
+      user={user}
       loading={loading}
       error={replysError}
       addReplyState={addReplyState}

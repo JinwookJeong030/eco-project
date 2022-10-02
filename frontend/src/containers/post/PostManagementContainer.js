@@ -7,6 +7,7 @@ import PostManagement from "../../components/post/PostManagement";
 
 const PostManagementContainer = () => {
 
+  const navigate = useNavigate();
   // 처음 마운트될 때 포스트 읽기 API 요청
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -19,7 +20,11 @@ const PostManagementContainer = () => {
   const onRemove =()=>{
    
 }
-  return <PostManagement user={user} id={id} onEdit={onEdit} onRemove={onRemove} />;
+  const onBack=()=>{
+    navigate(-1);
+  }
+
+  return <PostManagement user={user} id={id} onEdit={onEdit} onRemove={onRemove} onBack ={onBack} />;
 };
 
 export default PostManagementContainer;

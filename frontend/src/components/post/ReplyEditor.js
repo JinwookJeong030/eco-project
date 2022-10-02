@@ -1,13 +1,19 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled,{css} from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import Responsive from '../common/Responsive';
 import WhitePostsItemBox from '../common/WhiteBox';
 
-const ReplyEditorBlock = styled.div`
-flex-wrap: nowrap;
-`;
+
+const replyStyle = css`
+${(props) =>
+  props.addReply &&
+  css`
+  width:55rem;
+  margin-left:auto;
+  `}
+`
 
 
 const ReplyEditorBackground = styled.div`
@@ -21,6 +27,8 @@ padding:1rem 1rem 0.5rem 0.5rem;
 flex-wrap: nowrap;
 font-size: 0.9rem;
 background: ${palette.gray[0]};
+${replyStyle}
+
 `
 const InputReplyDiv = styled.div`
 display: flex;
@@ -28,18 +36,30 @@ flex-direction: row;
 margin-left:0.5rem;
 margin-right:0.5rem;
 margin-bottom:0.5rem;
+text-align: center;
 `
 const NickName = styled.div`
 
 `
-const InputReplyContents = styled.input`
+const InputReplyContents = styled.textarea`
 text-align: left;
+height:5rem;
 padding: 5px;
 margin: 0px;
 width: 48rem;
-height: 6rem;
 margin-left: auto;
+resize: none;
 
+`
+const LocationLoginBtn = styled(Button)`
+ 
+  width:17rem;
+  height:2.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:;
 `
 const SubmitBtn = styled(Button)`
 margin-left: auto;
@@ -48,20 +68,31 @@ height:2rem;
 margin-right:0.5rem;
 margin-bottom:0rem;
 `
-const ReplyEditorItem = ({user, onChangeReplys, onPublish})=>{
+const Text = styled.h3`
+
+  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom:0.5rem;
+  font-size:1.1rem;
+  color: ${palette.green[1]};
+
+`
+
+const ReplyEditorItem = ({user, onChangeReplys, onPublish, addState})=>{
 
 
-    return (<ReplyEditorBackground>
+    return (<ReplyEditorBackground addReply={addState}>
             <InputReplyDiv>
-            <NickName><b>{user.user_name}</b></NickName>
-            <InputReplyContents onChange={onChangeReplys}/>
+            <NickName>{addState&&<b>↳ </b>} <b>{user.user_name}</b></NickName>
+            <InputReplyContents onChange={onChangeReplys} maxLength="150" placeholder='댓글은 150자까지 작성 가능합니다.'/>
             </InputReplyDiv>
             <SubmitBtn green onClick={onPublish}>등록</SubmitBtn>
         </ReplyEditorBackground>);
 
 }
 
-const ReplyEditor = ({user, onChangeField, onPublish, onCancel }) => {
+const ReplyEditor = ({user,onLocationLogin, onChangeField, onPublish, onCancel,addState }) => {
   const userEx = {
     user_name:'닉네임'
 }
@@ -69,11 +100,23 @@ const ReplyEditor = ({user, onChangeField, onPublish, onCancel }) => {
     onChangeField({ key: 'reply_contents', value: e.target.value });
   }
   return (
-    <ReplyEditorBlock>
+user?
+  
     <ReplyEditorItem user={user?user:userEx} onChangeReplys={onChangeReplys}
     onPublish={onPublish}
+    addState={addState}
     />
-    </ReplyEditorBlock>
+   :(
+
+    <ReplyEditorBackground>
+    <Text>댓글은 로그인 후 작성 할 수 있습니다.</Text>
+    <InputReplyDiv>
+   <LocationLoginBtn onClick={onLocationLogin} green>로그인 하러가기</LocationLoginBtn>
+   </InputReplyDiv>
+   </ReplyEditorBackground>
+  )
+    
+
   );
 };
 

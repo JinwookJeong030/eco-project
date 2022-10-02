@@ -9,6 +9,9 @@ const EditorContainer = () => {
   const {id} =useParams();
   
   const navigate = useNavigate();
+
+  const {user} = useSelector(({user})=>({user: user.user}));
+
   const {reply_post, reply_contents, reply_type,reply_order,reply_group_id, reply, replyError } = useSelector(({ replys }) => ({
     reply_post: id,
     reply_contents:replys.reply_contents,
@@ -18,6 +21,10 @@ const EditorContainer = () => {
     reply:replys.reply,
     replyError:replys.replyError
   }));
+
+  const onLocationLogin =()=>{
+    navigate('/login');
+  };
   const onPublish = () => {
     dispatch(writeReply({reply_post, reply_contents,reply_type,reply_order, reply_group_id}));
   };
@@ -46,7 +53,7 @@ const EditorContainer = () => {
     }
   }, [navigate, reply, replyError]);  
 
-  return <ReplyEditor onChangeField={onChangeField} onPublish={onPublish} onCancel={onCancel}/>;
+  return <ReplyEditor user={user} onLocationLogin={onLocationLogin} onChangeField={onChangeField} onPublish={onPublish} onCancel={onCancel}/>;
 };
 
 export default EditorContainer;

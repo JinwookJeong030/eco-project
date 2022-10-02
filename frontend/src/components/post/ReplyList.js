@@ -37,7 +37,7 @@ font-size: 0.9rem;
 flex-wrap: nowrap;
 `
 const AddReplyEditor =styled(ReplyEditor)`
-
+  margin:100rem;
 `
 
 const NickName = styled.div`
@@ -130,7 +130,7 @@ const AddReplyItem =({onChangeField, reply})=>{
 
 }
 
-  const ReplyList = ({addReplyState, replys, loading, error,onChangeField, onPublic }) => {
+  const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, onPublic }) => {
 
     const [flag,setFlag] =useState(true);
     
@@ -145,6 +145,8 @@ const AddReplyItem =({onChangeField, reply})=>{
     if (error) {
       return <>댓글을 불러올 수 없습니다...</>
     }
+    const addState =true;
+
   /**에러처리 */
     return (
       <ReplyListBlock>
@@ -162,8 +164,8 @@ const AddReplyItem =({onChangeField, reply})=>{
             onChangeField={onChangeField}
             reply={reply} key={reply.reply_id}
             />}
-                    { reply.reply_group_id=== addReplyState&& reply.reply_type===0?(<>
-            <AddReplyEditor/>
+                    { user&&reply.reply_group_id=== addReplyState&& reply.reply_type===0?(<>
+            <AddReplyEditor user={user} addState={addState}/>
             </>
             ):<></>}
             </>

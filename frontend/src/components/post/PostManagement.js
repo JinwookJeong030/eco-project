@@ -19,7 +19,7 @@ const PostManagementBtn = styled(Button)`
 
 `;
 
-const PostManagement = ({user , id, onEdit, onRemove })=>{
+const PostManagement = ({user , id, onEdit, onRemove, onBack })=>{
   const [modal, setModal] = useState(false);
   const onRemoveClick = () => {
     setModal(true);
@@ -37,11 +37,11 @@ const PostManagement = ({user , id, onEdit, onRemove })=>{
         <PostManagementDiv>{
        user?  <> 
    
-      <PostManagementBtn gray OnClick={onEdit}>수정</PostManagementBtn>
+      <PostManagementBtn gray onClick={onEdit}>수정</PostManagementBtn>
 
-      <PostManagementBtn gray OnClick={onRemoveClick}>삭제</PostManagementBtn>
+      <PostManagementBtn gray onClick={onRemoveClick}>삭제</PostManagementBtn>
       </>:<></>}
-      <PostManagementBtn green>뒤로가기</PostManagementBtn>
+      <PostManagementBtn green onClick={onBack}>뒤로가기</PostManagementBtn>
       </PostManagementDiv>
      
       </PostManagementBlock>
