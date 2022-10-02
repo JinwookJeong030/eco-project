@@ -10,7 +10,7 @@ const replyStyle = css`
 ${(props) =>
   props.addReply &&
   css`
-  width:55rem;
+  width:56rem;
   margin-left:auto;
   `}
 `
@@ -23,7 +23,7 @@ margin-bottom:0.5rem;
 border: thin solid ;
 border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.1);
-padding:1rem 1rem 0.5rem 0.5rem;
+padding:1rem 1.2rem 0.5rem 0.5rem;
 flex-wrap: nowrap;
 font-size: 0.9rem;
 background: ${palette.gray[0]};
@@ -39,7 +39,7 @@ margin-bottom:0.5rem;
 text-align: center;
 `
 const NickName = styled.div`
-
+margin-left:0.3rem;
 `
 const InputReplyContents = styled.textarea`
 text-align: left;

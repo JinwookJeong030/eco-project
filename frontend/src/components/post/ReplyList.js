@@ -85,26 +85,28 @@ font-size: 1rem;
 padding-top:0;
 `;
 
-const ReplyItem = ({onChangeField, reply, addReplyState }) => {
+const onChangeAddReplyState= (onChangeField,reply, addReplyState)=>{
   const reply_group_id = reply.reply_group_id;
-  const onChangeAddReplyState= ()=>{
 
+  addReplyState? (
+  reply_group_id===addReplyState?
+  onChangeField({ key: 'addReplyState', value: null  })
+  :
+    onChangeField({ key: 'addReplyState', value: reply_group_id  })
 
-    addReplyState? (
-    reply_group_id===addReplyState?
-    onChangeField({ key: 'addReplyState', value: null  })
-    :
-      onChangeField({ key: 'addReplyState', value: reply_group_id  })
+  ):(
+  onChangeField({ key: 'addReplyState', value: reply_group_id  }));
 
-    ):(
-    onChangeField({ key: 'addReplyState', value: reply_group_id  }));
+}
 
-  }
+const ReplyItem = ({onChangeField, reply, addReplyState }) => {
+  
+ 
     return (
     
-    <ReplyItemBlock onClick={onChangeAddReplyState}>
+    <ReplyItemBlock onClick={()=>onChangeAddReplyState(onChangeField, reply, addReplyState )}>
         <ReplyItemInfoBlock>
-            <NickName>{reply.user_name}</NickName>
+            <NickName><b>{reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
             <Regdate>{reply.reply_regdate}</Regdate>
             <DeleteBtn>x</DeleteBtn>
@@ -112,15 +114,12 @@ const ReplyItem = ({onChangeField, reply, addReplyState }) => {
     </ReplyItemBlock>
     );
 };
-const AddReplyItem =({onChangeField, reply})=>{
-  const reply_group_id = reply.reply_group_id;
-  const onChangeAddReplyState= ()=>{
-    onChangeField({ key: 'addReplyState', value: reply_group_id  });
-  }
+const AddReplyItem =({onChangeField, reply, addReplyState})=>{
+ 
   return(
-  <AddReplyItemBlock>
-        <ReplyItemInfoBlock onClick={onChangeAddReplyState}>
-            <NickName>{reply.user_name}</NickName>
+  <AddReplyItemBlock onClick={()=>onChangeAddReplyState(onChangeField, reply, addReplyState )}>
+        <ReplyItemInfoBlock>
+            <NickName><b>↳  {reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
             <Regdate>{reply.reply_regdate}</Regdate>
             <DeleteBtn>x</DeleteBtn>
@@ -132,43 +131,41 @@ const AddReplyItem =({onChangeField, reply})=>{
 
   const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, onPublic }) => {
 
-    const [flag,setFlag] =useState(true);
-    
-    const flagEditor =()=>{
-      if(flag === true)
-      setFlag(false)
-      else
-      setFlag(true);
-    }
-
 
     if (error) {
       return <>댓글을 불러올 수 없습니다...</>
     }
     const addState =true;
+    let arrReplys = replys;
+    if(arrReplys&&!(arrReplys[arrReplys.length - 1].reply_type===2)){arrReplys.push({reply_id:0, reply_type: 2, 
+      reply_group_id:arrReplys[arrReplys.length-1].reply_group_id+1});
+}
+console.log(arrReplys);
 
-  /**에러처리 */
+    /**에러처리 */
     return (
       <ReplyListBlock>
   
         {!loading && replys && (<div>
           {
-            replys.map(reply => (<>
-   
+            arrReplys.map(reply => (<div key={reply.reply_id}>
+            { user&&reply.reply_group_id-1=== addReplyState&& (reply.reply_type===0||reply.reply_type===2)?(
+            <AddReplyEditor user={user} addState={addState}/>
+            ):<></>}
 
               {
+                reply.reply_type===2?<></>:
               reply.reply_type===0?
-            <ReplyItem onChangeField={onChangeField} reply={reply} key={reply.reply_id} 
+            <ReplyItem onChangeField={onChangeField} reply={reply} 
+            key={reply.reply_id} 
             addReplyState={addReplyState}/>:
             <AddReplyItem
             onChangeField={onChangeField}
             reply={reply} key={reply.reply_id}
+            addReplyState={addReplyState}
             />}
-                    { user&&reply.reply_group_id=== addReplyState&& reply.reply_type===0?(<>
-            <AddReplyEditor user={user} addState={addState}/>
-            </>
-            ):<></>}
-            </>
+                   
+            </div>
           ))}
         </div>)}
       </ReplyListBlock>

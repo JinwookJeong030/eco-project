@@ -199,7 +199,12 @@ exports.reply_write = async (req,res) =>{
       });
     }
   })
-
+if(replyReq.reply_type===1){
+  return res.send({
+    code:200,
+    message: 'insertReply,UpdateReplyGroupId is successful', 
+   });
+}
 
    Reply.SelectReplyIdFromUserId(replyReq , (err,data)=>{
     if(!data){
