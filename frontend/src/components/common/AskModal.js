@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import palette from "../../lib/styles/palette";
 import Button from "./Button";
 
 const Fullscreen = styled.div`
@@ -16,7 +17,7 @@ const Fullscreen = styled.div`
 `;
 
 const AskModalBlock = styled.div`
-  width: 320px;
+  width: 410px;
   background: white;
   padding: 1.5rem;
   border-radius: 4px;
@@ -44,12 +45,22 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const Title = styled.h2`
+color: ${palette.green[0]};
+`
+const Contents =styled.div`
+margin-top:3rem;
+font-size: 1.2rem;
+text-align:center;
+
+`
 const AskModal = ({
   visible,
   title,
   discription,
+  discription2,
   confirmText = '확인',
-  cancelText = '취소',
+  cancelText ,
   onConfirm,
   onCancel,
 }) => {
@@ -58,11 +69,19 @@ const AskModal = ({
   return (
     <Fullscreen>
       <AskModalBlock>
-        <h2>{title}</h2>
-        <p>{discription}</p>
+        <Title>{title}</Title>
+        <Contents>
+        <p>
+        {discription}
+        <br/>
+        {discription2}
+        </p>
+
+        </Contents>
+       
         <div className="buttons">
-          <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
-          <StyledButton cyan onClick={onConfirm}>{confirmText}</StyledButton>
+          {cancelText&&<StyledButton onClick={onCancel}>{cancelText}</StyledButton>}
+          {confirmText&&<StyledButton cyan onClick={onConfirm}>{confirmText}</StyledButton>}
         </div>
       </AskModalBlock>
     </Fullscreen>

@@ -102,7 +102,7 @@ const Editor =({categorys,category, missions, title,onChangeField, onPublish, on
       [{'font': []}],
       [{ 'header': [6,5,4,3,2,1] }],
       [{ 'color': [] }, { 'background': [] }],
-      ['bold','underline', 'italic','strike', { 'color': [] },{ 'background': [] }],
+      ['bold','underline', 'italic','strike',],
       [ { 'align': '' },{ 'align': 'center' },{ 'align': 'right' },{ 'align': 'justify' },{'indent': '-1'}, {'indent': '+1'},{
         'list': ['ordered', 'bullet']},{ lineheight: ['1.0', '1.2', '1.5', '1.6', '1.8', '2.0', '2.4', '2.8', '3.0', '4.0', '5.0'] }],
       ['image','link']

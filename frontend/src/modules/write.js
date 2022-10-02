@@ -11,6 +11,17 @@ const [
   WRITE_POST_FAILURE,
 ] = createRequestActionTypes('write/WRITE_POST'); // 포스트 작성
 const [
+  EDIT_POST,
+  EDIT_POST_SUCCESS,
+  EDIT_POST_FAILURE,
+] = createRequestActionTypes('write/EDIT_POST'); // 포스트 작성
+const [
+  DELETE_POST,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_FAILURE,
+] = createRequestActionTypes('write/DELETE_POST'); // 포스트 작성
+
+const [
   CATEGORYS, 
   CATEGORYS_SUCCESS, 
   CATEGORYS_FAILURE
@@ -32,16 +43,28 @@ export const writePost = createAction(WRITE_POST, ({ post_title, post_contents,p
   post_category,
   post_mission
 }));
+export const editPost = createAction(EDIT_POST, ({ post_id, post_title, post_contents,post_category, post_mission }) => ({
+  post_title,
+  post_contents,
+  post_category,
+  post_mission
+}));
+export const deletePost = createAction(DELETE_POST, id => id);
+
 export const categorys = createAction(CATEGORYS);
 export const missions = createAction(MISSIONS);
 // 사가 생성
 const writePostSaga = createRequestSaga(WRITE_POST, postsAPI.writePost);
+const editPostSaga = createRequestSaga(EDIT_POST, postsAPI.editPost);
+const deletePostSaga = createRequestSaga(DELETE_POST, postsAPI.deletePost);
 const categorysSaga = createRequestSaga(CATEGORYS, postsAPI.categorysPost);
 const missionsSaga = createRequestSaga(MISSIONS, postsAPI.missionsPost);
 export function* writeSaga() {
   yield takeLatest(CATEGORYS, categorysSaga);
   yield takeLatest(MISSIONS, missionsSaga);
   yield takeLatest(WRITE_POST, writePostSaga);
+  yield takeLatest(EDIT_POST, editPostSaga);
+  yield takeLatest(DELETE_POST, deletePostSaga);
 }
 
 
@@ -87,6 +110,38 @@ const write = handleActions(
       ...state,
       postError,
     }),
+    [EDIT_POST]: state => ({
+      ...state,
+      // post와 postError를 초기화
+      categorys:[],
+      categorysError:null,
+      missions:[],
+      missionsError:null,
+      post: null,
+      postError: null,
+    }),
+    // 포스트 수정 성공
+    [EDIT_POST_SUCCESS]: (state, { payload: post }) => ({
+      ...state,
+      post,
+    }),
+    // 포스트 수정 실패
+    [EDIT_POST_FAILURE]: (state, { payload: postError }) => ({
+      ...state,
+      postError,
+    }),
+    // 포스트 삭제 성공
+    [DELETE_POST_SUCCESS]: (state, { payload: post }) => ({
+      ...state,
+      post,
+    }),
+    // 포스트 삭제 실패
+    [DELETE_POST_FAILURE]: (state, { payload: postError }) => ({
+      ...state,
+      postError,
+    }),
+
+
     [CATEGORYS]: state => ({
       ...state,
       // post와 postError를 초기화

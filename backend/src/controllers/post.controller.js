@@ -122,6 +122,8 @@ exports.edit =async (req,res) =>{
       post_id:  req.body.post_id,
       post_title: req.body.post_title,
       post_contents: req.body.post_contents,
+      post_category: req.body.post_category,
+      post_mission: 0,
     }
   )
   Post.updatePost(postReq, (err,data)=>{
@@ -231,6 +233,26 @@ if(replyReq.reply_type===1){
    
 }
 exports.reply_delete = async (req,res) =>{
+  const replyReq = new Reply(
+    {
+      reply_id: req.body.reply_id,
+      reply_user: req.user_id,
+    }
+  )
+
+  Reply.deleteMyReply(replyReq, (err,data)=>{
+    if(!data){
+      return res.status(419).send({
+        code: 419,
+        message: 'deleteMyReply is error!',
+      });
+    }else{
+      return res.send({
+        code:200,
+        message: 'deleteMyReply is successful', 
+       });
+    }
+  })
 
 }
 exports.myPostList = async(req, res) =>{

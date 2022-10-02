@@ -26,6 +26,7 @@ const ReplyListContainer = () => {
   );
   
   const onPublish = (e) => {
+    e.preventDefault();
     dispatch(writeReply({reply_post, reply_contents,reply_type,reply_order, reply_group_id}));
    
   };

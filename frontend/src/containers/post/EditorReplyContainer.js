@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { changeField, initialize, writeReply } from "../../modules/replys";
+import {readPost}from "../../modules/post";
+import { changeField, initialize, writeReply, listReplys } from "../../modules/replys";
 import { useNavigate, useParams } from "../../../node_modules/react-router-dom/index";
 import ReplyEditor from "../../components/post/ReplyEditor";
 
@@ -27,7 +28,8 @@ const EditorContainer = () => {
   const onLocationLogin =()=>{
     navigate('/login');
   };
-  const onPublish = () => {
+  const onPublish = (e) => {
+    e.preventDefault();
     dispatch(writeReply({reply_post, reply_contents,reply_type,reply_order, reply_group_id}));
   };
  
@@ -46,7 +48,9 @@ const EditorContainer = () => {
 
   useEffect(() => {
     if (reply) {
-      navigate(0);
+      dispatch(readPost(id));
+      dispatch(listReplys(id));
+      
     }
     if (replyError) {
       console.log(replyError);

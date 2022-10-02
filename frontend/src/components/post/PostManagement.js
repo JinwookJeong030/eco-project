@@ -2,7 +2,7 @@ import Button from "../common/Button";
 import styled from "styled-components";
 import Responsive from "../common/Responsive";
 import { useState } from "react";
-import AskRemoveModal from "./AskRemoveModal";
+import {AskRemoveModal, AskRemoveSuccessModal} from "./AskRemoveModal";
 const PostManagementBlock =styled(Responsive)`
 display:flex;
 
@@ -19,37 +19,51 @@ const PostManagementBtn = styled(Button)`
 
 `;
 
-const PostManagement = ({user , id, onEdit, onRemove, onBack })=>{
-  const [modal, setModal] = useState(false);
+const PostManagement = ({user ,post,loadingRead,loadingDelete,onRemoveSuccess, id, onEdit, onRemove, onBack })=>{
+  const [deleteAskModal, setDeleteAskModal] = useState(false);
+  const [succesModal, setSuccesModal] = useState(false);
   const onRemoveClick = () => {
-    setModal(true);
+    setDeleteAskModal(true);
   }
   const onCancel = () => {
-    setModal(false);
+    setDeleteAskModal(false);
+    setSuccesModal(false);
   }
   const onConfirm = () => {
-    setModal(false);
+    setDeleteAskModal(false);
     onRemove()
+    setSuccesModal(true);
   }
     
     return(<>
       <PostManagementBlock>
-        <PostManagementDiv>{
-       user?  <> 
-   
+        <PostManagementDiv>
+      {!loadingRead && post&& user&& 
+      (post.post_user === user.user_id)?
+      <> 
+
       <PostManagementBtn gray onClick={onEdit}>수정</PostManagementBtn>
 
       <PostManagementBtn gray onClick={onRemoveClick}>삭제</PostManagementBtn>
-      </>:<></>}
+      </>
+      :<></>
+      }
       <PostManagementBtn green onClick={onBack}>뒤로가기</PostManagementBtn>
       </PostManagementDiv>
      
       </PostManagementBlock>
+      <AskRemoveSuccessModal
+      />
       <AskRemoveModal
-        visible={modal}
+        visible={deleteAskModal}
         onConfirm={onConfirm}
         onCancel={onCancel}
       /> 
+      <AskRemoveSuccessModal
+        visible={succesModal}
+        onConfirm={onRemoveSuccess}
+ 
+      />
       </>
     )
   }

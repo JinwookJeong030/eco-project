@@ -19,11 +19,13 @@ const EditorContainer = () => {
     post: write.post,
     postError: write.postError,
   }));
-  const onPublish = () => {
+  const onPublish = (e) => {
+    e.preventDefault();
     dispatch(writePost({post_title,post_contents,post_category, post_mission}));
   };
-  const onCancel = () => {
-    navigate.goBack();
+  const onCancel = (e) => {
+    e.preventDefault();
+    navigate(-1);
   };
 
   const onChangeField = 

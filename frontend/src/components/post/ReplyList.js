@@ -99,7 +99,7 @@ const onChangeAddReplyState= (onSetTrueFlag,onChangeField, reply, addReplyState)
 
 }
 
-const ReplyItem = ({onSetTrueFlag, onChangeField, reply, addReplyState }) => {
+const ReplyItem = ({user,onSetTrueFlag, onChangeField, reply, addReplyState }) => {
   
  
     return (
@@ -109,12 +109,12 @@ const ReplyItem = ({onSetTrueFlag, onChangeField, reply, addReplyState }) => {
             <NickName><b>{reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
             <Regdate>{reply.reply_regdate}</Regdate>
-            <DeleteBtn>x</DeleteBtn>
+            {user?(user.user_name === reply.user_name?<DeleteBtn>x</DeleteBtn>:<></>):<></>}
         </ReplyItemInfoBlock>
     </ReplyItemBlock>
     );
 };
-const AddReplyItem =({onSetTrueFlag,onChangeField, reply, addReplyState})=>{
+const AddReplyItem =({user,onSetTrueFlag,onChangeField, reply, addReplyState})=>{
  
   return(
   <AddReplyItemBlock onClick={()=>onChangeAddReplyState(onSetTrueFlag,onChangeField, reply, addReplyState )}>
@@ -122,14 +122,15 @@ const AddReplyItem =({onSetTrueFlag,onChangeField, reply, addReplyState})=>{
             <NickName><b>↳  {reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
             <Regdate>{reply.reply_regdate}</Regdate>
-            <DeleteBtn>x</DeleteBtn>
+          
+            {user?(user.user_name === reply.user_name?<DeleteBtn>x</DeleteBtn>:<></>):<></>}
         </ReplyItemInfoBlock>
     </AddReplyItemBlock>
   )
 
 }
 
-const ReplyList = ({user,addReplyState,addIndex, replys, loading, error,onChangeField, onPublish }) => {
+const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, onPublish }) => {
 
   const [flag,setFlag] = useState(false);
   const onSetTrueFlag=()=>{
@@ -159,14 +160,14 @@ const ReplyList = ({user,addReplyState,addIndex, replys, loading, error,onChange
                 reply.reply_type===2?<></>:
               reply.reply_type===0?
             <ReplyItem 
-    
+            user={user}
             onChangeField={onChangeField} reply={reply} 
             key={reply.reply_id} 
             addReplyState={addReplyState}
             onSetTrueFlag={onSetTrueFlag}
             />:
             <AddReplyItem
-          
+            user={user}
             onChangeField={onChangeField}
             reply={reply} key={reply.reply_id}
             addReplyState={addReplyState}

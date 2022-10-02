@@ -50,6 +50,10 @@ Post.insertPost =(post ,result) =>{
     post_user: post.post_user,
     post_title: post.post_title,
     post_contents: post.post_contents, 
+    post_category: post.post_category,
+    post_views: 0,
+    post_recommand:0,
+    post_report:0
   })
 
   sql.query("INSERT INTO post SET ?",postReq, (err,res)=>{
@@ -71,10 +75,12 @@ Post.updatePost =(post, result)=>{
     post_id: post.post_id,
     post_title: post.post_title,
     post_contents: post.post_contents, 
+    post_category: post.post_category,
     post_user: post.post_user,
   })
 
-  sql.query("Update post SET post_title ='"+postReq.post_title+"' , post_contents = '"+postReq.post_contents+"' WHERE post_id = "+postReq.post_id+" AND post_user = "+postReq.post_user+" ;", 
+  sql.query("UPDATE post SET post_title ='"+postReq.post_title+"' , post_contents = '"+postReq.post_contents+
+  "', post_category = "+postReq.post_category+" WHERE post_id = "+postReq.post_id+" AND post_user = "+postReq.post_user+" ;", 
   (err,res)=>{
     if (err) {
       console.log('error: ', err);

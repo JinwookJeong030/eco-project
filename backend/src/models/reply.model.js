@@ -1,3 +1,4 @@
+const { USER } = require("../config/db.config.js");
 const sql = require("./db.js");
 
 //생성자
@@ -105,6 +106,25 @@ Reply.insertReply =(reply ,result) =>{
 
 };
 
+//댓글 삭제
+Reply.deleteMyReply =(reply,result)=>{
+
+  const replyReq = new Reply({
+    reply_id : reply.reply_id,
+    reply_user: reply.reply_user
+})
+  sql.query('DELETE FROM reply WHERE reply_id = '+replyReq.reply_id+" AND reply_user = "+replyReq.reply_user+" ;", (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+
+    console.log('selectMyReplys : ',  res);
+    result(null,  res);
+  });
+
+};
 
 
   module.exports = Reply;
