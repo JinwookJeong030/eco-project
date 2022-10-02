@@ -8,6 +8,7 @@ import {WhitePostsItemBox} from '../common/WhiteBox';
 import ReplyEditor from './ReplyEditor';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import AskRemoveModal, { AskRemoveSuccessModal } from './AskRemoveModal';
 const ReplyListBlock = styled.div`
 flex-wrap: nowrap;
 `;
@@ -85,9 +86,8 @@ font-size: 1rem;
 padding-top:0;
 `;
 
-const onChangeAddReplyState= (onSetTrueFlag,onChangeField, reply, addReplyState)=>{
+const onChangeAddReplyState= (onChangeField, reply, addReplyState)=>{
   const reply_group_id = reply.reply_group_id;
-  onSetTrueFlag();
   addReplyState? (
   reply_group_id===addReplyState?
   onChangeField({ key: 'addReplyState', value: null  })
@@ -99,47 +99,56 @@ const onChangeAddReplyState= (onSetTrueFlag,onChangeField, reply, addReplyState)
 
 }
 
-const ReplyItem = ({user,onSetTrueFlag, onChangeField, reply, addReplyState }) => {
+const ReplyItem = ({user, onChangeField, reply, addReplyState,onRemoveClick }) => {
   
  
     return (
     
-    <ReplyItemBlock onClick={()=>onChangeAddReplyState(onSetTrueFlag, onChangeField, reply, addReplyState )}>
+    <ReplyItemBlock onClick={()=>onChangeAddReplyState( onChangeField, reply, addReplyState )}>
         <ReplyItemInfoBlock>
             <NickName><b>{reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
             <Regdate>{reply.reply_regdate}</Regdate>
-            {user?(user.user_name === reply.user_name?<DeleteBtn>x</DeleteBtn>:<></>):<></>}
+            {user?(user.user_name === reply.user_name?<DeleteBtn onClick={onRemoveClick}>x</DeleteBtn>:<></>):<></>}
         </ReplyItemInfoBlock>
     </ReplyItemBlock>
     );
 };
-const AddReplyItem =({user,onSetTrueFlag,onChangeField, reply, addReplyState})=>{
+const AddReplyItem =({user,onChangeField, reply, addReplyState,onRemoveClick})=>{
  
   return(
-  <AddReplyItemBlock onClick={()=>onChangeAddReplyState(onSetTrueFlag,onChangeField, reply, addReplyState )}>
+  <AddReplyItemBlock onClick={()=>onChangeAddReplyState(onChangeField, reply, addReplyState)}>
         <ReplyItemInfoBlock>
             <NickName><b>↳  {reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
             <Regdate>{reply.reply_regdate}</Regdate>
           
-            {user?(user.user_name === reply.user_name?<DeleteBtn>x</DeleteBtn>:<></>):<></>}
+            {user?(user.user_name === reply.user_name?<DeleteBtn onClick={onRemoveClick}>x</DeleteBtn>:<></>):<></>}
         </ReplyItemInfoBlock>
     </AddReplyItemBlock>
   )
 
 }
 
-const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, onPublish }) => {
+const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, onPublish,onRemove, onRemoveSuccess }) => {
 
-  const [flag,setFlag] = useState(false);
-  const onSetTrueFlag=()=>{
-    setFlag(true)
+  const [deleteAskModal, setDeleteAskModal] = useState(false);
+  const [succesModal, setSuccesModal] = useState(false);
+  const onRemoveClick = () => {
+    setDeleteAskModal(true);
   }
-  const onSetFalseFlag=()=>{
-    setFlag(false)
+  const onCancel = () => {
+    setDeleteAskModal(false);
+    setSuccesModal(false);
+  }
+  const onConfirm = () => {
+    setDeleteAskModal(false);
+    onRemove()
+    setSuccesModal(true);
   }
 
+
+ 
     if (error) {
       return <>댓글을 불러올 수 없습니다...</>
     }
@@ -149,6 +158,7 @@ const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, on
 
     /**에러처리 */
     return (
+      <>
       <ReplyListBlock>
   
         {!loading && replys && (<div>
@@ -164,14 +174,16 @@ const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, on
             onChangeField={onChangeField} reply={reply} 
             key={reply.reply_id} 
             addReplyState={addReplyState}
-            onSetTrueFlag={onSetTrueFlag}
+            onRemoveClick={onRemoveClick}
+            
             />:
             <AddReplyItem
             user={user}
             onChangeField={onChangeField}
             reply={reply} key={reply.reply_id}
             addReplyState={addReplyState}
-            onSetTrueFlag={onSetTrueFlag}
+            onRemoveClick={onRemoveClick}
+         
             />}
                    { 
             //대댓글 작성 
@@ -185,6 +197,21 @@ const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, on
           ))}
         </div>)}
       </ReplyListBlock>
+      <AskRemoveModal
+        visible={deleteAskModal}
+        onConfirm={onConfirm}
+        onCancel={onCancel}
+        title="댓글 삭제"
+        discription="댓글을 삭제하시겠습니까?"
+      /> 
+      <AskRemoveSuccessModal
+        visible={succesModal}
+        onConfirm={onRemoveSuccess}
+        title="댓글 삭제 완료"
+        discription="댓글이 삭제되었습니다."
+        
+      />
+      </>
     );
   };
   

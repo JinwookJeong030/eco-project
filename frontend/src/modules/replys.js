@@ -20,6 +20,11 @@ const [
   WRITE_REPLY_FAILURE,
 ] = createRequestActionTypes('replys/WRITE_REPLYS');
 
+const [
+  DELETE_REPLY,
+  DELETE_REPLY_SUCCESS,
+  DELETE_REPLY_FAILURE,
+] = createRequestActionTypes('replys/DELETE_REPLY');
 
 const UNLOAD_REPLYS = 'replys/UNLOAD_REPLYS'; // 포스트 페이지에서 벗어날 때 데이터 비우기
 
@@ -42,11 +47,17 @@ export const writeReply = createAction(WRITE_REPLY, ({ reply_post, reply_content
   reply_group_id
 }));
 
+export const deleteReply = createAction(DELETE_REPLY, ({ reply_id }) => ({
+  reply_id,
+}));
+
 const writeReplySaga = createRequestSaga(WRITE_REPLY, postsAPI.writeReply);
+const deleteReplySaga = createRequestSaga(DELETE_REPLY, postsAPI.deleteReply);
 const listReplysSaga = createRequestSaga(LIST_REPLYS, postsAPI.listReplys);
 export function* replysSaga() {
   yield takeLatest(LIST_REPLYS, listReplysSaga);
   yield takeLatest(WRITE_REPLY,writeReplySaga);
+  yield takeLatest(DELETE_REPLY,deleteReplySaga);
 }
 
 const initialState = {
@@ -101,6 +112,20 @@ const replys = handleActions(
     }),
 
     [WRITE_REPLY_FAILURE]: (state, { payload: replyError }) => ({
+      ...state,
+      replyError,
+    }),
+    [DELETE_REPLY]: state => ({
+      ...state,
+      reply: null,
+      replyError: null,
+    }),
+    [DELETE_REPLY_SUCCESS]: (state, { payload: reply }) => ({
+      ...state,
+      reply,
+    }),
+
+    [DELETE_REPLY_FAILURE]: (state, { payload: replyError }) => ({
       ...state,
       replyError,
     }),

@@ -58,11 +58,16 @@ const PostManagement = ({user ,post,loadingRead,loadingDelete,onRemoveSuccess, i
         visible={deleteAskModal}
         onConfirm={onConfirm}
         onCancel={onCancel}
+        title="게시물 삭제"
+        discription="게시물을 정말 삭제하시겠습니까?"
+        discription2="게시물 삭제시 복구가 불가능합니다."
       /> 
       <AskRemoveSuccessModal
         visible={succesModal}
         onConfirm={onRemoveSuccess}
- 
+        title="게시물 삭제 성공"
+        discription="게시물이 삭제되었습니다."
+        discription2="게시판으로 이동합니다."
       />
       </>
     )

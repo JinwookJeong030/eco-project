@@ -2,27 +2,27 @@ import React from "react";
 import AskModal from "../common/AskModal";
 
 
-export const AskRemoveSuccessModal =({visible,  onConfirm})=>{
+export const AskRemoveSuccessModal =({confirmText="확인",visible,title,discription,discription2, onConfirm})=>{
 
   return(
 <AskModal
       visible={visible}
-      title="게시물 삭제 성공"
-      discription="게시물이 삭제되었습니다."
-      discription2="게시판으로 이동합니다."
-      confirmText="확인"
+      title={title}
+      discription={discription}
+      discription2={discription2}
+      confirmText={confirmText}
       onConfirm={onConfirm}
     />)
 
 }
 
-export const AskRemoveModal = ({ visible, onConfirm, onCancel }) => {
+export const AskRemoveModal = ({ visible,title,discription,discription2, onConfirm, onCancel }) => {
   return (
     <AskModal
       visible={visible}
-      title="게시물 삭제"
-      discription="게시물을 정말 삭제하시겠습니까?"
-      discription2="게시물 삭제시 복구가 불가능합니다."
+      title={title}
+      discription={discription}
+      discription2={discription2}
       confirmText="삭제"
       cancelText="취소"
       onConfirm={onConfirm}

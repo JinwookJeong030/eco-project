@@ -4,9 +4,11 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ReplyList from "../../components/post/ReplyList";
 import { changeField, listReplys, unloadReplys, writeReply } from "../../modules/replys";
+import { useNavigate } from "../../../node_modules/react-router-dom/index";
 
 const ReplyListContainer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const {user}= useSelector(({user})=>({user: user.user}));
@@ -31,6 +33,12 @@ const ReplyListContainer = () => {
    
   };
 
+  const onRemove =()=>{
+    
+  }
+  const onRemoveSuccess=()=>{
+    navigate(0);
+  }
 
   const onChangeField = 
   useCallback(payload => dispatch(changeField(payload)), 
@@ -55,6 +63,8 @@ const ReplyListContainer = () => {
       replys={replys}
       onChangeField={onChangeField}
       onPublish={onPublish}
+      onRemove ={onRemove}
+      onRemoveSuccess= {onRemoveSuccess}
     />
   );
 };
