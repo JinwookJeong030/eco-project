@@ -9,3 +9,4 @@ const Perform = function (perform) {
     this.perform_end = perform.perform_end;
     this.perform_refresh = perform.perform_refresh;
 };
+module.exports = Perform;

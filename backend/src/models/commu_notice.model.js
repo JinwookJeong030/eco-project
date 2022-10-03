@@ -9,3 +9,4 @@ const Commu_notice = function (commu_notice) {
     this.cn_regdate = commu_notice.cn_regdate;
     this.cn_views = commu_notice.cn_views;
 };
+module.exports = Commu_notice;

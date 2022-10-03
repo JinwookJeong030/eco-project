@@ -9,3 +9,4 @@ const Commu_file = function (commu_file) {
     this.cf_type = commu_file.cf_type;
     this.cf_size = commu_file.cf_size;
 };
+module.exports = Commu_file;

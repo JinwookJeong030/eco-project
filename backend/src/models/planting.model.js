@@ -11,3 +11,4 @@ const Planting = function (planting) {
     this.pt_prplant = planting.pt_prplant;
     this.pt_repplant = planting.pt_repplant;
 };
+module.exports = Planting;

@@ -39,7 +39,7 @@ Commu.selectAllCommus = (result) => {
   };
 
     //commu_id를 통한 모임 조회 
-Commu.findCommuFromId =(commu_id,result)=>{
+Commu.findCommu =(commu_id,result)=>{
     sql.query('SELECT commu.* FROM commu WHERE commu.commu_id = commu.commu_id = '+commu_id+" ;", (err, res) => {
       if (err) {
         console.log('error: ', err);
@@ -55,12 +55,12 @@ Commu.findCommuFromId =(commu_id,result)=>{
     //commu_id를 통한 모임 삭제 
 
   Commu.deleteCommu =(commu, result)=>{
-    const postReq = new Commu({
+    const commuReq = new Commu({
       commu_id: commu.commu_id,
       commu_name: commu.commu_name,
     })
   
-    sql.query("DELETE FROM commu WHERE commu_id = "+CommuReq.commu_id+" AND commu_name = "+CommuReq.commu_name+" ;", 
+    sql.query("DELETE FROM commu WHERE commu_id = "+commuReq.commu_id+" AND commu_name = "+commuReq.commu_name+" ;", 
     (err,res)=>{
       if (err) {
         console.log('error: ', err);
