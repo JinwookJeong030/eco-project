@@ -8,3 +8,4 @@ const Belong = function (belong) {
     this.belong_role = belong.belong_role;
     this.belong_regdate = belong.belong_regdate;
 };
+module.exports = Belong;

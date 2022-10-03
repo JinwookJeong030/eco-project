@@ -8,3 +8,4 @@ const Plant = function (plant) {
     this.plant_level = plant.plant_level;
     this.plant_img_path = plant.plant_img_path;
 };
+module.exports = Plant;

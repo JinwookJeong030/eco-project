@@ -9,3 +9,4 @@ const Commu_Mission = function (commu_mission) {
     this.cm_start = commu_mission.cm_start;
     this.cm_end = commu_mission.cm_end;
 };
+module.exports = Commu_Mission;

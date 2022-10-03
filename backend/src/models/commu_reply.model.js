@@ -8,3 +8,4 @@ const Commu_reply = function (commu_reply) {
     this.cr_contents = commu_reply.cr_contents;
     this.cr_regdate = commu_reply.cr_regdate;
 };
+module.exports = Commu_reply;
