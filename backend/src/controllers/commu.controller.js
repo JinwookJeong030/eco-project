@@ -46,16 +46,16 @@ exports.list = (req,res)=>{
     });
 };
 // commu_id로 조회
-exports.findcommu = (req,res)=>{
-  Commu.findCommuFromId(req.params.commuId, (err, data) => {
+exports.view = (req,res)=>{
+  Commu.findCommu(req.params.commuId, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found Customer with id ${req.params.customerId}.`
+            message: `Not found Commu with id ${req.params.customerId}.`
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving Customer with id " + req.params.customerId
+            message: "Error retrieving Commu with id " + req.params.customerId
           });
         }
       } else res.send({data});
@@ -63,18 +63,18 @@ exports.findcommu = (req,res)=>{
 };
 // commu_id로 삭제
 exports.delete = (req,res)=>{
-  Commu.deleteCommu(req.params.commuId, (err, data) => {
+  Commu.deleteCommu(req.params.commu_id, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found Customer with id ${req.params.customerId}.`
+            message: `Not found Commu with id ${req.params.commu_id}.`
           });
         } else {
           res.status(500).send({
-            message: "Could not delete Customer with id " + req.params.customerId
+            message: "Could not delete Commu with id " + req.params.commu_id
           });
         }
-      } else res.send({ message: `Customer was deleted successfully!` });
+      } else res.send({ message: `Commu was deleted successfully!` });
     });
 };
   //함수 어떻게 보낼지
