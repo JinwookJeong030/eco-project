@@ -5,6 +5,7 @@ import HeaderContainer from '../../containers/common/HeaderContainer';
 import NavContainer from '../../containers/common/NavContainer';
 import ContentsBoxContainer from  '../../containers/common/ContentsBoxContaniner'
 import PostListContainer from '../../containers/post/PostListContainer';
+import Editor from '../../components/post/Editor';
 const PostListPage = () => {
   return (
     <>

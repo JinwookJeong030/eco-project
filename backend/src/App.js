@@ -12,8 +12,10 @@ const port = 4000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors(corsOptions));
+app.use(express.json()); // json 데이터 파서
+app.use(express.urlencoded({ extended: false })); // 내부 url 파서 사용
 
+app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
   // 루트 주소에 접속하면

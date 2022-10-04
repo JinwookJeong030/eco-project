@@ -131,6 +131,8 @@ exports.edit =async (req,res) =>{
       post_title: req.body.post_title,
       post_contents: req.body.post_contents,
       post_category: req.body.post_category,
+      post_mission: req.body.post_mission,
+      post_update: new Date().toISOString().slice(0, 19).replace('T', ' '),
       post_mission: 0,
     }
   )

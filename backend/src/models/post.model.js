@@ -79,11 +79,13 @@ Post.updatePost =(post, result)=>{
     post_title: post.post_title,
     post_contents: post.post_contents, 
     post_category: post.post_category,
+    post_mission: post.post_mission,
     post_user: post.post_user,
+    post_update: post.post_update
   })
 
   sql.query("UPDATE post SET post_title ='"+postReq.post_title+"' , post_contents = '"+postReq.post_contents+
-  "', post_category = "+postReq.post_category+" WHERE post_id = "+postReq.post_id+" AND post_user = "+postReq.post_user+" ;", 
+  "', post_category = "+postReq.post_category+" , post_update = '"+postReq.post_update+"' WHERE post_id = "+postReq.post_id+" AND post_user = "+postReq.post_user+" ;", 
   (err,res)=>{
     if (err) {
       console.log('error: ', err);

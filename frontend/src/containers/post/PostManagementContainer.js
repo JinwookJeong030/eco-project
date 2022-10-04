@@ -4,7 +4,7 @@ import { useParams, useLocation, useNavigate  } from "react-router-dom";
 import post, { readPost, unloadPost } from "../../modules/post";
 import PostViewer from "../../components/post/PostViewer";
 import PostManagement from "../../components/post/PostManagement";
-import { deletePost } from "../../modules/write";
+import { deletePost, setOriginalPost } from "../../modules/write";
 const PostManagementContainer = () => {
 
   const navigate = useNavigate();
@@ -24,9 +24,9 @@ const PostManagementContainer = () => {
   );
 
 
-  const onEdit =(e)=>{
-    e.preventDefault();
-
+  const onEdit =()=>{
+    dispatch(setOriginalPost(post));
+    navigate('/post/edit');
   }
   const onRemove =()=>{
     dispatch(deletePost(id));

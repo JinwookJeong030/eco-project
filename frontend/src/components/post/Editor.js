@@ -93,7 +93,7 @@ var Parchment = Quill.import('parchment');
     Parchment.register(lineHeightClass);
     Parchment.register(lineHeightStyle);
 
-const Editor =({categorys,category, missions, title,onChangeField, onPublish, onCancel })=>{
+const Editor =({categorys,category, missions,mission, post_title,post_contents,onChangeField, onPublish, onCancel })=>{
   const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
   const quillInstance =  useRef(null); 
 
@@ -127,7 +127,12 @@ const Editor =({categorys,category, missions, title,onChangeField, onPublish, on
     });
   }, [onChangeField]);
 
-
+  const mounted = useRef(false);
+  useEffect(()=>{
+    if(mounted.current) return;
+    mounted.current = true;
+    quillInstance.current.root.innerHTML = post_contents;
+  },[post_title, post_contents]);
 
   const onChangeTitle = e => {
     onChangeField({ key: 'post_title', value: e.target.value });
@@ -145,6 +150,7 @@ const Editor =({categorys,category, missions, title,onChangeField, onPublish, on
           <Select
                  placeholder="카테고리를 선택하세요." 
                  onChange={onChangeCategory} 
+                
           >
           
           {categorys.map(category =>(<option value={category.category_id}>{category.category_name}</option>))}
@@ -153,6 +159,7 @@ const Editor =({categorys,category, missions, title,onChangeField, onPublish, on
             {(category === "4")?<Select
                placeholder="미션을 선택하세요." 
                onChange={onChangeMission} 
+             
             >
             {missions===[]?missions.map(mission =>(<option value={mission.mission_id}>{mission.mission_name}</option>)):<option><option>현재 미션이 없습니다...</option></option>}
             </Select>:<>
@@ -161,7 +168,7 @@ const Editor =({categorys,category, missions, title,onChangeField, onPublish, on
           <TitleInput 
             placeholder="제목을 입력하세요." 
             onChange={onChangeTitle} 
-            value={title}
+            value={post_title}
             maxLength="50"
           />
             <QuillWrapper>

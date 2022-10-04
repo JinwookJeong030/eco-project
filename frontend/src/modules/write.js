@@ -32,6 +32,8 @@ const [
   MISSIONS_FAILURE
 ] = createRequestActionTypes('write/MISSION');//카테고리 조회
 
+const SET_ORIGINAL_POST = 'write/SET_ORIGINAL_POST';
+
 export const initialize = createAction(INITIALIZE);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
@@ -43,7 +45,8 @@ export const writePost = createAction(WRITE_POST, ({ post_title, post_contents,p
   post_category,
   post_mission
 }));
-export const editPost = createAction(EDIT_POST, ({ post_id, post_title, post_contents,post_category, post_mission }) => ({
+export const editPost = createAction(EDIT_POST, ({ post_id, post_title, post_contents, post_category, post_mission }) => ({
+  post_id,
   post_title,
   post_contents,
   post_category,
@@ -53,6 +56,9 @@ export const deletePost = createAction(DELETE_POST, id => id);
 
 export const categorys = createAction(CATEGORYS);
 export const missions = createAction(MISSIONS);
+export const setOriginalPost = createAction(SET_ORIGINAL_POST, post => post);
+
+
 // 사가 생성
 const writePostSaga = createRequestSaga(WRITE_POST, postsAPI.writePost);
 const editPostSaga = createRequestSaga(EDIT_POST, postsAPI.editPost);
@@ -81,6 +87,7 @@ const initialState = {
   missionError:null,
   post: null,
   postError: null,
+  originalPostId: null,
 };
 
 const write = handleActions(
@@ -182,6 +189,14 @@ const write = handleActions(
       ...state,
       missionsError,
     }),
+    [SET_ORIGINAL_POST]:(state, {payload:post})=>({
+      ...state,
+      post_title: post.post_title,
+      post_contents: post.post_contents,
+      post_category: post.post_category,
+      post_mission: post.post_mission,
+      originalPostId: post.post_id,
+    })
 
 
   },
