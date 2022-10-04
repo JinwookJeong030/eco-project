@@ -19,7 +19,8 @@ margin-bottom:0.5rem;
 border: thin solid ;
 border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.1);
-padding:1rem 1.2rem 0rem 1.2rem;
+padding:1rem 1.2rem 0.5rem 1.2rem;
+
 flex-wrap: nowrap;
 font-size: 0.9rem;
 flex-wrap: nowrap;
@@ -30,12 +31,13 @@ margin-bottom:0.5rem;
 border: thin solid ;
 border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.1);
-padding:1rem 1.2rem 0rem 1.2rem;
+padding:0.5rem 1.2rem 0.5rem 1.2rem;
 margin-left: 2rem;
 background: #eeeeee;
 flex-wrap: nowrap;
 font-size: 0.9rem;
 flex-wrap: nowrap;
+
 `
 const AddReplyEditor =styled(ReplyEditor)`
 
@@ -44,26 +46,33 @@ const AddReplyEditor =styled(ReplyEditor)`
 const NickName = styled.div`
 width:7rem;
 flex-wrap: nowrap;
+
 `
 
 const Contents = styled.div`
 flex-direction:row;
 flex-wrap: wrap;
-width: 40rem;
+width: 37rem;
 white-space:wrap;
+margin-top:auto;
+margin-bottom:auto;
 `
 const Regdate = styled.div`
 margin-left: auto;
 flex-wrap: nowrap;
+font-size: 0.3rem;
+margin-right: 0.5rem;
+margin-top:3px;
 
 `
 const DeleteBtn = styled.button`
 color: white;
 background: grey;
 border: grey;
-margin:0.1rem;
+
 widht: 1.2rem;
 height: 1.2rem;
+
 `
 
 const ReplyItemInfoBlock = styled.div`
@@ -108,7 +117,7 @@ const ReplyItem = ({user, onChangeField, reply, addReplyState,onRemoveClick }) =
         <ReplyItemInfoBlock>
             <NickName><b>{reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
-            <Regdate>{reply.reply_regdate}</Regdate>
+            <Regdate>{new Date(reply.reply_regdate).toLocaleString()}</Regdate>
             {user?(user.user_name === reply.user_name?<DeleteBtn onClick={onRemoveClick}>x</DeleteBtn>:<></>):<></>}
         </ReplyItemInfoBlock>
     </ReplyItemBlock>
@@ -121,7 +130,7 @@ const AddReplyItem =({user,onChangeField, reply, addReplyState,onRemoveClick})=>
         <ReplyItemInfoBlock>
             <NickName><b>↳  {reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
-            <Regdate>{reply.reply_regdate}</Regdate>
+            <Regdate>{new Date(reply.reply_regdate).toLocaleString()}</Regdate>
           
             {user?(user.user_name === reply.user_name?<DeleteBtn onClick={onRemoveClick}>x</DeleteBtn>:<></>):<></>}
         </ReplyItemInfoBlock>

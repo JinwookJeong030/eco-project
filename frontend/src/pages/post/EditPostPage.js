@@ -6,6 +6,7 @@ import HeaderContainer from '../../containers/common/HeaderContainer';
 import NavContainer from '../../containers/common/NavContainer.js';
 import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner.js';
 import EditorContainer from '../../containers/post/EditorContainer.js';
+import EditorImageContainer from '../../containers/post/EditorImageContainer.js';
 
 const EditPostPage = () => {
   
@@ -15,6 +16,7 @@ const EditPostPage = () => {
   <HeaderContainer />
   <NavContainer/>
   <ContentsBoxContainer title="글 쓰기">
+  <EditorImageContainer/>
   <EditorContainer/>
   </ContentsBoxContainer>
  
