@@ -17,7 +17,7 @@ import qs from 'qs';
 
   export const writePost = ({post_title, post_contents,post_category, post_mission }) => client.post('/post/write',{post_title,post_contents,post_category, post_mission});
 
-  export const editPost =({post_id, post_title, post_contents}) => client.post('/post/edit',{post_id, post_title, post_contents});
+  export const editPost =({post_id, post_title, post_contents,post_category,post_mission}) => client.post('/post/edit',{post_id, post_title, post_contents,post_category,post_mission});
 
   export const deletePost =post_id => client.delete(`/post/delete/${post_id}`);
 

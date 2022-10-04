@@ -150,7 +150,6 @@ const Editor =({categorys,category, missions,mission, post_title,post_contents,o
           <Select
                  placeholder="카테고리를 선택하세요." 
                  onChange={onChangeCategory} 
-                
           >
           
           {categorys.map(category =>(<option value={category.category_id}>{category.category_name}</option>))}

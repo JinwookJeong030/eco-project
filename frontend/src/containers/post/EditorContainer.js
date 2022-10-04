@@ -20,8 +20,10 @@ const EditorContainer = () => {
     post: write.post,
     postError: write.postError,
   }));
+
   const onPublish = (e) => {
     if(originalPostId){
+  
       dispatch(editPost({post_id: originalPostId, post_title, post_contents, post_category, post_mission}));
       return;
     }
