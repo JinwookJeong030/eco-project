@@ -130,7 +130,7 @@ const AddReplyItem =({user,onChangeField, reply, addReplyState,onRemoveClick})=>
 
 }
 
-const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, onPublish,onRemove, onRemoveSuccess }) => {
+const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, onPublish,onRemove, onRemoveSuccess, reply_contents }) => {
 
   const [deleteAskModal, setDeleteAskModal] = useState(false);
   const [succesModal, setSuccesModal] = useState(false);
@@ -188,7 +188,7 @@ const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, on
                    { 
             //대댓글 작성 
             user && reply.reply_group_id===addReplyState &&(reply.reply_type===0||reply.reply_type===2)?(<>
-            <AddReplyEditor user={user} addState={addState} onChangeField={onChangeField} onPublish={onPublish}/>
+            <AddReplyEditor user={user} addState={addState} onChangeField={onChangeField} onPublish={onPublish} reply_contents={reply_contents}/>
           
             </>):
             <></>

@@ -39,17 +39,17 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
 }));
 
 export const unloadReplys = createAction(UNLOAD_REPLYS);
-export const writeReply = createAction(WRITE_REPLY, ({ reply_post, reply_contents,reply_type, reply_order,reply_group_id }) => ({
+export const writeReply = createAction(WRITE_REPLY, ({ reply_post, reply_contents,reply_type,reply_group_id }) => ({
   reply_post,
   reply_contents,
   reply_type,
-  reply_order,
   reply_group_id
 }));
 
 export const deleteReply = createAction(DELETE_REPLY, ({ reply_id }) => ({
   reply_id,
 }));
+
 
 const writeReplySaga = createRequestSaga(WRITE_REPLY, postsAPI.writeReply);
 const deleteReplySaga = createRequestSaga(DELETE_REPLY, postsAPI.deleteReply);
@@ -62,11 +62,9 @@ export function* replysSaga() {
 
 const initialState = {
   addReplyState: null,
-  addIndex: null,
   reply_contents: null,
   reply_add_contents:null,
   reply_type: 0,
-  reply_order: 0,
   reply_group_id: 0,
   reply:null,
   replyError:null,
@@ -109,12 +107,16 @@ const replys = handleActions(
     [WRITE_REPLY_SUCCESS]: (state, { payload: reply }) => ({
       ...state,
       reply,
+      reply_contents: null,
+      addReplyState: null,
+      reply_add_contents:null,
+      reply_group_id:0,
     }),
-
     [WRITE_REPLY_FAILURE]: (state, { payload: replyError }) => ({
       ...state,
       replyError,
     }),
+ 
     [DELETE_REPLY]: state => ({
       ...state,
       reply: null,

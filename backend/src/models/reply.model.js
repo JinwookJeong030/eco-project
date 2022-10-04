@@ -9,7 +9,6 @@ const Reply = function (reply) {
     this.reply_contents = reply.reply_contents;
     this.reply_regdate = new Date();
     this.reply_type = reply.reply_type;
-    this.reply_order = reply.reply_order;
     this.reply_group_id = reply.reply_group_id;
 };
   //post_id를 통한 replys 조회 

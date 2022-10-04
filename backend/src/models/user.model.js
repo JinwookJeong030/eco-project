@@ -21,10 +21,11 @@ const User = function (user) {
   this.user_password = user.user_password;
   this.user_name = user.user_name;
   this.user_regdate = user.user_regdate;
-  this.user_mission_cnt = user.user_mission_cnt;
   this.user_ranking = user.user_ranking;
   this.user_leader_plant= user.user_leader_plant;
   this.user_point = user.user_point;
+  this.user_admin = user.user_admin;
+  this.user_total_point = user.user_admin; 
 };
 
 

@@ -12,14 +12,13 @@ const ReplyListContainer = () => {
   const { id } = useParams();
 
   const {user}= useSelector(({user})=>({user: user.user}));
-  const {addIndex,addReplyState, reply_post,reply_contents,reply_order,reply_type,reply_group_id,replys, replysError, loading } = useSelector(
+  const {addIndex,addReplyState, reply_post,reply_contents,reply_type,reply_group_id,replys, replysError, loading } = useSelector(
     ({ replys, loading }) => ({
       addIndex: replys.addIndex,
       addReplyState: replys.addReplyState,
       reply_post: id,
       reply_contents: replys.reply_add_contents,
       reply_type: 1,
-      reply_order:replys.reply_order,
       reply_group_id: replys.addReplyState,
       replys: replys.replys,
       replysError: replys.replysError,
@@ -29,7 +28,7 @@ const ReplyListContainer = () => {
   
   const onPublish = (e) => {
     e.preventDefault();
-    dispatch(writeReply({reply_post, reply_contents,reply_type,reply_order, reply_group_id}));
+    dispatch(writeReply({reply_post, reply_contents,reply_type, reply_group_id}));
    
   };
 
@@ -48,7 +47,7 @@ const ReplyListContainer = () => {
   useEffect(() => {
     dispatch(listReplys(id));
 
-    // 언마운트될 때 리덕스에서 포스트 데이터 없애기
+    // 언마운트될 때 리덕스에서 reply 데이터 없애기
     return () => {
       dispatch(unloadReplys());
     };
@@ -65,6 +64,7 @@ const ReplyListContainer = () => {
       onPublish={onPublish}
       onRemove ={onRemove}
       onRemoveSuccess= {onRemoveSuccess}
+      reply_contents={reply_contents}
     />
   );
 };

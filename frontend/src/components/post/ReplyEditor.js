@@ -79,20 +79,21 @@ const Text = styled.h3`
 
 `
 
-const ReplyEditorItem = ({user, onChangeReplys, onPublish, addState})=>{
-
+const ReplyEditorItem = ({user, onChangeReplys, onPublish, addState, reply_contents})=>{
+  console.log(reply_contents);
 
     return (<ReplyEditorBackground addReply={addState}>
             <InputReplyDiv>
             <NickName>{addState&&<b>↳ </b>} <b>{user.user_name}</b></NickName>
-            <InputReplyContents onChange={onChangeReplys} maxLength="150" placeholder='댓글은 150자까지 작성 가능합니다.'/>
+            <InputReplyContents onChange={onChangeReplys} maxLength="150" placeholder='댓글은 150자까지 작성 가능합니다.' value={reply_contents||""}/>
+            
             </InputReplyDiv>
             <SubmitBtn green onClick={onPublish}>등록</SubmitBtn>
         </ReplyEditorBackground>);
 
 }
 
-const ReplyEditor = ({user,onLocationLogin, onChangeField, onPublish,addState }) => {
+const ReplyEditor = ({user,onLocationLogin, onChangeField, onPublish,addState, reply_contents}) => {
   const userEx = {
     user_name:'닉네임'
 }
@@ -107,6 +108,7 @@ user?
     <ReplyEditorItem user={user?user:userEx} onChangeReplys={onChangeReplys}
     onPublish={onPublish}
     addState={addState}
+    reply_contents={reply_contents}
     />
    :(
 

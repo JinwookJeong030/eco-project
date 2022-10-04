@@ -65,7 +65,7 @@ const PostManagement = ({user ,post,loadingRead,loadingDelete,onRemoveSuccess, i
       <AskRemoveSuccessModal
         visible={succesModal}
         onConfirm={onRemoveSuccess}
-        title="게시물 삭제 성공"
+        title="게시물 삭제 완료"
         discription="게시물이 삭제되었습니다."
         discription2="게시판으로 이동합니다."
       />
