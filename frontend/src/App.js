@@ -10,7 +10,7 @@ import ClassListPage from './pages/class/ClassListPage';
 import ClassViewerPage from './pages/class/ClassViewerPage';
 import EditClassPage from './pages/class/EditClassPage';
 import MypagePage from './pages/mypage/MypagePgae'
-import MainMission from './pages/mission/MainMissionPage'
+import MainMission from './pages/plant/PlantPage'
 import NotFound from './pages/NotFound'
 import RankingPage from './pages/ranking/RankingPage';
 import { Helmet } from 'react-helmet-async';
