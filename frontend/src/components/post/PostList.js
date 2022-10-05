@@ -96,7 +96,7 @@ display:flex;
 flex-direction: row;
 `
 const MissionImg = styled.img`
-height: 12rem;
+height: 192px;
 width:70vw;
 background:green;
 maring-left:auto;

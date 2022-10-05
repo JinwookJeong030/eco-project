@@ -20,21 +20,26 @@ box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 `;
 const Wrapper = styled(Responsive)`
 margin-bottom: 3rem;
-margin-left:1rem;
+
 `
 
 const Title = styled.h2`
   margin-bottom: 2rem;
 
 `
-const MissionInfoBlock= styled.div`
+const PlantBlock= styled.div`
 border: solid thin;
-width: 12rem;
-height: 12rem;
+width: 224px;
+height: 288px;
 padding-left: 15px;
 padding-right: 15px;
-margin-left:1.5rem;
-margin-right:1.5rem;
+margin-left:0.5rem;
+margin-right:0.5rem;
+`
+const PlantImage =  styled.img`
+width: 210px;
+height: 288px;
+
 `
 const MissionWrapper = styled(Responsive)`
 display: flex;
@@ -43,12 +48,12 @@ flex-direction: row;
 align-items: center;
 
 `
-const MisssionInfo=({})=>{
+const Plant=({src})=>{
   
-  return <MissionInfoBlock>
-    <h2>식물</h2>
+  return <PlantBlock>
+    <PlantImage src={src}/>
     
-  </MissionInfoBlock>
+  </PlantBlock>
 
 }
 const MissionBlock =({error})=>{
@@ -58,9 +63,9 @@ const MissionBlock =({error})=>{
     <Title>식물</Title>
       <MissionWrapper>
     
-      <MisssionInfo/>
-      <MisssionInfo/>
-      <MisssionInfo/>
+      <Plant src={ process.env.PUBLIC_URL + "/pic.gif" }/>
+      <Plant src={ process.env.PUBLIC_URL + "/pic.png" }/>
+      <Plant src={ process.env.PUBLIC_URL  }/>
       </MissionWrapper>
       </Wrapper>
   </MyMissionTemplateBlock>
@@ -90,7 +95,7 @@ const MyPlantInfo=({name, level, point})=>{
 const MyPlantInfoBlock=()=>{
 return <>
   <Wrapper>
-<MyPlant src={ process.env.PUBLIC_URL + "/pic0.png" }/>
+<MyPlant/>
 <MyPlantInfo/>
 </Wrapper>
 </>
