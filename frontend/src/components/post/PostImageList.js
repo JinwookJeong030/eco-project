@@ -5,17 +5,14 @@ import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
 import { Link } from "react-router-dom";
 import WhiteBox, {WhitePostsItemBox} from '../common/WhiteBox';
-import Search from '../common/Search';
 import { POST_IMAGE_PATH } from '../../lib/text/host';
 
 
 const PostImageListBlock = styled(WhiteBox)`
   display: flex;
   height:2rem;
-
 `;
 const PostImageWrapper = styled(Responsive)`
-  
 `;
 const PostImageItem = styled.img`
 

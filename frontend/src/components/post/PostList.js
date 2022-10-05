@@ -6,8 +6,7 @@ import palette from '../../lib/styles/palette';
 import { Link } from "react-router-dom";
 import {WhitePostsItemBox} from '../common/WhiteBox';
 import Search from '../common/Search';
-const PostListBlock = styled(Responsive)`
-  
+const PostListBlock = styled(Responsive)` 
 `;
 
 const WritePostButtonWrapper = styled.div`
@@ -152,7 +151,7 @@ const PostItem = ({ post }) => {
     </Link>
     );
   };
-  const PostList = ({ posts, loading, error, showWriteButton }) => {
+  const PostList = ({ posts, loading, error, showWriteButton, search_type, search_contents, onChangeField,onSearch}) => {
     if (error) {
       return <PostListBlock>게시판을 불러올 수 없습니다...</PostListBlock>
     }
@@ -163,9 +162,8 @@ const PostItem = ({ post }) => {
       <PostListBlock>
       <Mission title={mission_title} contents={mission_contents}/>
        <PostHeader>
-       <Search/>
+       <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch}/>
         <WritePostButtonWrapper>
-          
         {showWriteButton && (<Button cyan to="/post/edit">
             새 글 작성하기
           </Button>)}

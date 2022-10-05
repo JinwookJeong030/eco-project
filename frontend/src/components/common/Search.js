@@ -42,16 +42,23 @@ const SearchCategory = styled.select`
     margin-top:auto;
     margin-bottom:auto;
 `
+const Search = ({search_type, search_contents , onChangeField, onSearch}) => {
 
-const Search = () => {
+  const onChagneSearchType = (e)=>{
+    onChangeField({ key: 'search_type', value: e.target.value });
+  }
+  const onChagneContents = (e)=>{
+    onChangeField({ key: 'search_contents', value: e.target.value });
+  }
   return <SearchBlock >
-    <SearchCategory>
-      <option value ="">제목</option>
-      <option value ="">작성자</option>
-      <option value ="">카테고리</option>
+    <SearchCategory value={search_type} onChange={onChagneSearchType}>
+      <option value ={"title"}>제목</option>
+      <option value ={"contents"}>작성자</option>
+      <option value ={"user"}>작성자</option>
+      <option value ={"category"}>카테고리</option>
     </SearchCategory>
-    <SearchInput/>
-    <SearchBtn src={process.env.PUBLIC_URL +"/search-icon.png"}/>
+    <SearchInput value={search_contents} onChange = {onChagneContents} />
+    <SearchBtn src={process.env.PUBLIC_URL +"/search-icon.png"} onClick={onSearch}/>
   </SearchBlock>;
 };
 

@@ -17,12 +17,6 @@ const [
 
 
 
-const [SEARCH_POSTS,
-  SEARCH_POSTS_SUCCESS,
-  SEARCH_POSTS_FAILURE,
-] = createRequestActionTypes('posts/SEARCH_POSTS');
-
-
 export const initialize = createAction(INITIALIZE);
 
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
@@ -32,15 +26,11 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
 
 export const listPosts = createAction(
   LIST_POSTS,
-  ({ page }) => ({ page }),
-);
-
-export const searchPosts = createAction(
-  SEARCH_POSTS,
-  ({  search_type, search_contents, page }) => ({search_type, search_contents, page }),
+  ({ search_type, search_contents, page }) => ({search_type, search_contents, page }),
 );
 
 const listPostsSaga = createRequestSaga(LIST_POSTS, postsAPI.listPosts);
+
 export function* postsSaga() {
   yield takeLatest(LIST_POSTS, listPostsSaga);
 }
@@ -48,7 +38,7 @@ export function* postsSaga() {
 
 
 const initialState = {
-  search_type:null,
+  search_type:"title",
   search_contents: null,
   posts: null,
   error: null,
@@ -66,14 +56,6 @@ const posts = handleActions(
       posts: posts.result.posts,
     }),
     [LIST_POSTS_FAILURE]: (state, { payload: error }) => ({
-      ...state,
-      error,
-    }),
-    [SEARCH_POSTS_SUCCESS]: (state, { payload: posts }) => ({
-      ...state,
-      posts: posts.result.posts,
-    }),
-    [SEARCH_POSTS_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
     }),

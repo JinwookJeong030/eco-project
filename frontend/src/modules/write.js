@@ -35,6 +35,7 @@ const [
 const SET_ORIGINAL_POST = 'write/SET_ORIGINAL_POST';
 
 export const initialize = createAction(INITIALIZE);
+
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
