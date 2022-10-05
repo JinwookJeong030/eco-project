@@ -21,6 +21,9 @@ import qs from 'qs';
 
   export const deletePost =post_id => client.delete(`/post/delete/${post_id}`);
 
+  export const searchPost =(({search_type , search_contents}) => client.get(`/post/list?search_type=${search_type}&search_contents=${search_contents}`));
+
+
 
   export const listReplys = post_id => client.get(`/reply/list/${post_id}`);
   export const writeReply = ({reply_post,reply_contents,reply_type,reply_order, reply_group_id}) => client.post(`/reply/write`,{reply_post,reply_contents,reply_type,reply_order, reply_group_id});

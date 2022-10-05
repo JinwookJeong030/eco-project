@@ -18,6 +18,58 @@ const Post = function (post) {
 
   //post 전체 조회
 Post.selectAllPosts = (result) => {
+  sql.query('SELECT post.* , user.user_name FROM post,user ORDER BY post_regdate DESC', (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+
+    console.log('Select All Posts: ',  res );
+    result(null,  res );
+  });
+};
+// 게시글 제목 조회 
+Post.selectAllPostsFromTitle = (search_contents ,result) => {
+  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_title LIKE "%'+search_contents+'%" ORDER BY post_regdate DESC', (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+
+    console.log('selectAllPostsFromTitle All Posts: ',  res );
+    result(null,  res );
+  });
+};
+// 게시글 내용 조회
+Post.selectAllPostsFromContents = (search_contents, result) => {
+  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_contents LIKE "%'+search_contents+'%" ORDER BY post_regdate DESC', (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+
+    console.log('Select All Posts: ',  res );
+    result(null,  res );
+  });
+};
+// 게시글 작성자 조회
+Post.selectAllPostsFromUser = (search_contents ,result) => {
+  sql.query('SELECT post.* , user.user_name FROM post,user WHERE user.user_id = post.post_user AND user.user_name = "'+search_contents+'" ORDER BY post_regdate DESC', (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+
+    console.log('Select All Posts: ',  res );
+    result(null,  res );
+  });
+};
+// 게시글 카테고리 조회
+Post.selectAllPostsFrom = (search_contents, result) => {
   sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id ORDER BY post_regdate DESC', (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -29,7 +81,12 @@ Post.selectAllPosts = (result) => {
     result(null,  res );
   });
 };
-  //post_id를 통한 post 조회 
+
+
+
+
+
+//post_id를 통한 post 조회 
 Post.selectPostFromId =(post_id,result)=>{
   sql.query('SELECT post.* ,user.user_name,COUNT(reply.reply_id) as replyCnt FROM post '+
   'LEFT OUTER JOIN reply ON post.post_id = reply.reply_post '+
@@ -43,9 +100,9 @@ Post.selectPostFromId =(post_id,result)=>{
 
     console.log('selectPostFromId Post: ',  res[0]);
     result(null,  res[0]);
-  });
+  })
+}
 
-};
 //게시글 삽입
 Post.insertPost =(post ,result) =>{
 

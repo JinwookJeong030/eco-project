@@ -4,8 +4,70 @@ const Category = require('../models/category.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
 
-exports.list = async (req, res) => {
+// 전체 조회
+ exports.list = async (req, res) => {
 
+    const {search_type,search_contents} = req.query;
+      
+      // 제목 검색
+      if(search_type === "title"){
+        Post.selectAllPostsFromTitle(search_contents, (err, data) => {
+          if (!data) {
+            return res.status(419).send({
+              code: 419,
+              message: 'selectAllPostsFromTitle is error!',
+            });
+          } else {
+            return res.send({
+              code:200,
+              message: 'selectAllPostsFromTitle is successful',
+              result:{
+                posts:data
+              }
+            });
+        } 
+        })}
+        else if(search_type === "contents"){
+        Post.selectAllPostsFromContents(search_contents, (err, data) => {
+          if (!data) {
+            return res.status(419).send({
+              code: 419,
+              message: 'selectAllPostsFromContents is error!',
+            });
+          } else {
+            return res.send({
+              code:200,
+              message: 'selectAllPostsFromContents is successful',
+              result:{
+                posts:data
+              }
+            });
+        } 
+        })
+      }
+      // 작성자 검색
+     else if(search_type === "user"){
+        Post.selectAllPostsFromUser(search_contents, (err, data) => {
+          if (!data) {
+            return res.status(419).send({
+              code: 419,
+              message: 'selectAllPostsFromUser is error!',
+            });
+          } else {
+            return res.send({
+              code:200,
+              message: 'selectAllPostsFromUser is successful',
+              result:{
+                posts:data
+              }
+            });
+        } 
+        });
+
+
+      }
+else
+{
     Post.selectAllPosts((err, data) => {
       if (!data) {
         return res.status(419).send({
@@ -21,9 +83,11 @@ exports.list = async (req, res) => {
           }
         });
     } 
-    });
-  };
+    })}
+  
 
+}
+    
 exports.view = async (req, res) =>{
  await Post.updatePostViews(req.params.post_id,(err, data) => {
     if (!data) {
@@ -63,9 +127,7 @@ exports.view = async (req, res) =>{
     } 
     });
   
-
-  
-};
+}
 
 exports.categorys = async (req, res)=>{
   Post.selectAllCategory((err, data) => {
@@ -86,6 +148,7 @@ exports.categorys = async (req, res)=>{
   });
 
 }
+
 exports.missions =async (req, res)=>{
   return res.send({
     code:200,
@@ -108,6 +171,7 @@ exports.write = async (req, res) =>{
       post_mission: 0,
     }
   )
+  
   Post.insertPost(postReq, (err,data)=>{
     if(!data){
       return res.status(419).send({
@@ -218,7 +282,7 @@ if(replyReq.reply_type===1){
    });
 }
 
-   Reply.SelectReplyIdFromUserId(replyReq , (err,data)=>{
+  Reply.SelectReplyIdFromUserId(replyReq , (err,data)=>{
     if(!data){
       console.log("data:",data);
       data;
@@ -238,10 +302,10 @@ if(replyReq.reply_type===1){
       }
     })
   
-  })
-
+  });
    
 }
+
 exports.reply_delete = async (req,res) =>{
   const replyReq = new Reply(
     {
@@ -306,6 +370,9 @@ exports.myPostList = async(req, res) =>{
   } 
   });
 }
+
+
+
 exports.myReplyList = async(req, res) =>{
   
   Reply.selectMyReplys(req.user_id,(err, data) => {

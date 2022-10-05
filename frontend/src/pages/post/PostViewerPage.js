@@ -11,6 +11,7 @@ import ReplyListContainer from '../../containers/post/ReplyListContainer'
 
 import PostManagementContainer from '../../containers/post/PostManagementContainer';
 import AskModal from '../../components/common/AskModal';
+import PostImageList from '../../components/post/PostImageList';
 const PostViewerPage = () => {
   return <>
 
@@ -18,7 +19,9 @@ const PostViewerPage = () => {
    <NavContainer/>
    <ContentsBoxContainer title="" >
    <PostManagementContainer/>
+ 
     <WhiteBox>
+    
     <PostViewerContainer/>
     <ReplyListContainer/>
     <EditorReplyContainer/>

@@ -46,7 +46,9 @@ const SearchCategory = styled.select`
 const Search = () => {
   return <SearchBlock >
     <SearchCategory>
-
+      <option value ="">제목</option>
+      <option value ="">작성자</option>
+      <option value ="">카테고리</option>
     </SearchCategory>
     <SearchInput/>
     <SearchBtn src={process.env.PUBLIC_URL +"/search-icon.png"}/>
