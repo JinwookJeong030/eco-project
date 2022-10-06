@@ -19,8 +19,6 @@ const WritePostButtonWrapper = styled.div`
 
 `;
 const PostItemBlock = styled(WhitePostsItemBox)`
-
-
 `
 const PostItemInfoBlock = styled.div`
 
@@ -46,18 +44,6 @@ const PostItemInfoBlock = styled.div`
   }
 `;
 
-const SubInfo = styled.div`
-  /* margin-top: 1rem; */
-  color: ${palette.gray[6]};
-
-  /* span 사이에 가운뎃점 문자 보여 주기 */
-  span + span::before {
-    color: ${palette.gray[4]};
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
-    content: '\\B7'; /* 가운뎃점 문자 */
-  }
-`;
 const Title= styled.h2`
   margin:0;
   text-overflow: ellipsis;
@@ -115,6 +101,24 @@ font-size: 1vw;
 text-align: center;
 
 `
+const NoTitle =styled.h1`
+margin-left: auto;
+margin-right:auto;
+color: ${palette.green[0]};
+margin-top:3rem;
+margin-bottom:3rem;
+`
+
+
+const NoPost =({title})=>{
+
+  return (<PostItemBlock>
+
+  <NoTitle>{title}</NoTitle>
+
+  </PostItemBlock>);
+
+}
 const Mission = ({title, contents})=>
 {
   return (
@@ -151,30 +155,31 @@ const PostItem = ({ post }) => {
     </Link>
     );
   };
-  const PostList = ({ posts, loading, error, showWriteButton, search_type, search_contents, onChangeField,onSearch}) => {
+  const PostList = ({ posts, loading, error, showWriteButton, search_type, search_contents, onChangeField, onSearch, categorys}) => {
     if (error) {
-      return <PostListBlock>게시판을 불러올 수 없습니다...</PostListBlock>
+      return <NoPost title={"서버에서 문제가 발생하였습니다..."} />
     }
     const {mission_title, mission_contents}={mission_title:"분리수거 하기", mission_contents:"다같이 나가서 분리수거를 해봐요!  플라스틱 라벨을 때는것도 중요하겠죠!"}
 
-  /**에러처리 */
+    /**에러처리 */
     return (
       <PostListBlock>
       <Mission title={mission_title} contents={mission_contents}/>
        <PostHeader>
-       <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch}/>
+       <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch} categorys={categorys}/>
         <WritePostButtonWrapper>
         {showWriteButton && (<Button cyan to="/post/edit">
             새 글 작성하기
           </Button>)}
         </WritePostButtonWrapper>
         </PostHeader>
-        {!loading && posts && (<div>
+        {!loading && posts &&(posts.length===0?<NoPost title={"검색 된 게시물이 없습니다."} />:(<div>
           {
           posts.map(post => (
             <PostItem post={post} key={post.post_id} />
           ))}
-        </div>)}
+        </div>))}
+       
       </PostListBlock>
     );
   };

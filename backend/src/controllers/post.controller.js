@@ -66,6 +66,28 @@ const redisClient = require('../modules/redis.js');
 
 
       }
+      // 카테고리 검색
+      else if(search_type === "category"){
+        Post.selectAllPostsFromCategory(search_contents, (err, data) => {
+          if (!data) {
+            return res.status(419).send({
+              code: 419,
+              message: 'selectAllPostsFromUser is error!',
+            });
+          } else {
+            return res.send({
+              code:200,
+              message: 'selectAllPostsFromUser is successful',
+              result:{
+                posts:data
+              }
+            });
+        } 
+        });
+
+
+      }
+      
 else
 {
     Post.selectAllPosts((err, data) => {
@@ -83,7 +105,8 @@ else
           }
         });
     } 
-    })}
+    })
+  }
   
 
 }

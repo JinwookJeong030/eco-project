@@ -5,12 +5,7 @@ import qs from 'qs';
   export const readPost = post_id => client.get(`/post/view/${post_id}`);
 
   export const listPosts = ({ search_type, search_contents, page }) => {
-    const queryString = qs.stringify({
-      page, 
-      search_type,
-      search_contents,
-    });
-    console.log(queryString)
+
     return client.get(`/post/list?search_type=${search_type}&search_contents=${search_contents}`);//?${queryString}
   };
 
@@ -23,7 +18,6 @@ import qs from 'qs';
 
   export const deletePost =post_id => client.delete(`/post/delete/${post_id}`);
 
-  export const searchPosts =(({search_type , search_contents}) => client.get(`/post/list?search_type=${search_type}&search_contents=${search_contents}`));
 
 
 

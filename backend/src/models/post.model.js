@@ -18,20 +18,19 @@ const Post = function (post) {
 
   //post 전체 조회
 Post.selectAllPosts = (result) => {
-  sql.query('SELECT post.* , user.user_name FROM post,user ORDER BY post_regdate DESC', (err, res) => {
+  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id ORDER BY post_regdate DESC', (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
       return;
     }
-
     console.log('Select All Posts: ',  res );
     result(null,  res );
   });
 };
 // 게시글 제목 조회 
 Post.selectAllPostsFromTitle = (search_contents ,result) => {
-  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_title LIKE "%'+search_contents+'%" ORDER BY post_regdate DESC', (err, res) => {
+  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_title LIKE "%'+search_contents+'%" ORDER BY post_regdate DESC', (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -44,7 +43,7 @@ Post.selectAllPostsFromTitle = (search_contents ,result) => {
 };
 // 게시글 내용 조회
 Post.selectAllPostsFromContents = (search_contents, result) => {
-  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_contents LIKE "%'+search_contents+'%" ORDER BY post_regdate DESC', (err, res) => {
+  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_contents LIKE "%'+search_contents+'%" ORDER BY post_regdate DESC', (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -69,8 +68,8 @@ Post.selectAllPostsFromUser = (search_contents ,result) => {
   });
 };
 // 게시글 카테고리 조회
-Post.selectAllPostsFrom = (search_contents, result) => {
-  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id ORDER BY post_regdate DESC', (err, res) => {
+Post.selectAllPostsFromCategory = (search_contents, result) => {
+  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_category = '+search_contents+' ORDER BY post_regdate DESC', (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);

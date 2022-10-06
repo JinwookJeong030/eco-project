@@ -5,20 +5,22 @@ import { useDispatch, useSelector } from "react-redux";
 import PostList from "../../components/post/PostList";
 import { changeField, listPosts } from "../../modules/posts";
 import { useNavigate } from "../../../node_modules/react-router-dom/index";
+import write, { categorys } from "../../modules/write";
 
 const PostListContainer = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { type, contents,posts, error, loading, user } = useSelector(
-    ({ posts, loading, user }) => ({
+  const { type, contents,posts, error, loading, user, categoryList } = useSelector(
+    ({ posts, loading, user, write }) => ({
       type: posts.search_type,
       contents: posts.search_contents,
       posts: posts.posts,
       error: posts.error,
       loading: loading['posts/LIST_POSTS'],
       user: user.user,
+      categoryList: write.categorys,
     }),
   );
 
@@ -31,7 +33,7 @@ const PostListContainer = () => {
   };
 
   useEffect(() => {
-  
+    dispatch(categorys());
     const  searchPost = qs.parse(location.search, {
       ignoreQueryPrefix: true,
     });
@@ -42,14 +44,15 @@ const PostListContainer = () => {
 
   return (
     <PostList
-      serach_type={type}
-      serach_contents={contents}
+      search_type={type}
+      search_contents={contents}
       onChangeField={onChangeField}
       onSearch={onSearch}
       loading={loading}
       error={error}
       posts={posts}
       showWriteButton={user}
+      categorys={categoryList}
     />
   );
 };
