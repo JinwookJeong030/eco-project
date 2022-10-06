@@ -11,16 +11,19 @@ const ContentsBoxBlock = styled(Responsive)`
     width: calc( 100% - ${(props)=>props.hidingState? '4rem':'13rem'});
     margin-left: ${(props)=>props.hidingState? '4rem':'13rem'};
     overflow: auto;
-    @media (max-width: 675px) {
-      margin-left:1.5rem;
+    @media (max-width: 768px) {
+      margin-left:1rem;
       width: 100%;
+
     
-    }
+    };
+
+  
 `;
 const ContentsTitle = styled.h1`
 
 @media (max-width: 768px) {
-  margin-left:1rem;
+  margin-left:1.5rem;
   font-size: 1.5rem;
 }
 `

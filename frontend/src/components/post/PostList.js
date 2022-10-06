@@ -22,47 +22,16 @@ const WritePostButtonWrapper = styled.div`
 const PostItemBlock = styled(WhitePostsItemBox)`
 
 `
-const PostItemInfoBlock = styled(Responsive)`
+const PostItemInfoBlock = styled.div`
   display:flex;
   flex-direction:column;
+  width: 100%;
+  height: 100%;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  
-  &:first-child {
-    padding-top: 0;
-  }
-  & + & {
-    border-top: 1px solid ${palette.gray[2]};
-  }
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 0;
-    margin-top: 0;
-  
-  }
-
-  p {
-    margin-top: 2rem;
-  }
+  padding-right:1rem;
+  padding-left:1rem;
 `;
-
-const Title= styled.div`
-  margin:0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow:hidden; 
-  text-overflow:ellipsis;
-  width:40rem;
-  font-weight: bold;
-  font-size: 2rem;
-  @media (max-width: 900px) {
-    font-size: 3.5vw;
-  }
-  
-`
-
-
 const Image = styled.img`
 width: 10rem;
 height: 10rem;
@@ -73,7 +42,27 @@ padding:0;
  margin-left:auto;
  margin-right:auto;
 }
-`
+`;
+const Title= styled.div`
+  margin:0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow:hidden; 
+  text-overflow:ellipsis;
+  width:60%;
+  font-weight: bold;
+  font-size: 2rem;
+  @media (max-width: 1300px) {
+    font-size: 1.8vw;
+  }
+  @media (max-width: 768px) {
+    font-size: 3.5vw;
+    width:100%;
+  }
+
+  
+`;
+
 const PostNickName = styled.div`
 width: 10rem; 
 height:2rem;
@@ -86,17 +75,20 @@ margin-left:5px;
 `
 const PostContent = styled.div`
 padding:0;
-width: 33rem; 
-height:3rem;
+width: 70%; 
+height:4rem;
+
 overflow:hidden; 
 text-overflow:ellipsis;
   @media (max-width: 768px) {
     font-size: 2.5vw;
+    height:3.2rem;
+    width:95%;
   }
 `;
 const PostRegdate =styled.div`
 margin-left:auto;
-width:10rem;
+
 font-size:0.8rem;
 color:${palette.gray[6]};
 `
@@ -109,7 +101,7 @@ height: 12.75rem;
 width:50rem;
 background:green;
 maring-left:auto;
-border-right: thin solid;
+
 @media (max-width: 1300px) {
   height: 22vw;
   width: 100%;
@@ -119,7 +111,7 @@ const MissionInfoBlock = styled.div`
 maring-left:auto;
 width:100%;
 padding:1rem;
-
+border-left: thin solid;
 @media (max-width: 1024px) {
   width: 768px;
 }
