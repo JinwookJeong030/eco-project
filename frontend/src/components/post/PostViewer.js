@@ -15,7 +15,11 @@ const PostHead = styled.div`
     font-size: 1.8rem;
     line-height: 1.5;
     margin: 0;
+    @media (max-width: 768px) {
+      font-size: 1rem;;
+    }
   }
+
 `;
 const SubInfoRight = styled.span`
 
@@ -27,7 +31,9 @@ const SubInfo = styled.div`
   flex-direction:row;
   margin-top: 0.5rem;
   color: ${palette.gray[6]};
- 
+  @media (max-width: 768px) {
+    font-size: 0.5rem;;
+  }
 
   /* span 사이에 가운데점 문자 보여 주기 */
   span + span::before {
@@ -35,6 +41,7 @@ const SubInfo = styled.div`
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     content: '\\B7'; /* 가운데점 문자 */
+    
   }
 `;
 
@@ -43,7 +50,11 @@ const PostContents = styled.div`
   font-size: 1.2rem;
   color: ${palette.gray[8]};
   padding-top: 0.5rem;
-  padding-bottom:2rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;;
+
+  }
 `;
 const ImgBtnBlock = styled.div`
   display:flex;

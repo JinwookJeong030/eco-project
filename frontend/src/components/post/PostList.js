@@ -25,12 +25,17 @@ const PostItemBlock = styled(WhitePostsItemBox)`
 const PostItemInfoBlock = styled.div`
   display:flex;
   flex-direction:column;
-  width: 100%;
+  width: 80.5%;
   height: 100%;
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-right:1rem;
   padding-left:1rem;
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-left:auto;
+    margin-right:auto;
+   }
 `;
 const Image = styled.img`
 width: 10rem;
@@ -87,8 +92,8 @@ text-overflow:ellipsis;
   }
 `;
 const PostRegdate =styled.div`
+widht:100%;
 margin-left:auto;
-
 font-size:0.8rem;
 color:${palette.gray[6]};
 `

@@ -5,6 +5,7 @@
  import HeaderContainer from '../../containers/common/HeaderContainer';
 import NavContainer from '../../containers/common/NavContainer';
 import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner';
+import RankingListContainer from '../../containers/ranking/RankingListContanier';
  const RankingPage= () => {
    
    return (
@@ -12,7 +13,7 @@ import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner'
    <HeaderContainer />
    <NavContainer/>
    <ContentsBoxContainer title="랭킹">
-
+    <RankingListContainer/>
    </ContentsBoxContainer>
     
    </>);
