@@ -20,9 +20,11 @@ const WritePostButtonWrapper = styled.div`
 
 `;
 const PostItemBlock = styled(WhitePostsItemBox)`
-`
-const PostItemInfoBlock = styled.div`
 
+`
+const PostItemInfoBlock = styled(Responsive)`
+  display:flex;
+  flex-direction:column;
   padding-top: 1rem;
   padding-bottom: 1rem;
   
@@ -45,13 +47,19 @@ const PostItemInfoBlock = styled.div`
   }
 `;
 
-const Title= styled.h2`
+const Title= styled.div`
   margin:0;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow:hidden; 
   text-overflow:ellipsis;
   width:40rem;
+  font-weight: bold;
+  font-size: 2rem;
+  @media (max-width: 900px) {
+    font-size: 3.5vw;
+  }
+  
 `
 
 
@@ -61,6 +69,10 @@ height: 10rem;
 border: solid thin;
 margin: 1rem;
 padding:0;
+@media (max-width: 768px) {
+ margin-left:auto;
+ margin-right:auto;
+}
 `
 const PostNickName = styled.div`
 width: 10rem; 
@@ -68,6 +80,9 @@ height:2rem;
 font: bold;
 margin:0;
 padding:0;
+color:${palette.gray[6]};
+margin-top:5px;
+margin-left:5px;
 `
 const PostContent = styled.div`
 padding:0;
@@ -75,6 +90,9 @@ width: 33rem;
 height:3rem;
 overflow:hidden; 
 text-overflow:ellipsis;
+  @media (max-width: 768px) {
+    font-size: 2.5vw;
+  }
 `;
 const PostRegdate =styled.div`
 margin-left:auto;
@@ -173,7 +191,7 @@ const PostItem = ({ post }) => {
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <PostItemInfoBlock>
         <Title>{post.post_title}</Title>
-        <PostNickName><b>{post.user_name}</b></PostNickName>
+        <PostNickName> {post.user_name}</PostNickName>
         <PostContent>{post_contents}</PostContent>
         <PostRegdate>{new Date(post.post_regdate).toLocaleString()}</PostRegdate>
        
@@ -196,8 +214,8 @@ const PostItem = ({ post }) => {
        <PostHeader>
        <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch} categorys={categorys}/>
         <WritePostButtonWrapper>
-        {showWriteButton && (<Button cyan to="/post/edit">
-            새 글 작성하기
+        {showWriteButton && (<Button cyan postWriteBtn to="/post/edit">
+            작성하기
           </Button>)}
         </WritePostButtonWrapper>
         </PostHeader>

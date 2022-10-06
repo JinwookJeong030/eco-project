@@ -17,14 +17,20 @@ const ContentsBoxBlock = styled(Responsive)`
     
     }
 `;
+const ContentsTitle = styled.h1`
 
+@media (max-width: 768px) {
+  margin-left:1rem;
+  font-size: 1.5rem;
+}
+`
 
 
 const ContentsBox = ({ children, title, hidingState }) => {
     
   return (
       <ContentsBoxBlock hidingState={hidingState}>
-        <h1>{title}</h1>
+        <ContentsTitle>{title}</ContentsTitle>
         {children}
       </ContentsBoxBlock>
   );

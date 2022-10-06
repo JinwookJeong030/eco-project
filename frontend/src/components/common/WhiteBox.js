@@ -40,6 +40,10 @@ border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 padding:0;
 flex-wrap: nowrap;
+@media (max-width: 768px) {
+  flex-direction:column;
+  width:100%;
+}
 ${whiteBoxStyle}
 `
 
