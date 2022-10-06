@@ -38,7 +38,7 @@ margin-bottom:1.5rem;
 border: thin solid ;
 border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
-padding:0rem 0rem 0rem 0rem;
+padding:0;
 flex-wrap: nowrap;
 ${whiteBoxStyle}
 `

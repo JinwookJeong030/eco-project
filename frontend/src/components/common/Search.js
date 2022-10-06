@@ -11,6 +11,12 @@ height: 3rem;
 width:24rem;
 border: thin solid;
 box-shadow: 2px 2px 2px rgba(10, 10, 10, 0.3);
+
+
+@media (max-width: 670px) {
+  width: 78%;
+
+}
 `;
 const SearchInput = styled.input`
 width:25rem;
@@ -19,6 +25,10 @@ margin-top:auto;
 margin-bottom:auto;
 margin-right:0.5rem;
 margin-left:0.5rem;
+@media (max-width: 1300px) {
+
+  width: 90%;
+}
 `
 const SearchBtn = styled.img`
 width:2rem;

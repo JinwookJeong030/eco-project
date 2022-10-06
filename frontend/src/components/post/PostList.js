@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
+import {IoIosArrowDropdown, IoIosArrowDropup} from 'react-icons/io'
 import { Link } from "react-router-dom";
 import {WhitePostsItemBox} from '../common/WhiteBox';
 import Search from '../common/Search';
@@ -24,7 +25,7 @@ const PostItemInfoBlock = styled.div`
 
   padding-top: 1rem;
   padding-bottom: 1rem;
-
+  
   &:first-child {
     padding-top: 0;
   }
@@ -75,29 +76,47 @@ height:3rem;
 overflow:hidden; 
 text-overflow:ellipsis;
 `;
-
+const PostRegdate =styled.div`
+margin-left:auto;
+width:10rem;
+font-size:0.8rem;
+color:${palette.gray[6]};
+`
 const PostHeader = styled.div`
 display:flex;
 flex-direction: row;
 `
 const MissionImg = styled.img`
-height: 192px;
-width:70vw;
+height: 12.75rem;
+width:50rem;
 background:green;
 maring-left:auto;
+border-right: thin solid;
+@media (max-width: 1300px) {
+  height: 22vw;
+  width: 100%;
+}
 `
 const MissionInfoBlock = styled.div`
 maring-left:auto;
-width:30vw;
+width:100%;
 padding:1rem;
+
+@media (max-width: 1024px) {
+  width: 768px;
+}
+@media (max-width: 1300px) {
+  display: none;
+}
+
 `
 const MissionTitle = styled.div`
-font-size: 1.5vw;
+font-size: 0.8vw;
 text-align: center;
 margin-bottom:15px;
 `
 const MissionContents = styled.div`
-font-size: 1vw;
+font-size: 0.7vw;
 text-align: center;
 
 `
@@ -108,7 +127,12 @@ color: ${palette.green[0]};
 margin-top:3rem;
 margin-bottom:3rem;
 `
+const MissionHidingBtn = styled(IoIosArrowDropup)`
+  width:2rem;
+  height:2rem;
 
+  margin-left: auto;
+`
 
 const NoPost =({title})=>{
 
@@ -119,16 +143,20 @@ const NoPost =({title})=>{
   </PostItemBlock>);
 
 }
-const Mission = ({title, contents})=>
+const Mission = ({mission_id,title, contents})=>
 {
   return (
     <PostItemBlock>
-    <MissionImg/>
-    <MissionInfoBlock>
+
+    <MissionImg src={process.env.PUBLIC_URL + "/mission_img/mission_"+1+".png"}/>
+
+    <MissionInfoBlock >
+    <MissionHidingBtn/>
       <MissionTitle><b>&lt; 오늘의 미션 &gt;</b></MissionTitle>
       <MissionTitle>{title}</MissionTitle>
       <MissionContents>{contents}</MissionContents>     
       </MissionInfoBlock>
+
     </PostItemBlock>
   );
 }
@@ -147,7 +175,7 @@ const PostItem = ({ post }) => {
         <Title>{post.post_title}</Title>
         <PostNickName><b>{post.user_name}</b></PostNickName>
         <PostContent>{post_contents}</PostContent>
-        {new Date(post.post_regdate).toLocaleString()}
+        <PostRegdate>{new Date(post.post_regdate).toLocaleString()}</PostRegdate>
        
       </PostItemInfoBlock>
    
@@ -157,7 +185,7 @@ const PostItem = ({ post }) => {
   };
   const PostList = ({ posts, loading, error, showWriteButton, search_type, search_contents, onChangeField, onSearch, categorys}) => {
     if (error) {
-      return <NoPost title={"서버에서 문제가 발생하였습니다..."} />
+      return     (<PostListBlock><NoPost title={"서버에서 문제가 발생하였습니다..."} /></PostListBlock>)
     }
     const {mission_title, mission_contents}={mission_title:"분리수거 하기", mission_contents:"다같이 나가서 분리수거를 해봐요!  플라스틱 라벨을 때는것도 중요하겠죠!"}
 

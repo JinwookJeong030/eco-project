@@ -11,7 +11,15 @@ float:left;
 border-right: solid thin #088A68;
 .hid {
   width: 5rem;
+}
+
+  @media (max-width: 1100px) {
+
   }
+  @media (max-width: 768px) {
+    position:fixed;
+  }
+
 `;
 const Wrapper = styled.ul`
 margin:0;
