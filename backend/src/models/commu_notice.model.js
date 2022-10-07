@@ -7,7 +7,7 @@ const Commu_Notice = function (commu_notice) {
     this.cn_commu = commu_notice.cn_commu;
     this.cn_title = commu_notice.cn_title;
     this.cn_contents = commu_notice.cn_contents;
-    this.cn_regdate = commu_notice.cn_regdate;
+    this.cn_regdate = new Date();
     this.cn_views = commu_notice.cn_views;
 };
 

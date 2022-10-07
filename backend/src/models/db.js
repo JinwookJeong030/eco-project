@@ -1,6 +1,6 @@
 const mysql = require("mysql");
 const dbConfig = require("../config/db.config.js");
-
+const cron = require('node-cron');
 // 데이터베이스 connection 객체 생성
 const connection = mysql.createConnection({
   host: dbConfig.HOST,
@@ -13,6 +13,12 @@ const connection = mysql.createConnection({
 connection.connect((error) => {
   if (error) throw error;
   console.log("Successfully connected to the database. ");
+
+
+  cron.schedule('1 * * * *', function(){
+    console.log('매 10초에 실행');
+  })
+  
 });
 
 module.exports = connection;

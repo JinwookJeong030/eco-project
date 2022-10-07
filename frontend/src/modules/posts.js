@@ -7,6 +7,8 @@ import { takeLatest } from 'redux-saga/effects';
 
 const INITIALIZE = 'write/INITIALIZE'; // 모든 내용 초기화
 
+
+
 const CHANGE_FIELD = 'write/CHANGE_FIELD'; // 특정 key 값 바꾸기
 
 const [
@@ -14,7 +16,6 @@ const [
   LIST_POSTS_SUCCESS,
   LIST_POSTS_FAILURE,
 ] = createRequestActionTypes('posts/LIST_POSTS');
-
 
 
 export const initialize = createAction(INITIALIZE);

@@ -12,7 +12,9 @@ exports.create = async (req,res)=>{
 };
 //미션 조회
 exports.list = (req,res)=>{
-    Mission.selectAllMissions((err, data) => {
+     
+
+    Mission.selectAllMission((err, data) => {
         if (err)
           res.status(400).send({
             code: 400,
@@ -20,9 +22,9 @@ exports.list = (req,res)=>{
           });
         else res.send({
           code: 200,
-          message:'selectAllMissions is seccessful!',
+          message:'selectAllMission is seccessful!',
           result:{
-            commus:data
+            mission:data
           }
         });
       });

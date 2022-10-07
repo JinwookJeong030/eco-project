@@ -6,7 +6,7 @@ module.exports = (app) => {
     
    
     //미션 전체조회
-    app.get('/api/missions/list', mission.list);
+    app.get('/api/mission', mission.list);
 
 
 

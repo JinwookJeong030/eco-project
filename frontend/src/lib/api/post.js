@@ -10,7 +10,7 @@ import qs from 'qs';
   };
 
   export const categorysPost =()=> client.get('/categorys');
-  export const missionsPost =()=> client.get('/missions');
+  export const mission =()=> client.get('/mission');
 
   export const writePost = ({post_title, post_contents,post_category, post_mission }) => client.post('/post/write',{post_title,post_contents,post_category, post_mission});
 

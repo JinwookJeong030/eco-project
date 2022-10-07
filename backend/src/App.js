@@ -3,6 +3,8 @@ const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+  
+
 const corsOptions ={
     origin:['http://www.hs-eco-web.link:3000','http://localhost:3000'], 
     credentials:true,            //access-control-allow-credentials:true
@@ -32,7 +34,6 @@ require('./routes/user.routes.js')(app);
 require('./routes/post.routes.js')(app);
 require('./routes/commu.routes.js')(app);
 require('./routes/mission.routes.js')(app);
-
 
 
 //포트넘버 설정

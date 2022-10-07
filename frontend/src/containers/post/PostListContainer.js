@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import PostList from "../../components/post/PostList";
 import { changeField, listPosts } from "../../modules/posts";
 import { useNavigate } from "../../../node_modules/react-router-dom/index";
-import write, { categorys } from "../../modules/write";
+import write, { categorys,mission } from "../../modules/write";
 
 const PostListContainer = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { type, contents,posts, error, loading, user, categoryList } = useSelector(
+  const { type, contents,posts, error, loading, user, categoryList ,todayMission } = useSelector(
     ({ posts, loading, user, write }) => ({
       type: posts.search_type,
       contents: posts.search_contents,
@@ -21,6 +21,7 @@ const PostListContainer = () => {
       loading: loading['posts/LIST_POSTS'],
       user: user.user,
       categoryList: write.categorys,
+      todayMission: write.mission,
     }),
   );
 
@@ -34,6 +35,7 @@ const PostListContainer = () => {
 
   useEffect(() => {
     dispatch(categorys());
+    dispatch(mission());
     const  searchPost = qs.parse(location.search, {
       ignoreQueryPrefix: true,
     });
@@ -53,6 +55,7 @@ const PostListContainer = () => {
       posts={posts}
       showWriteButton={user}
       categorys={categoryList}
+      mission={todayMission}
     />
   );
 };

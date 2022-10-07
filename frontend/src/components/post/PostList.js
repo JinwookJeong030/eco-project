@@ -164,7 +164,7 @@ const Mission = ({mission_id,title, contents})=>
   return (
     <PostItemBlock>
 
-    <MissionImg src={process.env.PUBLIC_URL + "/mission_img/mission_"+1+".png"}/>
+    <MissionImg src={process.env.PUBLIC_URL + "/mission_img/mission_"+mission_id+".png"}/>
 
     <MissionInfoBlock >
     <MissionHidingBtn/>
@@ -199,16 +199,19 @@ const PostItem = ({ post }) => {
     </Link>
     );
   };
-  const PostList = ({ posts, loading, error, showWriteButton, search_type, search_contents, onChangeField, onSearch, categorys}) => {
+  const PostList = ({ posts, loading, error, showWriteButton, search_type, search_contents, 
+    onChangeField, onSearch, categorys,mission}) => {
     if (error) {
       return     (<PostListBlock><NoPost title={"서버에서 문제가 발생하였습니다..."} /></PostListBlock>)
     }
-    const {mission_title, mission_contents}={mission_title:"분리수거 하기", mission_contents:"다같이 나가서 분리수거를 해봐요!  플라스틱 라벨을 때는것도 중요하겠죠!"}
+
 
     /**에러처리 */
     return (
       <PostListBlock>
-      <Mission title={mission_title} contents={mission_contents}/>
+        {mission&&
+      <Mission mission_id= {mission.mission_id} title={mission.mission_title} contents={mission.mission_contents}/>
+        }
        <PostHeader>
        <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch} categorys={categorys}/>
         <WritePostButtonWrapper>

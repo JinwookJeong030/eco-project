@@ -6,7 +6,7 @@
      this.cm_id = commu_mission.cm_id;
      this.cm_commu = commu_mission.cm_commu;
      this.cm_mission = commu_mission.cm_mission;
-     this.cm_regdate = commu_mission.cm_regdate;
+     this.cm_regdate = new Date();
      this.cm_enddate = commu_mission.cm_enddate;
  };
 

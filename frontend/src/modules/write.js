@@ -27,10 +27,10 @@ const [
   CATEGORYS_FAILURE
 ] = createRequestActionTypes('write/CATEGORY');//카테고리 조회
 const [
-  MISSIONS, 
-  MISSIONS_SUCCESS, 
-  MISSIONS_FAILURE
-] = createRequestActionTypes('write/MISSION');//카테고리 조회
+  MISSION, 
+  MISSION_SUCCESS, 
+  MISSION_FAILURE
+] = createRequestActionTypes('write/MISSION');//미션 조회
 
 const SET_ORIGINAL_POST = 'write/SET_ORIGINAL_POST';
 
@@ -56,7 +56,7 @@ export const editPost = createAction(EDIT_POST, ({ post_id, post_title, post_con
 export const deletePost = createAction(DELETE_POST, id => id);
 
 export const categorys = createAction(CATEGORYS);
-export const missions = createAction(MISSIONS);
+export const mission = createAction(MISSION);
 export const setOriginalPost = createAction(SET_ORIGINAL_POST, post => post);
 
 
@@ -65,10 +65,10 @@ const writePostSaga = createRequestSaga(WRITE_POST, postsAPI.writePost);
 const editPostSaga = createRequestSaga(EDIT_POST, postsAPI.editPost);
 const deletePostSaga = createRequestSaga(DELETE_POST, postsAPI.deletePost);
 const categorysSaga = createRequestSaga(CATEGORYS, postsAPI.categorysPost);
-const missionsSaga = createRequestSaga(MISSIONS, postsAPI.missionsPost);
+const missionSaga = createRequestSaga(MISSION, postsAPI.mission);
 export function* writeSaga() {
   yield takeLatest(CATEGORYS, categorysSaga);
-  yield takeLatest(MISSIONS, missionsSaga);
+  yield takeLatest(MISSION, missionSaga);
   yield takeLatest(WRITE_POST, writePostSaga);
   yield takeLatest(EDIT_POST, editPostSaga);
   yield takeLatest(DELETE_POST, deletePostSaga);
@@ -84,7 +84,7 @@ const initialState = {
   post_mission:0,
   categorys:[],
   categorysError:null,
-  missions:[],
+  mission:null,
   missionError:null,
   post: null,
   postError: null,
@@ -103,8 +103,8 @@ const write = handleActions(
       // post와 postError를 초기화
       categorys:[],
       categorysError:null,
-      missions:[],
-      missionsError:null,
+      mission:null,
+      missionError:null,
       post: null,
       postError: null,
     }),
@@ -123,8 +123,8 @@ const write = handleActions(
       // post와 postError를 초기화
       categorys:[],
       categorysError:null,
-      missions:[],
-      missionsError:null,
+      mission:null,
+      missionError:null,
       post: null,
       postError: null,
     }),
@@ -155,8 +155,8 @@ const write = handleActions(
       // post와 postError를 초기화
       categorys:[],
       categorysError:null,
-      missions:[],
-      missionsError:null,
+      mission:null,
+      missionError:null,
       post: null,
       postError: null,
     }),
@@ -170,25 +170,26 @@ const write = handleActions(
       ...state,
       categorysError,
     }),
-    [MISSIONS]: state => ({
+    
+    [MISSION]: state => ({
       ...state,
       // post와 postError를 초기화
       categorys:[],
       categorysError:null,
-      missions:[],
-      missionsError:null,
+      mission:null,
+      missionError:null,
       post: null,
       postError: null,
     }),
-    // 포스트 작성 성공
-    [MISSIONS_SUCCESS]: (state, { payload: missions }) => ({
+ 
+    [MISSION_SUCCESS]: (state, { payload: mission }) => ({
       ...state,
-      categorys:missions.result.missions,
+      mission:mission.result.mission,
     }),
-    // 포스트 작성 실패
-    [MISSIONS_FAILURE]: (state, { payload: missionsError }) => ({
+   
+    [MISSION_FAILURE]: (state, { payload: missionError }) => ({
       ...state,
-      missionsError,
+      missionError,
     }),
     [SET_ORIGINAL_POST]:(state, {payload:post})=>({
       ...state,
