@@ -5,34 +5,84 @@ const Commu_Mission = require('../models/commu_mission.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
 // 보내는 방식 res.send()
-// 새 객체 생성
+// 모임 생성
 exports.create = async (req,res)=>{
 
   const commuReq = new Commu({
       commu_leader : req.user_id,
       commu_name : req.body.commu_name,
       commu_contents: req.body.commu_contents,
+      commu_region : req.body.commu_region
   });
   //db저장
-  Commu.insertCommu(commuReq, (err, data) =>{
+Commu.insertCommu(commuReq, (err, data) =>{
     if(err){
        return res.status(500).send({
           code: 500,  
           message:err.message || "fail."
         }
         );
-    }else{
-      return res.send({
-        code: 200,
-        message:'insertCommu is successful!',
-      })
+    }
+})
+
+Commu.selectFirstCommusFromLeader(commuReq.commu_leader, (err, data) =>{
+  if(err){
+     return res.status(500).send({
+        code: 500,  
+        message:err.message || "fail."
+      }
+      );
+  }else{
+    const belongReq ={
+      belong_commu: data.commu_id,
+      belong_user : req.user_id,
+
     }
 
+    Commu.insertBelong(belongReq, (err, data) =>{
+      
+      if(err){
+         return res.status(500).send({
+            code: 500,  
+            message:err.message || "fail."
+          }
+          );
+      } else{
+        res.send({
+          code: 200,
+          message:'selectFirstCommusFromLeader is seccessful!',
+        });
+      }
+    } )
 
+  }
 })
+
+
+};
+
+//내 모임 조회
+exports.mylist = async (req,res)=>{
+  const user_id = req.user_id;
+    //전체 조회
+  Commu.selectMyCommus(user_id,(err, data) => {
+      if (err)
+        res.status(400).send({
+          code: 400,
+          message: err.message || "fail."
+        });
+      else res.send({
+        code: 200,
+        message:'selectMyCommus is seccessful!',
+        result:{
+          myCommus:data
+        }
+      });
+    });
+  
 };
 // 조회 기능
-exports.list = (req,res)=>{
+exports.list = async (req,res)=>{
   const{search_type,search_contents} = req.query;
   //모임제목으로 검색
   if(search_type === "title"){
@@ -72,10 +122,38 @@ exports.list = (req,res)=>{
     });
   }
 };
-// 모임 삭제
-exports.delete = (req,res)=>{
+
+//모임 수정
+exports.edit =async (req, res)=>{
   const commuReq = new Commu({
-    commu_leader: req.commu_leader,
+    commu_leader: req.user_id,
+    commu_id: req.params.commu_id,
+    commu_title: req.body.commu_title,
+    commu_contents: req.body.commu_contents,
+    commu_region: req.body.commu_region,
+  });
+  Commu.editCommu(commuReq, (err, data) => {
+    if(!data){
+      return res.status(419).send({
+        code: 419,
+        message: 'editCommu is error!',
+      });
+    }else{
+      return res.send({
+        code:200,
+        message: 'editCommu is successful', 
+       });
+    }
+    })
+
+
+}
+
+
+// 모임 삭제
+exports.delete =async (req,res)=>{
+  const commuReq = new Commu({
+    commu_leader: req.user_id,
     commu_id: req.params.commu_id,
   });
   Commu.deleteCommu(commuReq, (err, data) => {

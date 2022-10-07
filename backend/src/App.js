@@ -31,6 +31,8 @@ app.get('/', (req, res) => {
 require('./routes/user.routes.js')(app);
 require('./routes/post.routes.js')(app);
 require('./routes/commu.routes.js')(app);
+require('./routes/mission.routes.js')(app);
+
 
 
 //포트넘버 설정
