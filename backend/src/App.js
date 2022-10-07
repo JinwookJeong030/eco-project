@@ -6,7 +6,9 @@ const bodyParser = require('body-parser');
   
 
 const corsOptions ={
-    origin:['http://www.hs-eco-web.link:3000','http://localhost:3000'], 
+    origin:['http://www.hs-eco-web.link:3000','http://localhost:3000','http://www.hs-eco-web.link',
+    'http://localhost'
+  ], 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }

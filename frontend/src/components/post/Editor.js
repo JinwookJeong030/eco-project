@@ -7,6 +7,7 @@ import 'quill/dist/quill.bubble.css';
 import Responsive from "../common/Responsive";
 import styled from "styled-components";
 import PostActionBtn from "./PostActionBtn";
+import { useLocation } from "react-router-dom";
 
 const EditorBlock = styled(Responsive)`
   /* 페이지 위아래 여백 지정 */
@@ -96,6 +97,9 @@ var Parchment = Quill.import('parchment');
 const Editor =({categorys,category, missions,mission, post_title,post_contents,onChangeField, onPublish, onCancel })=>{
   const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
   const quillInstance =  useRef(null); 
+
+  const location = useLocation();
+  const mission_title = location.state.mission_title;
 
   useEffect(() => {
     
