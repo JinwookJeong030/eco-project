@@ -159,10 +159,11 @@ const NoPost =({title})=>{
   </PostItemBlock>);
 
 }
-const Mission = ({mission_id,title, contents})=>
+const Mission = ({mission_id, title, contents, onClickMission})=>
 {
   return (
-    <PostItemBlock>
+    <Link to={`/post/edit`} state={{ mission_title: title }}>
+    <PostItemBlock onClick={onClickMission}>
 
     <MissionImg src={process.env.PUBLIC_URL + "/mission_img/mission_"+mission_id+".png"}/>
 
@@ -174,6 +175,7 @@ const Mission = ({mission_id,title, contents})=>
       </MissionInfoBlock>
 
     </PostItemBlock>
+    </Link>
   );
 }
 
@@ -210,7 +212,9 @@ const PostItem = ({ post }) => {
     return (
       <PostListBlock>
         {mission&&
-      <Mission mission_id= {mission.mission_id} title={mission.mission_title} contents={mission.mission_contents}/>
+      <Mission mission_id= {mission.mission_id} title={mission.mission_title} contents={mission.mission_contents}
+    
+      />
         }
        <PostHeader>
        <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch} categorys={categorys}/>

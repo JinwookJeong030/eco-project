@@ -24,6 +24,7 @@ const PostListContainer = () => {
       todayMission: write.mission,
     }),
   );
+  
 
 
   const onChangeField = 
@@ -49,6 +50,7 @@ const PostListContainer = () => {
       search_type={type}
       search_contents={contents}
       onChangeField={onChangeField}
+ 
       onSearch={onSearch}
       loading={loading}
       error={error}
