@@ -44,9 +44,18 @@ const buttonStyle = css`
     margin: 15px;
     width: 20rem;
     height: 2.5rem;
-    
-
   `}
+  ${(props)=>
+    props.postWriteBtn && css`
+    @media (max-width: 1024px) {
+      font-size:12px;
+      margin-top:auto;
+      margin-bottom:auto;
+      margin-left:1rem;
+      width:5rem;
+      height:1.8rem;
+    }
+    `}
 `;
 const StyledButton = styled.button`
   ${buttonStyle}

@@ -13,9 +13,6 @@ border-right: solid thin #088A68;
   width: 5rem;
 }
 
-  @media (max-width: 1100px) {
-
-  }
   @media (max-width: 768px) {
     position:fixed;
   }

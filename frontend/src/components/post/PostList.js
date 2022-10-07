@@ -20,65 +20,80 @@ const WritePostButtonWrapper = styled.div`
 
 `;
 const PostItemBlock = styled(WhitePostsItemBox)`
+
 `
 const PostItemInfoBlock = styled.div`
-
+  display:flex;
+  flex-direction:column;
+  width: 80.5%;
+  height: 100%;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  
-  &:first-child {
-    padding-top: 0;
-  }
-  & + & {
-    border-top: 1px solid ${palette.gray[2]};
-  }
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 0;
-    margin-top: 0;
-  
-  }
-
-  p {
-    margin-top: 2rem;
-  }
+  padding-right:1rem;
+  padding-left:1rem;
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-left:auto;
+    margin-right:auto;
+   }
 `;
-
-const Title= styled.h2`
-  margin:0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow:hidden; 
-  text-overflow:ellipsis;
-  width:40rem;
-`
-
-
 const Image = styled.img`
 width: 10rem;
 height: 10rem;
 border: solid thin;
 margin: 1rem;
 padding:0;
-`
+@media (max-width: 768px) {
+ margin-left:auto;
+ margin-right:auto;
+}
+`;
+const Title= styled.div`
+  margin:0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow:hidden; 
+  text-overflow:ellipsis;
+  width:60%;
+  font-weight: bold;
+  font-size: 2rem;
+  @media (max-width: 1300px) {
+    font-size: 1.8vw;
+  }
+  @media (max-width: 768px) {
+    font-size: 3.5vw;
+    width:100%;
+  }
+
+  
+`;
+
 const PostNickName = styled.div`
 width: 10rem; 
 height:2rem;
 font: bold;
 margin:0;
 padding:0;
+color:${palette.gray[6]};
+margin-top:5px;
+margin-left:5px;
 `
 const PostContent = styled.div`
 padding:0;
-width: 33rem; 
-height:3rem;
+width: 70%; 
+height:4rem;
+
 overflow:hidden; 
 text-overflow:ellipsis;
+  @media (max-width: 768px) {
+    font-size: 2.5vw;
+    height:3.2rem;
+    width:95%;
+  }
 `;
 const PostRegdate =styled.div`
+widht:100%;
 margin-left:auto;
-width:10rem;
 font-size:0.8rem;
 color:${palette.gray[6]};
 `
@@ -91,7 +106,7 @@ height: 12.75rem;
 width:50rem;
 background:green;
 maring-left:auto;
-border-right: thin solid;
+
 @media (max-width: 1300px) {
   height: 22vw;
   width: 100%;
@@ -101,7 +116,7 @@ const MissionInfoBlock = styled.div`
 maring-left:auto;
 width:100%;
 padding:1rem;
-
+border-left: thin solid;
 @media (max-width: 1024px) {
   width: 768px;
 }
@@ -173,7 +188,7 @@ const PostItem = ({ post }) => {
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <PostItemInfoBlock>
         <Title>{post.post_title}</Title>
-        <PostNickName><b>{post.user_name}</b></PostNickName>
+        <PostNickName> {post.user_name}</PostNickName>
         <PostContent>{post_contents}</PostContent>
         <PostRegdate>{new Date(post.post_regdate).toLocaleString()}</PostRegdate>
        
@@ -196,8 +211,8 @@ const PostItem = ({ post }) => {
        <PostHeader>
        <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch} categorys={categorys}/>
         <WritePostButtonWrapper>
-        {showWriteButton && (<Button cyan to="/post/edit">
-            새 글 작성하기
+        {showWriteButton && (<Button cyan postWriteBtn to="/post/edit">
+            작성하기
           </Button>)}
         </WritePostButtonWrapper>
         </PostHeader>
