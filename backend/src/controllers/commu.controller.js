@@ -91,11 +91,11 @@ exports.delete = (req,res)=>{
   //내 모임 조회
   exports.myCommuList = async(req,res) =>{
 
-    Commu.myCommu(req.commu_id,(err,data) =>{
+    Commu.myCommu(req.user_id,(err,data) =>{
       if(!data) {
-        return res.status(419).send({
-          code:419,
-          message: 'myCommu is error',
+        return res.status(500).send({
+          code:500,
+          message: 'fail',
         });
       }else{
         return res.send({
@@ -136,7 +136,7 @@ exports.delete = (req,res)=>{
       
       // 제목 검색
       if(search_type === "title"){
-        Post.SearchNoticeTitle(search_contents, (err, data) => {
+        Commu_Notice.SearchNoticeTitle(search_contents, (err, data) => {
           if (!data) {
             return res.status(419).send({
               code: 419,
@@ -150,11 +150,11 @@ exports.delete = (req,res)=>{
                 posts:data
               }
             });
-        } 
+        }
         })}
         //글로 검색
-        else if(search_type === "contents"){
-        Post.SearchNoticeContents(search_contents, (err, data) => {
+        else {
+        Commu_Notice.SearchNoticeContents(search_contents, (err, data) => {
           if (!data) {
             return res.status(419).send({
               code: 419,
@@ -168,8 +168,7 @@ exports.delete = (req,res)=>{
                 posts:data
               }
             });
-        } 
+        }
         })
-      }else {
-        return 0;
-      }}
+      }
+      }

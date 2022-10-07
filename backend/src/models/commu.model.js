@@ -73,10 +73,10 @@ Commu.findCommu =(commu_title,result)=>{
     });
   
   }
-  //내 소속 커뮤 보기 헤더 커뮤테이블*, 커뮤테이블에 멤버도 들어가야하지 않나?
-  Commu.myCommu = (commu, result)=>{ 
+  //내 소속 커뮤 보기
+  Commu.myCommu = (commu_id, result)=>{ 
 
-    sql.query('SELECT * FROM commu = '+commu_id+";",(err,res) => {
+    sql.query('SELECT * FROM commu WHERE commu_id = '+commu_id+' ORDER BY commu_regdate DESC',(err,res) => {
       if(err) {
         console.log('error:',err);
         result(err,null);
