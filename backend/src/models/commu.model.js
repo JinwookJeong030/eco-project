@@ -38,9 +38,9 @@ Commu.selectAllCommus = (result) => {
     });
   };
 
-    //commu_id를 통한 모임 조회 
-Commu.findCommu =(commu_id,result)=>{
-    sql.query('SELECT commu.* FROM commu WHERE commu.commu_id = commu.commu_id = '+commu_id+" ;", (err, res) => {
+    //commu_title를 통한 모임 검색 
+Commu.findCommu =(commu_title,result)=>{
+    sql.query('SELECT commu.* FROM commu WHERE commu.commu_title = commu.commu_title = '+commu_title+" ;", (err, res) => {
       if (err) {
         console.log('error: ', err);
         result(err, null);
@@ -73,5 +73,21 @@ Commu.findCommu =(commu_id,result)=>{
     });
   
   }
+  //내 소속 커뮤 보기 헤더 커뮤테이블*, 커뮤테이블에 멤버도 들어가야하지 않나?
+  Commu.myCommu = (commu, result)=>{ 
+
+    sql.query('SELECT * FROM commu = '+commu_id+";",(err,res) => {
+      if(err) {
+        console.log('error:',err);
+        result(err,null);
+        return;
+      }
+      console.log('Select My Commus: ', res);
+      result(null,res);
+    } );
+    
+  };
+    
+  //모임 멤버 조회 / commu_id  / user_id 테이블 * , (belong 테이블과 commu 테이블 join이용)
 
   module.exports = Commu;

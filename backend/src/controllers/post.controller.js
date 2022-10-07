@@ -27,6 +27,7 @@ const redisClient = require('../modules/redis.js');
             });
         } 
         })}
+        //글로 검색
         else if(search_type === "contents"){
         Post.selectAllPostsFromContents(search_contents, (err, data) => {
           if (!data) {

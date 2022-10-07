@@ -7,5 +7,7 @@ const Plant = function (plant) {
     this.plant_grade = plant.plant_grade;
     this.plant_level = plant.plant_level;
     this.plant_img_path = plant.plant_img_path;
+    this.plant_total_level = plant.plant_total_level;
+    this.plant_total_point = plant.plant_total_point;
 };
 module.exports = Plant;

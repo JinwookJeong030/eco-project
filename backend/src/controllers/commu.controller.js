@@ -1,4 +1,7 @@
+const { findCommu } = require('../models/commu.model.js');
 const Commu = require('../models/commu.model.js');
+const Commu_Notice = require('../models/commu_notice.model.js');
+const Commu_Mission = require('../models/commu_mission.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
 // 보내는 방식 res.send()
@@ -28,8 +31,31 @@ exports.create = async (req,res)=>{
 
 })
 };
-// 전체 조회 
+// 조회 기능
 exports.list = (req,res)=>{
+  const{search_type,search_contents} = req.query;
+  //모임제목으로 검색
+  if(search_type === "title"){
+    Commu.findCommu(req.params.commuId, (err, data) => {
+      if (!data) {
+        return res.status(419).send({
+          code:419,
+          message: 'findCommu is error!',
+        });
+      } else {
+        return res.send({
+          code:200,
+          message: 'findCommu is succesful',
+          result:{
+            commus:data
+          }
+        });
+      }
+
+  })}
+  else
+  {
+    //전체 조회
   Commu.selectAllCommus((err, data) => {
       if (err)
         res.status(400).send({
@@ -44,22 +70,7 @@ exports.list = (req,res)=>{
         }
       });
     });
-};
-// commu_id로 조회
-exports.view = (req,res)=>{
-  Commu.findCommu(req.params.commuId, (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found Commu with id ${req.params.customerId}.`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error retrieving Commu with id " + req.params.customerId
-          });
-        }
-      } else res.send({data});
-    });
+  }
 };
 // commu_id로 삭제
 exports.delete = (req,res)=>{
@@ -77,4 +88,88 @@ exports.delete = (req,res)=>{
       } else res.send({ message: `Commu was deleted successfully!` });
     });
 };
-  //함수 어떻게 보낼지
+  //내 모임 조회
+  exports.myCommuList = async(req,res) =>{
+
+    Commu.myCommu(req.commu_id,(err,data) =>{
+      if(!data) {
+        return res.status(419).send({
+          code:419,
+          message: 'myCommu is error',
+        });
+      }else{
+        return res.send({
+          code:200,
+          message: 'myCommu is successful',
+          result: {
+            myCommus:data
+          }
+        });
+      }
+    });
+  }
+  //모임미션 조회
+  exports.CommuMission = async(req, res) =>{
+    Commu_Mission.Searchmission(req.commu_id,(err,data)=>{
+      if(!data) {
+        return res.status(419).send({
+          code:419,
+          message: 'CommuMission is error',
+        });
+      }else{
+        return res.send({
+          code:200,
+          message: 'CommuMission is successful',
+          result: {
+            CommuMission:data
+          }
+        });
+      }
+    });
+  }
+
+
+  // 모임공지조회 기능
+  exports.noticelist = async (req, res) => {
+
+    const {search_type,search_contents} = req.query;
+      
+      // 제목 검색
+      if(search_type === "title"){
+        Post.SearchNoticeTitle(search_contents, (err, data) => {
+          if (!data) {
+            return res.status(419).send({
+              code: 419,
+              message: 'SearchNoticeTitle is error!',
+            });
+          } else {
+            return res.send({
+              code:200,
+              message: 'SearchNoticeTitle is successful',
+              result:{
+                posts:data
+              }
+            });
+        } 
+        })}
+        //글로 검색
+        else if(search_type === "contents"){
+        Post.SearchNoticeContents(search_contents, (err, data) => {
+          if (!data) {
+            return res.status(419).send({
+              code: 419,
+              message: 'SearchNoticeContents is error!',
+            });
+          } else {
+            return res.send({
+              code:200,
+              message: 'SearchNoticeContents is successful',
+              result:{
+                posts:data
+              }
+            });
+        } 
+        })
+      }else {
+        return 0;
+      }}
