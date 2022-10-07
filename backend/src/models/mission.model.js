@@ -9,16 +9,16 @@ const Mission = function (mission) {
     this.mission_state = mission.mission_state;
     this.mission_point = mission.mission_point;
 };
+
 //미션 조회
-Commu.selectAllMissions = (result) => {
-sql.query('SELECT * FROM mission ORDER BY mission_id DESC', (err, res) => {
+Mission.selectAllMissions = (result) => {
+sql.query('SELECT * FROM mission WHERE mission_state = 1 ;', (err, res) => {
 if (err) {
     console.log('error: ', err);
     result(err, null);
     return;
     }
-  
-    console.log('Select All Commus: ',  res );
+    console.log('selectAllMissions: ',  res );
     result(null,  res );
     });
 };
