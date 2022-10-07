@@ -31,6 +31,12 @@ const PostItemInfoBlock = styled.div`
   padding-bottom: 1rem;
   padding-right:1rem;
   padding-left:1rem;
+  width: 80.5%;
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-left:auto;
+    margin-right:auto;
+   }
 `;
 const Image = styled.img`
 width: 10rem;
@@ -87,8 +93,8 @@ text-overflow:ellipsis;
   }
 `;
 const PostRegdate =styled.div`
+widht:100%;
 margin-left:auto;
-
 font-size:0.8rem;
 color:${palette.gray[6]};
 `

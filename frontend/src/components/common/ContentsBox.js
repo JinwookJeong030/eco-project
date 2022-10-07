@@ -14,8 +14,6 @@ const ContentsBoxBlock = styled(Responsive)`
     @media (max-width: 768px) {
       margin-left:1rem;
       width: 100%;
-
-    
     };
 
   
