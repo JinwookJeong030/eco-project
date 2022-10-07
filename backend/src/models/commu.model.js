@@ -52,15 +52,14 @@ Commu.findCommu =(commu_title,result)=>{
     });
   
   };
-    //commu_id를 통한 모임 삭제 
 
+    // 모임 삭제 
   Commu.deleteCommu =(commu, result)=>{
     const commuReq = new Commu({
       commu_id: commu.commu_id,
-      commu_name: commu.commu_name,
+      commu_leader: commu.commu_leader,
     })
-  
-    sql.query("DELETE FROM commu WHERE commu_id = "+commuReq.commu_id+" AND commu_name = "+commuReq.commu_name+" ;", 
+    sql.query("DELETE FROM commu WHERE commu_id = "+commuReq.commu_id+" ;", 
     (err,res)=>{
       if (err) {
         console.log('error: ', err);
@@ -71,7 +70,6 @@ Commu.findCommu =(commu_title,result)=>{
       result(null,  res);
   
     });
-  
   }
   //내 소속 커뮤 보기
   Commu.myCommu = (commu_id, result)=>{ 

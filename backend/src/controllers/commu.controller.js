@@ -72,22 +72,26 @@ exports.list = (req,res)=>{
     });
   }
 };
-// commu_id로 삭제
+// 모임 삭제
 exports.delete = (req,res)=>{
-  Commu.deleteCommu(req.params.commu_id, (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found Commu with id ${req.params.commu_id}.`
-          });
-        } else {
-          res.status(500).send({
-            message: "Could not delete Commu with id " + req.params.commu_id
-          });
-        }
-      } else res.send({ message: `Commu was deleted successfully!` });
-    });
-};
+  const commuReq = new Commu({
+    commu_leader: req.commu_leader,
+    commu_id: req.params.commu_id,
+  });
+  Commu.deleteCommu(commuReq, (err, data) => {
+    if(!data){
+      return res.status(419).send({
+        code: 419,
+        message: 'deleteCommu is error!',
+      });
+    }else{
+      return res.send({
+        code:200,
+        message: 'deleteCommu is successful', 
+       });
+    }
+    })
+}
   //내 모임 조회
   exports.myCommuList = async(req,res) =>{
 

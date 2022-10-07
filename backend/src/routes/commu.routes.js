@@ -9,7 +9,7 @@ module.exports = (app) => {
     app.get('/api/commu/list', commu.list);
     //모임 생성
     app.post('/api/commu/create',authJwt,  commu.create);
-    //commu_id로 삭제
+    //모임 삭제
     app.delete('/api/commu/delete/:commu_id',authJwt, commu.delete);
     //내 모임 조회
     app.get('/api/commu/myCommuList',authJwt,commu.myCommuList);

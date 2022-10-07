@@ -1,9 +1,17 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-# 나중에 주석 해제 해야됨
-# /backend/src/config
+
+
+#백엔드 구성요소 주석해제해야됨
+# /backend/src/config/
+
+#build
+/frontend/build/
+/backend/build/
+
 # dependencies
-/frontend/node_modules
-/backend/node_modules
+/frontend/node_modules/
+/backend/node_modules/
+
 /.pnp
 .pnp.js
 
