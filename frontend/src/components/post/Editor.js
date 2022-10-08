@@ -67,8 +67,10 @@ const TitleInput = styled.input`
 
 const QuillWrapper = styled.div`
   /* 최소 크기 지정 및 padding 제거 */
+  
   .ql-editor {
     padding: 0;
+   
     min-height: 400px;
     max-height: 580px;
     font-size: 1.125rem;
@@ -81,6 +83,7 @@ const QuillWrapper = styled.div`
 `;
 const EditBody = styled.div`
   padding:5px;
+  
 `
 
 var Parchment = Quill.import('parchment');

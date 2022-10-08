@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive';
@@ -31,11 +32,14 @@ color: ${palette.gray[6]};
 font-size: 13px;
 `
 const CommuNoticeListItem = ({cn})=>{
-    return (<NoticeItemBlock>  
+    
+    return (
+    <Link to={'/commu/notice/'+cn.cn_id}>
+    <NoticeItemBlock>  
         <NoticeTitle>{cn.cn_title}</NoticeTitle>
         <Regdate>{cn.cn_regdate}</Regdate>
     </NoticeItemBlock>
-      
+    </Link>
     )
 
 }
@@ -46,7 +50,6 @@ const CommuNoticeList = ({cns, loading, error}) => {
         <CommuNoticeBlock>
           <CommuNoticeListBlock  paddingBox flexColumn paddingMinTop>
             <Title>공지사항</Title>
-          
             {!loading&&cns&&cns.map(cn=>(<CommuNoticeListItem cn={cn} key={cn.cn_id} paddingMinTop/>))}
           </CommuNoticeListBlock>
         </CommuNoticeBlock>

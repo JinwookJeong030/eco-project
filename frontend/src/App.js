@@ -57,9 +57,9 @@ function App() {
         <Route path=":id" element={<CommuViewPage />} />
       </Route>
       {/*모임 공지글 조회 */}
-      <Route path="/commu/notice" element={<CommuEditNoticePage/>} />
+      <Route path="/commu/notice/:cn_id" element={<CommuNoticePage/>} />
       {/*모임 공지글 작성 */}
-      <Route path="/commu/editNotice" element={<CommuNoticePage/>} />
+      <Route path="/commu/editNotice/:cn_id" element={<CommuEditNoticePage/>} />
       {/*모임 생성,수정*/}
       <Route path="/commu/edit" element={<CommuEditPage />} />
       

@@ -21,8 +21,7 @@ module.exports = (app) => {
     app.get('/api/commu/CommuMission',commu.CommuMission);
     //미션공지 조회
     app.get('/api/commu/noticelist/',commu.noticelist);
-
-
+   
 
   };
   

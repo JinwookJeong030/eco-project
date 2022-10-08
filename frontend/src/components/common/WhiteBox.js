@@ -38,7 +38,7 @@ ${(props) =>
   props.paddingMinTop &&
   css`
  padding-top:0rem;
- padding-bottom:0rem;
+ padding-bottom:0.3rem;
  margin:0.3rem;
 `}
 `;

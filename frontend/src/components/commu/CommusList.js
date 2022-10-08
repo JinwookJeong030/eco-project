@@ -134,7 +134,7 @@ const MyCommuItem = ( {commu, pages} ) =>{
 
 const CommuItem = ({ commu }) => {
     return (<Link to={`/commu/view/${commu.commu_id}`}>
-    <CommuItemBlock whiteBoxStyle>
+    <CommuItemBlock >
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <CommuItemInfoBlock>
         <Title>{commu.commu_name}</Title>
@@ -144,6 +144,14 @@ const CommuItem = ({ commu }) => {
     </Link>
     );
   };
+const NoItem = () => {
+  return (
+  <ManagementCommuBlock >
+      가입된 모임이 없습니다.
+  </ManagementCommuBlock>
+
+  );
+  }
 const ClassItemError =()=>{return <div>모임을 불러올 수 없습니다...<p/></div>;}
   const CommuList = ({ search_type, search_contents, onChangeField, onSearch, loading, error, 
     commus, myCommus, showWriteButton }) => {
@@ -168,9 +176,9 @@ const ClassItemError =()=>{return <div>모임을 불러올 수 없습니다...<p
     }
  
       <MyCommuListBlock>
-        <Title>나의 모임</Title>
+        <Title >나의 모임</Title>
      <MyCommuItemsBlock>
-        {error?<ClassItemError/>:(!loading && myCommus && (<>
+        {error?<ClassItemError/>:(!loading && (myCommus===null? <NoItem/>:<>
           {
 myCommus.map(commu => (
             <MyCommuItem commu={commu} key={commu.class_id} />

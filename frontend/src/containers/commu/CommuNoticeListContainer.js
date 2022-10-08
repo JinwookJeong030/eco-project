@@ -18,8 +18,8 @@ const CommuEditNoticeListContainer = () => {
       error: write.missionError,
       loading: loading['write/MISSION'],
       cns: [{cn_title:"dd",cn_id:1, cn_regdate:"2022-01-01"},
-      {cn_title:"dd",cn_id:1, cn_regdate:"2022-01-01"},
-      {cn_title:"dd",cn_id:1, cn_regdate:"2022-01-01"}]
+      {cn_title:"dd",cn_id:2, cn_regdate:"2022-01-01"},
+      {cn_title:"dd",cn_id:3, cn_regdate:"2022-01-01"}]
     }),
   );
   
