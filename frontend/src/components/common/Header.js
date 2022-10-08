@@ -14,7 +14,12 @@ const HeaderBlock = styled.div`
 const HeaderIcon = styled.img`
 width:4rem;
 height:4rem;
+margin-right:5px;
 vertical-align: bottom;
+@media (max-width: 768px) {
+  height:3rem;
+  width:3rem;
+  }
 `
 const Wrapper = styled(Responsive)`
   height: 4rem;
@@ -31,15 +36,26 @@ const Wrapper = styled(Responsive)`
     display: flex;
     align-items: center;
   }
+  @media (max-width: 768px) {
+    height:3rem;
+    width:97%;
+    }
 `;
 const Spacer = styled.div`
   height: 4rem;
-
+  @media (max-width: 768px) {
+    height:3rem;
+    }
 `;
 
 const UserInfo = styled.div`
   font-weight: 800;
   margin-right: 1rem;
+  @media (max-width: 1024px) {
+   margin-right:1px;
+   font-size: 1vw;
+  }
+  
 `;
 
 const Header = ({ user, onLogout }) => {
@@ -56,11 +72,11 @@ const Header = ({ user, onLogout }) => {
           {user ? (
             <div className="right">
               <UserInfo>{user.user_name}</UserInfo>
-              <Button  onClick={onLogout}> 로그아웃</Button>
+              <Button  onClick={onLogout} postWriteBtn> 로그아웃</Button>
             </div>
           ) : (
             <div className="right">
-              <Button cyan to="/login"> 로그인</Button>
+              <Button cyan to="/login" postWriteBtn> 로그인</Button>
             </div>
           )}
         </Wrapper>

@@ -134,7 +134,7 @@ const MyCommuItem = ( {commu, pages} ) =>{
 
 const CommuItem = ({ commu }) => {
     return (<Link to={`/commu/view/${commu.commu_id}`}>
-    <CommuItemBlock>
+    <CommuItemBlock whiteBoxStyle>
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <CommuItemInfoBlock>
         <Title>{commu.commu_name}</Title>
