@@ -16,7 +16,7 @@ export const readCommu = createAction(READ_COMMU, id => id);
 export const unloadPost = createAction(UNLOAD_COMMU);
 
 const readCommuSaga = createRequestSaga(READ_COMMU, commuAPI.readCommu);
-export function* postSaga() {
+export function* commuSaga() {
   yield takeLatest(READ_COMMU, readCommuSaga);
 }
 const initialState = {

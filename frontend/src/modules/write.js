@@ -4,6 +4,7 @@ import * as postsAPI from '../lib/api/post';
 import { takeLatest } from 'redux-saga/effects';
 
 const INITIALIZE = 'write/INITIALIZE'; // 모든 내용 초기화
+const INITWRITE = 'write/INITWRITE'; // 글내용만 초기화
 const CHANGE_FIELD = 'write/CHANGE_FIELD'; // 특정 key 값 바꾸기
 const [
   WRITE_POST,
@@ -35,7 +36,7 @@ const [
 const SET_ORIGINAL_POST = 'write/SET_ORIGINAL_POST';
 
 export const initialize = createAction(INITIALIZE);
-
+export const initWrite = createAction(INITWRITE);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
@@ -81,7 +82,6 @@ const initialState = {
   post_title: '',
   post_contents: '',
   post_category: 1,
-  post_mission:0,
   categorys:[],
   categorysError:null,
   mission:null,
@@ -94,6 +94,17 @@ const initialState = {
 const write = handleActions(
   {
     [INITIALIZE]: state => initialState, // initialState를 넣으면 초기 상태로 바뀜
+    [INITWRITE]: state =>({
+      ...state,
+      post_title: '',
+      post_contents: '',
+      post_category: 1,
+      categorysError:null,
+      missionError:null,
+      postError: null,
+      originalPostId: null,
+    }),
+
     [CHANGE_FIELD]: (state, { payload: { key, value } }) => ({
       ...state,
       [key]: value, // 특정 key 값을 업데이트

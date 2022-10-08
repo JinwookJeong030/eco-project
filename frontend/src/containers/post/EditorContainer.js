@@ -1,21 +1,21 @@
 import React, { useEffect, useCallback } from "react";
 import Editor from "../../components/post/Editor";
 import { useSelector, useDispatch } from "react-redux";
-import { changeField, initialize, writePost, categorys, editPost } from "../../modules/write";
+import { changeField, initialize, writePost, categorys, editPost , mission } from "../../modules/write";
 import { useNavigate } from "../../../node_modules/react-router-dom/index";
 
 const EditorContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { post_title, post_contents,post_category, post_mission,categoryArray, categorysError, missionArray, missionsError,originalPostId, post, postError } = useSelector(({ write }) => ({
+  const { post_title, post_contents,post_category, post_mission,categoryArray, categorysError, missionData, missionError,originalPostId, post, postError } = useSelector(({ write }) => ({
     post_title: write.post_title,
     post_contents: write.post_contents,
     post_category: write.post_category,
     post_mission: write.post_mission,
     categoryArray: write.categorys,
     categorysError: write.categorysError,
-    missionArray: write.missions,
-    missionsError: write.missionsError,
+    missionData: write.mission,
+    missionError: write.missionError,
     originalPostId: write.originalPostId,
     post: write.post,
     postError: write.postError,
@@ -42,13 +42,16 @@ const EditorContainer = () => {
   useEffect(() => {
     return () => {
       dispatch(initialize());
+     
     };
   }, [dispatch]);
 
   useEffect(()=>{
     dispatch(categorys());
   },[]);
-
+  useEffect(()=>{
+    dispatch(mission());
+  },[]);
   useEffect(() => {
     if (post) {
       navigate('/post/list');
@@ -61,8 +64,8 @@ const EditorContainer = () => {
   return <Editor 
   categorys={categoryArray} 
   category={post_category} 
-  missions={missionArray} 
-  mission={post_mission}
+  mission={missionData} 
+  post_mission={post_mission}
   post_title={post_title}
   post_contents={post_contents}
   onChangeField={onChangeField} 

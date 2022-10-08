@@ -79,7 +79,7 @@ const Nav = ({user, onHidingMenu ,hidingState}) => {
               <MenuIcon src={process.env.PUBLIC_URL +"/menu-icon.png"}onClick={onHidingMenu}/>
               <Link to='/'><Menu>
                 <Icon src={process.env.PUBLIC_URL +"/post-icon.png"}/>{hidingState?'':'게시판'}</Menu></Link>
-                <Link to='/class/list'><Menu><Icon src={process.env.PUBLIC_URL +"/class-icon.png"}/>{hidingState?'':'모임'}</Menu></Link>
+                <Link to='/commu/list'><Menu><Icon src={process.env.PUBLIC_URL +"/class-icon.png"}/>{hidingState?'':'모임'}</Menu></Link>
 
             <Link to='/ranking'> <Menu><Icon src={process.env.PUBLIC_URL +"/ranking-icon.png"}/>{hidingState?'':'랭킹'}</Menu></Link>
             

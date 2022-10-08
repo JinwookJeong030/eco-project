@@ -109,7 +109,7 @@ background:green;
 maring-left:auto;
 
 @media (max-width: 1300px) {
-  height: 22vw;
+  height: 18vw;
   width: 100%;
 }
 `

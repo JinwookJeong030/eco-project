@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
 const buttonStyle = css`
+  margin-right:0.5rem;
+  margin-left:0.5rem;
   border: none;
   border-radius: 4px;
   font-size: 1rem;

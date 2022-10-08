@@ -27,7 +27,8 @@ const EditorBlock = styled(Responsive)`
 `;
 const CategoryBlock = styled(Responsive)`
 display: flex;
-flex-direction: column;
+flex-direction: row;
+margin:0;
 padding:0;
 `
 
@@ -36,6 +37,16 @@ width: 18rem;
 height: 2rem;
 font-size: 1.2rem;
 margin-bottom: 15px;
+`
+const Mission = styled.div`
+height: 2rem;
+border: solid thin;
+border-radius: 2px;
+padding:2px;
+padding-left:10px;
+padding-right:10px;
+margin-left:1rem;
+font-weight: bold;
 `
 
 const TitleInput = styled.input`
@@ -94,12 +105,10 @@ var Parchment = Quill.import('parchment');
     Parchment.register(lineHeightClass);
     Parchment.register(lineHeightStyle);
 
-const Editor =({categorys,category, missions,mission, post_title,post_contents,onChangeField, onPublish, onCancel })=>{
+const Editor =({categorys,category,  post_mission, mission, post_title,post_contents,onChangeField, onPublish, onCancel })=>{
   const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
   const quillInstance =  useRef(null); 
 
-  const location = useLocation();
-  const mission_title = location.state.mission_title;
 
   useEffect(() => {
     
@@ -159,13 +168,7 @@ const Editor =({categorys,category, missions,mission, post_title,post_contents,o
           {categorys.map(category =>(<option value={category.category_id}>{category.category_name}</option>))}
             </Select>:<></>
 }
-            {(category === "4")?<Select
-               placeholder="미션을 선택하세요." 
-               onChange={onChangeMission} 
-             
-            >
-            {missions===[]?missions.map(mission =>(<option value={mission.mission_id}>{mission.mission_name}</option>)):<option><option>현재 미션이 없습니다...</option></option>}
-            </Select>:<>
+        {((category === "4")&&mission)?<Mission> 미션 : {mission.mission_title}</Mission>:<>
            </>}
           </CategoryBlock>
           <TitleInput 
