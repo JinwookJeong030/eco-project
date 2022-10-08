@@ -11,9 +11,13 @@ const ContentsBoxBlock = styled(Responsive)`
     width: calc( 100% - ${(props)=>props.hidingState? '4rem':'13rem'});
     margin-left: ${(props)=>props.hidingState? '4rem':'13rem'};
     overflow: auto;
+    padding-bottom:3rem;
     @media (max-width: 768px) {
-      margin-left:1rem;
+      margin-left:0rem;
+      padding-left:2rem;
+      padding-right:0rem;
       width: 100%;
+      height:100%;
     };
 
   

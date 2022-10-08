@@ -8,7 +8,8 @@ import { WhitePostsItemBox } from '../common/WhiteBox';
 const borderNone = css`
 ${(props)=>
     props.borderNone && css`
-    border-width: 1px 1px 1px 1px;
+    border-width: 2px 2px 2px 2px;
+
     border-color: black black white;
     box-shadow: 2px 0px 1px rgba(10, 10, 10, 0);
  
@@ -27,12 +28,15 @@ const CommuMenuItemsBlock = styled.div`
 const CommuMenuItemBlock = styled.div`
 border: thin solid;
 border-radius: 10px 10px 0  0;
+border-width: 2px;
 width:15rem;
 text-align:center;
-font-size:1.4rem;
-@media (max-width: 800px) {
-    font-size:3vw;  
+font-size:1.3rem;
+@media (max-width: 1000px) {
+    font-size:2.3vw;  
 }
+padding-top:0.3rem;
+padding-bottom:0.3rem;
 padding-left:5px;
 padding-right:5px;
 margin-Top:1rem;
@@ -45,14 +49,15 @@ ${borderNone}
 const CommuMenuTemp = styled.div`
 border: thin solid;
 border-radius: 10px 10px 0  0;
+border-width: 2px;
 width:80%;
 
-border-width: 0px 0px 1px 0px;
+border-width: 0px 0px 2px 0px;
 
 `
 const ContentsBlock  = styled.div`
 border: thin solid;
-border-width: 0px 1px 1px 1px;
+border-width: 0px 2px 2px 2px;
 padding-left:1.3rem;
 padding-right:1.3rem;
 padding-top:0.5rem;

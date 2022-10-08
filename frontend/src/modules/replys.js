@@ -11,7 +11,7 @@ const [
   LIST_REPLYS,
   LIST_REPLYS_SUCCESS,
   LIST_REPLYS_FAILURE,
-] = createRequestActionTypes('replys/LIST_POSTS');
+] = createRequestActionTypes('replys/LIST_REPLYS');
 
 
 const [

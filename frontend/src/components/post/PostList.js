@@ -14,14 +14,17 @@ const WritePostButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-left: auto;
+
   margin-top:auto;
   margin-bottom:auto;
-  height:2rem;
+ 
+  
 
 `;
 const PostItemBlock = styled(WhitePostsItemBox)`
 
 `
+const MissionBlock = styled(WhitePostsItemBox)``
 const PostItemInfoBlock = styled.div`
   display:flex;
   flex-direction:column;
@@ -42,6 +45,7 @@ const Image = styled.img`
 width: 10rem;
 height: 10rem;
 border: solid thin;
+border-width:2px;
 margin: 1rem;
 padding:0;
 @media (max-width: 768px) {
@@ -98,16 +102,16 @@ margin-left:auto;
 font-size:0.8rem;
 color:${palette.gray[6]};
 `
-const PostHeader = styled.div`
+const PostHeader = styled(Responsive)`
 display:flex;
 flex-direction: row;
+width:98%;
+padding:0;
 `
 const MissionImg = styled.img`
-height: 12.75rem;
-width:50rem;
-background:green;
-maring-left:auto;
 
+width:50rem;
+maring-left:auto;
 @media (max-width: 1300px) {
   height: 18vw;
   width: 100%;
@@ -115,9 +119,9 @@ maring-left:auto;
 `
 const MissionInfoBlock = styled.div`
 maring-left:auto;
-width:100%;
 padding:1rem;
 border-left: thin solid;
+border-width: 2px;
 @media (max-width: 1024px) {
   width: 768px;
 }
@@ -162,8 +166,9 @@ const NoPost =({title})=>{
 const Mission = ({mission_id, title, contents, onClickMission})=>
 {
   return (
+    
     <Link to={`/post/edit`} state={{ mission_title: title }}>
-    <PostItemBlock onClick={onClickMission}>
+    <MissionBlock onClick={onClickMission} >
 
     <MissionImg src={process.env.PUBLIC_URL + "/mission_img/mission_"+mission_id+".png"}/>
 
@@ -174,7 +179,7 @@ const Mission = ({mission_id, title, contents, onClickMission})=>
       <MissionContents>{contents}</MissionContents>     
       </MissionInfoBlock>
 
-    </PostItemBlock>
+    </MissionBlock>
     </Link>
   );
 }
@@ -211,6 +216,11 @@ const PostItem = ({ post }) => {
     /**에러처리 */
     return (
       <PostListBlock>
+             <WritePostButtonWrapper>
+        {showWriteButton && (<Button cyan postWriteBtn to="/post/edit">
+            작성하기
+          </Button>)}
+        </WritePostButtonWrapper>
         {mission&&
       <Mission mission_id= {mission.mission_id} title={mission.mission_title} contents={mission.mission_contents}
     
@@ -218,11 +228,7 @@ const PostItem = ({ post }) => {
         }
        <PostHeader>
        <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch} categorys={categorys}/>
-        <WritePostButtonWrapper>
-        {showWriteButton && (<Button cyan postWriteBtn to="/post/edit">
-            작성하기
-          </Button>)}
-        </WritePostButtonWrapper>
+   
         </PostHeader>
         {!loading && posts &&(posts.length===0?<NoPost title={"검색 된 게시물이 없습니다."} />:(<div>
           {

@@ -15,6 +15,7 @@ border-right: solid thin #088A68;
 
   @media (max-width: 768px) {
     position:fixed;
+    height:100%;
   }
 
 `;

@@ -67,7 +67,6 @@ width:5rem;
 height:2rem;
 margin-right:0.5rem;
 margin-bottom:0rem;
-margin-left:auto;
 `
 const Text = styled.h3`
 
@@ -94,7 +93,7 @@ const ReplyEditorItem = ({user, onChangeReplys, onPublish, addState, reply_conte
 
 }
 
-const ReplyEditor = ({user,onLocationLogin, onChangeField, onPublish,addState, reply_contents}) => {
+const CommuReplyEditor = ({user,onLocationLogin, onChangeField, onPublish,addState, reply_contents}) => {
   const userEx = {
     user_name:'닉네임'
 }
@@ -125,4 +124,4 @@ user?
   );
 };
 
-export default ReplyEditor;
+export default CommuReplyEditor;

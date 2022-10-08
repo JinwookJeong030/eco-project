@@ -38,7 +38,7 @@ ${(props) =>
   props.paddingMinTop &&
   css`
  padding-top:0rem;
- padding-bottom:0.3rem;
+ padding-bottom:0rem;
  margin:0.3rem;
 `}
 `;
@@ -52,7 +52,8 @@ flex-direction:column;
 margin-top:0.5rem;
 margin-bottom:0.5rem;
 padding:1.5rem 2rem 1rem 2rem;
-border: thin solid ;
+border:  thin solid ;
+border-width: 2px;
 border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 flex-wrap: nowrap;
@@ -62,6 +63,7 @@ display: flex;
 margin-top:0.7rem;
 margin-bottom:0.7rem;
 border: thin solid ;
+border-width: 2px;
 border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 padding:0;

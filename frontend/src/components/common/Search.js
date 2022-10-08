@@ -1,20 +1,25 @@
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import Responsive from './Responsive';
 
 
 
 
-const SearchBlock = styled.form`
+const SearchBlock = styled(Responsive)`
+
 display: flex;
 flex-direction: row;
 height: 3rem;
 width:24rem;
 border: thin solid;
+border-width: 2px;
 box-shadow: 2px 2px 2px rgba(10, 10, 10, 0.3);
-
-
+margin-left:auto;
+margin-right:0;
+margin-top:1rem;
+margin-bottom:0.5rem;
 @media (max-width: 670px) {
-  width: 78%;
+  width: 100%;
 
 }
 `;
@@ -29,11 +34,13 @@ margin-left:0.5rem;
 
   width: 90%;
 }
+
 `
 const SearchBtn = styled.img`
 width:2rem;
 height:2rem;
 border: thin solid;
+border-width: 2px;
 padding: 5px;
 margin-left:auto;
 margin-right:6px;
@@ -51,6 +58,7 @@ border-radius: 5rem;
 
 
 const SearchCategory = styled.select`
+  border-width: 2px;
     width: 8rem;
     height: 1.8rem;
     margin-left:0.5rem;

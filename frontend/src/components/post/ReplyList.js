@@ -76,7 +76,6 @@ height: 1.2rem;
 `
 
 const ReplyItemInfoBlock = styled.div`
-
   display: flex;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -84,8 +83,6 @@ const ReplyItemInfoBlock = styled.div`
   &:first-child {
     padding-top: 0;
   }
-  
-
 `;
 
 

@@ -46,6 +46,7 @@ const ClassListForm = () => {
 
   return (
     <CommusList
+    user={user}
     search_type={type}
     search_contents={contents}
     onChangeField={onChangeField}

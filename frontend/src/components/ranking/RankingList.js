@@ -9,16 +9,15 @@ import Search from '../common/Search';
 const RankingListBlock = styled(Responsive)` 
 `;
 
-const WritePostButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-left: auto;
-  margin-top:auto;
-  margin-bottom:auto;
-  height:2rem;
 
-`;
-const RankingItemBlock = styled(WhitePostsItemBox)`
+const RankingItemBlock = styled.div`
+display: flex;
+border: thin solid ;
+border-width: 2px;
+border-color: #424242;
+box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
+margin-top:0.5rem;
+margin-bottom:0.5rem;
 
 `
 const RankingItemInfoBlock = styled.div`
@@ -30,22 +29,24 @@ const RankingItemInfoBlock = styled.div`
   padding-bottom: 1rem;
   padding-right:1rem;
   padding-left:1rem;
-  @media (max-width: 768px) {
-    width: 90%;
-    margin-left:auto;
-    margin-right:auto;
-   }
+
 `;
 const PlantImage = styled.img`
-width: 10rem;
-height: 10rem;
+width: 9.1rem;
+height: 11.7rem;
 border: solid thin;
+border-width: 2px;
 margin: 1rem;
 padding:0;
 @media (max-width: 768px) {
  margin-left:auto;
  margin-right:auto;
 }
+@media (max-width: 1024px) {
+  width: 5.6rem;
+  height: 7.2rem;
+  margin:1rem;
+ }
 `;
 
 const TopRankingItemInfoBlock = ``
@@ -55,7 +56,6 @@ height:2rem;
 font: bold;
 margin:0;
 padding:0;
-color:${palette.gray[6]};
 margin-top:5px;
 margin-left:5px;
 `
@@ -98,6 +98,7 @@ const RankingItem = ({user}) => {
         <PlantImage src={process.env.PUBLIC_URL + "/"+user.leaderplant+".png"}/>
         <RankingItemInfoBlock>
         <RankingNickName> {user.user_name}</RankingNickName>
+        <RankingNickName> {user.user_total_point}</RankingNickName>
       </RankingItemInfoBlock>
    
     </RankingItemBlock>
@@ -111,9 +112,9 @@ const RankingItem = ({user}) => {
     }
     return (
       <RankingListBlock>
-        <RankingHeader>
+ 
         {!loading && user && <RankingItem user={user} key={user.user_id} />}
-        </RankingHeader>
+   
        <RankingHeader>
        <Search/>
         </RankingHeader>
