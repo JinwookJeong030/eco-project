@@ -48,6 +48,20 @@ Commu.selectFirstCommusFromLeader = (commu_leader,result) => {
   });
 };
 
+
+// 내 모임 수 조회
+Commu.selectMyCommusCnt = (user_id,result) => {
+  sql.query('SELECT COUNT(*) AS commu_count FROM commu,belong WHERE commu.commu_id =belong.belong_commu AND belong_user = '+user_id+' ;', (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+    console.log(parseInt(res[0].post_count));
+      result(null,  parseInt(res[0].post_count));
+  });
+};
+
 // 내 모임 조회
 Commu.selectMyCommus = (user_id,result) => {
   sql.query('SELECT commu.* FROM commu,belong WHERE commu.commu_id =belong.belong_commu AND belong_user = '+user_id+' ORDER BY commu_regdate DESC', (err, res) => {
@@ -61,6 +75,10 @@ Commu.selectMyCommus = (user_id,result) => {
   });
 };
 
+//전체 모임 명 모임 수 조회
+//전체 모임 명 모임 조회
+//전체 모임장 모임 수 조회
+//전체 모임장 모임 조회
 
   //모임 전체 조회
 Commu.selectAllCommus = (result) => {

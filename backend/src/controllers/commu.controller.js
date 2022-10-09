@@ -26,6 +26,8 @@ Commu.insertCommu(commuReq, (err, data) =>{
 })
 
 Commu.selectFirstCommusFromLeader(commuReq.commu_leader, (err, data) =>{
+  
+
   if(err){
      return res.status(500).send({
         code: 500,  
@@ -64,6 +66,8 @@ Commu.selectFirstCommusFromLeader(commuReq.commu_leader, (err, data) =>{
 //내 모임 조회
 exports.mylist = async (req,res)=>{
   const user_id = req.user_id;
+
+  
     //전체 조회
   Commu.selectMyCommus(user_id,(err, data) => {
       if (err)
@@ -83,7 +87,7 @@ exports.mylist = async (req,res)=>{
 };
 // 조회 기능
 exports.list = async (req,res)=>{
-  const{search_type,search_contents} = req.query;
+  const{page, search_type,search_contents} = req.query;
   //모임제목으로 검색
   if(search_type === "title"){
     Commu.findCommu(req.params.commuId, (err, data) => {

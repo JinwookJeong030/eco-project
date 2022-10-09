@@ -10,7 +10,7 @@ const replyStyle = css`
 ${(props) =>
   props.addReply &&
   css`
-  width:56rem;
+  width:90%;
   margin-left:auto;
   `}
 `
