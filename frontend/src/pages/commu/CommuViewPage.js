@@ -21,7 +21,7 @@ import CommuReplyContainer from '../../containers/commu/CommuReplyContainer';
    <ContentsBoxContainer title="모임">
   <CommuMissionContainer/>
   <CommuEditNoticeListContainer/>
-   <CommuOtherMenuContainer>
+   <CommuOtherMenuContainer >
     <CommuReplyContainer/>
     <CommuMemberContainer/>
     </CommuOtherMenuContainer>
