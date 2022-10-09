@@ -18,6 +18,9 @@ const buildLink = ({page,search_type,search_contents})=>{
 }
 
 const Pagination=({page,search_type,search_contents, lastPage})=>{
+    
+    console.log(page)
+    console.log()
     return (
 <PaginationBlock>
     <Button disabled={page === 1} to={page===1? undefined: buildLink({page:page - 1, search_type,search_contents})}>

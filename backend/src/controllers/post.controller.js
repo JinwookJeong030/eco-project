@@ -13,7 +13,7 @@ const redisClient = require('../modules/redis.js');
     let start = 0;
   
     if (page <= 0) {
-       start = 1;
+       start = 0;
     } else {
         start = (page - 1) * end;
     }
@@ -26,17 +26,18 @@ const redisClient = require('../modules/redis.js');
               message: 'selectAllPostsCntFromTitle is error!',
             });
           } else {
-           
-            if (page > Math.round(data / end)) {
+            const lastPage = Math.ceil(data/5);
+            if (page > Math.ceil(data / end)) {
               return res.send({
                 code:200,
                 message: 'selectAllPostsCntFromTitle is null',
                 result:{
-                  posts:[]
+                  posts:[],
+                  lastPage: lastPage
                 }
               })
             }else{
-              const lastPage = parseInt(data/5)+1;
+             
         Post.selectAllPostsFromTitle({start,end,search_contents}, (err, data) => {
           if (!data) {
             return res.status(419).send({
@@ -68,7 +69,7 @@ const redisClient = require('../modules/redis.js');
               });
             } else {
              
-              if (page > Math.round(data / end)) {
+              if (page > Math.ceil(data / end)) {
                 return res.send({
                   code:200,
                   message: 'selectAllPostsCntFromContents is null',
@@ -77,7 +78,7 @@ const redisClient = require('../modules/redis.js');
                   }
                 })
               }else{
-                const lastPage = parseInt(data/5)+1;
+                const lastPage = Math.ceil(data/5);
         Post.selectAllPostsFromContents({start,end,search_contents}, (err, data) => {
           if (!data) {
             return res.status(419).send({
@@ -110,7 +111,7 @@ const redisClient = require('../modules/redis.js');
             });
           } else {
            
-            if (page > Math.round(data / end)) {
+            if (page > Math.ceil(data / end)) {
               return res.send({
                 code:200,
                 message: 'selectAllPostsCntFromUser is null',
@@ -119,7 +120,7 @@ const redisClient = require('../modules/redis.js');
                 }
               })
             }else{
-              const lastPage = parseInt(data/5)+1;
+              const lastPage = Math.ceil(data/5);
         Post.selectAllPostsFromUser({start,end,search_contents}, (err, data) => {
           if (!data) {
             return res.status(419).send({
@@ -151,7 +152,7 @@ const redisClient = require('../modules/redis.js');
             });
           } else {
            
-            if (page > Math.round(data / end)) {
+            if (page > Math.ceil(data / end)) {
               return res.send({
                 code:200,
                 message: 'selectAllPostsCntFromCategory is null',
@@ -160,7 +161,7 @@ const redisClient = require('../modules/redis.js');
                 }
               })
             }else{
-              const lastPage = parseInt(data/5)+1;
+              const lastPage = Math.ceil(data/5);
         Post.selectAllPostsFromCategory({start,end,search_contents}, (err, data) => {
           if (!data) {
             return res.status(419).send({
@@ -187,24 +188,26 @@ const redisClient = require('../modules/redis.js');
 else
 {
 
-    Post.selectAllPostsCnt({search_type,search_contents}, (err, data) => {
+    Post.selectAllPostsCnt( (err, data) => {
       if (!data) {
         return res.status(419).send({
           code: 419,
           message: 'selectAllPostsFromTitle is error!',
         });
       } else {
-       
-        if (page > Math.round(data / end)) {
+        const lastPage = Math.ceil(data/5);
+        if (page > Math.ceil(data / end)) {
           return res.send({
             code:200,
             message: 'selectAllPostsCnt is null',
             result:{
-              posts:[]
+              posts:[],
+              lastPage: lastPage
+              
             }
           })
         }else{
-          const lastPage = parseInt(data/5)+1;
+      
           Post.selectAllPosts({start, end,search_contents},(err, data) => {
             if (!data) {
               return res.status(419).send({

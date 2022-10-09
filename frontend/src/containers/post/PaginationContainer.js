@@ -8,20 +8,23 @@ const PaginationContainer =() =>{
     const [searchParams] = useSearchParams();
 
     const page =parseInt(searchParams.get('page'),10)||1;
-    const search_type =searchParams.get('search_type')||undefined;
-    const search_contents=searchParams.get('search_contents')||undefined;
-    const {lastPage, posts, loading} = useSelector(({posts,loading})=>
+    const search_type =searchParams.get('search_type');
+    const search_contents=searchParams.get('search_contents');
+    const {lastPage, posts, loading, error} = useSelector(({posts,loading,error})=>
     ({
         lastPage: posts.lastPage,
         posts: posts.posts,
         loading: loading['posts/LIST_POST'],
+        error: posts.error
     }));
+   
     if(!posts || loading) return null;
     return(<Pagination
         search_type ={search_type}
         search_contents ={search_contents}
         page={parseInt(page,10)}
         lastPage={lastPage}
+        erorr={error}
     />)
 }
 export default PaginationContainer;

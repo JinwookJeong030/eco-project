@@ -17,7 +17,7 @@ const Post = function (post) {
   };
 
   //post 전체수 조회
-Post.selectAllPostsCnt = ({search_type,search_contents},result) => {
+Post.selectAllPostsCnt = (result) => {
     sql.query('SELECT COUNT(*) AS post_count FROM post', (err, res) => {
       if (err) {
         console.log('error: ', err);
@@ -47,9 +47,10 @@ Post.selectAllPosts = ({start, end},result) => {
       if (err) {
         console.log('error: ', err);
         result(err, null);
-        
+        console.log(err);
       }
-      result(null,  res[0].post_count);
+      console.log(parseInt(res[0].post_count));
+      result(null,  parseInt(res[0].post_count));
     });
   };
 
