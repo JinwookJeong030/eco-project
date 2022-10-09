@@ -7,6 +7,7 @@ import {IoIosArrowDropdown, IoIosArrowDropup} from 'react-icons/io'
 import { Link } from "react-router-dom";
 import {WhitePostsItemBox} from '../common/WhiteBox';
 import Search from '../common/Search';
+import PaginationContainer from '../../containers/post/PaginationContainer';
 const PostListBlock = styled(Responsive)` 
 `;
 
@@ -217,16 +218,17 @@ const PostItem = ({ post }) => {
     return (
       <PostListBlock>
              <WritePostButtonWrapper>
+              
         {showWriteButton && (<Button cyan postWriteBtn to="/post/edit">
             작성하기
           </Button>)}
         </WritePostButtonWrapper>
         {mission&&
       <Mission mission_id= {mission.mission_id} title={mission.mission_title} contents={mission.mission_contents}
-    
       />
         }
        <PostHeader>
+         <PaginationContainer/>
        <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch} categorys={categorys}/>
    
         </PostHeader>

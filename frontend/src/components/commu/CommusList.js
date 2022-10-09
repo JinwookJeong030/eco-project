@@ -5,6 +5,7 @@ import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
 import { Link } from "react-router-dom";
 import { WhitePostsItemBox } from '../common/WhiteBox';
+import Pagination from '../common/Pagination';
 const CommuListTotBlock = styled.div` 
 margin-left:1rem;
 `;
@@ -89,6 +90,7 @@ box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 
 
 `
+
 const MyCommuItemInfoBlock = styled.div`
  
   margin-left:auto;
@@ -213,7 +215,9 @@ const CommuItem = ({ commu }) => {
     }
  {user&&
       <MyCommuListBlock>
+        <></>
         <Title >나의 모임</Title>
+        <Pagination/>
      <MyCommuItemsBlock>
         {error?<CommusListError/>:(!loading && myCommus&&(myCommus===[]? <NoItem title={"현재 가입된 모임이 없습니다."}/>:<>
           {

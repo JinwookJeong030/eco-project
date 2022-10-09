@@ -4,11 +4,14 @@ import Button from '../common/Button'
 import Responsive from './Responsive';
 
 const PaginationBlock =styled(Responsive)`
- width:320px;
- margin: 0 , auto;
+ width:35%;
  display: flex;
  justify-content: space-between;
- margin-bottom: 3rem;
+
+ margin-bottom: auto;
+ margin-top:auto;
+ font-weight:bold;
+
 `
 const PageNumber =styled.div``
 

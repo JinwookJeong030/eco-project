@@ -14,7 +14,6 @@ const PostListPage = () => {
       <NavContainer/>
       <ContentsBoxContainer title="환경 게시판">
       <PostListContainer/>
-      <PaginationContainer/>
       </ContentsBoxContainer>
     </>
   );
