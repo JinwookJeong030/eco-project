@@ -79,7 +79,7 @@ border-color: #424242;
 margin-left:auto;
 margin-right:auto;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
-@media (max-width: 1024px) {
+@media (max-width: 800px) {
   width: 7rem;
   height: 13rem;
   
@@ -112,7 +112,7 @@ margin-left:5px;
 const TopRankingItem =({user})=>{
   return (
 
-    <Link to={`/garden/view/${user.user_id}`}>
+    <Link to={`/garden/${user.user_id}`}>
       <TopRankingItemBlock >
    
         <TopPlantImage src={process.env.PUBLIC_URL + "/"+user.leaderplant+".png"}/>
@@ -168,8 +168,8 @@ const NoPost =({title})=>{
 const RankingItem = ({user}) => {
  
     return (
-      <Link to={`/garden/view/${user.user_id}`}>
-      <RankingItemBlock whiteBoxStyle>
+      <Link to={`/garden/${user.user_id}`}>
+      <RankingItemBlock>
    
         <PlantImage src={process.env.PUBLIC_URL + "/"+user.leaderplant+".png"}/>
         <RankingItemInfoBlock>

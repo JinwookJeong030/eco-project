@@ -13,7 +13,7 @@ import CommuManagementPage from './pages/commu/CommuManagementPage';
 import CommuNoticePage from './pages/commu/CommuNoticePage';
 import CommuEditNoticePage from './pages/commu/CommuEditNoticePage';
 import MypagePage from './pages/mypage/MypagePgae'
-import MainMission from './pages/plant/PlantPage'
+import GardenPage from './pages/garden/GardenPage'
 import NotFound from './pages/NotFound'
 import RankingPage from './pages/ranking/RankingPage';
 import { Helmet } from 'react-helmet-async';
@@ -65,8 +65,11 @@ function App() {
       
       
 
-      {/*미션 & 식물 메뉴*/}
-      <Route path="/mission/myMission" element={<MainMission />} />
+      {/*식물 메뉴*/}
+      <Route path="/garden">
+        <Route index element={<GardenPage />} />
+        <Route path=":user_id" element={<GardenPage />} />
+      </Route>
       {/*마이페이지 메뉴*/}
       <Route path="/mypage" element={<MypagePage />} />
       {/*랭킹 메뉴*/}

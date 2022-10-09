@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import { useNavigate } from '../../../node_modules/react-router-dom/index';
+import { WhitePostsItemBox } from '../common/WhiteBox';
 const MypageBlock = styled(Responsive)`
   margin-top: 1rem;
 
   
 `;
 
-const MypageTemplateBlock = styled.div`
+const MypageTemplateBlock = styled(WhitePostsItemBox)`
 display: flex;
  width: 50rem;
  display: flex;
@@ -18,16 +19,17 @@ margin-bottom:1.5rem;
 border: thin solid ;
 border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
+border-width: 2px;
 `;
 const Wrapper = styled(Responsive)`
-margin-bottom: 3rem;
+margin-bottom: 1rem;
 margin-left:1rem;
 
 `
 const MypageText =({title, maxlength, text})=>{
 
   return (
-    <div Style="height: 3.5rem; width: 20rem; border: solid thin; border-radius: 5px; margin:15px; ">
+    <div Style=" height: 3.5rem; width: 20rem; border: solid thin; border-radius: 5px; margin:15px; ">
       <p Style="margin-top:2px; margin-bottom:1px; margin-left:4px; font-size:13px; font-weight:800;">{title}</p>
       <p Style="margin-top:0px;margin-left:8px; height:2rem; width: 19.5rem; font-size:1.2rem; border:none; outline:none;">
       {text}
@@ -35,7 +37,6 @@ const MypageText =({title, maxlength, text})=>{
     </div>);
 }
 const MypageInput =({title, maxlength, type})=>{
-
 
   return (
     <div Style="height: 3.5rem; width: 20rem; border: solid thin; border-radius: 5px; margin:5px; margin:15px; ">
@@ -83,7 +84,6 @@ const MyPostInfoBlock =()=>{
     <MypageTemplateBlock>
       <Wrapper>
       <Title>나의 활동</Title>
-    
       </Wrapper>
   </MypageTemplateBlock>
   </>
@@ -104,7 +104,7 @@ const Mypage = ({user}) => {
 
     <MyPasswordBlock/>
 
-    <MyPostInfoBlock/>
+    {/* <MyPostInfoBlock/> */}
     </MypageBlock>
     </>
   );}
