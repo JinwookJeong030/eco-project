@@ -4,10 +4,11 @@ import { useParams,useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import PostList from "../../components/post/PostList";
 import { changeField, listPosts } from "../../modules/posts";
-import { useNavigate } from "../../../node_modules/react-router-dom/index";
+import { useNavigate, useSearchParams } from "../../../node_modules/react-router-dom/index";
 import write, { categorys,mission } from "../../modules/write";
 
 const PostListContainer = () => {
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const PostListContainer = () => {
       todayMission: write.mission,
     }),
   );
-  
+ 
 
 
   const onChangeField = 
@@ -34,15 +35,15 @@ const PostListContainer = () => {
     navigate("/post/list?search_type="+type+"&search_contents="+contents);
   };
 
+
   useEffect(() => {
     dispatch(categorys());
     dispatch(mission());
-    const  searchPost = qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-    });
-    console.log(searchPost)
-    dispatch(listPosts(searchPost));
-  }, [dispatch, location.search]);
+    const search_type = searchParams.get('search_type');
+    const search_contents = searchParams.get('search_contents');
+    const page = parseInt(searchParams.get('page'),10) || 1;
+    dispatch(listPosts({search_type, search_contents, page}));
+  }, [dispatch, location.search,searchParams]);
 
 
   return (
@@ -50,7 +51,6 @@ const PostListContainer = () => {
       search_type={type}
       search_contents={contents}
       onChangeField={onChangeField}
- 
       onSearch={onSearch}
       loading={loading}
       error={error}

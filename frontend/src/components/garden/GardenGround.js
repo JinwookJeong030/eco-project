@@ -21,7 +21,6 @@ const GroundLeft = styled.div`
     border-top: 8rem solid transparent;
     border-bottom: 8rem solid transparent;
   }
- 
 
 `
 const GroundRight = styled.div`

@@ -27,7 +27,7 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
 
 export const listPosts = createAction(
   LIST_POSTS,
-  ({ search_type, search_contents, page }) => ({search_type, search_contents, page }),
+  ({ page, search_type, search_contents }) => ({ page,search_type, search_contents }),
 );
 
 const listPostsSaga = createRequestSaga(LIST_POSTS, postsAPI.listPosts);
@@ -42,6 +42,7 @@ const initialState = {
   search_type:"title",
   search_contents: null,
   posts: null,
+  lastPage:1,
   error: null,
 };
 
@@ -52,9 +53,10 @@ const posts = handleActions(
       ...state,
       [key]: value, // 특정 key 값을 업데이트
     }),
-    [LIST_POSTS_SUCCESS]: (state, { payload: posts }) => ({
+    [LIST_POSTS_SUCCESS]: (state, { payload: posts  }) => ({
       ...state,
       posts: posts.result.posts,
+      lastPage: parseInt(posts.result.lastPage,10),
     }),
     [LIST_POSTS_FAILURE]: (state, { payload: error }) => ({
       ...state,

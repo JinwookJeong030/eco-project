@@ -27,7 +27,7 @@ function App() {
     <Helmet><title>ECO_WEB</title></Helmet>
     <Routes>
       {/*메인 - 게시물 리스트*/}
-      <Route path="/" element={<PostListPage />} />
+      <Route path="" element={<PostListPage />} />
 
       {/*로그인, 회원가입*/}
       <Route path="/login" element={<LoginPage />} />

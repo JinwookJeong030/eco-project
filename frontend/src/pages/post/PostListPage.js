@@ -6,6 +6,7 @@ import NavContainer from '../../containers/common/NavContainer';
 import ContentsBoxContainer from  '../../containers/common/ContentsBoxContaniner'
 import PostListContainer from '../../containers/post/PostListContainer';
 import Editor from '../../components/post/Editor';
+import PaginationContainer from '../../containers/post/PaginationContainer';
 const PostListPage = () => {
   return (
     <>
@@ -13,6 +14,7 @@ const PostListPage = () => {
       <NavContainer/>
       <ContentsBoxContainer title="환경 게시판">
       <PostListContainer/>
+      <PaginationContainer/>
       </ContentsBoxContainer>
     </>
   );

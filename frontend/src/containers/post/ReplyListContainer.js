@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ReplyList from "../../components/post/ReplyList";
 import { changeField, listReplys, unloadReplys, writeReply } from "../../modules/replys";
-import { useNavigate } from "../../../node_modules/react-router-dom/index";
+import { useNavigate, useSearchParams } from "../../../node_modules/react-router-dom/index";
 
 const ReplyListContainer = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const ReplyListContainer = () => {
       loading: loading['replys/LIST_REPLYS'],
     }),
   );
-  
+
   const onPublish = (e) => {
     e.preventDefault();
     dispatch(writeReply({reply_post, reply_contents,reply_type, reply_group_id}));

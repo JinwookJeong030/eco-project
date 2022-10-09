@@ -6,7 +6,7 @@ import qs from 'qs';
 
   export const listPosts = ({ search_type, search_contents, page }) => {
 
-    return client.get(`/post/list?search_type=${search_type}&search_contents=${search_contents}`);//?${queryString}
+    return client.get(`/post/list?page=${page}&search_type=${search_type}&search_contents=${search_contents}`);//?${queryString}
   };
 
   export const categorysPost =()=> client.get('/categorys');

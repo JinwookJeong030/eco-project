@@ -16,9 +16,22 @@ const Post = function (post) {
     
   };
 
+  //post 전체수 조회
+Post.selectAllPostsCnt = ({search_type,search_contents},result) => {
+    sql.query('SELECT COUNT(*) AS post_count FROM post', (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        
+      }
+      result(null,  res[0].post_count);
+    });
+  };
+
+
   //post 전체 조회
-Post.selectAllPosts = (result) => {
-  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id ORDER BY post_regdate DESC', (err, res) => {
+Post.selectAllPosts = ({start, end},result) => {
+  sql.query(`SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -28,22 +41,46 @@ Post.selectAllPosts = (result) => {
     result(null,  res );
   });
 };
+  //post 제목검색 전체수 조회
+  Post.selectAllPostsCntFromTitle = ({search_contents},result) => {
+    sql.query(`SELECT COUNT(*) AS post_count FROM post WHERE post.post_title LIKE "%${search_contents}%"`, (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        
+      }
+      result(null,  res[0].post_count);
+    });
+  };
+
+
 // 게시글 제목 조회 
-Post.selectAllPostsFromTitle = (search_contents ,result) => {
-  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_title LIKE "%'+search_contents+'%" ORDER BY post_regdate DESC', (err, res) => {
+Post.selectAllPostsFromTitle = ({start, end,search_contents} ,result) => {
+  sql.query(`SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_title LIKE "%${search_contents}%" ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
       return;
     }
-
     console.log('selectAllPostsFromTitle All Posts: ',  res );
     result(null,  res );
   });
 };
+
+  //post 내용 검색 전체수 조회
+Post.selectAllPostsCntFromContents = ({search_contents},result) => {
+    sql.query(`SELECT COUNT(*) AS post_count FROM post WHERE post.post_contents LIKE "%${search_contents}%"`, (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+      }
+      result(null,  res[0].post_count);
+    });
+  };
+
 // 게시글 내용 조회
-Post.selectAllPostsFromContents = (search_contents, result) => {
-  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_contents LIKE "%'+search_contents+'%" ORDER BY post_regdate DESC', (err, res) => {
+Post.selectAllPostsFromContents = ({start, end,search_contents}, result) => {
+  sql.query(`SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_contents LIKE "%${search_contents}%" ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -54,9 +91,21 @@ Post.selectAllPostsFromContents = (search_contents, result) => {
     result(null,  res );
   });
 };
+
+//post 내용 작성자 전체수 조회
+Post.selectAllPostsCntFromUser = ({search_contents},result) => {
+    sql.query(`SELECT COUNT(*) AS post_count FROM post,user WHERE post.post_user = user.user_id AND user.user_name LIKE "%${search_contents}%"`, (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+      }
+      result(null,  res[0].post_count);
+    });
+  };
+
 // 게시글 작성자 조회
-Post.selectAllPostsFromUser = (search_contents ,result) => {
-  sql.query('SELECT post.* , user.user_name FROM post,user WHERE user.user_id = post.post_user AND user.user_name = "'+search_contents+'" ORDER BY post_regdate DESC', (err, res) => {
+Post.selectAllPostsFromUser = ({start, end,search_contents} ,result) => {
+  sql.query(`SELECT post.* , user.user_name FROM post,user WHERE user.user_id = post.post_user AND user.user_name = "${search_contents}" ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -67,9 +116,20 @@ Post.selectAllPostsFromUser = (search_contents ,result) => {
     result(null,  res );
   });
 };
+//post 내용 작성자 전체수 조회
+Post.selectAllPostsCntFromCategory = ({search_contents},result) => {
+  sql.query(`SELECT COUNT(*) AS post_count FROM post WHERE  post.post_category =  "%${search_contents}%"`, (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+    }
+    result(null,  res[0].post_count);
+  });
+};
+
 // 게시글 카테고리 조회
-Post.selectAllPostsFromCategory = (search_contents, result) => {
-  sql.query('SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_category = '+search_contents+' ORDER BY post_regdate DESC', (err, res) => {
+Post.selectAllPostsFromCategory = ({start,end,search_contents}, result) => {
+  sql.query(`SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_category = ${search_contents} ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);

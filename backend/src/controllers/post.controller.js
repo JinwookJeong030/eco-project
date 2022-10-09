@@ -7,11 +7,37 @@ const redisClient = require('../modules/redis.js');
 // 전체 조회
  exports.list = async (req, res) => {
 
-    const {search_type,search_contents} = req.query;
-      
+    const {page, search_type,search_contents} = req.query;
+  
+    const end = 5;
+    let start = 0;
+  
+    if (page <= 0) {
+       start = 1;
+    } else {
+        start = (page - 1) * end;
+    }
       // 제목 검색
       if(search_type === "title"){
-        Post.selectAllPostsFromTitle(search_contents, (err, data) => {
+        Post.selectAllPostsCntFromTitle({search_type,search_contents}, (err, data) => {
+          if (!data) {
+            return res.status(419).send({
+              code: 419,
+              message: 'selectAllPostsCntFromTitle is error!',
+            });
+          } else {
+           
+            if (page > Math.round(data / end)) {
+              return res.send({
+                code:200,
+                message: 'selectAllPostsCntFromTitle is null',
+                result:{
+                  posts:[]
+                }
+              })
+            }else{
+              const lastPage = parseInt(data/5)+1;
+        Post.selectAllPostsFromTitle({start,end,search_contents}, (err, data) => {
           if (!data) {
             return res.status(419).send({
               code: 419,
@@ -22,14 +48,37 @@ const redisClient = require('../modules/redis.js');
               code:200,
               message: 'selectAllPostsFromTitle is successful',
               result:{
-                posts:data
+                posts:data,
+                lastPage: lastPage
               }
             });
         } 
-        })}
+        })
+      }
+    } 
+    })
+      }
         //글로 검색
         else if(search_type === "contents"){
-        Post.selectAllPostsFromContents(search_contents, (err, data) => {
+          Post.selectAllPostsCntFromContents({search_type,search_contents}, (err, data) => {
+            if (!data) {
+              return res.status(419).send({
+                code: 419,
+                message: 'selectAllPostsCntFromContents is error!',
+              });
+            } else {
+             
+              if (page > Math.round(data / end)) {
+                return res.send({
+                  code:200,
+                  message: 'selectAllPostsCntFromContents is null',
+                  result:{
+                    posts:[]
+                  }
+                })
+              }else{
+                const lastPage = parseInt(data/5)+1;
+        Post.selectAllPostsFromContents({start,end,search_contents}, (err, data) => {
           if (!data) {
             return res.status(419).send({
               code: 419,
@@ -40,15 +89,38 @@ const redisClient = require('../modules/redis.js');
               code:200,
               message: 'selectAllPostsFromContents is successful',
               result:{
-                posts:data
+                posts:data,
+                lastPage: lastPage
               }
             });
         } 
         })
       }
+    } 
+    })
+      }
+      
       // 작성자 검색
      else if(search_type === "user"){
-        Post.selectAllPostsFromUser(search_contents, (err, data) => {
+      Post.selectAllPostsCntFromUser({search_type,search_contents}, (err, data) => {
+          if (!data) {
+            return res.status(419).send({
+              code: 419,
+              message: 'selectAllPostsCntFromUser is error!',
+            });
+          } else {
+           
+            if (page > Math.round(data / end)) {
+              return res.send({
+                code:200,
+                message: 'selectAllPostsCntFromUser is null',
+                result:{
+                  posts:[]
+                }
+              })
+            }else{
+              const lastPage = parseInt(data/5)+1;
+        Post.selectAllPostsFromUser({start,end,search_contents}, (err, data) => {
           if (!data) {
             return res.status(419).send({
               code: 419,
@@ -59,17 +131,37 @@ const redisClient = require('../modules/redis.js');
               code:200,
               message: 'selectAllPostsFromUser is successful',
               result:{
-                posts:data
+                posts:data,
+                lastPage: lastPage
               }
             });
         } 
         });
-
-
       }
+    } 
+    })
+}
       // 카테고리 검색
       else if(search_type === "category"){
-        Post.selectAllPostsFromCategory(search_contents, (err, data) => {
+        Post.selectAllPostsCntFromCategory({search_type,search_contents}, (err, data) => {
+          if (!data) {
+            return res.status(419).send({
+              code: 419,
+              message: 'selectAllPostsCntFromCategory is error!',
+            });
+          } else {
+           
+            if (page > Math.round(data / end)) {
+              return res.send({
+                code:200,
+                message: 'selectAllPostsCntFromCategory is null',
+                result:{
+                  posts:[]
+                }
+              })
+            }else{
+              const lastPage = parseInt(data/5)+1;
+        Post.selectAllPostsFromCategory({start,end,search_contents}, (err, data) => {
           if (!data) {
             return res.status(419).send({
               code: 419,
@@ -80,33 +172,63 @@ const redisClient = require('../modules/redis.js');
               code:200,
               message: 'selectAllPostsFromUser is successful',
               result:{
-                posts:data
+                posts:data,
+                lastPage: lastPage
               }
             });
         } 
         });
-
+      }
+    } 
+    })
 
       }
       
 else
 {
-    Post.selectAllPosts((err, data) => {
+
+    Post.selectAllPostsCnt({search_type,search_contents}, (err, data) => {
       if (!data) {
         return res.status(419).send({
           code: 419,
-          message: 'selectAllPost is error!',
+          message: 'selectAllPostsFromTitle is error!',
         });
       } else {
-        return res.send({
-          code:200,
-          message: 'selectAllPosts is successful',
-          result:{
-            posts:data
-          }
-        });
+       
+        if (page > Math.round(data / end)) {
+          return res.send({
+            code:200,
+            message: 'selectAllPostsCnt is null',
+            result:{
+              posts:[]
+            }
+          })
+        }else{
+          const lastPage = parseInt(data/5)+1;
+          Post.selectAllPosts({start, end,search_contents},(err, data) => {
+            if (!data) {
+              return res.status(419).send({
+                code: 419,
+                message: 'selectAllPost is error!',
+              });
+            } else {
+              return res.send({
+                code:200,
+                message: 'selectAllPosts is successful',
+                result:{
+                  posts:data,
+                  lastPage: lastPage
+                }
+              });
+          } 
+          })
+
+        }
     } 
     })
+
+
+    
   }
   
 
