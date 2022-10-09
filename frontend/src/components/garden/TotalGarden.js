@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import WhiteBox from '../common/WhiteBox';
+import GardenGround from './GardenGround';
 
 
 
@@ -35,7 +36,7 @@ const TotalGarden = () => {
   return (
     <TotalGardenBlock>
       <TotalGardenInfoBlock>
-        
+        <GardenGround/>
       </TotalGardenInfoBlock>
     </TotalGardenBlock>
   );
