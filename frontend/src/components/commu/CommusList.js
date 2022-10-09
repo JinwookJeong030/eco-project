@@ -190,7 +190,11 @@ const CommuItem = ({ commu }) => {
   };
 
   const CommusListError =()=>{return <div>모임을 불러올 수 없습니다...<p/></div>;}
-
+  const Head =styled(Responsive)`
+   
+    margin-right:0;
+    width:30%;
+  `
 
   const CommuList = ({ user, search_type, search_contents, onChangeField, onSearch, loading, error, 
     commus, myCommus, showWriteButton }) => {
@@ -217,7 +221,8 @@ const CommuItem = ({ commu }) => {
       <MyCommuListBlock>
         <></>
         <Title >나의 모임</Title>
-        <Pagination/>
+        <Head> <Pagination/></Head>
+       
      <MyCommuItemsBlock>
         {error?<CommusListError/>:(!loading && myCommus&&(myCommus===[]? <NoItem title={"현재 가입된 모임이 없습니다."}/>:<>
           {

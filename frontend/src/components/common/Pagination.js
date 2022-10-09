@@ -7,10 +7,10 @@ const PaginationBlock =styled(Responsive)`
  width:35%;
  display: flex;
  justify-content: space-between;
-
  margin-bottom: auto;
  margin-top:auto;
  font-weight:bold;
+
 
 `
 const PageNumber =styled.div``
@@ -22,16 +22,15 @@ const buildLink = ({page,search_type,search_contents})=>{
 
 const Pagination=({page,search_type,search_contents, lastPage})=>{
     
-    console.log(page)
-    console.log()
+   
     return (
 <PaginationBlock>
     <Button disabled={page === 1} to={page===1? undefined: buildLink({page:page - 1, search_type,search_contents})}>
-        이전
+        &lt;
     </Button>
     <PageNumber>{page}</PageNumber>
     <Button disabled={page === lastPage} to={page===lastPage? undefined: buildLink({page:page + 1,search_type,search_contents})}>
-        다음
+        &gt;
     </Button>
 </PaginationBlock>
 
