@@ -1,6 +1,7 @@
 const { findCommu } = require('../models/commu.model.js');
 const Commu = require('../models/commu.model.js');
 const Commu_Notice = require('../models/commu_notice.model.js');
+const Commu_Reply = require('../models/commu_reply.model.js');
 const Commu_Mission = require('../models/commu_mission.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
@@ -339,5 +340,55 @@ exports.noticelist = async (req, res) => {
       }
     })
   }
+}
+
+
+
+//모임 댓글 조회
+exports.commureplyselect = async (req, res) =>{
+  Commu_Reply.selectReplysFromCommuId(req.params.commu_id,(err, data) => {
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'selectReplysFromCommuId is error!',
+      });
+    } else {
+      return res.send({
+        code:200,
+        message: 'selectReplysFromCommuId is successful',
+        result:{
+          commu_replys:data
+        }
+      });
+  } 
+  });
+}
+
+//모임 댓글 작성
+exports.commureplywrite = async (req,res) =>{
+  
+  const commu_replyReq = new Commu_Reply(
+    {
+      commu_reply_user: req.user_id,
+      commu_reply_commu: req.body.cr_commu,
+      commu_reply_contents: req.body.cr_contents
+    }
+  )
+   Commu_Reply.insertCommuReply(commu_replyReq, (err,data)=>{
+    if(!data){
+      return res.status(419).send({
+        code: 419,
+        message: 'insertCommuReply is error!',
+      });
+    } else {
+      return res.send({
+        code:200,
+        message: 'insertCommuReply is successful',
+        result:{
+          commu_reply:data
+        }
+      });
+  } 
+  })
 }
 
