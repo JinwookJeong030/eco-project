@@ -34,6 +34,7 @@ const RankingItemInfoBlock = styled.div`
 
 `;
 const TopPlantImage = styled.img`
+
 width: 9.1rem;
 height: 11.7rem;
 border: solid thin;
@@ -43,6 +44,7 @@ margin-left:auto;
 margin-right:auto;
 padding:0;
 @media (max-width: 1024px) {
+
   width: 6.3rem;
   height: 8.1rem;
 
@@ -197,9 +199,9 @@ const RankingItem = ({user}) => {
        
         </RankingHeader>
         <Podium>
-          <TopRankingItem user={user}/>
-          <TopRankingItem user={user}/>
-          <TopRankingItem user={user}/>
+        <TopRankingItem user={users[0]} key={users[0].user_id} />
+        <TopRankingItem user={users[1]} key={users[0].user_id} />
+        <TopRankingItem user={users[2]} key={users[0].user_id} />
         </Podium>
        
         {!loading && users &&(users.length===0?<NoPost title={"ERROR! no user"} />:(<div>
