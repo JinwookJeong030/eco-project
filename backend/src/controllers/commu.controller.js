@@ -224,46 +224,120 @@ exports.delete =async (req,res)=>{
   }
 
 
-  // 모임공지조회 기능
-  exports.noticelist = async (req, res) => {
+  // 모임공지 작성
+exports.noticecreate = async (req, res) => {
 
-    const {search_type,search_contents} = req.query;
-      
-      // 제목 검색
-      if(search_type === "title"){
-        Commu_Notice.SearchNoticeTitle(search_contents, (err, data) => {
-          if (!data) {
-            return res.status(419).send({
-              code: 419,
-              message: 'SearchNoticeTitle is error!',
-            });
-          } else {
-            return res.send({
-              code:200,
-              message: 'SearchNoticeTitle is successful',
-              result:{
-                posts:data
-              }
-            });
-        }
-        })}
-        //글로 검색
-        else {
-        Commu_Notice.SearchNoticeContents(search_contents, (err, data) => {
-          if (!data) {
-            return res.status(419).send({
-              code: 419,
-              message: 'SearchNoticeContents is error!',
-            });
-          } else {
-            return res.send({
-              code:200,
-              message: 'SearchNoticeContents is successful',
-              result:{
-                posts:data
-              }
-            });
-        }
-        })
+  const commu_noticeReq = new Commu_Notice({
+    cn_commu : req.commu_id,
+    cn_title: req.body.cn_title,
+    cn_contents: req.body.cn_contents,
+  });
+  //db저장
+  Commu_Notice.insertCommuNotice(commu_noticeReq, (err, data) => {
+    if(!data){
+      return res.status(419).send({
+        code: 419,
+        message: 'noticecreate is error!',
+      });
+    }else{
+      return res.send({
+        code:200,
+        message: 'noticecreate is successful', 
+       });
+    }
+  })
+};
+
+//모임공지 수정
+exports.editcommunotice =async (req,res) =>{
+
+  const commu_noticeReq = new Commu_Notice(
+    {
+      cn_commu: req.commu_id,
+      cn_id:  req.body.cn_id,
+      cn_title: req.body.cn_title,
+      cn_contents: req.body.post_contents,
+    }
+  )
+  Commu_Notice.editCommuNotice(commu_noticeReq, (err,data)=>{
+    if(!data){
+      return res.status(419).send({
+        code: 419,
+        message: 'editCommuNotice is error!',
+      });
+    }else{
+      return res.send({
+        code:200,
+        message: 'editCommuNotice is successful', 
+       });
+    }
+  })
+
+}
+//모임공지 삭제
+exports.deletecommunotice =async (req,res) =>{
+
+  const commu_noticeReq = new Commu_Notice({
+    cn_commu: req.commu_id,
+    cn_id: req.params.cn_id
+  })   
+    Commu_Notice.deleteCommuNotice(commu_noticeReq, (err,data)=>{
+      if(!data){
+        return res.status(419).send({
+          code: 419,
+          message: 'deletecommunotice is error!',
+        });
+      }else{
+        return res.send({
+          code:200,
+          message: 'deletecommunotice is successful', 
+         });
       }
+    })
+}
+
+// 모임공지조회 기능
+exports.noticelist = async (req, res) => {
+
+  const { search_type, search_contents } = req.query;
+
+  // 제목 검색
+  if (search_type === "title") {
+    Commu_Notice.SearchNoticeTitle(search_contents, (err, data) => {
+      if (!data) {
+        return res.status(419).send({
+          code: 419,
+          message: 'SearchNoticeTitle is error!',
+        });
+      } else {
+        return res.send({
+          code: 200,
+          message: 'SearchNoticeTitle is successful',
+          result: {
+            posts: data
+          }
+        });
       }
+    })
+  }
+  //글로 검색
+  else {
+    Commu_Notice.SearchNoticeContents(search_contents, (err, data) => {
+      if (!data) {
+        return res.status(419).send({
+          code: 419,
+          message: 'SearchNoticeContents is error!',
+        });
+      } else {
+        return res.send({
+          code: 200,
+          message: 'SearchNoticeContents is successful',
+          result: {
+            posts: data
+          }
+        });
+      }
+    })
+  }
+}
+

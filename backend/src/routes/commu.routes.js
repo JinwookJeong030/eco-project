@@ -19,8 +19,14 @@ module.exports = (app) => {
     app.get('/api/commu/myCommuList',authJwt,commu.myCommuList);
     //모임미션 조회
     app.get('/api/commu/CommuMission',commu.CommuMission);
-    //미션공지 조회
-    app.get('/api/commu/noticelist/',commu.noticelist);
+    //모임장 공지 생성
+    app.post('/api/commu/noticcreate',authJwt, commu.noticecreate);
+    //모임공지 조회
+    app.get('/api/commu/noticelist',commu.noticelist);
+    //모임장 공지 수정
+    app.post('/api/commu/editcommunotice/:cn_id',authJwt,commu.editcommunotice);
+    //모임장 공지 삭제
+    app.delete('/api/commu/deletecommunotice/:cn_id',authJwt, commu.deletecommunotice);
    
 
   };
