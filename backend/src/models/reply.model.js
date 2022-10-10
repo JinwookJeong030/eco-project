@@ -118,7 +118,6 @@ Reply.deleteMyReply =(reply,result)=>{
       result(err, null);
       return;
     }
-
     console.log('selectMyReplys : ',  res);
     result(null,  res);
   });

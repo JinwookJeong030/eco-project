@@ -8,6 +8,7 @@ height: calc( 100vh - 4rem );
 width: ${props=>(props.hidingState? '3rem':'12rem' )};
 background: #81F781;
 float:left;
+z-index:100;
 border-right: solid thin #088A68;
 .hid {
   width: 5rem;
@@ -83,9 +84,8 @@ const Nav = ({user, onHidingMenu ,hidingState}) => {
                 <Link to='/commu/list'><Menu><Icon src={process.env.PUBLIC_URL +"/class-icon.png"}/>{hidingState?'':'모임'}</Menu></Link>
 
             <Link to='/ranking'> <Menu><Icon src={process.env.PUBLIC_URL +"/ranking-icon.png"}/>{hidingState?'':'랭킹'}</Menu></Link>
-            
+            <Link to='/garden'> <Menu><Icon src={process.env.PUBLIC_URL +"/mission-icon.png"}/>{hidingState?'':'마이 가든'}</Menu></Link>
             {user? <>
-                <Link to='/garden'> <Menu><Icon src={process.env.PUBLIC_URL +"/mission-icon.png"}/>{hidingState?'':'마이 가든'}</Menu></Link>
                 <Link to='/mypage'>
                   <Menu><Icon src={process.env.PUBLIC_URL +"/mypage-icon.png"}/>{hidingState?'':'마이페이지'}</Menu>
                 </Link>

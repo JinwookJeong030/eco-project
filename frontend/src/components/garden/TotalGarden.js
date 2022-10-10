@@ -30,6 +30,10 @@ const TotalGardenInfoBlock = styled.div`
   padding-left:1rem;
 
 `;
+const GardenItemBlock =styled(GardenGround)`
+width: 2rem;
+`
+
 const TotalGarden = () => {
 
 
@@ -37,6 +41,8 @@ const TotalGarden = () => {
     <TotalGardenBlock>
       <TotalGardenInfoBlock>
         <GardenGround/>
+        {/* <GardenItemBlock Item/> */}
+ 
       </TotalGardenInfoBlock>
     </TotalGardenBlock>
   );
