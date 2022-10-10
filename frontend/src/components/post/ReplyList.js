@@ -105,6 +105,12 @@ const onChangeAddReplyState= (onChangeField, reply, addReplyState)=>{
 
 }
 
+const onChangeRemoveReplyState = (onChangeField, reply_id )=>{
+
+  onChangeField({ key: 'removeReplyState', value: reply_id  });
+
+}
+
 const ReplyItem = ({user, onChangeField, reply, addReplyState,onRemoveClick }) => {
   
  
@@ -115,7 +121,7 @@ const ReplyItem = ({user, onChangeField, reply, addReplyState,onRemoveClick }) =
             <NickName><b>{reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
             <Regdate>{new Date(reply.reply_regdate).toLocaleString()}</Regdate>
-            {user?(user.user_name === reply.user_name?<DeleteBtn onClick={onRemoveClick}>x</DeleteBtn>:<></>):<></>}
+            {user?(user.user_name === reply.user_name?<DeleteBtn onClick={()=>onRemoveClick(onChangeField,reply)}>x</DeleteBtn>:<></>):<></>}
         </ReplyItemInfoBlock>
     </ReplyItemBlock>
     );
@@ -129,18 +135,21 @@ const AddReplyItem =({user,onChangeField, reply, addReplyState,onRemoveClick})=>
             <Contents>{reply.reply_contents}</Contents>
             <Regdate>{new Date(reply.reply_regdate).toLocaleString()}</Regdate>
           
-            {user?(user.user_name === reply.user_name?<DeleteBtn onClick={onRemoveClick}>x</DeleteBtn>:<></>):<></>}
+            {user?(user.user_name === reply.user_name?<DeleteBtn onClick={()=>{onRemoveClick(onChangeField,reply)}}>x</DeleteBtn>:<></>):<></>}
         </ReplyItemInfoBlock>
     </AddReplyItemBlock>
   )
 
 }
 
-const ReplyList = ({user,addReplyState, replys, loading, error,onChangeField, onPublish,onRemove, onRemoveSuccess, reply_contents }) => {
+const ReplyList = ({user,addReplyState,removeReplyState, replys, loading, error,onChangeField, onPublish,onRemove, onRemoveSuccess, reply_contents }) => {
 
   const [deleteAskModal, setDeleteAskModal] = useState(false);
   const [succesModal, setSuccesModal] = useState(false);
-  const onRemoveClick = () => {
+
+  const onRemoveClick = (onChangeField,reply) => {
+    const reply_id = reply.reply_id;
+    onChangeRemoveReplyState(onChangeField,reply_id);
     setDeleteAskModal(true);
   }
   const onCancel = () => {

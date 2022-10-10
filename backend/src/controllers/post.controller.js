@@ -458,7 +458,7 @@ if(replyReq.reply_type===1){
 exports.reply_delete = async (req,res) =>{
   const replyReq = new Reply(
     {
-      reply_id: req.body.reply_id,
+      reply_id: req.params.reply_id,
       reply_user: req.user_id,
     }
   )

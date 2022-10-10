@@ -45,7 +45,7 @@ module.exports = (app) => {
     // 댓글작성
     app.post('/api/reply/write',authJwt, post.reply_write);
     // 댓글삭제
-    app.delete('/api/reply/delete',authJwt, post.reply_delete);
+    app.delete('/api/reply/delete/:reply_id',authJwt, post.reply_delete);
     
     //카테고리 조회
     app.get('/api/categorys',post.categorys);
