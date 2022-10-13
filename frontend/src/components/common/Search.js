@@ -5,7 +5,8 @@ import palette from '../../lib/styles/palette';
 
 
 const SearchBlock = styled.div`
-
+margin-top:0.5rem;
+margin-bottom:0.5rem;
 display: flex;
 flex-direction: row;
 height: 2.6rem;

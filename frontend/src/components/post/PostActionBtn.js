@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Button from "../common/Button";
 
 const PostActionBtn = styled.div`
-  margin-top: 2rem;
-  margin-bottom: 3rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
   float: right;
     button + button {
     margin-left: 0.5rem;

@@ -168,10 +168,10 @@ const NoPost =({title})=>{
 }
 const MissionHeader = ({onClickHidingMission, hidingMissionState, mission})=>{
   return(
-    <MissionHeaderBlock >
+    <MissionHeaderBlock onClick={onClickHidingMission}>
     <MissionHeaderTitle>&lt;오늘의 미션&gt; {mission}</MissionHeaderTitle>
-     {!hidingMissionState?<MissionHidingUpBtn onClick={onClickHidingMission}/>:
-     <MissionHidingDownBtn onClick={onClickHidingMission}/>}
+     {!hidingMissionState?<MissionHidingUpBtn />:
+     <MissionHidingDownBtn />}
     </MissionHeaderBlock>
   )
 
@@ -181,7 +181,7 @@ const Mission = ({hidingMissionState, mission_id, title, contents, onClickMissio
   return (
     !hidingMissionState?
     
-    <Link to={`/post/edit`} state={{ mission_title: title }}>
+    <Link to='/post/edit' state={{ mission_state: true }}>
     <WhitePostsItemBox onClick={onClickMission} >
 
     <MissionImg src={process.env.PUBLIC_URL + "/mission_img/mission_"+mission_id+".png"}/>
@@ -231,7 +231,7 @@ const PostItem = ({ post }) => {
       <PostListBlock>
              <WritePostButtonWrapper>
               
-        {showWriteButton && (<Button cyan postWriteBtn to="/post/edit">
+        {showWriteButton && (<Button cyan postWriteBtn to="/post/edit" state={{ mission_state: false }}>
             작성하기
           </Button>)}
         </WritePostButtonWrapper>

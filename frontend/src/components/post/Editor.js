@@ -11,31 +11,34 @@ import { useLocation } from "react-router-dom";
 
 const EditorBlock = styled(Responsive)`
   /* 페이지 위아래 여백 지정 */
-  padding-top: 1rem;
-
-  border: solid thin;
-  
-  
-  @media (min-width: 1024px) {
-    width: 900px;
+  padding-top: 0.8rem;
+  border: solid 2px;
+  padding-left:0rem;
+  padding-right:0rem;
+  box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
+  @media (min-width: 1100px) {
+    width: 60rem;
   }
   @media (max-width: 1050px) {
-    width: 90%;
+    width: 93%;
+    margin-left:1.3rem;
   
   }
   
 `;
 const CategoryBlock = styled(Responsive)`
+width:100%;
 display: flex;
 flex-direction: row;
-margin:0;
+margin-left:10px;
 padding:0;
 `
 
 const Select= styled.select`
-width: 18rem;
+width: 7rem;
 height: 2rem;
 font-size: 1.2rem;
+
 margin-bottom: 15px;
 `
 const Mission = styled.div`
@@ -50,28 +53,33 @@ font-weight: bold;
 `
 
 const TitleInput = styled.input`
+  margin-left:10px;
   outline: none;
 
   font-size: 1.5rem;
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
-  width: 100%;
+  width: 95%;
   :focus{
     border-color:#0982f0;
     outline: none;}
     :focus + label {
       color: #0083cb;
   }
+@media (max-width: 768px) {
+  width:95%;
+}
 }
 `;
 
 const QuillWrapper = styled.div`
-  /* 최소 크기 지정 및 padding 제거 */
-  
+
   .ql-editor {
     padding: 0;
-   
     min-height: 400px;
+    @media (max-width: 768px) {
+      min-height: 250px;
+    }
     max-height: 580px;
     font-size: 1.125rem;
     max-length: '2';
@@ -79,11 +87,13 @@ const QuillWrapper = styled.div`
   }
   .ql-editor.ql-blank::before {
     left: 0px;
+   
   }
 `;
 const EditBody = styled.div`
   padding:5px;
-  
+  margin-left:0.2rem;
+  margin-right:0.2rem;
 `
 
 var Parchment = Quill.import('parchment');
@@ -109,12 +119,11 @@ var Parchment = Quill.import('parchment');
     Parchment.register(lineHeightStyle);
 
 const Editor =({categorys,category,  post_mission, mission, post_title,post_contents,onChangeField, onPublish, onCancel })=>{
-  const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
-  const quillInstance =  useRef(null); 
+    const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
+    const quillInstance =  useRef(null); 
 
 
-  useEffect(() => {
-    
+    useEffect(() => {
   const modules = {
     toolbar: [
       [{'font': []}],
@@ -141,36 +150,38 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
         onChangeField({ key: 'post_contents', value: quill.root.innerHTML });
       }
     });
-  }, [onChangeField]);
+    }, [onChangeField]);
 
-  const mounted = useRef(false);
-  useEffect(()=>{
-    if(mounted.current) return;
-    mounted.current = true;
-    quillInstance.current.root.innerHTML = post_contents;
-  },[post_title, post_contents]);
+    const mounted = useRef(false);
+    useEffect(()=>{
+      if(mounted.current) return;
+      mounted.current = true;
+      quillInstance.current.root.innerHTML = post_contents;
+    },[post_title, post_contents]);
 
-  const onChangeTitle = e => {
-    onChangeField({ key: 'post_title', value: e.target.value });
-  };
-  const onChangeCategory = e =>{
-    onChangeField({ key: 'post_category', value: e.target.value });
-  }
-  const onChangeMission = e =>{
-    onChangeField({ key: 'post_mission', value: 'e.target.value' });
-  }
+    const onChangeTitle = e => {
+      onChangeField({ key: 'post_title', value: e.target.value });
+    };
+    const onChangeCategory = e =>{
+      onChangeField({ key: 'post_category', value: e.target.value });
+    }
+    const onChangeMission = e =>{
+      onChangeField({ key: 'post_mission', value: 'e.target.value' });
+    }
+    const location = useLocation();
+    let mission_state = location.state.mission_state;
 
-
-        return( <EditorBlock>
+    return( <EditorBlock>
           <CategoryBlock>{categorys?
           <Select
                  placeholder="카테고리를 선택하세요." 
                  onChange={onChangeCategory} 
+                 value={mission_state?'4':'1'}
           >
-          
-          {categorys.map(category =>(<option value={category.category_id}>{category.category_name}</option>))}
-            </Select>:<></>
-}
+          {categorys.map(category =>(<option value={category.category_id}  
+          selected={category.cagetory_id===4&&mission_state?true:false}>{category.category_name}</option>))}
+            </Select>:<></>}
+            {mission_state=false}
         {((category === "4")&&mission)?<Mission> 미션 : {mission.mission_title}</Mission>:<>
            </>}
           </CategoryBlock>
@@ -180,12 +191,13 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
             value={post_title}
             maxLength="50"
           />
+       
             <QuillWrapper>
                 <EditBody 
                    ref={quillElement}  
                    maxLength="500"
                    />
-            
+          
               <PostActionBtn Styled='margin: 5rem;' onPublish={onPublish} onCancel={onCancel}/>
             </QuillWrapper>
             </EditorBlock>
