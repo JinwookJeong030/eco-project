@@ -5,7 +5,7 @@ import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
 import {IoIosArrowDropdown, IoIosArrowDropup} from 'react-icons/io'
 import { Link } from "react-router-dom";
-import WhiteBox, {WhitePostsItemBox} from '../common/WhiteBox';
+import  {WhitePostsItemBox} from '../common/WhiteBox';
 import Search from '../common/Search';
 import PaginationContainer from '../../containers/post/PaginationContainer';
 import { useState } from 'react';

@@ -45,7 +45,6 @@ ${(props) =>
 
 const WhiteBoxBlock= styled(Responsive)`
 
-
 `;
 
 const ContentsBox = styled.div`

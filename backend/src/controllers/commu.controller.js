@@ -65,11 +65,11 @@ Commu.selectFirstCommusFromLeader(commuReq.commu_leader, (err, data) =>{
 };
 
 //내 모임 조회
-exports.mylist = async (req,res)=>{
+exports.myList = async (req,res)=>{
   const user_id = req.user_id;
-  const {page, search_type,search_contents} = req.query;
-  
-  const end = 5;
+  const page = req.body.page;
+  console.log("page: "+page)
+  const end = 3;
   let start = 0;
 
   if (page <= 0) {
@@ -77,24 +77,46 @@ exports.mylist = async (req,res)=>{
   } else {
       start = (page - 1) * end;
   }
-  
-    //전체 조회
-  Commu.selectMyCommus(user_id,(err, data) => {
-      if (err)
-        res.status(400).send({
-          code: 400,
-          message: err.message || "fail."
-        });
-      else res.send({
-        code: 200,
-        message:'selectMyCommus is seccessful!',
-        result:{
-          myCommus:data
-        }
+  Commu.selectAllMyCommusCnt(user_id,(err, data) => {
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'selectAllMyCommusCnt is error!',
       });
-    });
-  
-};
+    } else {
+      const lastPage = Math.ceil(data/end);
+      if (page > Math.ceil(data / end)) {
+        return res.send({
+          code:200,
+          message: 'selectAllMyCommusCnt is null',
+          result:{
+            myCommus:[],
+            lastPage: lastPage
+            
+          }
+        })
+      }else{
+        const lastPage = Math.ceil(data/3);
+        Commu.selectMyCommus({user_id,start,end},(err, data) => {
+          if (err)
+            res.status(400).send({
+              code: 400,
+              message: err.message || "fail."
+            });
+          else res.send({
+            code: 200,
+            message:'selectMyCommus is seccessful!',
+            result:{
+              myCommus:data,
+              lastPage: lastPage
+            }
+          });
+        });
+      
+
+      }
+
+}})};
 // 조회 기능
 exports.list = async (req,res)=>{
   const{page, search_type,search_contents} = req.query;
@@ -184,26 +206,7 @@ exports.delete =async (req,res)=>{
     }
     })
 }
-  //내 모임 조회
-  exports.myCommuList = async(req,res) =>{
-
-    Commu.myCommu(req.user_id,(err,data) =>{
-      if(!data) {
-        return res.status(500).send({
-          code:500,
-          message: 'fail',
-        });
-      }else{
-        return res.send({
-          code:200,
-          message: 'myCommu is successful',
-          result: {
-            myCommus:data
-          }
-        });
-      }
-    });
-  }
+  
   //모임미션 조회
   exports.CommuMission = async(req, res) =>{
     Commu_Mission.Searchmission(req.commu_id,(err,data)=>{

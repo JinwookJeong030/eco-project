@@ -50,21 +50,21 @@ Commu.selectFirstCommusFromLeader = (commu_leader,result) => {
 
 
 // 내 모임 수 조회
-Commu.selectMyCommusCnt = (user_id,result) => {
+Commu.selectAllMyCommusCnt = (user_id,result) => {
   sql.query('SELECT COUNT(*) AS commu_count FROM commu,belong WHERE commu.commu_id =belong.belong_commu AND belong_user = '+user_id+' ;', (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
       return;
     }
-    console.log(parseInt(res[0].post_count));
-      result(null,  parseInt(res[0].post_count));
+    console.log(parseInt(res[0].commu_count));
+      result(null,  parseInt(res[0].commu_count));
   });
 };
 
 // 내 모임 조회
-Commu.selectMyCommus = (user_id,result) => {
-  sql.query('SELECT commu.* FROM commu,belong WHERE commu.commu_id =belong.belong_commu AND belong_user = '+user_id+' ORDER BY commu_regdate DESC', (err, res) => {
+Commu.selectMyCommus = ({user_id, start, end},result) => {
+  sql.query(`SELECT commu.* FROM commu,belong WHERE commu.commu_id =belong.belong_commu AND belong_user = ${user_id} ORDER BY commu_regdate DESC LIMIT ${start}, ${end} ;`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -153,20 +153,7 @@ Commu.editCommu =(commu, result)=>{
   
     });
   }
-  //내 소속 커뮤 보기
-  Commu.myCommu = (commu_id, result)=>{ 
 
-    sql.query('SELECT * FROM commu WHERE commu_id = '+commu_id+' ORDER BY commu_regdate DESC',(err,res) => {
-      if(err) {
-        console.log('error:',err);
-        result(err,null);
-        return;
-      }
-      console.log('Select My Commus: ', res);
-      result(null,res);
-    } );
-    
-  };
     
   //모임 멤버 조회 / commu_id  / user_id 테이블 * , (belong 테이블과 commu 테이블 join이용)
 

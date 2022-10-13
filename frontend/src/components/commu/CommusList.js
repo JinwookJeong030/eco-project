@@ -6,22 +6,27 @@ import palette from '../../lib/styles/palette';
 import { Link } from "react-router-dom";
 import { WhitePostsItemBox } from '../common/WhiteBox';
 import Pagination from '../common/Pagination';
+import PaginationMini from '../common/PaginationMini';
 const CommuListTotBlock = styled.div` 
 margin-left:1rem;
 `;
 const CommuListBlock = styled(Responsive)`
-border: solid thin;
-border-width: 2px;
+border: solid 2px;
 box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
-margin-bottom: 3rem;
+
+padding-top:0.5rem;
+padding-left:0.8rem;
+padding-right:0.8rem;
 `;
 const MyCommuListBlock = styled(Responsive)`
 display:flex;
 flex-direction: column;
-border: solid thin;
+border: solid 2px;
+padding-left:0.8rem;
+padding-right:0.8rem;
 box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
-border-width: 2px;
-margin-bottom: 1.5rem;
+margin-bottom: 0.5rem;
+padding-top:0.5rem;
 `;
 const MyCommuItemsBlock = styled.div`
 display: flex;
@@ -35,25 +40,16 @@ const WriteCommuButtonWrapper = styled.div`
   justify-content: flex-end;
   padding-right:1rem;
   @media (max-width: 1300px) {
-    width: 105%;
+    width: 100%;
     padding-right:0rem;
   }
   
 `;
-const CommuItemBlock = styled.div`
-display: flex;
-border: thin solid ;
-border-width: 2px;
-border-color: #424242;
-box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
-margin-top:0.5rem;
-margin-bottom:0.5rem;
 
-`
 const CommuItemInfoBlock = styled.div`
   
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 
   h2 {
     font-size: 2rem;
@@ -104,9 +100,20 @@ const ManagementCommuBlock =styled(Responsive)`
   padding-bottom: 1rem;
 `
 const Title= styled.div`
-  font-size:1.5rem;
-  font-weight:bold;
-
+   margin:0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow:hidden; 
+  text-overflow:ellipsis;
+  width:60%;
+  font-weight: bold;
+  font-size: 1.6rem;
+  
+  @media (max-width: 768px) {
+    margin-top:0rem;
+    font-size: 3.5vw;
+    width:100%;
+  }
   
 `
 const MyItemTitle = styled.h3`
@@ -115,10 +122,7 @@ padding-left:1rem;
 padding-right:1rem;
 
 `
-const MyItemContents = styled.h3`
-margin-left:auto;
-margin-right:auto;
-`
+
 const Contents =styled.div`
   margin-Top: 10px;
 `
@@ -127,23 +131,27 @@ const MyImage = styled.img`
 width: 10rem;
 height: 10rem;
 border: solid thin;
-margin: 1rem;
+margin: 0.5rem;
 @media (max-width: 950px) {
-  margin-top:1rem;;
-  margin-left:0.5rem;;
-
+  margin:0rem;
   height:50%;
-  width: 90%;
+  width: 100%;
 }
 `
 const Image = styled.img`
-width: 10rem;
-height: 10rem;
+width: 6rem;
+height: 6rem;
 border: solid thin;
-margin: 1rem;
-@media (max-width: 950px) {
-  width: 30%;
-  height:30%
+border-width:2px;
+margin: 0.5rem;
+padding:0;
+@media (max-width: 768px) {
+  width: 4rem;
+  height: 4rem;
+  margin-top:auto;
+ margin-left:0.2rem;
+ margin-right:0.5rem;
+ margin-bottom:auto;
 }
 `
 const NoTitle =styled.h1`
@@ -178,22 +186,27 @@ const MyCommuItem = ( {commu, pages} ) =>{
 
 const CommuItem = ({ commu }) => {
     return (<Link to={`/commu/view/${commu.commu_id}`}>
-    <CommuItemBlock >
+    <WhitePostsItemBox whiteBoxStyle>
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <CommuItemInfoBlock>
         <Title>{commu.commu_name}</Title>
         <Contents>{commu.commu_contents}</Contents>
       </CommuItemInfoBlock>
-    </CommuItemBlock>
+    </WhitePostsItemBox>
     </Link>
     );
   };
 
   const CommusListError =()=>{return <div>모임을 불러올 수 없습니다...<p/></div>;}
-  const Head =styled(Responsive)`
-   
+  const Head =styled.div`
+    height:3rem;
+    display:flex;
+    flex-direction:row;
     margin-right:0;
-    width:30%;
+    @media (max-width: 768px) {
+      width: 80%;
+    }
+
   `
 
   const CommuList = ({ user, search_type, search_contents, onChangeField, onSearch, loading, error, 
@@ -204,24 +217,19 @@ const CommuItem = ({ commu }) => {
       <CommuListTotBlock>
    
         {showWriteButton && (
-         
       <ManagementCommuBlock>
       <WriteCommuButtonWrapper>
-      <Button cyan to="/commu/management">
-      가입 관리
-      </Button> 
-      <Button cyan to="/commu/edit">
+      <Button postWriteBtn cyan to="/commu/edit">
       모임 생성
       </Button>        
-        </WriteCommuButtonWrapper>
-        </ManagementCommuBlock>
+      </WriteCommuButtonWrapper>
+      </ManagementCommuBlock>
         )
     }
  {user&&
       <MyCommuListBlock>
-        <></>
-        <Title >나의 모임</Title>
-        <Head> <Pagination/></Head>
+       
+        <Head> <Title >나의 모임</Title> <PaginationMini/></Head>
        
      <MyCommuItemsBlock>
         {error?<CommusListError/>:(!loading && myCommus&&(myCommus===[]? <NoItem title={"현재 가입된 모임이 없습니다."}/>:<>
@@ -233,7 +241,7 @@ myCommus.map(commu => (
         </MyCommuItemsBlock>
       </MyCommuListBlock>}
       <CommuListBlock>
-      <Title>전체 모임</Title>
+      <Head> <Title>전체 모임</Title>  <PaginationMini/></Head>
    
       {error? <CommusListError/>:(!loading && commus && (<div>
           {
