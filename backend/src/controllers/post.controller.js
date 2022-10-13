@@ -26,8 +26,8 @@ const redisClient = require('../modules/redis.js');
               message: 'selectAllPostsCntFromTitle is error!',
             });
           } else {
-            const lastPage = Math.ceil(data/5);
-            if (page > Math.ceil(data / end)) {
+            const lastPage = Math.ceil(parseInt(data[0].post_count)/end);
+            if (page > Math.ceil(parseInt(data[0].post_count) / end)) {
               return res.send({
                 code:200,
                 message: 'selectAllPostsCntFromTitle is null',
@@ -68,17 +68,18 @@ const redisClient = require('../modules/redis.js');
                 message: 'selectAllPostsCntFromContents is error!',
               });
             } else {
-             
-              if (page > Math.ceil(data / end)) {
+              const lastPage = Math.ceil(parseInt(data[0].post_count)/end);
+              if (page > Math.ceil(parseInt(data[0].post_count) / end)) {
                 return res.send({
                   code:200,
                   message: 'selectAllPostsCntFromContents is null',
                   result:{
-                    posts:[]
+                    posts:[],
+                    lastPage: lastPage
                   }
                 })
               }else{
-                const lastPage = Math.ceil(data/5);
+                const lastPage = Math.ceil(parseInt(data[0].post_count)/end);
         Post.selectAllPostsFromContents({start,end,search_contents}, (err, data) => {
           if (!data) {
             return res.status(419).send({
@@ -110,17 +111,18 @@ const redisClient = require('../modules/redis.js');
               message: 'selectAllPostsCntFromUser is error!',
             });
           } else {
-           
-            if (page > Math.ceil(data / end)) {
+            const lastPage = Math.ceil(parseInt(data[0].post_count)/5);
+            if (page > Math.ceil(parseInt(data[0].post_count) / end)) {
               return res.send({
                 code:200,
                 message: 'selectAllPostsCntFromUser is null',
                 result:{
-                  posts:[]
+                  posts:[],
+                  lastPage: lastPage
                 }
               })
             }else{
-              const lastPage = Math.ceil(data/5);
+              const lastPage = Math.ceil(parseInt(data[0].post_count)/5);
         Post.selectAllPostsFromUser({start,end,search_contents}, (err, data) => {
           if (!data) {
             return res.status(419).send({
@@ -151,17 +153,18 @@ const redisClient = require('../modules/redis.js');
               message: 'selectAllPostsCntFromCategory is error!',
             });
           } else {
-           
-            if (page > Math.ceil(data / end)) {
+            const lastPage = Math.ceil(parseInt(data[0].post_count)/5);
+            if (page > Math.ceil(parseInt(data[0].post_count) / end)) {
               return res.send({
                 code:200,
                 message: 'selectAllPostsCntFromCategory is null',
                 result:{
-                  posts:[]
+                  posts:[],
+                  lastPage: lastPage
                 }
               })
             }else{
-              const lastPage = Math.ceil(data/5);
+              const lastPage = Math.ceil(parseInt(data[0].post_count)/5);
         Post.selectAllPostsFromCategory({start,end,search_contents}, (err, data) => {
           if (!data) {
             return res.status(419).send({
@@ -195,8 +198,8 @@ else
           message: 'selectAllPostsFromTitle is error!',
         });
       } else {
-        const lastPage = Math.ceil(data/5);
-        if (page > Math.ceil(data / end)) {
+        const lastPage = Math.ceil(parseInt(data[0].post_count)/5);
+        if (page > Math.ceil(parseInt(data[0].post_count) / end)) {
           return res.send({
             code:200,
             message: 'selectAllPostsCnt is null',

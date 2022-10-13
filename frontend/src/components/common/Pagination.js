@@ -31,7 +31,7 @@ const Pagination=({page,search_type,search_contents, lastPage})=>{
         &lt;
     </Button>
     <PageNumber>{page}</PageNumber>
-    <Button disabled={page === lastPage} to={page===lastPage? undefined: buildLink({page:page + 1,search_type,search_contents})}>
+    <Button disabled={(lastPage===0)||page === lastPage} to={(lastPage===0)||page===lastPage? undefined: buildLink({page:page + 1,search_type,search_contents})}>
         &gt;
     </Button>
 </PaginationBlock>

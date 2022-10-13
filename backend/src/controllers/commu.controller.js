@@ -67,7 +67,7 @@ Commu.selectFirstCommusFromLeader(commuReq.commu_leader, (err, data) =>{
 //내 모임 조회
 exports.myList = async (req,res)=>{
   const user_id = req.user_id;
-  const page = req.body.page;
+  const {page} = req.query;
   console.log("page: "+page)
   const end = 3;
   let start = 0;
