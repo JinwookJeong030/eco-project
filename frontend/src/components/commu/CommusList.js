@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { WhitePostsItemBox } from '../common/WhiteBox';
 import Pagination from '../common/Pagination';
 import PaginationMini from '../common/PaginationMini';
+import PaginationMyCommuContainer from '../../containers/commu/PaginationMyCommuContainer';
+import PaginationContainer from '../../containers/commu/PaginationCommuContainer';
 const CommuListTotBlock = styled.div` 
 margin-left:1rem;
 `;
@@ -229,7 +231,7 @@ const CommuItem = ({ commu }) => {
  {user&&
       <MyCommuListBlock>
        
-        <Head> <Title >나의 모임</Title> <PaginationMini/></Head>
+        <Head> <Title >나의 모임</Title> <PaginationMyCommuContainer/></Head>
        
      <MyCommuItemsBlock>
         {error?<CommusListError/>:(!loading && myCommus&&(myCommus===[]? <NoItem title={"현재 가입된 모임이 없습니다."}/>:<>
@@ -241,7 +243,7 @@ myCommus.map(commu => (
         </MyCommuItemsBlock>
       </MyCommuListBlock>}
       <CommuListBlock>
-      <Head> <Title>전체 모임</Title>  <PaginationMini/></Head>
+      <Head> <Title>전체 모임</Title>  <PaginationContainer/></Head>
    
       {error? <CommusListError/>:(!loading && commus && (<div>
           {

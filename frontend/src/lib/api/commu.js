@@ -5,10 +5,10 @@ import qs from 'qs';
   export const readCommu = commu_id => client.get(`/commu/view/${commu_id}`);
 
   export const listCommus = ({ search_type, search_contents, page }) => {
-    return client.get(`/commu/list?search_type=${search_type}&search_contents=${search_contents}`);//?${queryString}
+    return client.get(`/commu/list?page=${page}&search_type=${search_type}&search_contents=${search_contents}`);//?${queryString}
   };
-  export const listMyCommus= ({ search_type, search_contents, page }) => {
-    return client.get(`/commu/mylist?search_type=${search_type}&search_contents=${search_contents}`);//?${queryString}
+  export const listMyCommus= ({ page }) => {
+    return client.get(`/commu/mylist?page=${page}`);//?${queryString}
 };
 
   export const writeaCommu = ({commu_name, commu_contents,commu_leader,commu_region }) => client.post('/post/write',{commu_name, commu_contents,commu_leader,commu_region});

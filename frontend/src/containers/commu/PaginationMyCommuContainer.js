@@ -1,30 +1,36 @@
-import React from'react';
-import Pagination from '../../components/common/Pagination';
-import { useSelector } from 'react-redux';
-import {useParams, useSearchParams} from 'react-router-dom';
+import React, { useCallback } from'react';
+import { useDispatch, useSelector } from 'react-redux';
+import PaginationMini from '../../components/common/PaginationMini';
+import { changeField } from '../../modules/commus';
 
 
-const PaginationContainer =() =>{
-    const [searchParams] = useSearchParams();
+const PaginationMyCommuContainer =() =>{
 
-    const page =parseInt(searchParams.get('page'),10)||1;
-    const search_type =searchParams.get('search_type');
-    const search_contents=searchParams.get('search_contents');
-    const {lastPage, posts, loading, error} = useSelector(({posts,loading,error})=>
+    const dispatch = useDispatch();
+    const {page,lastPage, commus, loading, error} = useSelector(({commus,loading})=>
     ({
-        lastPage: posts.lastPage,
-        posts: posts.posts,
-        loading: loading['posts/LIST_POST'],
-        error: posts.error
+        page: commus.myCommusPage||1,
+        lastPage: commus.myCommusLastPage,
+        commus: commus.myCommus,
+        loading: loading['commus/LIST_MY_COMMUS'],
+        error: commus.myCommuError
     }));
-   
-    if(!posts || loading) return null;
-    return(<Pagination
-        search_type ={search_type}
-        search_contents ={search_contents}
+    const onChangeField = useCallback(payload => dispatch(changeField(payload)), [dispatch]);
+    const downPaging  = () =>{
+        if(!(page===1))
+        onChangeField({ key: 'myCommusPage', value: page-1 });
+      }
+    const upPaging  = () =>{
+        if(!(page===lastPage))
+        onChangeField({ key: 'myCommusPage', value: page+1 });
+      }
+    if(!commus || loading) return null;
+    return(<PaginationMini
+        downPaging={downPaging}
+        upPaging={upPaging}
         page={parseInt(page,10)}
         lastPage={lastPage}
         erorr={error}
     />)
 }
-export default PaginationContainer;
+export default PaginationMyCommuContainer;

@@ -11,7 +11,7 @@ const ClassListForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { type, contents, myCommus, commus, error, loading, user, } = useSelector(
+  const { type, contents, myCommus, commus, error, loading, user, myCommuPage , commuPage } = useSelector(
     ({ commus, loading, user }) => ({
       type: commus.search_type,
       contents: commus.search_contents,
@@ -19,8 +19,10 @@ const ClassListForm = () => {
       commus: commus.commus,
       commuError: commus.commuError,
       myCommuError: commus.myCommuError,
-      loading: loading['commus/LIST_Commus']||loading['commus/LIST_My_Commus'],
+      loading: loading['commus/LIST_COMMUS']||loading['commus/LIST_MY_COMMUS'],
       user: user.user,
+      myCommuPage: commus.myCommusPage||1,
+      commuPage: commus.commusPage||1
     }),
   );
   
@@ -36,12 +38,9 @@ const ClassListForm = () => {
       ignoreQueryPrefix: true,
     });
     console.log(searchCommus)
-    dispatch(listCommus(searchCommus));
-    dispatch(listMyCommus(searchCommus));
-  }, [dispatch, location.search]);
-
-
-
+    dispatch(listCommus({page:commuPage}));
+    dispatch(listMyCommus({page:myCommuPage}));
+  }, [dispatch, location.search, myCommuPage, commuPage]);
 
 
   return (

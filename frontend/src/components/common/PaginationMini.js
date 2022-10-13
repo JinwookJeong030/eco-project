@@ -24,21 +24,17 @@ margin-top:auto;
 margin-bottom:auto;
 `
 
-const buildLink = ({page,search_type,search_contents})=>{
 
-    return `/commu/list?page=${page}&search_type=${search_type}&search_contents=${search_contents}`;
-}
 
-const PaginationMini=({page,search_type,search_contents, lastPage})=>{
-    
-   
+const PaginationMini=({page, lastPage, downPaging, upPaging})=>{
+  
     return (
 <PaginationMiniBlock>
-    <PageBtn disabled={page === 1} to={page===1? undefined: buildLink({page:page - 1, search_type,search_contents})}>
+    <PageBtn disabled={page === 1} onClick={downPaging}>
         &lt;
     </PageBtn>
     <PageNumber>{page}</PageNumber>
-    <PageBtn disabled={page === lastPage} to={page===lastPage? undefined: buildLink({page:page + 1,search_type,search_contents})}>
+    <PageBtn disabled={page === lastPage} onClick={upPaging}>
         &gt;
     </PageBtn>
 </PaginationMiniBlock>

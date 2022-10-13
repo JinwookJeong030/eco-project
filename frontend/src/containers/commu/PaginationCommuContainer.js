@@ -2,24 +2,26 @@ import React from'react';
 import Pagination from '../../components/common/Pagination';
 import { useSelector } from 'react-redux';
 import {useParams, useSearchParams} from 'react-router-dom';
+import PaginationMini from '../../components/common/PaginationMini';
 
 
 const PaginationContainer =() =>{
     const [searchParams] = useSearchParams();
 
-    const page =parseInt(searchParams.get('page'),10)||1;
+
     const search_type =searchParams.get('search_type');
     const search_contents=searchParams.get('search_contents');
-    const {lastPage, posts, loading, error} = useSelector(({posts,loading,error})=>
+    const {page,lastPage, commus, loading, error} = useSelector(({commus,loading})=>
     ({
-        lastPage: posts.lastPage,
-        posts: posts.posts,
-        loading: loading['posts/LIST_POST'],
-        error: posts.error
+        page: commus.commusPage,
+        lastPage: commus.myCommusLastPage,
+        commus: commus.commus,
+        loading: loading['commus/LIST_COMMUS'],
+        error: commus.commusError
     }));
    
-    if(!posts || loading) return null;
-    return(<Pagination
+    if(!commus || loading) return null;
+    return(<PaginationMini
         search_type ={search_type}
         search_contents ={search_contents}
         page={parseInt(page,10)}
