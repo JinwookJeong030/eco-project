@@ -68,7 +68,7 @@ Commu.selectFirstCommusFromLeader(commuReq.commu_leader, (err, data) =>{
 exports.myList = async (req,res)=>{
   const user_id = req.user_id;
   const {page} = req.query;
-  console.log("page: "+page)
+
   const end = 3;
   let start = 0;
 
@@ -84,8 +84,8 @@ exports.myList = async (req,res)=>{
         message: 'selectAllMyCommusCnt is error!',
       });
     } else {
-      const lastPage = Math.ceil(data/end);
-      if (page > Math.ceil(data / end)) {
+      const lastPage = Math.ceil(parseInt(data[0].commu_count)/end);
+      if (page > Math.ceil(parseInt(data[0].commu_count) / end)) {
         return res.send({
           code:200,
           message: 'selectAllMyCommusCnt is null',
@@ -96,7 +96,7 @@ exports.myList = async (req,res)=>{
           }
         })
       }else{
-        const lastPage = Math.ceil(data/3);
+        const lastPage = Math.ceil(parseInt(data[0].commu_count)/3);
         Commu.selectMyCommus({user_id,start,end},(err, data) => {
           if (err)
             res.status(400).send({
@@ -117,32 +117,137 @@ exports.myList = async (req,res)=>{
       }
 
 }})};
+
+
 // 조회 기능
 exports.list = async (req,res)=>{
+
   const{page, search_type,search_contents} = req.query;
+
+  const end = 3;
+  let start = 0;
+
+  if (page <= 0) {
+     start = 0;
+  } else {
+      start = (page - 1) * end;
+  }
+
   //모임제목으로 검색
   if(search_type === "title"){
-    Commu.findCommu(req.params.commuId, (err, data) => {
+    Commu.selectCommusFromTitleCnt(search_contents,(err, data) => {
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'selectCommusFromTitleCnt is error!',
+      });
+    } else {
+      const lastPage = Math.ceil(parseInt(data[0].commu_count)/end);
+      if (page > Math.ceil(parseInt(data[0].commu_count) / end)) {
+        return res.send({
+          code:200,
+          message: 'selectCommusFromTitleCnt is null',
+          result:{
+            myCommus:[],
+            lastPage: lastPage
+            
+          }
+        })
+      }else{
+        const lastPage = Math.ceil(parseInt(data[0].commu_count)/end);
+    Commu.selectCommusFromTitle({start,end,search_contents}, (err, data) => {
       if (!data) {
         return res.status(419).send({
           code:419,
-          message: 'findCommu is error!',
+          message: 'selectCommusFromTitle is error!',
         });
       } else {
         return res.send({
           code:200,
-          message: 'findCommu is succesful',
+          message: 'selectCommusFromTitle is succesful',
           result:{
-            commus:data
+            commus:data,
+            lastPage: lastPage
           }
         });
       }
+  })
+}
 
-  })}
-  else
+}})
+}
+  //모임장으로 검색
+  else if(search_type === "user"){
+
+    Commu.selectCommusFromUserCnt(search_contents,(err, data) => {
+      if (!data) {
+        return res.status(419).send({
+          code: 419,
+          message: 'selectCommusFromUserCnt is error!',
+        });
+      } else {
+        const lastPage = Math.ceil(parseInt(data[0].commu_count)/end);
+        if (page > Math.ceil(parseInt(data[0].commu_count) / end)) {
+          return res.send({
+            code:200,
+            message: 'selectCommusFromUserCnt is null',
+            result:{
+              myCommus:[],
+              lastPage: lastPage
+              
+            }
+          })
+        }else{
+          const lastPage = Math.ceil(parseInt(data[0].commu_count)/end);
+        Commu.selectCommusFromUser({start,end,search_contents}, (err, data) => {
+        if (!data) {
+          return res.status(419).send({
+            code:419,
+            message: 'selectCommusFromUser is error!',
+          });
+        } else {
+          return res.send({
+            code:200,
+            message: 'selectCommusFromUser is succesful',
+            result:{
+              commus:data,
+              lastPage:lastPage
+            }
+          });
+        }
+  
+    })
+  
+  }
+
+}})
+
+
+  }
+    else
   {
+
+    Commu.selectAllCommusCnt((err, data) => {
+      if (!data) {
+        return res.status(419).send({
+          code: 419,
+          message: 'selectAllCommusCnt is error!',
+        });
+      } else {
+        const lastPage = Math.ceil(parseInt(data[0].commu_count)/end);
+        if (page > Math.ceil(parseInt(data[0].commu_count) / end)) {
+          return res.send({
+            code:200,
+            message: 'selectAllCommusCnt is null',
+            result:{
+              myCommus:[],
+              lastPage: lastPage         
+            }
+          })
+        }else{
+          const lastPage = Math.ceil(parseInt(data[0].commu_count)/end);
     //전체 조회
-  Commu.selectAllCommus((err, data) => {
+  Commu.selectAllCommus({ start, end },(err, data) => {
       if (err)
         res.status(400).send({
           code: 400,
@@ -152,10 +257,13 @@ exports.list = async (req,res)=>{
         code: 200,
         message:'selectAllCommus is seccessful!',
         result:{
-          commus:data
+          commus:data,
+          lastPage: lastPage
         }
       });
-    });
+    });}
+
+  }});
   }
 };
 

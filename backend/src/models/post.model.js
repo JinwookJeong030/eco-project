@@ -56,7 +56,7 @@ Post.selectAllPosts = ({start, end},result) => {
 
 
 // 게시글 제목 조회 
-Post.selectAllPostsFromTitle = ({start, end,search_contents} ,result) => {
+Post.selectAllPostsFromTitle = ({start, end, search_contents} ,result) => {
   sql.query(`SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_title LIKE "%${search_contents}%" ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
