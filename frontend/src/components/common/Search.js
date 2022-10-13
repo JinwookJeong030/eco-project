@@ -1,24 +1,20 @@
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import Responsive from './Responsive';
 
 
 
 
-const SearchBlock = styled(Responsive)`
+const SearchBlock = styled.div`
 
 display: flex;
 flex-direction: row;
-height: 3rem;
-width:24rem;
+height: 2.6rem;
+width:26rem;
 border: thin solid;
 border-width: 2px;
 box-shadow: 2px 2px 2px rgba(10, 10, 10, 0.3);
 margin-left:auto;
-margin-right:0;
-margin-top:1rem;
-margin-bottom:0.5rem;
-@media (max-width: 670px) {
+@media (max-width: 1024px) {
   width: 100%;
 
 }

@@ -9,12 +9,12 @@ width: ${props=>(props.hidingState? '3rem':'12rem' )};
 background: #81F781;
 float:left;
 z-index:100;
-border-right: solid thin #088A68;
+border-right: solid 2px #088A68;
 .hid {
   width: 5rem;
 }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1300px) {
     position:fixed;
     height:100%;
   }
@@ -27,8 +27,8 @@ font-weight: 600;
 list-style:none;
 width:100%;
 padding-left:0;
-
-border-bottom: solid thin #088A68;
+border-top: solid 2px #088A68;
+border-bottom: solid 2px #088A68;
  
 `;
 const MenuIcon = styled.img`
@@ -57,7 +57,7 @@ font-size: 1.2rem;
 color:#088A68;
 display: normal;
 width:100%;
-border-top: solid thin #088A68;
+border-top: solid 2px #088A68;
 
 &:hover{
   color:#81F781;

@@ -4,7 +4,7 @@ import Responsive from "../common/Responsive";
 import { useState } from "react";
 import {AskRemoveModal, AskRemoveSuccessModal} from "./AskRemoveModal";
 const PostManagementBlock =styled(Responsive)`
-display:flex;
+  display:flex;
 
 `
 const PostManagementDiv = styled.div`
@@ -42,13 +42,13 @@ const PostManagement = ({user ,post,loadingRead,loadingDelete,onRemoveSuccess, i
       (post.post_user === user.user_id)?
       <> 
 
-      <PostManagementBtn gray onClick={onEdit}>수정</PostManagementBtn>
+      <PostManagementBtn gray onClick={onEdit} postWriteBtn>수정</PostManagementBtn>
 
-      <PostManagementBtn gray onClick={onRemoveClick}>삭제</PostManagementBtn>
+      <PostManagementBtn gray onClick={onRemoveClick} postWriteBtn>삭제</PostManagementBtn>
       </>
       :<></>
       }
-      <PostManagementBtn green onClick={onBack}>뒤로가기</PostManagementBtn>
+      <PostManagementBtn green onClick={onBack} postWriteBtn>뒤로가기</PostManagementBtn>
       </PostManagementDiv>
      
       </PostManagementBlock>

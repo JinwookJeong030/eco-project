@@ -8,8 +8,6 @@ import palette from '../../lib/styles/palette';
 
 const PostHead = styled.div`
   border-bottom: 1px solid ${palette.gray[2]};
-  padding-bottom: 0.5rem;
-  margin-bottom: 0.5rem;
 
   h1 {
     font-size: 1.8rem;
@@ -29,12 +27,12 @@ const SubInfo = styled.div`
   display:flex;
   flex-direction:row;
   margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   color: ${palette.gray[6]};
   @media (max-width: 768px) {
     font-size: 0.5rem;;
   }
 
-  /* span 사이에 가운데점 문자 보여 주기 */
   span + span::before {
     color: ${palette.gray[5]};
     padding-left: 0.25rem;
@@ -48,7 +46,7 @@ const PostContents = styled.div`
   font-size: 1.2rem;
   color: ${palette.gray[8]};
   padding-top: 0.5rem;
-  padding-bottom:2rem;
+  padding-bottom: 0.5rem;
   @media (max-width: 768px) {
     font-size: 0.8rem;;
   }
@@ -128,9 +126,9 @@ const PostViewer = ({ post, error, loading }) => {
       <PostContents
         dangerouslySetInnerHTML={{ __html: post_contents }}
       />
-      <ContentsButtonBlock>
+      {/* <ContentsButtonBlock/> */}
 
-      </ContentsButtonBlock>
+
    
     </>
   );

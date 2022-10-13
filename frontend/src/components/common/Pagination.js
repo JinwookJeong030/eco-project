@@ -4,16 +4,19 @@ import Button from '../common/Button'
 import Responsive from './Responsive';
 
 const PaginationBlock =styled(Responsive)`
- width:35%;
+ width:80%;
  display: flex;
  justify-content: space-between;
  margin-bottom: auto;
- margin-top:auto;
+ margin-top:0.8rem;
  font-weight:bold;
 
 
 `
-const PageNumber =styled.div``
+const PageNumber =styled.div`
+margin-top:auto;
+margin-bottom:auto;
+`
 
 const buildLink = ({page,search_type,search_contents})=>{
 

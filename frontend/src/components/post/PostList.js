@@ -5,9 +5,10 @@ import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
 import {IoIosArrowDropdown, IoIosArrowDropup} from 'react-icons/io'
 import { Link } from "react-router-dom";
-import {WhitePostsItemBox} from '../common/WhiteBox';
+import WhiteBox, {WhitePostsItemBox} from '../common/WhiteBox';
 import Search from '../common/Search';
 import PaginationContainer from '../../containers/post/PaginationContainer';
+import { useState } from 'react';
 const PostListBlock = styled(Responsive)` 
 `;
 
@@ -22,36 +23,37 @@ const WritePostButtonWrapper = styled.div`
   
 
 `;
-const PostItemBlock = styled(WhitePostsItemBox)`
 
-`
-const MissionBlock = styled(WhitePostsItemBox)``
 const PostItemInfoBlock = styled.div`
   display:flex;
   flex-direction:column;
   width: 100%;
   height: 100%;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-right:1rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
   padding-left:1rem;
-  width: 80.5%;
+  width: 86.5%;
   @media (max-width: 768px) {
-    width: 90%;
+    width: 100%;
     margin-left:auto;
     margin-right:auto;
+    padding-right:1rem;
    }
 `;
 const Image = styled.img`
-width: 10rem;
-height: 10rem;
+width: 6rem;
+height: 6rem;
 border: solid thin;
 border-width:2px;
-margin: 1rem;
+margin: 0.5rem;
 padding:0;
 @media (max-width: 768px) {
- margin-left:auto;
- margin-right:auto;
+  width: 4rem;
+  height: 4rem;
+  margin-top:auto;
+ margin-left:0.5rem;
+ margin-right:0rem;
+ margin-bottom:auto;
 }
 `;
 const Title= styled.div`
@@ -62,11 +64,10 @@ const Title= styled.div`
   text-overflow:ellipsis;
   width:60%;
   font-weight: bold;
-  font-size: 2rem;
-  @media (max-width: 1300px) {
-    font-size: 1.8vw;
-  }
+  font-size: 1.6rem;
+  
   @media (max-width: 768px) {
+    margin-top:0rem;
     font-size: 3.5vw;
     width:100%;
   }
@@ -76,24 +77,29 @@ const Title= styled.div`
 
 const PostNickName = styled.div`
 width: 10rem; 
-height:2rem;
+height:1rem;
 font: bold;
-margin:0;
+font-size: 0.8rem;
+
 padding:0;
 color:${palette.gray[6]};
-margin-top:5px;
-margin-left:5px;
+margin-bottom:5px;
+ @media (max-width: 768px) {
+    margin:0rem;
+    font-size: 2.5vw;
+    width:100%;
+  }
 `
 const PostContent = styled.div`
 padding:0;
 width: 70%; 
-height:4rem;
-
+height:2rem;
 overflow:hidden; 
+
 text-overflow:ellipsis;
   @media (max-width: 768px) {
     font-size: 2.5vw;
-    height:3.2rem;
+    height:1rem;
     width:95%;
   }
 `;
@@ -111,36 +117,17 @@ padding:0;
 `
 const MissionImg = styled.img`
 
-width:50rem;
+width: 60%;
+margin-left:auto;
+margin-right:auto;
+height:8rem;
 maring-left:auto;
-@media (max-width: 1300px) {
+@media (max-width: 900px) {
   height: 18vw;
   width: 100%;
 }
 `
-const MissionInfoBlock = styled.div`
-maring-left:auto;
-padding:1rem;
-border-left: thin solid;
-border-width: 2px;
-@media (max-width: 1024px) {
-  width: 768px;
-}
-@media (max-width: 1300px) {
-  display: none;
-}
 
-`
-const MissionTitle = styled.div`
-font-size: 0.8vw;
-text-align: center;
-margin-bottom:15px;
-`
-const MissionContents = styled.div`
-font-size: 0.7vw;
-text-align: center;
-
-`
 const NoTitle =styled.h1`
 margin-left: auto;
 margin-right:auto;
@@ -148,40 +135,59 @@ color: ${palette.green[0]};
 margin-top:3rem;
 margin-bottom:3rem;
 `
-const MissionHidingBtn = styled(IoIosArrowDropup)`
-  width:2rem;
-  height:2rem;
-
+const MissionHidingUpBtn = styled(IoIosArrowDropup)`
+  width:1.3rem;
+  height:1.3rem;
   margin-left: auto;
-`
+  margin-right:0.1rem;
 
+`
+const MissionHidingDownBtn = styled(IoIosArrowDropdown)`
+width:1.3rem;
+height:1.3rem;
+margin-left: auto;
+margin-right:0.1rem;
+
+`
+const MissionHeaderTitle = styled.div`
+  font-size:0.8rem;
+  margin-top:auto;
+  margin-bottom:auto;
+  margin-left:0.3rem;
+`
+const MissionHeaderBlock =styled(WhitePostsItemBox)`
+height:1.4rem;
+font-weight: bold;
+`
 const NoPost =({title})=>{
 
-  return (<PostItemBlock>
-
+  return (<WhitePostsItemBox>
   <NoTitle>{title}</NoTitle>
-
-  </PostItemBlock>);
+  </WhitePostsItemBox>);
 
 }
-const Mission = ({mission_id, title, contents, onClickMission})=>
+const MissionHeader = ({onClickHidingMission, hidingMissionState, mission})=>{
+  return(
+    <MissionHeaderBlock >
+    <MissionHeaderTitle>&lt;오늘의 미션&gt; {mission}</MissionHeaderTitle>
+     {!hidingMissionState?<MissionHidingUpBtn onClick={onClickHidingMission}/>:
+     <MissionHidingDownBtn onClick={onClickHidingMission}/>}
+    </MissionHeaderBlock>
+  )
+
+}
+const Mission = ({hidingMissionState, mission_id, title, contents, onClickMission})=>
 {
   return (
+    !hidingMissionState?
     
     <Link to={`/post/edit`} state={{ mission_title: title }}>
-    <MissionBlock onClick={onClickMission} >
+    <WhitePostsItemBox onClick={onClickMission} >
 
     <MissionImg src={process.env.PUBLIC_URL + "/mission_img/mission_"+mission_id+".png"}/>
 
-    <MissionInfoBlock >
-    <MissionHidingBtn/>
-      <MissionTitle><b>&lt; 오늘의 미션 &gt;</b></MissionTitle>
-      <MissionTitle>{title}</MissionTitle>
-      <MissionContents>{contents}</MissionContents>     
-      </MissionInfoBlock>
-
-    </MissionBlock>
-    </Link>
+    </WhitePostsItemBox>
+    </Link>:<></>
   );
 }
 
@@ -192,7 +198,7 @@ const PostItem = ({ post }) => {
   const post_contents = post.post_contents.replace(extractTextPattern, '')
     return (
       <Link to={`/post/view/${post.post_id}`}>
-      <PostItemBlock whiteBoxStyle>
+      <WhitePostsItemBox whiteBoxStyle>
    
         <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
         <PostItemInfoBlock>
@@ -203,12 +209,18 @@ const PostItem = ({ post }) => {
        
       </PostItemInfoBlock>
    
-    </PostItemBlock>
+    </WhitePostsItemBox>
     </Link>
     );
   };
   const PostList = ({ posts, loading, error, showWriteButton, search_type, search_contents, 
     onChangeField, onSearch, categorys,mission}) => {
+
+    const [hidingMissionState, setHidingMissionState] = useState(true);
+    const onClickHidingMission = ()=>{
+      setHidingMissionState(!hidingMissionState);
+    }
+
     if (error) {
       return     (<PostListBlock><NoPost title={"서버에서 문제가 발생하였습니다..."} /></PostListBlock>)
     }
@@ -223,14 +235,16 @@ const PostItem = ({ post }) => {
             작성하기
           </Button>)}
         </WritePostButtonWrapper>
-        {mission&&
-      <Mission mission_id= {mission.mission_id} title={mission.mission_title} contents={mission.mission_contents}
+        {mission&&<>
+      <MissionHeader onClickHidingMission={onClickHidingMission} hidingMissionState={hidingMissionState} mission={mission.mission_title}/>
+      <Mission hidingMissionState={hidingMissionState} mission_id= {mission.mission_id} title={mission.mission_title} contents={mission.mission_contents}
       />
+      </>
         }
        <PostHeader>
-         <PaginationContainer/>
-       <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch} categorys={categorys}/>
    
+       <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch} categorys={categorys}/>
+     
         </PostHeader>
         {!loading && posts &&(posts.length===0?<NoPost title={"검색 된 게시물이 없습니다."} />:(<div>
           {
@@ -238,7 +252,7 @@ const PostItem = ({ post }) => {
             <PostItem post={post} key={post.post_id} />
           ))}
         </div>))}
-       
+        <PaginationContainer/>
       </PostListBlock>
     );
   };
