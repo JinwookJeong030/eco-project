@@ -69,7 +69,7 @@ exports.myList = async (req,res)=>{
   const user_id = req.user_id;
   const {page} = req.query;
 
-  const end = 3;
+  const end = 4;
   let start = 0;
 
   if (page <= 0) {
@@ -96,7 +96,7 @@ exports.myList = async (req,res)=>{
           }
         })
       }else{
-        const lastPage = Math.ceil(parseInt(data[0].commu_count)/3);
+        const lastPage = Math.ceil(parseInt(data[0].commu_count)/end);
         Commu.selectMyCommus({user_id,start,end},(err, data) => {
           if (err)
             res.status(400).send({
@@ -124,7 +124,7 @@ exports.list = async (req,res)=>{
 
   const{page, search_type,search_contents} = req.query;
 
-  const end = 3;
+  const end = 5;
   let start = 0;
 
   if (page <= 0) {

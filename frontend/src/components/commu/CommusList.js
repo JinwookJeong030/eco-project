@@ -19,6 +19,7 @@ box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
 padding-top:0.5rem;
 padding-left:0.8rem;
 padding-right:0.8rem;
+padding-bottom:0.5rem;
 `;
 const MyCommuListBlock = styled(Responsive)`
 display:flex;
@@ -68,9 +69,9 @@ const MyCommuItemBlock = styled(Link)`
 
 display: flex;
 flex-direction: row;
-width:30%;
+width:25%;
 height:16rem;
-margin-left:auto;
+
 margin-right:auto;
 margin-top:1rem;
 margin-bottom:1rem;
@@ -211,7 +212,7 @@ const CommuItem = ({ commu }) => {
 
   `
 
-  const CommuList = ({ user, search_type, search_contents, onChangeField, onSearch, loading, error, 
+  const CommuList = ({ user, search_type, search_contents, onChangeField, onSearch, loading,loadingMy, error, 
     commus, myCommus, showWriteButton }) => {
 
 
@@ -228,7 +229,7 @@ const CommuItem = ({ commu }) => {
       </ManagementCommuBlock>
         )
     }
- {user&&
+ {!loadingMy&&user&&
       <MyCommuListBlock>
        
         <Head> <Title >나의 모임</Title> <PaginationMyCommuContainer/></Head>

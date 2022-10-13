@@ -26,7 +26,7 @@ margin-bottom:auto;
 
 
 
-const PaginationMini=({page, lastPage, downPaging, upPaging})=>{
+const PaginationMini=({page, lastPage,search_type,search_contents, downPaging, upPaging})=>{
   
     return (
 <PaginationMiniBlock>
