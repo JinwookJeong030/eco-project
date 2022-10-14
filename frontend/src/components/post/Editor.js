@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import ReactQuill from 'react-quill';
 import './EditorQuill.css'
 import Quill from "quill";
@@ -8,6 +8,8 @@ import Responsive from "../common/Responsive";
 import styled from "styled-components";
 import PostActionBtn from "./PostActionBtn";
 import { useLocation } from "react-router-dom";
+import Button from "../common/Button";
+import palette from "../../lib/styles/palette";
 
 const EditorBlock = styled(Responsive)`
   /* 페이지 위아래 여백 지정 */
@@ -17,7 +19,7 @@ const EditorBlock = styled(Responsive)`
   padding-right:0rem;
   box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
   @media (min-width: 1100px) {
-    width: 60rem;
+    width: 50rem;
   }
   @media (max-width: 1050px) {
     width: 93%;
@@ -92,11 +94,11 @@ const QuillWrapper = styled.div`
 
   .ql-editor {
     padding: 0;
-    min-height: 400px;
+    min-height: 300px;
     @media (max-width: 768px) {
       min-height: 250px;
     }
-    max-height: 580px;
+    max-height: 300px;
     font-size: 1rem;
     max-length: '2';
     line-height: 1.5;
@@ -113,7 +115,56 @@ const EditBody = styled.div`
   
 `
 
-var Parchment = Quill.import('parchment');
+const ImageFilesBlock =styled.div`
+  display: flex;
+  flex-direction: rwo;
+  height:6.5rem;
+  width:95%;
+  padding-left:0.2rem;
+  border: 2px solid;
+  margin-left:10px;
+  margin-right:auto;
+  overflow: auto;
+  white-space: nowrap;
+ 
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 6px;
+    box-shadow: inset 0px 0px 5px white;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${palette.green[0]};
+    box-shadow: inset 0px 0px 5px white;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: grey;
+`
+const Image = styled.img`
+height:5.8rem;
+width:5.8rem;
+margin-top:0.2rem;
+margin-bottom:auto;
+margin-left: 0.05rem;
+margin-right: 0.05rem;
+border: 1px solid;
+
+`
+const InputFile= styled.input`
+display: none;
+`
+const ImageFileUpload =({handleAddImages})=>{
+
+  return(  <>
+    <label for="file"  >
+      <Image src={process.env.PUBLIC_URL + "/camera-icon.png"}/>
+    </label>
+    <InputFile type="file" name="file" id="file" accept="image/*" capture="camera" multiple onChange={handleAddImages}/>
+    </>
+    );
+}
+let Parchment = Quill.import('parchment');
     var lineHeightConfig = {
       scope: Parchment.Scope.INLINE,
       whitelist: [
@@ -143,13 +194,11 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
     useEffect(() => {
   const modules = {
     toolbar: [
-      [{'font': []}],
-      [{ 'header': [6,5,4,3,2,1] }],
+
       [{ 'color': [] }, { 'background': [] }],
       ['bold','underline', 'italic','strike',],
-      [ { 'align': '' },{ 'align': 'center' },{ 'align': 'right' },{ 'align': 'justify' },{'indent': '-1'}, {'indent': '+1'},{
-        'list': ['ordered', 'bullet']},{ lineheight: ['1.0', '1.2', '1.5', '1.6', '1.8', '2.0', '2.4', '2.8', '3.0', '4.0', '5.0'] }],
-      ['image','link']
+      [ { 'align': ['' , 'center' , 'right' , 'justify'] },{'indent': '-1'}, {'indent': '+1'},{
+        'list': ['ordered', 'bullet']},{ lineheight: ['1.0', '1.2', '1.5', '1.6', '1.8', '2.0', '2.4', '2.8', '3.0', '4.0', '5.0'] }]
     ],
   }
     quillInstance.current = new Quill(quillElement.current, {
@@ -188,6 +237,32 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
     const location = useLocation();
     let mission_state = location.state.mission_state;
 
+
+    const [showImages, setShowImages] = useState([]);
+
+    // 이미지 상대경로 저장
+    const handleAddImages = (event) => {
+      const imageLists = event.target.files;
+      let imageUrlLists = [...showImages];
+  
+      for (let i = 0; i < imageLists.length; i++) {
+        const currentImageUrl = URL.createObjectURL(imageLists[i]);
+        imageUrlLists.push(currentImageUrl);
+      }
+  
+      if (imageUrlLists.length > 10) {
+        imageUrlLists = imageUrlLists.slice(0, 10);
+      }
+  
+      setShowImages(imageUrlLists);
+    };
+  
+    // X버튼 클릭 시 이미지 삭제
+    const handleDeleteImage = (id) => {
+      setShowImages(showImages.filter((_, index) => index !== id));
+    };
+
+
     return( <EditorBlock>
           <CategoryBlock>{categorys?
           <Select
@@ -208,7 +283,14 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
             value={post_title}
             maxLength="50"
           />
+           <ImageFilesBlock>
+        <ImageFileUpload handleAddImages={handleAddImages}/>
+            {showImages.map((image, id) => (
+     
+          <Image src={image} key={id} alt={`${image}-${id}`} onClick={() => handleDeleteImage(id)} />
        
+      ))}
+       </ImageFilesBlock>
             <QuillWrapper>
                 <EditBody 
                    ref={quillElement}  

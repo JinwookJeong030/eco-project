@@ -7,7 +7,7 @@ module.exports = (app) => {
    
    
     app.get('/api/mission', mission.list);
-    app.get('/api/allMission', mission.AllList);
+    app.get('/api/allMission', mission.allList);
 
 
 

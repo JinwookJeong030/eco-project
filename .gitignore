@@ -1,6 +1,9 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 
+#upload
+/backend/upload
+
 #백엔드 구성요소 주석해제해야됨
 # /backend/src/config/
 
