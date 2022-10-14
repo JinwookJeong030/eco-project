@@ -32,14 +32,20 @@ display: flex;
 flex-direction: row;
 margin-left:10px;
 padding:0;
+@media (max-width: 768px) {
+  height:1.4rem;
+}
 `
 
 const Select= styled.select`
 width: 7rem;
 height: 2rem;
 font-size: 1.2rem;
-
 margin-bottom: 15px;
+@media (max-width: 768px) {
+  font-size: 0.8rem;
+  height:1.2rem;
+}
 `
 const Mission = styled.div`
 height: 2rem;
@@ -50,6 +56,11 @@ padding-left:10px;
 padding-right:10px;
 margin-left:1rem;
 font-weight: bold;
+@media (max-width: 768px) {
+  font-size: 0.8rem;
+  height:1.2rem;
+  margin-left:0.5rem;
+}
 `
 
 const TitleInput = styled.input`
@@ -68,6 +79,11 @@ const TitleInput = styled.input`
   }
 @media (max-width: 768px) {
   width:95%;
+  height:1.8rem;
+  font-size: 1.2rem;
+  padding-top: 0.5rem;
+  margin-top:0.2rem;
+  
 }
 }
 `;
@@ -81,7 +97,7 @@ const QuillWrapper = styled.div`
       min-height: 250px;
     }
     max-height: 580px;
-    font-size: 1.125rem;
+    font-size: 1rem;
     max-length: '2';
     line-height: 1.5;
   }
@@ -94,6 +110,7 @@ const EditBody = styled.div`
   padding:5px;
   margin-left:0.2rem;
   margin-right:0.2rem;
+  
 `
 
 var Parchment = Quill.import('parchment');
@@ -198,7 +215,7 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
                    maxLength="500"
                    />
           
-              <PostActionBtn Styled='margin: 5rem;' onPublish={onPublish} onCancel={onCancel}/>
+              <PostActionBtn  Styled='margin: 5rem;' onPublish={onPublish} onCancel={onCancel}/>
             </QuillWrapper>
             </EditorBlock>
 

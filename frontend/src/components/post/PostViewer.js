@@ -50,6 +50,10 @@ const PostContents = styled.div`
   @media (max-width: 768px) {
     font-size: 0.8rem;;
   }
+  word-wrap: break-word;      
+  white-space: -moz-pre-wrap; 
+  white-space: pre-wrap;
+  word-break:break-all;
 `;
 const ImgBtnBlock = styled.div`
   display:flex;

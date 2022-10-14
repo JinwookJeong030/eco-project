@@ -12,7 +12,7 @@ const buttonStyle = css`
   color: white;
   outline: none;
   cursor: pointer;
-
+  
   background: ${palette.gray[8]};
   &:hover {
     background: ${palette.gray[6]};
@@ -58,7 +58,7 @@ const buttonStyle = css`
       font-size:0.8rem;
       margin-top:auto;
       margin-bottom:auto;
-      margin-left:auto;
+     
       height:1.5rem;
     }
     `}

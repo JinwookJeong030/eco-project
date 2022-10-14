@@ -39,6 +39,10 @@ const PostItemInfoBlock = styled.div`
     margin-right:auto;
     padding-right:1rem;
    }
+   word-wrap: break-word;      
+white-space: -moz-pre-wrap; 
+white-space: pre-wrap;
+word-break:break-all;
 `;
 const Image = styled.img`
 width: 6rem;

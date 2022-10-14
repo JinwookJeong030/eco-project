@@ -37,18 +37,7 @@ flex-direction: row;
 `
 const Block = styled(WhitePostsItemBox)`
 `
-const WriteCommuButtonWrapper = styled.div`
-  width: 1024px;
-  display: flex;
-  justify-content: flex-end;
-  padding-right:0.5rem;
-  padding-top:0rem;
-  @media (max-width: 1300px) {
-    width: 100%;
-    padding-right:0rem;
-  }
-  
-`;
+
 
 const CommuItemInfoBlock = styled.div`
   
@@ -100,8 +89,9 @@ const MyCommuItemInfoBlock = styled.div`
 
 
 const ManagementCommuBlock =styled(Responsive)`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  display:flex;
+  padding-bottom: 0.2rem;
+  justify-content: flex-end;
 `
 const Title= styled.div`
    margin:0;
@@ -124,6 +114,11 @@ const MyItemTitle = styled.h3`
 margin-top:0rem;
 padding-left:1rem;
 padding-right:1rem;
+@media (max-width: 768px) {
+  font-size:0.5rem;
+
+}
+font-size:1rem;
 
 `
 
@@ -219,11 +214,14 @@ const CommuItem = ({ commu }) => {
    
         {showWriteButton && (
       <ManagementCommuBlock>
-      <WriteCommuButtonWrapper>
+   
+        <Button postWriteBtn cyan>
+          초대관리
+        </Button>
       <Button postWriteBtn cyan to="/commu/edit">
       모임 생성
       </Button>        
-      </WriteCommuButtonWrapper>
+   
       </ManagementCommuBlock>
         )
     }

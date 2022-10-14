@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive';
-import { WhitePostsItemBox } from '../common/WhiteBox';
+import WhiteBox, { WhitePostsItemBox } from '../common/WhiteBox';
 
 
 
-const CommuNoticeBlock = styled(Responsive)` 
+const CommuNoticeBlock = styled(WhiteBox)` 
+width: 100%;
+border:2px solid;
 `;
-const CommuNoticeListBlock = styled(WhitePostsItemBox)`
 
-`
 const Title =styled.h2`
 margin-bottom:0.5rem;
 `
@@ -48,10 +48,10 @@ const CommuNoticeList = ({cns, loading, error}) => {
 
     return (
         <CommuNoticeBlock>
-          <CommuNoticeListBlock  paddingBox flexColumn paddingMinTop>
+        
             <Title>공지사항</Title>
             {!loading&&cns&&cns.map(cn=>(<CommuNoticeListItem cn={cn} key={cn.cn_id} paddingMinTop/>))}
-          </CommuNoticeListBlock>
+       
         </CommuNoticeBlock>
     );
 };
