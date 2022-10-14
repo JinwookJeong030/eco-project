@@ -12,11 +12,13 @@ const CommuMissionContainer = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { error, loading ,todayMission } = useSelector(
-    ({ loading, write }) => ({
-      error: write.missionError,
-      loading: loading['write/MISSION'],
-      todayMission: write.mission,
+  const { allMission, cMission, loadingMission, loadingCMission } = useSelector(
+    ({ loading, commu }) => ({
+   
+      allMission: commu.allMission,
+      cMission: commu.cMission,
+      loadingMission: loading['write/MISSION'],
+      loadingCMission: loading['commu/COMMU_MISSION'],
     }),
   );
   
@@ -29,9 +31,10 @@ const CommuMissionContainer = () => {
 
   return (
     <CommuMission
-      loading={loading}
-      error={error}
-      mission={todayMission}
+      allMission={allMission}
+      cMission={cMission}
+      loadingMission={loadingMission}
+      loadingCMission={loadingCMission}
     />
   );
 };

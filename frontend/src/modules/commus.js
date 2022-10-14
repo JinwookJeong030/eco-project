@@ -5,22 +5,23 @@ import createRequestSaga, {
 import * as commuAPI from '../lib/api/commu';
 import { takeLatest } from 'redux-saga/effects';
 
-const INITIALIZE = 'classList/INITIALIZE'; // 모든 내용 초기화
+const INITIALIZE = 'commus/INITIALIZE'; // 모든 내용 초기화
 
 
 
-const CHANGE_FIELD = 'classList/CHANGE_FIELD'; // 특정 key 값 바꾸기
+const CHANGE_FIELD = 'commus/CHANGE_FIELD'; // 특정 key 값 바꾸기
+
 
 const [
   LIST_COMMUS,
   LIST_COMMUS_SUCCESS,
   LIST_COMMUS_FAILURE,
-] = createRequestActionTypes('classList/LIST_COMMUS');
+] = createRequestActionTypes('commus/LIST_COMMUS');
 const [
     LIST_MY_COMMUS,
     LIST_MY_COMMUS_SUCCESS,
     LIST_MY_COMMUS_FAILURE,
-  ] = createRequestActionTypes('classList/LIST_MY_COMMUS');
+  ] = createRequestActionTypes('commus/LIST_MY_COMMUS');
   
 
 
@@ -37,7 +38,7 @@ export const listCommus = createAction(
 );
 export const listMyCommus = createAction(
     LIST_MY_COMMUS,
-  ({ search_type, search_contents, page }) => ({search_type, search_contents, page }),
+  ({ page }) => ({ page }),
 );
 
 
@@ -54,7 +55,11 @@ export function* commusSaga() {
 const initialState = {
   search_type:"title",
   search_contents: null,
+  myCommusLastPage:null,
+  myCommusPage:1,
   myCommus: null,
+  commusLastPage:null,
+  commusPage:1,
   commus: null,
   myCommuError: null,
   commuError: null,
@@ -70,6 +75,7 @@ const classList = handleActions(
     [LIST_COMMUS_SUCCESS]: (state, { payload: commus }) => ({
       ...state,
       commus: commus.result.commus,
+      commusLastPage: commus.result.lastPage,
     }),
     [LIST_COMMUS_FAILURE]: (state, { payload: error }) => ({
       ...state,
@@ -78,6 +84,8 @@ const classList = handleActions(
     [LIST_MY_COMMUS_SUCCESS]: (state, { payload: myCommus }) => ({
         ...state,
         myCommus: myCommus.result.myCommus,
+        myCommusLastPage: myCommus.result.lastPage,
+
       }),
     [LIST_MY_COMMUS_FAILURE]: (state, { payload: error }) => ({
         ...state,

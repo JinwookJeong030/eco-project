@@ -10,34 +10,41 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import AskRemoveModal, { AskRemoveSuccessModal } from './AskRemoveModal';
 const ReplyListBlock = styled.div`
-flex-wrap: nowrap;
 `;
 
 const ReplyItemBlock = styled.div`
-margin-top:0.5rem;
-margin-bottom:0.5rem;
-border: thin solid ;
-border-color: #424242;
-box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.1);
-padding:1rem 1.2rem 0.5rem 1.2rem;
-
-flex-wrap: nowrap;
-font-size: 0.9rem;
-flex-wrap: nowrap;
-`
-const AddReplyItemBlock = styled.div`
-margin-top:0.5rem;
-margin-bottom:0.5rem;
-border: thin solid ;
+margin-top:0.2rem;
+margin-bottom:0.2rem;
+border: 2px solid ;
 border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.1);
 padding:0.5rem 1.2rem 0.5rem 1.2rem;
-margin-left: 2rem;
-background: #eeeeee;
-flex-wrap: nowrap;
 font-size: 0.9rem;
-flex-wrap: nowrap;
-
+@media (max-width: 768px) {
+  font-size: 0.6rem;
+};
+word-wrap: break-word;      
+white-space: -moz-pre-wrap; 
+white-space: pre-wrap;
+word-break:break-all;
+`
+const AddReplyItemBlock = styled.div`
+margin-top:0.2rem;
+margin-bottom:0.2rem;
+border: 2px solid ;
+border-color: #424242;
+box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.1);
+padding:0.5rem 1.2rem 0.5rem 1.2rem;
+margin-left: 1rem;
+background: #eeeeee;
+font-size: 0.9rem;
+@media (max-width: 768px) {
+  font-size: 0.6rem;
+};
+word-wrap: break-word;      
+white-space: -moz-pre-wrap; 
+white-space: pre-wrap;
+word-break:break-all;
 `
 const AddReplyEditor =styled(ReplyEditor)`
 
@@ -45,31 +52,33 @@ const AddReplyEditor =styled(ReplyEditor)`
 
 const NickName = styled.div`
 width:7rem;
-flex-wrap: nowrap;
 
+@media (max-width: 768px) {
+  width:20rem;
+}
 `
 
 const Contents = styled.div`
 flex-direction:row;
-flex-wrap: wrap;
-width: 37rem;
-white-space:wrap;
-margin-top:auto;
-margin-bottom:auto;
+width: 100rem;
+font-family: sans-serif;
+margin-left:1rem;
+
+
 `
 const Regdate = styled.div`
 margin-left: auto;
-flex-wrap: nowrap;
 font-size: 0.3rem;
-margin-right: 0.5rem;
-margin-top:3px;
-
+color: ${palette.gray[6]};
+@media (max-width: 768px) {
+  font-size: 0.5rem;
+  width:40rem;
+}
 `
 const DeleteBtn = styled.button`
 color: white;
 background: grey;
 border: grey;
-
 widht: 1.2rem;
 height: 1.2rem;
 
@@ -85,12 +94,6 @@ const ReplyItemInfoBlock = styled.div`
   }
 `;
 
-
-
-const PostContent = styled.div`
-font-size: 1rem;
-padding-top:0;
-`;
 
 const onChangeAddReplyState= (onChangeField, reply, addReplyState)=>{
   const reply_group_id = reply.reply_group_id;
@@ -134,7 +137,6 @@ const AddReplyItem =({user,onChangeField, reply, addReplyState,onRemoveClick})=>
             <NickName><b>↳  {reply.user_name}</b></NickName>
             <Contents>{reply.reply_contents}</Contents>
             <Regdate>{new Date(reply.reply_regdate).toLocaleString()}</Regdate>
-          
             {user?(user.user_name === reply.user_name?<DeleteBtn onClick={()=>{onRemoveClick(onChangeField,reply)}}>x</DeleteBtn>:<></>):<></>}
         </ReplyItemInfoBlock>
     </AddReplyItemBlock>

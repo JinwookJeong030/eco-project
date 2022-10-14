@@ -24,7 +24,7 @@ Post.selectAllPostsCnt = (result) => {
         result(err, null);
         
       }
-      result(null,  res[0].post_count);
+      result(null,  res);
     });
   };
 
@@ -43,20 +43,20 @@ Post.selectAllPosts = ({start, end},result) => {
 };
   //post 제목검색 전체수 조회
   Post.selectAllPostsCntFromTitle = ({search_contents},result) => {
-    sql.query(`SELECT COUNT(*) AS post_count FROM post WHERE post.post_title LIKE "%${search_contents}%"`, (err, res) => {
+    sql.query(`SELECT COUNT(*) AS post_count FROM post WHERE post_title LIKE "%${search_contents}%" ;`, (err, res) => {
       if (err) {
         console.log('error: ', err);
         result(err, null);
         console.log(err);
       }
-      console.log(parseInt(res[0].post_count));
-      result(null,  parseInt(res[0].post_count));
+      console.log(res);
+      result(null,  res);
     });
   };
 
 
 // 게시글 제목 조회 
-Post.selectAllPostsFromTitle = ({start, end,search_contents} ,result) => {
+Post.selectAllPostsFromTitle = ({start, end, search_contents} ,result) => {
   sql.query(`SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_title LIKE "%${search_contents}%" ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -75,7 +75,7 @@ Post.selectAllPostsCntFromContents = ({search_contents},result) => {
         console.log('error: ', err);
         result(err, null);
       }
-      result(null,  res[0].post_count);
+      result(null,  res);
     });
   };
 
@@ -100,7 +100,7 @@ Post.selectAllPostsCntFromUser = ({search_contents},result) => {
         console.log('error: ', err);
         result(err, null);
       }
-      result(null,  res[0].post_count);
+      result(null,  res);
     });
   };
 
@@ -124,7 +124,7 @@ Post.selectAllPostsCntFromCategory = ({search_contents},result) => {
       console.log('error: ', err);
       result(err, null);
     }
-    result(null,  res[0].post_count);
+    result(null,  res);
   });
 };
 

@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const multer = require('multer'); // 이미지 파일 처리
+const upload = multer({dest: './uploads'})
 const bodyParser = require('body-parser');
-
-  
+let app = express();
+const port = 4000;
 
 const corsOptions ={
     origin:['http://www.hs-eco-web.link:3000','http://localhost:3000','http://www.hs-eco-web.link',
@@ -13,8 +15,8 @@ const corsOptions ={
     optionSuccessStatus:200
 }
 
-let app = express();
-const port = 4000;
+
+
 
 app.use(bodyParser.json());
 
@@ -22,7 +24,7 @@ app.use(bodyParser.json());
 //이미지파일 미들웨어 사용
 app.use(express.json()); // json 데이터 파서
 app.use(express.urlencoded({ extended: false })); // 내부 url 파서 사용
-app.use(express.static(path.join(__dirname + '/image'))); //정적 파일 위치 설정
+app.use(express.static(path.join(__dirname + '/uploads'))); // 정적 파일 위치 설정
 
 app.use(cors(corsOptions));
 

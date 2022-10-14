@@ -31,6 +31,7 @@ const PostListContainer = () => {
   const onChangeField = 
   useCallback(payload => dispatch(changeField(payload)), 
   [dispatch]);
+  
   const onSearch =()=>{
     navigate("/post/list?search_type="+type+"&search_contents="+contents);
   };

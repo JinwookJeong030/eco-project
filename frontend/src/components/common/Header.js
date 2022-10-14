@@ -7,6 +7,7 @@ const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
   background: white;
+
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.08);
 
 `;
@@ -16,7 +17,7 @@ width:4rem;
 height:4rem;
 margin-right:5px;
 vertical-align: bottom;
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   height:3rem;
   width:3rem;
   }
@@ -36,14 +37,14 @@ const Wrapper = styled(Responsive)`
     display: flex;
     align-items: center;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     height:3rem;
     width:97%;
     }
 `;
 const Spacer = styled.div`
   height: 4rem;
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     height:3rem;
     }
 `;
@@ -52,8 +53,9 @@ const UserInfo = styled.div`
   font-weight: 800;
   margin-right: 1rem;
   @media (max-width: 1024px) {
-   margin-right:1px;
-   font-size: 1vw;
+   font-size: 0.7rem;
+   margin-right: 0.5rem;
+   
   }
   
 `;

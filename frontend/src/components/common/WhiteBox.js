@@ -44,6 +44,7 @@ ${(props) =>
 `;
 
 const WhiteBoxBlock= styled(Responsive)`
+
 `;
 
 const ContentsBox = styled.div`
@@ -57,6 +58,10 @@ border-width: 2px;
 border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 flex-wrap: nowrap;
+@media (max-width: 768px) {
+  padding:1rem 1rem 1rem 1rem;
+
+}
 `
 const PostsItemBlock = styled.div`
 display: flex;
@@ -68,15 +73,13 @@ border-color: #424242;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 padding:0;
 flex-wrap: nowrap;
-@media (max-width: 768px) {
-  flex-direction:column;
-  width:100%;
-}
+
 ${whiteBoxStyle};
 ${paddingBox};
 ${flexColumn};
 ${paddingMinTop};
 `
+
 
 export const WhiteBox = ({children}) => {
     return (
@@ -87,15 +90,16 @@ export const WhiteBox = ({children}) => {
       </WhiteBoxBlock>
     );
   };
-export const WhitePostsItemBox= ({children, whiteBoxStyle, paddingBox, flexColumn}) => {
+export const WhitePostsItemBox= (props,{ whiteBoxStyle, paddingBox, flexColumn}) => {
     return (
   
-      <PostsItemBlock hoverGrey={whiteBoxStyle} paddingBox = {paddingBox} flexColumn={flexColumn}
+      <PostsItemBlock {...props} hoverGrey={whiteBoxStyle} paddingBox = {paddingBox} flexColumn={flexColumn}
       paddingMinTop={paddingMinTop}>
-        {children}
+    
       </PostsItemBlock>
     );
-  };
+};
+
 
 
 export default WhiteBox;

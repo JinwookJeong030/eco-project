@@ -9,7 +9,9 @@ const ResponsiveBlock = styled.div`
   margin: 0 auto;
 
   @media (max-width: 1300px) {
-    width: 93%;
+    padding-right: 0rem;
+    width: 96%;
+   
     
   }
 `;

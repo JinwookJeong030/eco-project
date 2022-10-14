@@ -12,7 +12,7 @@ const ContentsBoxBlock = styled(Responsive)`
     margin-left: ${(props)=>props.hidingState? '4rem':'13rem'};
     overflow: auto;
     padding-bottom:3rem;
-    @media (max-width: 768px) {
+    @media (max-width: 1300px) {
       margin-left:0rem;
       padding-left:2rem;
       padding-right:0rem;
@@ -23,8 +23,10 @@ const ContentsBoxBlock = styled(Responsive)`
   
 `;
 const ContentsTitle = styled.h1`
-
-@media (max-width: 768px) {
+margin-bottom:0;
+margin-top:0.5rem;
+font-size:1.5rem;
+@media (max-width: 1300px) {
   margin-left:1.5rem;
   font-size: 1.5rem;
 }

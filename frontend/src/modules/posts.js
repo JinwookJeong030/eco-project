@@ -60,6 +60,7 @@ const posts = handleActions(
     }),
     [LIST_POSTS_FAILURE]: (state, { payload: error }) => ({
       ...state,
+      posts:[],
       error,
     }),
   },
