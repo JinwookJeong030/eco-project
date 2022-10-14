@@ -3,7 +3,7 @@ const Reply = require('../models/reply.model.js');
 const Category = require('../models/category.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
-
+const multer = require('multer'); // 이미지 파일 처리
 // 전체 조회
  exports.list = async (req, res) => {
 
@@ -311,7 +311,6 @@ exports.missions =async (req, res)=>{
   });
 }
 
-
 exports.write = async (req, res) =>{
 
   const postReq = new Post(
@@ -323,7 +322,9 @@ exports.write = async (req, res) =>{
       post_mission: 0,
     }
   )
-  
+
+
+
   Post.insertPost(postReq, (err,data)=>{
     if(!data){
       return res.status(419).send({

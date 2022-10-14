@@ -12,6 +12,16 @@ client.interceptors.request.use(function (config){
    return config;
 });
 
+export const uploadFile = ( file ) => {
+	try {
+       client.post('/upload', file);
+      
+    }
+  	catch(e) {
+      	console.log(e);
+    }
+}
+
 /**
  * //api 주소 다른곳 사용
  * client.defaults.baseURL = 'https://external-api-server.com/'

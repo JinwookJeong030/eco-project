@@ -84,7 +84,6 @@ const Search = ({search_type, search_contents, onChangeField, onSearch, category
   const onChagneSearchCategory = (e)=>{
     onChangeField({ key: 'search_contents', value: e.target.value});
   }
-  console.log(search_type);
   return <SearchBlock >
    
     <SearchCategory value={search_type} onChange={onChagneSearchType}>
