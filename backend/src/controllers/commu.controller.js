@@ -314,7 +314,51 @@ exports.delete =async (req,res)=>{
     }
     })
 }
-  
+  //내 모임 조회
+  exports.myCommuList = async(req,res) =>{
+
+    Commu.myCommu(req.user_id,(err,data) =>{
+      if(!data) {
+        return res.status(500).send({
+          code:500,
+          message: 'fail',
+        });
+      }else{
+        return res.send({
+          code:200,
+          message: 'myCommu is successful',
+          result: {
+            myCommus:data
+          }
+        });
+      }
+    });
+  }
+
+  // 모임공지 작성
+  exports.commumissioncreate = async (req, res) => {
+
+    const commu_missionReq = new Commu_Mission({
+      cm_id : req.cm_id,
+      cm_commu: req.body.cm_commu,
+      cm_mission: req.body.cm_mission,
+    });
+    //db저장
+    Commu_Mission.insertCommuMission(commu_missionReq, (err, data) => {
+      if(!data){
+        return res.status(419).send({
+          code: 419,
+          message: 'insertCommuMission is error!',
+        });
+      }else{
+        return res.send({
+          code:200,
+          message: 'insertCommuMission is successful', 
+         });
+      }
+    })
+  };
+
   //모임미션 조회
   exports.CommuMission = async(req, res) =>{
     Commu_Mission.Searchmission(req.commu_id,(err,data)=>{
@@ -503,3 +547,50 @@ exports.commureplywrite = async (req,res) =>{
   })
 }
 
+
+//모임 댓글 삭제
+exports.deltecommureply = async (req,res) =>{
+  const commu_replyReq = new Commu_Reply(
+    {
+      cr_id: req.params.cr_id,
+      cr_user: req.cr_user,
+    }
+  )
+    
+  Commu_Reply.deleteCommuReply(commu_replyReq, (err,data)=>{
+    if(!data){
+      return res.status(419).send({
+        code: 419,
+        message: 'deleteCommuReply is error!',
+      });
+    }else{
+      return res.send({
+        code:200,
+        message: 'deleteCommuReply is successful', 
+       });
+    }
+  })
+
+}
+
+
+  //모임 멤버 조회
+  exports.commumemberlist = async(req,res) =>{
+
+    Commu.ListCommuMember(req.commu_id,(err,data) =>{
+      if(!data) {
+        return res.status(500).send({
+          code:500,
+          message: 'fail',
+        });
+      }else{
+        return res.send({
+          code:200,
+          message: 'ListCommuMember is successful',
+          result: {
+            myCommus:data
+          }
+        });
+      }
+    });
+  }
