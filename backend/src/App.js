@@ -1,8 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const multer = require('multer'); // 이미지 파일 처리
-const upload = multer({dest: './uploads'})
+const fs = require("fs");
 const bodyParser = require('body-parser');
 let app = express();
 const port = 4000;
@@ -24,11 +23,15 @@ app.use(bodyParser.json());
 //이미지파일 미들웨어 사용
 app.use(express.json()); // json 데이터 파서
 app.use(express.urlencoded({ extended: false })); // 내부 url 파서 사용
-app.use(express.static(path.join(__dirname + '/uploads'))); // 정적 파일 위치 설정
+// 정적 파일 위치 설정
 
 app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
+    const dir = "./uploads";
+    if(!fs.existsSync(dir)) {
+    	fs.mkdirSync(dir);
+    }
   // 루트 주소에 접속하면
   res.send('Server is runnig... port '+ port); // 해당 응답을 보낸다.
 });
@@ -38,9 +41,26 @@ require('./routes/user.routes.js')(app);
 require('./routes/post.routes.js')(app);
 require('./routes/commu.routes.js')(app);
 require('./routes/mission.routes.js')(app);
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploadssss/');
+  },
+  filename: (req, file, cb) => {
+    const newFileName = file.originalname;
+    cb(null, newFileName);
+  }
+});
+const upload = multer({ storage: storage });
 
-
+app.post('/api/upload', upload.single('file'), (req, res) => {
+  console.log("------------------------------------")
+  console.log(req.file);
+  console.log("------------------------------------")
+});
 //포트넘버 설정
 app.listen(port, () => {
   console.log('Server is runnig... port :' + port);
 });
+
+

@@ -3,6 +3,8 @@ import Editor from "../../components/post/Editor";
 import { useSelector, useDispatch } from "react-redux";
 import { changeField, initialize, writePost, categorys, editPost , mission } from "../../modules/write";
 import { useNavigate } from "../../../node_modules/react-router-dom/index";
+import axios from "../../../node_modules/axios/index";
+import { uploadFile } from "../../lib/api/client";
 
 const EditorContainer = () => {
   const dispatch = useDispatch();
@@ -21,15 +23,22 @@ const EditorContainer = () => {
     postError: write.postError,
   }));
 
-  const onPublish = (e) => {
+  const onPublish =  (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('file', e.target.file.files[0]);
+     uploadFile(formData);
+ 
     if(originalPostId){
-  
       dispatch(editPost({post_id: originalPostId, post_title, post_contents, post_category, post_mission}));
       return;
     }
     e.preventDefault();
-    dispatch(writePost({post_title,post_contents,post_category, post_mission}));
+    dispatch(writePost({post_title,post_contents,post_category, post_mission }));
   };
+
+ 
+
   const onCancel = (e) => {
     e.preventDefault();
     navigate(-1);
@@ -45,6 +54,10 @@ const EditorContainer = () => {
      
     };
   }, [dispatch]);
+
+
+  
+
 
   useEffect(()=>{
     dispatch(categorys());
@@ -70,6 +83,7 @@ const EditorContainer = () => {
   post_contents={post_contents}
   onChangeField={onChangeField} 
   onPublish={onPublish} 
+ 
   onCancel={onCancel}/>;
 };
 

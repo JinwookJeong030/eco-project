@@ -10,6 +10,7 @@ import PostActionBtn from "./PostActionBtn";
 import { useLocation } from "react-router-dom";
 import Button from "../common/Button";
 import palette from "../../lib/styles/palette";
+import { uploadFile } from "../../lib/api/client";
 
 const EditorBlock = styled(Responsive)`
   /* 페이지 위아래 여백 지정 */
@@ -147,7 +148,7 @@ width:5.8rem;
 margin-top:0.2rem;
 margin-bottom:auto;
 margin-left: 0.05rem;
-margin-right: 0.05rem;
+
 border: 1px solid;
 
 `
@@ -157,11 +158,16 @@ display: none;
 const ImageFileUpload =({handleAddImages})=>{
 
   return(  <>
-    <label for="file"  >
+    <label  htmlFor="file" type="file" name="file">
       <Image src={process.env.PUBLIC_URL + "/camera-icon.png"}/>
     </label>
-    <InputFile type="file" name="file" id="file" accept="image/*" capture="camera" multiple onChange={handleAddImages}/>
+    {/* name="file" id="file" accept="image/*" capture="camera" multiple*/}
+    <InputFile type="file" name="file" id="file" accept="image/*" capture="camera" onChange={handleAddImages}/>
     </>
+    //       <input type='file' name='file' accept="img/*" capture="camera"/>
+    //       <button type='submit'>업로드</button>
+    //   </form>
+    // <form encType='multipart/form-data' >
     );
 }
 let Parchment = Quill.import('parchment');
@@ -235,14 +241,16 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
       onChangeField({ key: 'post_mission', value: 'e.target.value' });
     }
     const location = useLocation();
-    let mission_state = location.state.mission_state;
+    // let mission_state = location.state.mission_state||0;
 
+   
+   
 
     const [showImages, setShowImages] = useState([]);
-
+    
     // 이미지 상대경로 저장
-    const handleAddImages = (event) => {
-      const imageLists = event.target.files;
+    const handleAddImages = (e) => {
+      const imageLists = e.target.files;
       let imageUrlLists = [...showImages];
   
       for (let i = 0; i < imageLists.length; i++) {
@@ -253,27 +261,32 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
       if (imageUrlLists.length > 10) {
         imageUrlLists = imageUrlLists.slice(0, 10);
       }
-  
+
       setShowImages(imageUrlLists);
     };
   
     // X버튼 클릭 시 이미지 삭제
     const handleDeleteImage = (id) => {
+      console.log(showImages[id])
       setShowImages(showImages.filter((_, index) => index !== id));
     };
 
 
-    return( <EditorBlock>
+    return( 
+    
+    <EditorBlock>
+          <form encType='multipart/form-data' onSubmit={onPublish}>
+      
           <CategoryBlock>{categorys?
           <Select
                  placeholder="카테고리를 선택하세요." 
                  onChange={onChangeCategory} 
-                 value={mission_state?'4':'1'}
+             
           >
           {categorys.map(category =>(<option value={category.category_id}  
-          selected={category.cagetory_id===4&&mission_state?true:false}>{category.category_name}</option>))}
+          selected={category.cagetory_id===4}>{category.category_name}</option>))}
             </Select>:<></>}
-            {mission_state=false}
+      
         {((category === "4")&&mission)?<Mission> 미션 : {mission.mission_title}</Mission>:<>
            </>}
           </CategoryBlock>
@@ -296,9 +309,9 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
                    ref={quillElement}  
                    maxLength="500"
                    />
-          
-              <PostActionBtn  Styled='margin: 5rem;' onPublish={onPublish} onCancel={onCancel}/>
+              <PostActionBtn  Styled='margin: 5rem;' onSubmit={onPublish} onCancel={onCancel}/>
             </QuillWrapper>
+            </form>
             </EditorBlock>
 
         )

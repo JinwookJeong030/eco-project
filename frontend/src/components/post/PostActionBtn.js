@@ -21,12 +21,12 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const PostActionBtns = ({ onCancel, onPublish }) => {
+const PostActionBtns = ({onCancel, onPublish, onSubmit }) => {
   return (
     <PostActionBtn>
    
       <StyledButton postWriteBtn onClick={onCancel}>취소</StyledButton>
-      <StyledButton postWriteBtn cyan onClick={onPublish}>
+      <StyledButton postWriteBtn cyan   type='submit' onSubmit={onSubmit} onClick={onPublish}>
         등록
       </StyledButton>
     </PostActionBtn>

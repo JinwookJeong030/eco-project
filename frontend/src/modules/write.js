@@ -41,11 +41,13 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
 }));
-export const writePost = createAction(WRITE_POST, ({ post_title, post_contents,post_category, post_mission }) => ({
+export const writePost = createAction(WRITE_POST, ({ post_title, post_contents,post_category, post_mission, formdata, config }) => ({
   post_title,
   post_contents,
   post_category,
-  post_mission
+  post_mission, 
+  formdata, 
+  config
 }));
 export const editPost = createAction(EDIT_POST, ({ post_id, post_title, post_contents, post_category, post_mission }) => ({
   post_id,
