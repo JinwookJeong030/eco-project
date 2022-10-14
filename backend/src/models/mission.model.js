@@ -9,8 +9,8 @@ const Mission = function (mission) {
     this.mission_point = mission.mission_point;
 };
 
-//미션 조회
-Mission.selectAllMission = (result) => {
+//현재 미션 조회
+Mission.selectMission = (result) => {
 sql.query('SELECT * FROM mission WHERE mission_state = 1 ;', (err, res) => {
 if (err) {
     console.log('error: ', err);
@@ -21,6 +21,20 @@ if (err) {
     result(null,  res[0]);
     });
 };
+//미션 조회
+Mission.selectAllMission = (result) => {
+    sql.query('SELECT * FROM mission;', (err, res) => {
+    if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+        }
+        console.log('selectAllMissions: ',  res);
+        result(null,  res);
+        });
+    };
+
+
 
 //미션 랜덤 갱신
 Mission.updateAllMission =(result) =>{

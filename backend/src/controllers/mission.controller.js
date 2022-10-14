@@ -10,11 +10,11 @@ exports.create = async (req,res)=>{
       mission_contents: req.body.mission_contents,
   });
 };
-//미션 조회
+//현재 미션 조회
 exports.list = (req,res)=>{
      
 
-    Mission.selectAllMission((err, data) => {
+    Mission.selectMission((err, data) => {
         if (err)
           res.status(400).send({
             code: 400,
@@ -29,3 +29,23 @@ exports.list = (req,res)=>{
         });
       });
   };
+
+  //모든 미션 조회
+exports.allList = (req,res)=>{
+     
+
+  Mission.selectAllMission((err, data) => {
+      if (err)
+        res.status(400).send({
+          code: 400,
+          message: err.message || "fail."
+        });
+      else res.send({
+        code: 200,
+        message:'selectAllMission is seccessful!',
+        result:{
+          allMission:data
+        }
+      });
+    });
+};

@@ -5,8 +5,9 @@ module.exports = (app) => {
     const refresh = require('./refresh');
     
    
-    //미션 전체조회
+   
     app.get('/api/mission', mission.list);
+    app.get('/api/allMission', mission.AllList);
 
 
 
