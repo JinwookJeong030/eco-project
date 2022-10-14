@@ -48,5 +48,24 @@ Commu_Reply.insertCommuReply =(commu_reply ,result) =>{
 
   
   } 
-
+  
+  // 모임 댓글 삭제(cr_id) 
+  Commu_Reply.deleteCommuReply =(commu_reply, result)=>{
+  const commu_replyReq = new Commu_Reply({
+    cr_id: commu_reply.cr_id,
+    cr_user: commu_reply.cr_user,
+  })
+  sql.query("DELETE FROM commu_reply WHERE cr_id = "+commu_replyReq.cr_id+" AND cr_user = "+commu_replyReq.cr_user+" ;", 
+   (err,res)=>{
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+      console.log('Delete Commu_reply: ',  res);
+      result(null,  res);
+    
+    });
+    }
+  
 module.exports = Commu_Reply;

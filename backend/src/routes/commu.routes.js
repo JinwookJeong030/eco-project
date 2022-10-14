@@ -33,9 +33,15 @@ module.exports = (app) => {
     app.get('/api/commu/commureplyselect/:commu_id', commu.commureplyselect);
     //모임 댓글 작성
     app.post('/api/commu/commureplywrite',authJwt, commu.commureplywrite);
-
+    //모임 댓글 삭제
+    app.delete('/api/commu/deltecommureply/:cr_id',authJwt, commu.deltecommureply);
     
     //모임 미션 조회
     app.get('/api/commu/CommuMission',commu.CommuMission);
+    //모임 미션 생성
+    app.post('/api/commu/commumissioncreate',authJwt, commu.commumissioncreate);
+
+    //모임 멤버 조회
+    app.get('/api/commu/commumemberlist/:commu_id',commu.commumemberlist);
   };
   

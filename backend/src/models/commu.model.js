@@ -170,4 +170,16 @@ Commu.editCommu =(commu, result)=>{
     
   //모임 멤버 조회 / commu_id  / user_id 테이블 * , (belong 테이블과 commu 테이블 join이용)
 
+  Commu.ListCommuMember = (commu_id,result) => {
+    sql.query('SELECT belong_user FROM commu,belong WHERE commu.commu_id =belong.belong_commu ORDER BY commu_regdate DESC', (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+      console.log('ListCommuMember: ',  res );
+      result(null,  res );
+   });
+  };
+
   module.exports = Commu;
