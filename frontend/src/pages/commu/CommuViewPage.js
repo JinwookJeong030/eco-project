@@ -20,7 +20,7 @@ import CommuReplyContainer from '../../containers/commu/CommuReplyContainer';
    <NavContainer/>
    <ContentsBoxContainer title="모임">
   <CommuMissionContainer/>
-  <CommuEditNoticeListContainer/>
+  {/* <CommuEditNoticeListContainer/> 추후 추가*/}
    <CommuOtherMenuContainer >
     <CommuReplyContainer/>
     <CommuMemberContainer/>

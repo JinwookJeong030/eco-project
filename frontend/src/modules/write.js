@@ -10,7 +10,7 @@ const [
   WRITE_POST,
   WRITE_POST_SUCCESS,
   WRITE_POST_FAILURE,
-] = createRequestActionTypes('write/WRITE_POST'); // 포스트 작성
+] = createRequestActionTypes('write/WRITE_POST'); // 포스트 작성 
 const [
   EDIT_POST,
   EDIT_POST_SUCCESS,
@@ -49,6 +49,8 @@ export const writePost = createAction(WRITE_POST, ({ post_title, post_contents,p
   formdata, 
   config
 }));
+
+
 export const editPost = createAction(EDIT_POST, ({ post_id, post_title, post_contents, post_category, post_mission }) => ({
   post_id,
   post_title,
@@ -84,6 +86,7 @@ const initialState = {
   post_title: '',
   post_contents: '',
   post_category: 1,
+  post_image:[],
   categorys:[],
   categorysError:null,
   mission:null,
@@ -100,6 +103,7 @@ const write = handleActions(
       ...state,
       post_title: '',
       post_contents: '',
+      post_image:[],
       post_category: 1,
       categorysError:null,
       missionError:null,

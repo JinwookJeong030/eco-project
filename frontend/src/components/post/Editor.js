@@ -161,30 +161,15 @@ const ImageFileUpload =({handleAddImages})=>{
     <label  htmlFor="file" type="file" name="file">
       <Image src={process.env.PUBLIC_URL + "/camera-icon.png"}/>
     </label>
-    {/* name="file" id="file" accept="image/*" capture="camera" multiple*/}
-    <InputFile type="file" name="file" id="file" accept="image/*" capture="camera" onChange={handleAddImages}/>
+
+    <InputFile type="file" name="file" id="file" accept="image/*" capture="camera" multiple onChange={handleAddImages}/>
     </>
-    //       <input type='file' name='file' accept="img/*" capture="camera"/>
-    //       <button type='submit'>업로드</button>
-    //   </form>
-    // <form encType='multipart/form-data' >
     );
 }
 let Parchment = Quill.import('parchment');
     var lineHeightConfig = {
       scope: Parchment.Scope.INLINE,
-      whitelist: [
-        '1.0',
-        '1.2',
-        '1.5',
-        '1.6',
-        '1.8',
-        '2.0',
-        '2.4',
-        '2.8',
-        '3.0',
-        '4.0',
-        '5.0'
+      whitelist: ['1.0','1.2','1.5','1.6','1.8','2.0','2.4','2.8','3.0','4.0','5.0'
       ]
     };
     var lineHeightClass = new Parchment.Attributor.Class('lineheight', 'ql-line-height', lineHeightConfig);
@@ -192,12 +177,12 @@ let Parchment = Quill.import('parchment');
     Parchment.register(lineHeightClass);
     Parchment.register(lineHeightStyle);
 
-const Editor =({categorys,category,  post_mission, mission, post_title,post_contents,onChangeField, onPublish, onCancel })=>{
-    const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
+    const Editor =({categorys,category,  post_mission, mission, post_title,post_contents,onChangeField, onPublish, onCancel })=>{
+    const quillElement = useRef(null); 
     const quillInstance =  useRef(null); 
 
 
-    useEffect(() => {
+  useEffect(() => {
   const modules = {
     toolbar: [
 
@@ -212,9 +197,6 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
       placeholder: ' 내용을 작성하세요...',
       modules,
     });
-
-    // quill에 text-change 이벤트 핸들러 등록
-    // 참고: https://quilljs.com/docs/api/#events
     const quill = quillInstance.current;
     quill.off();
     quill.on('text-change', (delta, oldDelta, source) => {
@@ -248,9 +230,21 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
 
     const [showImages, setShowImages] = useState([]);
     
+    const formData= new FormData();
+   
     // 이미지 상대경로 저장
     const handleAddImages = (e) => {
       const imageLists = e.target.files;
+     
+      const filesCnt =imageLists.length;
+      console.log("2-----------------------------")
+      console.log(formData)
+      console.log("-----------------------------")
+      for(let i = 0 ; i< filesCnt ; i++){
+        formData.append('file',imageLists[i]);
+      }
+
+      
       let imageUrlLists = [...showImages];
   
       for (let i = 0; i < imageLists.length; i++) {
@@ -269,6 +263,7 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
     const handleDeleteImage = (id) => {
       console.log(showImages[id])
       setShowImages(showImages.filter((_, index) => index !== id));
+
     };
 
 
@@ -309,7 +304,7 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
                    ref={quillElement}  
                    maxLength="500"
                    />
-              <PostActionBtn  Styled='margin: 5rem;' onSubmit={onPublish} onCancel={onCancel}/>
+              <PostActionBtn  Styled='margin: 5rem;' onSubmit={(e)=>{onPublish(e,formData)}} onCancel={onCancel}/>
             </QuillWrapper>
             </form>
             </EditorBlock>

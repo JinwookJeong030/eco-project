@@ -71,7 +71,7 @@ const CommuMenuItem = ({selectReply, selectMember, selectStatistics, selectMenu}
     return(<CommuMenuItemsBlock>
         <CommuMenuItemBlock onClick={selectReply} borderNone={selectMenu===0? 1:0}>모임 댓글</CommuMenuItemBlock>
         <CommuMenuItemBlock onClick={selectMember} borderNone={selectMenu===1? 1:0}>모임 멤버</CommuMenuItemBlock>
-        <CommuMenuItemBlock onClick={selectStatistics} borderNone={selectMenu===2? 1:0}>모임 통계</CommuMenuItemBlock>
+        {/* <CommuMenuItemBlock onClick={selectStatistics} borderNone={selectMenu===2? 1:0}>모임 통계</CommuMenuItemBlock> */}
         <CommuMenuTemp/>
 
     </CommuMenuItemsBlock>)

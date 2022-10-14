@@ -18,9 +18,9 @@ const CommuOtherMenuContainer = ({children}) => {
   const selectMember=()=>{
     setSelectMenu(1);
     }
-  const selectStatistics=()=>{
-    setSelectMenu(2);
-  }
+  // const selectStatistics=()=>{
+  //   setSelectMenu(2);
+  // }
 
   
 
@@ -29,7 +29,7 @@ const CommuOtherMenuContainer = ({children}) => {
     selectMenu={selectMenu}
     selectReply={selectReply}
     selectMember={selectMember}
-    selectStatistics={selectStatistics}
+    // selectStatistics={selectStatistics}
     children={children}
     >
 

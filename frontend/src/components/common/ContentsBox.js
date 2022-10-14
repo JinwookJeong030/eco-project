@@ -23,10 +23,10 @@ const ContentsBoxBlock = styled(Responsive)`
   
 `;
 const ContentsTitle = styled.h1`
-margin-bottom:0;
+margin-bottom:0.5rem;
 margin-top:0.5rem;
 font-size:1.5rem;
-@media (max-width: 1300px) {
+@media (max-width: 1000px) {
   margin-left:1.5rem;
   font-size: 1.5rem;
 }

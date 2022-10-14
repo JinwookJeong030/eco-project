@@ -45,7 +45,7 @@ export function* userSaga() {
 }
 const initialState = {
   user: null,
-  hidingState:false,
+  hidingState:true,
   checkError: null,
 };
 

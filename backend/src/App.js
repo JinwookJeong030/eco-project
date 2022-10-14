@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false })); // 내부 url 파서 사용
 app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
-    const dir = "./uploads";
+    const dir = "./api/uploads";
     if(!fs.existsSync(dir)) {
     	fs.mkdirSync(dir);
     }
@@ -44,19 +44,16 @@ require('./routes/mission.routes.js')(app);
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploadssss/');
+    cb(null, 'uploads/postImg');
   },
   filename: (req, file, cb) => {
     const newFileName = file.originalname;
-    cb(null, newFileName);
+    cb(null, req.body.post_id+"_"+newFileName);
   }
 });
 const upload = multer({ storage: storage });
 
-app.post('/api/upload', upload.single('file'), (req, res) => {
-  console.log("------------------------------------")
-  console.log(req.file);
-  console.log("------------------------------------")
+app.post('/api/upload', upload.array('file'), (req, res) => {
 });
 //포트넘버 설정
 app.listen(port, () => {

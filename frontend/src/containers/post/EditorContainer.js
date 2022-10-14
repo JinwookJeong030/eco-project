@@ -21,12 +21,24 @@ const EditorContainer = () => {
     originalPostId: write.originalPostId,
     post: write.post,
     postError: write.postError,
+    post_image: write.post_image,
   }));
 
-  const onPublish =  (e) => {
-    e.preventDefault();
+  const onPublish =  (e,images) => {
+
+    console.log("1-----------------------------")
+    console.log(images)
+    console.log("-----------------------------")
     const formData = new FormData();
-    formData.append('file', e.target.file.files[0]);
+    const filesCnt =e.target.file.files.length;
+    console.log("2-----------------------------")
+    console.log(e.target.file.files)
+    console.log("-----------------------------")
+    for(let i = 0 ; i< filesCnt ; i++){
+      formData.append('file',e.target.file.files[i])
+    }
+   
+  
      uploadFile(formData);
  
     if(originalPostId){
