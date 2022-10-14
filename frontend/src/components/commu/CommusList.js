@@ -41,7 +41,8 @@ const WriteCommuButtonWrapper = styled.div`
   width: 1024px;
   display: flex;
   justify-content: flex-end;
-  padding-right:1rem;
+  padding-right:0.5rem;
+  padding-top:0rem;
   @media (max-width: 1300px) {
     width: 100%;
     padding-right:0rem;
@@ -73,7 +74,7 @@ width:25%;
 height:16rem;
 
 margin-right:auto;
-margin-top:1rem;
+
 margin-bottom:1rem;
 
 border: thin solid ;
@@ -206,12 +207,9 @@ const CommuItem = ({ commu }) => {
     display:flex;
     flex-direction:row;
     margin-right:0;
-    @media (max-width: 768px) {
-      width: 80%;
-    }
+ 
 
   `
-
   const CommuList = ({ user, search_type, search_contents, onChangeField, onSearch, loading,loadingMy, error, 
     commus, myCommus, showWriteButton }) => {
 

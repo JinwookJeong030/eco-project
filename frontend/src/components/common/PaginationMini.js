@@ -11,7 +11,9 @@ const PaginationMiniBlock =styled(Responsive)`
  font-weight:bold;
  margin-right:0;
  height:1.7rem;
-
+ @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 const PageBtn = styled(Button)`
 width:2.6rem;
