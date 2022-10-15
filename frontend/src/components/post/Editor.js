@@ -155,7 +155,7 @@ border: 1px solid;
 const InputFile= styled.input`
 display: none;
 `
-const ImageFileUpload =({handleAddImages})=>{
+  const ImageFileUpload =({handleAddImages})=>{
 
   return(  <>
     <label  htmlFor="file" type="file" name="file">
@@ -165,8 +165,8 @@ const ImageFileUpload =({handleAddImages})=>{
     <InputFile type="file" name="file" id="file" accept="image/*" capture="camera" multiple onChange={handleAddImages}/>
     </>
     );
-}
-let Parchment = Quill.import('parchment');
+    }
+  let Parchment = Quill.import('parchment');
     var lineHeightConfig = {
       scope: Parchment.Scope.INLINE,
       whitelist: ['1.0','1.2','1.5','1.6','1.8','2.0','2.4','2.8','3.0','4.0','5.0'
@@ -177,13 +177,13 @@ let Parchment = Quill.import('parchment');
     Parchment.register(lineHeightClass);
     Parchment.register(lineHeightStyle);
 
-    const Editor =({categorys,category,  post_mission, mission, post_title,post_contents,onChangeField, onPublish, onCancel })=>{
+const Editor =({categorys,category,  post_mission, mission, post_title,post_contents,onChangeField, onPublish, onCancel })=>{
     const quillElement = useRef(null); 
     const quillInstance =  useRef(null); 
 
 
-  useEffect(() => {
-  const modules = {
+    useEffect(() => {
+    const modules = {
     toolbar: [
 
       [{ 'color': [] }, { 'background': [] }],
@@ -219,9 +219,7 @@ let Parchment = Quill.import('parchment');
     const onChangeCategory = e =>{
       onChangeField({ key: 'post_category', value: e.target.value });
     }
-    const onChangeMission = e =>{
-      onChangeField({ key: 'post_mission', value: 'e.target.value' });
-    }
+  
     const location = useLocation();
     // let mission_state = location.state.mission_state||0;
 
@@ -297,7 +295,7 @@ let Parchment = Quill.import('parchment');
      
           <Image src={image} key={id} alt={`${image}-${id}`} onClick={() => handleDeleteImage(id)} />
        
-      ))}
+          ))}
        </ImageFilesBlock>
             <QuillWrapper>
                 <EditBody 
