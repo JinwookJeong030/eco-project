@@ -9,6 +9,8 @@ import Pagination from '../common/Pagination';
 import PaginationMini from '../common/PaginationMini';
 import PaginationMyCommuContainer from '../../containers/commu/PaginationMyCommuContainer';
 import PaginationContainer from '../../containers/commu/PaginationCommuContainer';
+import AskRemoveModal from '../post/AskRemoveModal';
+import { useState } from 'react';
 const CommuListTotBlock = styled.div` 
 margin-left:1rem;
 `;
@@ -207,20 +209,33 @@ const CommuItem = ({ commu }) => {
   `
   const CommuList = ({ user, search_type, search_contents, onChangeField, onSearch, loading,loadingMy, error, 
     commus, myCommus, showWriteButton }) => {
-
+      const [applyAskModal, setApplyAskModal] = useState(false);
+  
+      const onApplyClick = () => {
+        setApplyAskModal(true);
+      }
+      const onCancel = () => {
+        setApplyAskModal(false);
+    
+      }
+      const onConfirm = () => {
+        setApplyAskModal(false);
+    
+      }
 
     return (
+      <>
       <CommuListTotBlock>
    
         {showWriteButton && (
       <ManagementCommuBlock>
    
-        <Button postWriteBtn cyan>
+        <Button onClick={onApplyClick} postWriteBtn cyan>
           초대관리
         </Button>
-      <Button postWriteBtn cyan to="/commu/edit">
-      모임 생성
-      </Button>        
+         <Button postWriteBtn cyan to="/commu/edit">
+          모임 생성
+        </Button>        
    
       </ManagementCommuBlock>
         )
@@ -251,6 +266,15 @@ myCommus.map(commu => (
         </div>))}
            </CommuListBlock>
       </CommuListTotBlock>
+      <AskRemoveModal
+        visible={applyAskModal}
+        onConfirm={onConfirm}
+        onCancel={onCancel}
+        title=""
+        discription=""
+        discription2=""
+      /> 
+      </>
     );
   };
   

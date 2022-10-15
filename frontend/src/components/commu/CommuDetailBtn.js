@@ -14,19 +14,17 @@ justify-content:end;
 
 const CommuDetailBtn = ({ user = true, commu =true, loading, onRemove}) => {
 
-    const [deleteAskModal, setDeleteAskModal] = useState(false);
-  const [succesModal, setSuccesModal] = useState(false);
-  const onRemoveClick = () => {
-    setDeleteAskModal(true);
+  const [modalAskModal, setModalAskModal] = useState(false);
+
+  const onModalClick = () => {
+    setModalAskModal(true);
   }
   const onCancel = () => {
-    setDeleteAskModal(false);
-    setSuccesModal(false);
+    setModalAskModal(false);
+
   }
   const onConfirm = () => {
-    setDeleteAskModal(false);
-    onRemove()
-    setSuccesModal(true);
+    setModalAskModal(false);
   }
 
     const user_id = 1;
@@ -38,24 +36,26 @@ const CommuDetailBtn = ({ user = true, commu =true, loading, onRemove}) => {
           
             {/*일반 사용자*/}
             {!loading&&user&&commu&&( !(user_id === leader_id) ?(joinState?
-           <Button cyan>모임탈퇴</Button>:
-            <Button cyan>가입요청</Button> )
+           <Button onClick={onModalClick} cyan>모임탈퇴</Button>:
+            <Button onClick={onModalClick} cyan>가입요청</Button> )
         :(<> 
             {/*모임장 모임초대 -> 팝업창 = 초대할 닉네임 버튼 , 모임관리-> 팝업창 = 수정 및 삭제*/}
-            <Button cyan>모임초대</Button>
-            <Button cyan>모임관리</Button>
+            <Button onClick={onModalClick} cyan>모임초대</Button>
+            <Button onClick={onModalClick} cyan>모임관리</Button>
             </>))
         }
         
         </CommuDetailBtnBlock>
       <AskRemoveModal
-        visible={deleteAskModal}
+        visible={modalAskModal}
         onConfirm={onConfirm}
         onCancel={onCancel}
         title=""
         discription=""
         discription2=""
       /> 
+   
+      
       </>
     );
 };
