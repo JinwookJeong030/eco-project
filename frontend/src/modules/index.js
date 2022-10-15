@@ -9,6 +9,7 @@ import replys,{replysSaga} from './replys';
 import commus,{commusSaga} from './commus'
 import commu,{commuSaga} from './commu';
 import ranking,{rankingSaga} from './ranking';
+import plant,{plantSaga} from './plant';
 
 import loading from './loading';
 
@@ -23,12 +24,13 @@ const rootReducer = combineReducers({
   commus,
   commu,
   ranking,
+  plant,
 });
 
 export function* rootSaga() {
   yield all([authSaga(), userSaga(), writeSaga(), 
     postSaga(),postsSaga(),replysSaga(),
-    commusSaga(), commuSaga(),rankingSaga()]);
+    commusSaga(), commuSaga(),rankingSaga(),plantSaga()]);
 }
 
 export default rootReducer;

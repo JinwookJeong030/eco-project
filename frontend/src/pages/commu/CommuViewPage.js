@@ -7,6 +7,7 @@ import CommuNoticeList from '../../components/commu/CommuNoticeList';
 import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner';
 import HeaderContainer from '../../containers/common/HeaderContainer';
 import NavContainer from '../../containers/common/NavContainer';
+import CommuDetailBtnContainer from '../../containers/commu/CommuDetailBtnContainer';
 import CommuMemberContainer from '../../containers/commu/CommuMemberContainer';
 import CommuMissionContainer from '../../containers/commu/CommuMissionContainer';
 import CommuEditNoticeListContainer from '../../containers/commu/CommuNoticeListContainer';
@@ -19,6 +20,7 @@ import CommuReplyContainer from '../../containers/commu/CommuReplyContainer';
    <HeaderContainer />
    <NavContainer/>
    <ContentsBoxContainer title="모임">
+    <CommuDetailBtnContainer/>
   <CommuMissionContainer/>
   {/* <CommuEditNoticeListContainer/> 추후 추가*/}
    <CommuOtherMenuContainer >
