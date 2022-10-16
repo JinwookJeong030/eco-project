@@ -25,15 +25,8 @@ const EditorContainer = () => {
   }));
 
   const onPublish =  (e,images) => {
-
-    console.log("1-----------------------------")
-    console.log(images)
-    console.log("-----------------------------")
     const formData = new FormData();
     const filesCnt =e.target.file.files.length;
-    console.log("2-----------------------------")
-    console.log(e.target.file.files)
-    console.log("-----------------------------")
     for(let i = 0 ; i< filesCnt ; i++){
       formData.append('file',e.target.file.files[i])
     }

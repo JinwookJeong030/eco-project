@@ -37,7 +37,7 @@ Post.selectAllPosts = ({start, end},result) => {
       result(err, null);
       return;
     }
-    console.log('Select All Posts: ',  res );
+    // console.log('Select All Posts: ',  res );
     result(null,  res );
   });
 };
@@ -47,9 +47,9 @@ Post.selectAllPosts = ({start, end},result) => {
       if (err) {
         console.log('error: ', err);
         result(err, null);
-        console.log(err);
+ 
       }
-      console.log(res);
+
       result(null,  res);
     });
   };
@@ -137,7 +137,7 @@ Post.selectAllPostsFromCategory = ({start,end,search_contents}, result) => {
       return;
     }
 
-    console.log('Select All Posts: ',  res );
+    // console.log('selectAllPostsFromCategory: ',  res );
     result(null,  res );
   });
 };
@@ -182,7 +182,7 @@ Post.insertPost =(post ,result) =>{
       result(err, null);
       return;
     }
-    console.log('Select All Posts: ',  res);
+    console.log('insert post: ',  res);
     result(null,  res);
 
   });
@@ -246,7 +246,7 @@ Post.selectAllCategory = (result) => {
       return;
     }
 
-    console.log('Select All Categorys: ',  res );
+    // console.log('selectAllCategory: ',  res );
     result(null,  res );
   });
 };

@@ -146,5 +146,44 @@ User.updatePassword = (user, result)=> {
   });
 };
 
+User.plusPoint = ({user_id, category}, result)=> {
+  if(!(category==='4')){
+  sql.query(
+    "UPDATE user SET user_point = user_point+100 ,user_total_point = user_total_point + 100   WHERE user_id = " +
+      user_id +
+      ";",
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+      console.log('plusPoint100: ', res);
+      result(null, res);
+    },
+  );}
+  else{
+
+    sql.query(
+      "UPDATE user SET user_point = user_point+400 ,user_total_point = user_total_point + 400   WHERE user_id = " +
+        user_id +
+        ";",
+      (err, res) => {
+        if (err) {
+          console.log('error: ', err);
+          result(err, null);
+          return;
+        }
+        console.log('plusPoint100: ', res);
+        result(null, res);
+      },
+    );
+
+
+
+  }
+};
+
+
 
 module.exports = User;

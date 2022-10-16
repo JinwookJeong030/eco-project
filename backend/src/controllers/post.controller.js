@@ -1,4 +1,5 @@
 const Post = require('../models/post.model.js');
+const User = require('../models/user.model.js')
 const Reply = require('../models/reply.model.js');
 const Category = require('../models/category.model.js');
 const jwt = require('../modules/jwt.js');
@@ -332,12 +333,27 @@ exports.write = async (req, res) =>{
         message: 'insertPost is error!',
       });
     }else{
+      
+      User.plusPoint({user_id:postReq.post_user , 
+        category:postReq.post_category}, (err,data)=>{
+        if(!data){
+          return res.status(419).send({
+            code: 419,
+            message: 'plusPoint is error!',
+          }); }    }
+        )
+
+
+
+
+
       return res.send({
         code:200,
         message: 'insertPost is successful', 
        });
     }
   })
+
 }
 exports.edit =async (req,res) =>{
 

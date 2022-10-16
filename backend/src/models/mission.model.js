@@ -17,7 +17,7 @@ if (err) {
     result(err, null);
     return;
     }
-    console.log('selectAllMissions: ',  res[0]);
+    // console.log('selectAllMissions: ',  res[0]);
     result(null,  res[0]);
     });
 };
@@ -29,7 +29,7 @@ Mission.selectAllMission = (result) => {
         result(err, null);
         return;
         }
-        console.log('selectAllMissions: ',  res);
+        // console.log('selectAllMissions: ',  res);
         result(null,  res);
         });
     };
@@ -49,7 +49,7 @@ Mission.updateAllMission =(result) =>{
                 if (err) {
                     console.log('error: ', err);
                     }else{
-                        console.log('mission update succes : '+ mission_id );
+                        // console.log('mission update succes : '+ mission_id );
                     }
                 
             })

@@ -13,6 +13,9 @@ exports.register = async (req, res) => {
     user_email: req.body.user_email,
     user_password: req.body.user_password,
     user_name: req.body.user_name,
+    user_point: 0,
+    user_total_point: 0,
+    user_admin:0
   });
 
   const emailRegex =
