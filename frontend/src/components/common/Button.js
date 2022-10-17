@@ -54,7 +54,7 @@ const buttonStyle = css`
   `}
   ${(props)=>
     props.postWriteBtn && css`
-    @media (max-width: 768px) {
+    @media (max-width: 1000px) {
       font-size:0.8rem;
       margin-top:auto;
       margin-bottom:auto;

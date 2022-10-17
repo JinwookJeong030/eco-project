@@ -5,12 +5,12 @@ const ResponsiveBlock = styled.div`
 
   padding-left: 1rem;
   padding-right: 1rem;
-  width: 1024px;
+  width: 900px;
   margin: 0 auto;
 
-  @media (max-width: 1300px) {
+  @media (max-width: 1000px) {
     padding-right: 0rem;
-    width: 96%;
+    width: 95%;
    
     
   }

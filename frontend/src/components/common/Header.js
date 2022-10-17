@@ -17,7 +17,7 @@ width:4rem;
 height:4rem;
 margin-right:5px;
 vertical-align: bottom;
-@media (max-width: 1024px) {
+@media (max-width: 1000px) {
   height:3rem;
   width:3rem;
   }
@@ -37,14 +37,14 @@ const Wrapper = styled(Responsive)`
     display: flex;
     align-items: center;
   }
-  @media (max-width: 1024px) {
+  @media (max-width: 1000px) {
     height:3rem;
     width:97%;
     }
 `;
 const Spacer = styled.div`
   height: 4rem;
-  @media (max-width: 1024px) {
+  @media (max-width: 1000px) {
     height:3rem;
     }
 `;
@@ -52,7 +52,7 @@ const Spacer = styled.div`
 const UserInfo = styled.div`
   font-weight: 800;
   margin-right: 1rem;
-  @media (max-width: 1024px) {
+  @media (max-width: 1000px) {
    font-size: 0.7rem;
    margin-right: 0.5rem;
    

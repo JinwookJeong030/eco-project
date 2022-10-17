@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import WhiteBox from '../common/WhiteBox';
+import GardenGround from './GardenGround';
 
 
 
-const GardenBlock = styled(WhiteBox)`
+const TotalGardenBlock = styled(WhiteBox)`
 display: flex;
 border: thin solid ;
 border-width: 2px;
@@ -16,8 +17,9 @@ box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 margin-top:0.5rem;
 margin-bottom:0.5rem;
 
+
 `
-const GardenInfoBlock = styled.div`
+const TotalGardenInfoBlock = styled.div`
   display:flex;
   flex-direction:column;
   width: 80.5%;
@@ -28,16 +30,23 @@ const GardenInfoBlock = styled.div`
   padding-left:1rem;
 
 `;
-const Garden = () => {
+const GardenItemBlock =styled(GardenGround)`
+width: 2rem;
+`
+
+const TotalGarden = () => {
 
 
   return (
-    <GardenBlock>
-      <GardenInfoBlock>
-        
-      </GardenInfoBlock>
-    </GardenBlock>
+    <TotalGardenBlock>
+      
+      <TotalGardenInfoBlock>
+        <GardenGround/>
+        {/* <GardenItemBlock Item/> */}
+ 
+      </TotalGardenInfoBlock>
+    </TotalGardenBlock>
   );
 };
 
-export default Garden;
+export default TotalGarden;

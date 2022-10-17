@@ -33,7 +33,7 @@ const PostItemInfoBlock = styled.div`
   padding-bottom: 5px;
   padding-left:1rem;
   width: 86.5%;
-  @media (max-width: 768px) {
+  @media (max-width: 1000px) {
     width: 100%;
     margin-left:auto;
     margin-right:auto;
@@ -51,7 +51,7 @@ border: solid thin;
 border-width:2px;
 margin: 0.5rem;
 padding:0;
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   width: 4rem;
   height: 4rem;
   margin-top:auto;
@@ -70,7 +70,7 @@ const Title= styled.div`
   font-weight: bold;
   font-size: 1.6rem;
   
-  @media (max-width: 768px) {
+  @media (max-width: 1000px) {
     margin-top:0rem;
     font-size: 3.5vw;
     width:100%;
@@ -88,7 +88,7 @@ font-size: 0.8rem;
 padding:0;
 color:${palette.gray[6]};
 margin-bottom:5px;
- @media (max-width: 768px) {
+ @media (max-width: 1000px) {
     margin:0rem;
     font-size: 2.5vw;
     width:100%;
@@ -101,7 +101,7 @@ height:2rem;
 overflow:hidden; 
 
 text-overflow:ellipsis;
-  @media (max-width: 768px) {
+  @media (max-width: 1000px) {
     font-size: 2.5vw;
     height:1rem;
     width:95%;
@@ -126,7 +126,7 @@ margin-left:auto;
 margin-right:auto;
 height:8rem;
 maring-left:auto;
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   height: 18vw;
   width: 100%;
 }

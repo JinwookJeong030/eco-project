@@ -14,7 +14,7 @@ border-right: solid 2px #088A68;
   width: 5rem;
 }
 
-  @media (max-width: 1300px) {
+  @media (max-width: 1000px) {
     position:fixed;
     height:100%;
   }

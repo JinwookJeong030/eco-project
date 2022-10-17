@@ -15,7 +15,7 @@ border: thin solid;
 border-width: 2px;
 box-shadow: 2px 2px 2px rgba(10, 10, 10, 0.3);
 margin-left:auto;
-@media (max-width: 1024px) {
+@media (max-width: 1000px) {
   width: 100%;
 
 }
@@ -27,7 +27,7 @@ margin-top:auto;
 margin-bottom:auto;
 margin-right:0.5rem;
 margin-left:0.5rem;
-@media (max-width: 1300px) {
+@media (max-width: 1000px) {
 
   width: 90%;
 }
