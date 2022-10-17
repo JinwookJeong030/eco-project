@@ -14,7 +14,6 @@ import ContentsBoxContainer from '../../containers/common/ContentsBoxContaniner'
    <NavContainer/>
    <ContentsBoxContainer title="마이페이지">
    <MypageForm />
-
    </ContentsBoxContainer>
     
    </>);

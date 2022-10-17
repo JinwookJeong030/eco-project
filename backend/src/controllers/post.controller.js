@@ -1,6 +1,7 @@
 const Post = require('../models/post.model.js');
 const User = require('../models/user.model.js')
 const Reply = require('../models/reply.model.js');
+const PF = require('../models/post_file.model.js');
 const Category = require('../models/category.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
@@ -561,4 +562,11 @@ exports.myReplyList = async(req, res) =>{
       });
   } 
   });
+}
+
+exports.postImageUpload = async(req, res) =>{
+
+  
+
+
 }

@@ -3,8 +3,8 @@ import Editor from "../../components/post/Editor";
 import { useSelector, useDispatch } from "react-redux";
 import { changeField, initialize, writePost, categorys, editPost , mission } from "../../modules/write";
 import { useNavigate } from "../../../node_modules/react-router-dom/index";
-import axios from "../../../node_modules/axios/index";
-import { uploadFile } from "../../lib/api/client";
+import { uploadFile } from "../../lib/api/post";
+
 
 const EditorContainer = () => {
   const dispatch = useDispatch();
@@ -24,21 +24,21 @@ const EditorContainer = () => {
     post_image: write.post_image,
   }));
 
-  const onPublish =  (e,images) => {
+  const onPublish =  (e) => {
     const formData = new FormData();
     const filesCnt =e.target.file.files.length;
     for(let i = 0 ; i< filesCnt ; i++){
       formData.append('file',e.target.file.files[i])
     }
    
-  
-     uploadFile(formData);
+     
  
     if(originalPostId){
       dispatch(editPost({post_id: originalPostId, post_title, post_contents, post_category, post_mission}));
       return;
     }
     e.preventDefault();
+    uploadFile(formData);
     dispatch(writePost({post_title,post_contents,post_category, post_mission }));
   };
 

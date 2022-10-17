@@ -1,65 +1,49 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import FlowerItemContainer from '../../containers/garden/FlowerItemContainer';
 import Responsive from '../common/Responsive';
+
 import FlowerItem from './FlowerItem';
 
-const GroundTotal = styled.div`
+const GroundBlock = styled.div`
   
     display: flex;
+    border:2px solid;
     flex-direction: row;
-    width:43.2rem;
-    height:13.5rem;
-    padding:0;
+    width:100%;
+    height:30rem;
     margin-left:auto;
     margin-right:auto;
+    
     
 `
 
 
 const GardenGround = ({ ...props}) => {
   
+
+
     return (
-      <GroundTotal>
-         <FlowerItem
+      <GroundBlock>
+         <FlowerItemContainer
+       marginTop={1}
+       marginLeft={1}
+       />
+         <FlowerItemContainer
        marginTop={0}
        marginLeft={0}
        />
-         <FlowerItem
-       marginTop={-1}
-       marginLeft={1}
-       />
-        <FlowerItem
-       marginTop={1}
-       marginLeft={1}
-       />
-          <FlowerItem
-       marginTop={-2}
-       marginLeft={2}
-       />
-        <FlowerItem
+           <FlowerItemContainer
        marginTop={0}
-       marginLeft={2}
+       marginLeft={0}
        />
-        <FlowerItem
-       marginTop={2}
-       marginLeft={2}
-       />
-        <FlowerItem
-       marginTop={-1}
-       marginLeft={3}
-       />
-        <FlowerItem
-       marginTop={1}
-       marginLeft={3}
-       />
-         <FlowerItem
+           <FlowerItemContainer
        marginTop={0}
-       marginLeft={4}
+       marginLeft={0}
        />
-      
-      
-       
-      </GroundTotal>
+     
+
+      </GroundBlock>
     );
 };
 

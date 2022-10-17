@@ -37,8 +37,6 @@ const MyCommuItemsBlock = styled.div`
 display: flex;
 flex-direction: row;
 `
-const Block = styled(WhitePostsItemBox)`
-`
 
 
 const CommuItemInfoBlock = styled.div`
@@ -159,14 +157,14 @@ const NoTitle =styled.h1`
 margin-left: auto;
 margin-right:auto;
 color: ${palette.green[0]};
-margin-top:3rem;
 margin-bottom:3rem;
+font-size:1.5rem;
 `
 const NoItem =({title})=>{
   return (
-<Block>
+
 <NoTitle>{title}</NoTitle>
-</Block>
+
 );
 }
 const MyCommuItem = ( {commu, pages} ) =>{
@@ -246,7 +244,7 @@ const CommuItem = ({ commu }) => {
         <Head> <Title >나의 모임</Title> <PaginationMyCommuContainer/></Head>
        
      <MyCommuItemsBlock>
-        {error?<CommusListError/>:(!loading && myCommus&&(myCommus===[]? <NoItem title={"현재 가입된 모임이 없습니다."}/>:<>
+        {error?<CommusListError/>:(!loading && (myCommus===null? <NoItem title={"현재 가입된 모임이 없습니다."}/>:<>
           {
 myCommus.map(commu => (
             <MyCommuItem commu={commu} key={commu.class_id} />

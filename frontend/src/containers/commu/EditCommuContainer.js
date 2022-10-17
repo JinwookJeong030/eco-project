@@ -2,7 +2,8 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from '../../../node_modules/react-router-dom/index';
 import EditCommu from '../../components/commu/EditCommu';
-import { uploadFile } from '../../lib/api/client';
+import { uploadFile } from '../../lib/api/post';
+
 import { changeField, initialize } from '../../modules/commus';
 import { editCommu, writeCommu } from '../../modules/writeCM';
 
@@ -35,7 +36,7 @@ const CreateCommuContainer = () => {
         }
        
       
-         uploadFile(formData);
+         uploadFile({formData});
 
         if(originalCommuId){
           dispatch(editCommu({commu_id: originalCommuId, commu_name, commu_contents }));

@@ -8,7 +8,7 @@ height: calc( 100vh - 4rem );
 width: ${props=>(props.hidingState? '3rem':'12rem' )};
 background: #81F781;
 float:left;
-z-index:100;
+z-index:29;
 border-right: solid 2px #088A68;
 .hid {
   width: 5rem;

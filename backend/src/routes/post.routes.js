@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  
+    const fs = require("fs");  
     const post = require('../controllers/post.controller.js');
     const authJwt = require('../middlewares/authJWT.js');
     const refresh = require('./refresh');
@@ -37,6 +37,23 @@ module.exports = (app) => {
     app.get('/api/mypage/myPostList',authJwt,post.myPostList);
     // 내가 쓴 댓글 조회
     app.get('/api/mypage/myReplyList',authJwt,post.myReplyList);
+
+
+    const multer = require('multer');
+    const storage = multer.diskStorage({
+      destination: (req, file, cb) => {
+        cb(null, 'uploads/postImg');
+      },
+      filename: (req, file, cb) => {
+      const newFileName = file.originalname;
+      cb(null, req.body.post_id+"_"+newFileName);
+      }
+    });
+    const upload = multer({ storage: storage });
+
+    app.post('/api/post/upload', upload.array('file'), post.postImageUpload);
+
+  
 
 
 

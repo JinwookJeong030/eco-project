@@ -9,13 +9,13 @@ height:13.5rem;
 z-index:-1;
 margin-left:1rem;
 margin-top:1.5rem;
+-webkit-user-drag: none;
 @media(max-width:1000px){
-    width: 20%;
+    width: 95%;
     height:25vw; 
     margin-left:0.5vw;
     margin-top:0;
 }
-
 `
 //
 const GroundImage = styled.img`
@@ -30,14 +30,13 @@ margin-top:auto;
 }
 `
 const PlantItemBlock = styled.div`
+position:relative;
 border:2px solid;
 display:flex;
 height:14.7rem; 
 width:12.65rem;
 box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 width:100%;
-margin-top: calc(1.85rem * ${props => props.marginTop});
-margin-left: calc(4.825rem * ${props => props.marginLeft});
 &:hover{
   opacity: 0.7;
   z-index:5;
@@ -51,12 +50,12 @@ margin-left: calc(4.825rem * ${props => props.marginLeft});
     height:25vw; 
 }
 `
-const FlowerItem =({marginTop,marginLeft})=>{
+const FlowerItem =({})=>{
 
     return(
       
-      <PlantItemBlock marginTop={marginTop} marginLeft ={marginLeft} >
-      <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/sunflower.png" }/>
+      <PlantItemBlock>
+      <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/sunflower_4.png" }/>
       <GroundImage src={ process.env.PUBLIC_URL + "/ground.png" }/>
       </PlantItemBlock>
   

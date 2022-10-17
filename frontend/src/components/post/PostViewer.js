@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import Button from '../common/Button';
 
 
 
@@ -80,6 +81,76 @@ const ImgBtn = styled.a`
   );
   
 `
+const PostImageContentsBlock = styled.div`
+display:flex;
+flex-direction:row;
+
+`
+const PostImage = styled.img`
+height: 25rem;
+width:25rem;
+border:2px solid;
+margin-top:1rem;
+margin-left:auto;
+margin-right:auto;
+margin-bottom:1rem;
+@media(max-width: 1000px){
+  height: 35vw;
+  width:35vw;
+}
+box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
+`
+const ImageBtn = styled(Button)`
+  height:8rem;
+  margin-top:auto;
+  margin-bottom:auto;
+`
+const PostImages =({images})=>{
+
+
+  return (
+    <PostImage src={"D://GitHub/Capstone/eco-project/backend/uploads/postImg/2.png"}/>
+  );
+}
+
+const PostImageContents = ()=>{
+
+  const images=[{
+    pf_id:1,
+    pf_path:"1"
+  },{   pf_id:2,
+    pf_path:"2"}
+    ,{   pf_id:3,
+      pf_path:"3"}
+      ,{   pf_id:4,
+        pf_path:"4"}]
+
+
+  const [visiblityImg,setVisiblityImg] = useState(0);
+
+  const minusImg =()=>{
+    if(!(visiblityImg>0)) return;
+
+    setVisiblityImg(visiblityImg-1);
+  }
+  const plusImg =()=>{
+    if(visiblityImg>=images.length-1) return;
+    setVisiblityImg(visiblityImg+1);
+  }
+
+
+  return (
+      <PostImageContentsBlock>
+           <ImageBtn onClick={minusImg}>
+        &lt;
+        </ImageBtn>
+        <PostImages images={images} visiblityImg={visiblityImg}/>
+        <ImageBtn onClick={plusImg}>
+        &gt;
+    </ImageBtn>
+      </PostImageContentsBlock>
+  )
+}
 
 const ContentsButtonBlock = ()=>{
 
@@ -106,12 +177,10 @@ const PostViewer = ({ post, error, loading }) => {
     return null;
   }
 
-  const { post_title, post_contents, user_name, post_regdate, post_views, post_recommend, post_report, replyCnt } = post;
-
-
+  const { post_title, post_contents, user_name, post_regdate, post_views, 
+    post_recommend, post_report, replyCnt } = post;
   return (
-    <>
-
+      <>
       <PostHead>
         <h1>{post_title}</h1>
         <SubInfo>
@@ -124,9 +193,9 @@ const PostViewer = ({ post, error, loading }) => {
             <span>추천 {post_recommend}</span>
             <span>댓글 {replyCnt}</span>
           </SubInfoRight>
-        </SubInfo>
-       
+      </SubInfo>
       </PostHead>
+      <PostImageContents/>
       <PostContents
         dangerouslySetInnerHTML={{ __html: post_contents }}
       />

@@ -15,7 +15,7 @@ import FlowerpotsContainer from '../../containers/garden/FlowerpotsContainer';
    <NavContainer/>
    <ContentsBoxContainer title="가든">
     <FlowerpotsContainer/>
-
+    <GardenContainer/>
    </ContentsBoxContainer>
    </>);
  };

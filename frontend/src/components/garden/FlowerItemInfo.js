@@ -41,7 +41,7 @@ box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 const PlantPointBackground = styled.div`
 
 height:1.4rem;
-width:10%;
+width:%;
 color:green;
 background: repeating-linear-gradient( white,green);
 
@@ -53,7 +53,7 @@ const PlantPoint = ({totalPoint,point})=>{
   return(
 
   <PlantTotalPointBlock>
-    <PlantPointBackground>
+    <PlantPointBackground poin={point}>
     {point}/{totalPoint}
     </PlantPointBackground>
   </PlantTotalPointBlock>
@@ -65,13 +65,13 @@ const PlantRegdate = styled.div`
   font-size:2vw;
 }
 `
-const FlowerItemInfo =({plant})=>{
+const FlowerItemInfo =({plant, point, totalPoint})=>{
 
     return(
       !plant?<>
-        <PlantPoint />
+        <PlantPoint totalPoint={totalPoint} point={point}/>
         {/* totalPoint={plant.plant_total_point} point={plant.point} */}
-        <PlantItemBlock >
+        <PlantItemBlock>
         <PlantName>해바라기</PlantName>
         <PlantLevel>Level: 1</PlantLevel>
         <PlantRegdate>시작 날짜: 22-01-02</PlantRegdate>
