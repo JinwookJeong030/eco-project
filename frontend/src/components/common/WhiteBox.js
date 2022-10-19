@@ -2,9 +2,22 @@ import React from 'react';
 import styled, { css }  from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Responsive from './Responsive';
-
-
+const DeleteFlowerPot = css`
+${(props) =>
+  props.DeleteFlowerPot &&
+  css`
+  cursor:url(${process.env.PUBLIC_URL + `/mouse-delete-plant-icon.png`})100 100, auto;
+`}
+`;
+const WateringFlowerPot = css`
+${(props) =>
+  props.WateringFlowerPot &&
+  css`
+  cursor:url(${process.env.PUBLIC_URL + `/mouse-watering-icon.png`})100 100, auto;
+`}
+`;
 const whiteBoxStyle = css`
+
 ${(props) =>
   props.hoverGrey &&
   css`
@@ -60,8 +73,9 @@ box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 flex-wrap: nowrap;
 @media (max-width: 768px) {
   padding:1rem 1rem 1rem 1rem;
-
 }
+${DeleteFlowerPot};
+${WateringFlowerPot};
 `
 const PostsItemBlock = styled.div`
 display: flex;
@@ -81,10 +95,10 @@ ${paddingMinTop};
 `
 
 
-export const WhiteBox = ({children}) => {
+export const WhiteBox = ({children, DeleteFlowerPot, WateringFlowerPot}) => {
     return (
         <WhiteBoxBlock>
-      <ContentsBox>
+      <ContentsBox DeleteFlowerPot={DeleteFlowerPot} WateringFlowerPot={WateringFlowerPot}>
         {children}
       </ContentsBox>
       </WhiteBoxBlock>

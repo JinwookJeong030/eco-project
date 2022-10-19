@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 
 
 
+
 const FlowerpotsBlock = styled(WhiteBox)`
 
 
@@ -19,7 +20,7 @@ const FlowerpotsWrapperBlock = styled.div`
   display:flex;
   flex-direction:row;
   justify-content: space-between;
-
+ 
 `;
 const FlowerpotInfoBlock = styled.div`
 display:flex;
@@ -193,12 +194,12 @@ const Garden = ({}) => {
   //   setIsPressed(true);
   //   setPoint(point+100);
   // });
-  
-  
- 
-
+         
   return (
-    <FlowerpotsBlock>
+
+
+    <FlowerpotsBlock DeleteFlowerPot WateringFlowerPot>
+
       <HeaderBlock>
       <TotalPoint >총 보유 포인트: {totalPoint}</TotalPoint>
       <PlantDeleteBtn  src={ process.env.PUBLIC_URL + "/delete-plant-icon.png" }/>
@@ -220,6 +221,7 @@ const Garden = ({}) => {
       </FlowerpotsWrapperBlock>
       
     </FlowerpotsBlock>
+    
   );
 };
 
