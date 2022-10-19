@@ -24,8 +24,8 @@ const buildLink = ({type, page,search_type,search_contents})=>{
     return `/ranking?page=${page}&search_type=${search_type}&search_contents=${search_contents}`;
 }
 
+
 const Pagination=({type, page,search_type,search_contents, lastPage})=>{
-    
    
     return (
 <PaginationBlock>

@@ -208,7 +208,7 @@ User.selectAllUsers = ({start, end},result) => {
   };
 
 User.selectAllUsersCntFromUser = ({search_contents},result) => {
-    sql.query(`SELECT COUNT(*) AS user_count FROM user WHERE user.user_name = '"${search_contents}"' ;`, (err, res) => {
+    sql.query(`SELECT COUNT(*) AS user_count FROM user WHERE user.user_name = "${search_contents}" ;`, (err, res) => {
       if (err) {
         console.log('error: ', err);
         result(err, null);
@@ -222,13 +222,13 @@ User.selectAllUsersCntFromUser = ({search_contents},result) => {
 
 // user 이름 조회 
 User.selectAllUsersFromUser = ({start, end, search_contents} ,result) => {
-  sql.query(`SELECT user.*, planting.* FROM user,planting WHERE AND user.user_name = '"${search_contents}"' AND user.user_id = planting.pt_user ORDER BY user_total_point DESC LIMIT ${start}, ${end}`, (err, res) => {
+  sql.query(`SELECT user.* FROM user WHERE user_name = "${search_contents}" ORDER BY user_total_point DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
       return;
     }
-    console.log('selectAllUsersFromUser All Posts: ',  res );
+    console.log('selectAllUsersFromUser: ',  res );
     result(null,  res );
   });
 };

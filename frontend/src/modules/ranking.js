@@ -64,7 +64,7 @@ export function* rankingSaga() {
 
 
 const initialState = {
-  search_type:"name",
+  search_type:"user",
   search_contents: null,
   lastPage:null,
   page:1,

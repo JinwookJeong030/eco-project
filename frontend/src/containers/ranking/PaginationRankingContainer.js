@@ -1,17 +1,22 @@
 import React, { useCallback } from'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from '../../../node_modules/react-router-dom/index';
 import Pagination from '../../components/common/Pagination';
-import PaginationMini from '../../components/common/PaginationMini';
 import { changeField } from '../../modules/ranking';
 
 
 const PaginationRankingContainer =() =>{
 
+    const [searchParams] = useSearchParams();
+
     const dispatch = useDispatch();
-    const {page,lastPage,ranking, loading, error} = useSelector(({ranking,loading})=>
+    const page =parseInt(searchParams.get('page'),10)||1;
+    const search_type =searchParams.get('search_type');
+    const search_contents=searchParams.get('search_contents');
+    const {lastPage,ranking, loading, error} = useSelector(({ranking,loading})=>
     ({
-        page: ranking.rankingPage||1,
-        lastPage: ranking.rankingLastPage,
+
+        lastPage: ranking.lastPage,
         ranking: ranking.ranking,
         loading: loading['ranking/LIST_RANKING'],
         error: ranking.rankingError
@@ -19,11 +24,11 @@ const PaginationRankingContainer =() =>{
     const onChangeField = useCallback(payload => dispatch(changeField(payload)), [dispatch]);
     const downPaging  = () =>{
         if(!(page===1))
-        onChangeField({ key: 'rankingPage', value: page-1 });
+        onChangeField({ key: 'page', value: page-1 });
       }
     const upPaging  = () =>{
         if(!(page===lastPage))
-        onChangeField({ key: 'rankingPage', value: page+1 });
+        onChangeField({ key: 'page', value: page+1 });
       }
     if(!ranking || loading) return null;
     return(<Pagination

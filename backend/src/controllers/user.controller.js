@@ -182,26 +182,26 @@ exports.ranking = async (req,res) =>{
   }
 
   if(search_type === "user"){
-    User.selectAllUsersCntFromTitle({search_type,search_contents}, (err, data) => {
+    User.selectAllUsersCntFromUser({search_type,search_contents}, (err, data) => {
       if (!data) {
         return res.status(419).send({
           code: 419,
           message: 'selectAllUsersCntFromTitle is error!',
         });
       } else {
-        const lastPage = Math.ceil(parseInt(data[0].post_count)/end);
-        if (page > Math.ceil(parseInt(data[0].post_count) / end)) {
+        const lastPage = Math.ceil(parseInt(data[0].user_count)/end);
+        if (page > Math.ceil(parseInt(data[0].user_count) / end)) {
           return res.send({
             code:200,
             message: 'selectAllUsersCntFromTitle is null',
             result:{
-              posts:[],
+              ranking:[],
               lastPage: lastPage
             }
           })
         }else{
          
-          User.selectAllUsersFromTitle({start,end,search_contents}, (err, data) => {
+          User.selectAllUsersFromUser({start,end,search_contents}, (err, data) => {
       if (!data) {
         return res.status(419).send({
           code: 419,
@@ -212,7 +212,7 @@ exports.ranking = async (req,res) =>{
           code:200,
           message: 'selectAllUsersFromTitle is successful',
           result:{
-            posts:data,
+            ranking:data,
             lastPage: lastPage
           }
         });
@@ -231,8 +231,8 @@ exports.ranking = async (req,res) =>{
           message: 'selectAllUsersCnt is error!',
         });
       } else {
-        const lastPage = Math.ceil(parseInt(data[0].post_count)/5);
-        if (page > Math.ceil(parseInt(data[0].post_count) / end)) {
+        const lastPage = Math.ceil(parseInt(data[0].user_count)/end);
+        if (page > Math.ceil(parseInt(data[0].user_count) / end)) {
           return res.send({
             code:200,
             message: 'selectAllUsersCnt is null',

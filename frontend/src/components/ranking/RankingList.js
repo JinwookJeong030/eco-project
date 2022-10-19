@@ -1,13 +1,9 @@
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
-import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
-import {IoIosArrowDropdown, IoIosArrowDropup} from 'react-icons/io'
 import { Link } from "react-router-dom";
-import {WhitePostsItemBox} from '../common/WhiteBox';
-import Search from '../common/Search';
+import Search from '../ranking/Search';
 import Podium from './Podium';
-import { Children } from 'react';
 import PaginationRankingContainer from '../../containers/ranking/PaginationRankingContainer';
 const RankingListBlock = styled(Responsive)` 
 `;
@@ -196,7 +192,7 @@ const RankingItem = ({user,rank}) => {
     </Link>
     );
   };
-  const RankingList = ({ user, page, ranking, loading, error, search_type, search_contents, onChangeField, onSearch, categorys}) => {
+  const RankingList = ({ user, pageNum, ranking, loading, error, search_type, search_contents, onChangeField, onSearch}) => {
      
     if (error) {
       return     (<RankingListBlock><NoPost title={"서버에서 문제가 발생하였습니다..."} /></RankingListBlock>)
@@ -208,25 +204,25 @@ const RankingItem = ({user,rank}) => {
 
        <RankingHeader>
         
-       <Search/>
+       <Search search_type={search_type} search_contents={search_contents} onChangeField={onChangeField} onSearch={onSearch}/>
        
         </RankingHeader>
        
        
-        {!loading && ranking &&(ranking.length===0?<NoPost title={"찾으려는 사용자가 없습니다!"} />:(<div> { page===1?
+        {!loading && ranking &&(ranking.length===0?<NoPost title={"찾으려는 사용자가 없습니다!"} />:(<div> { pageNum===1?
         <>
             <Podium>
-             <TopRankingItem user={ranking[0]} key={ranking[0].user_id} />
-             <TopRankingItem user={ranking[1]} key={ranking[1].user_id} />
-             <TopRankingItem user={ranking[2]} key={ranking[2].user_id} />
+             {ranking.length>=1?<TopRankingItem user={ranking[0]} key={1} />:<></>}
+             {ranking.length>=2?<TopRankingItem user={ranking[1]} key={2} />:<></>}
+             {ranking.length>=3?<TopRankingItem user={ranking[2]} key={3} />:<></>}
 
              </Podium>
-            <RankingItem user={ranking[3]} key={ranking[3].user_id} rank={4}/>
-             <RankingItem user={ranking[4]} key={ranking[4].user_id} rank={5}/>
+             {ranking.length>=4?<RankingItem user={ranking[3]} key={4} rank={4}/>:<></>}
+             {ranking.length>=5?<RankingItem user={ranking[4]} key={5} rank={5}/>:<></>}
              </>
              :    
           ranking.map((user,idx) => (
-            <RankingItem user={user} key={user.user_id} rank={1+(page-1)*5+idx} />
+            <RankingItem user={user} key={user.user_id} rank={1+(pageNum-1)*5+idx} />
           ))
           }
         </div>))}
