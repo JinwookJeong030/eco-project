@@ -3,46 +3,24 @@ import styled from 'styled-components';
 
 
 const PodiumBlock =styled.div`
-margin-left:auto;
-margin-right:auto;
+position:relative;
+margin-bottom:4rem;
+
 width: 100%;
-@media (min-width: 1024px) {
+
+@media (min-width: 900px) {
    
-    width: 85%;
-    
+    width: 80%;
     margin-left:auto;
     margin-right:auto;
-    margin-bottom:2rem;
+    margin-bottom:5rem;
    }
 `
-const TopDiv = styled.div`
-height:0rem;
-width:34.2%;
-margin-left:auto;
-margin-right:auto;
-border: thin solid;
-border-width:0px 0px 2px 0px;
-`
 
-const SecondDivBlock = styled.div`
- display:flex;
- flex-direction:row;
-`
-const FirstElement = styled.div`
-height:2rem;
-width:33%;
-margin-right:auto;
-border: thin solid;
-border-width:0px 2px 2px 0px;`
-const SecondElement = styled.div`
-height:2rem;
-width:33%;
-margin-left:auto;
-border: thin solid;
-border-width:0px 0px 2px 2px;`
 const RankingItems = styled.div`
 display:flex;
 flex-direction:row;
+
 `
 const FirstItem = styled.div`
 margin-left:auto;
@@ -51,40 +29,28 @@ margin-right:auto;
 
 `
 const SecondItem = styled.div`
-margin-left:3rem;
-margin-right:auto;
+
 margin-top:1rem;
-@media (max-width: 1024px) {
-    margin-left:0rem;
-    margin-right:1rem;
-   }
+
 `
 const ThirdItem = styled.div`
-margin-left:auto;
-margin-right:3rem;
+
 margin-top:1rem;
-@media (max-width: 1024px) {
-    margin-left:1rem;
-    margin-right:0rem;
-   }
+
+
 `
+const PodiumImg = styled.img`
+position:absolute;
+top:12.5rem;
+width:100%;
 
+height:5rem;
+@media (min-width: 900px) {
+    top:18.5rem;
+    right:0rem;
+    height:7rem;
+   }
 
-const SecondDiv =() =>{
-
-    return(
-        <SecondDivBlock>
-            <FirstElement/>
-            <SecondElement/>
-        </SecondDivBlock>
-
-    )
-}
-
-const BottomDiv = styled.div`
-height:2rem;
-border: thin solid;
-border-width:0px 2px 2px 2px;
 `
 
 const Podium = ({children}) => {
@@ -95,10 +61,7 @@ const Podium = ({children}) => {
             <FirstItem>{children[0]}</FirstItem>
             <ThirdItem>{children[2]}</ThirdItem>
             </RankingItems>
-          
-            <TopDiv/>
-            <SecondDiv/>
-            <BottomDiv/>
+            <PodiumImg src={process.env.PUBLIC_URL + "/podium.png"}/>
         </PodiumBlock>
     );
 };

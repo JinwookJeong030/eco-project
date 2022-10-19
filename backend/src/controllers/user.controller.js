@@ -165,8 +165,106 @@ exports.changePw =async (req,res) =>{
     };
    }
   );
-
-
-
 };
 
+
+
+exports.ranking = async (req,res) =>{
+  const {page, search_type,search_contents} = req.query;
+
+  const end = 5;
+  let start = 0;
+
+  if (page <= 0) {
+     start = 0;
+  } else {
+      start = (page - 1) * end;
+  }
+
+  if(search_type === "user"){
+    User.selectAllUsersCntFromTitle({search_type,search_contents}, (err, data) => {
+      if (!data) {
+        return res.status(419).send({
+          code: 419,
+          message: 'selectAllUsersCntFromTitle is error!',
+        });
+      } else {
+        const lastPage = Math.ceil(parseInt(data[0].post_count)/end);
+        if (page > Math.ceil(parseInt(data[0].post_count) / end)) {
+          return res.send({
+            code:200,
+            message: 'selectAllUsersCntFromTitle is null',
+            result:{
+              posts:[],
+              lastPage: lastPage
+            }
+          })
+        }else{
+         
+          User.selectAllUsersFromTitle({start,end,search_contents}, (err, data) => {
+      if (!data) {
+        return res.status(419).send({
+          code: 419,
+          message: 'selectAllUsersFromTitle is error!',
+        });
+      } else {
+        return res.send({
+          code:200,
+          message: 'selectAllUsersFromTitle is successful',
+          result:{
+            posts:data,
+            lastPage: lastPage
+          }
+        });
+    } 
+    })
+  }
+} 
+})
+  }
+  else
+  {
+    User.selectAllUsersCnt( (err, data) => {
+      if (!data) {
+        return res.status(419).send({
+          code: 419,
+          message: 'selectAllUsersCnt is error!',
+        });
+      } else {
+        const lastPage = Math.ceil(parseInt(data[0].post_count)/5);
+        if (page > Math.ceil(parseInt(data[0].post_count) / end)) {
+          return res.send({
+            code:200,
+            message: 'selectAllUsersCnt is null',
+            result:{
+              ranking:[],
+              lastPage: lastPage
+              
+            }
+          })
+        }else{
+      
+          User.selectAllUsers({start, end,search_contents},(err, data) => {
+            if (!data) {
+              return res.status(419).send({
+                code: 419,
+                message: 'selectAllUsers is error!',
+              });
+            } else {
+              return res.send({
+                code:200,
+                message: 'selectAllUsers is successful',
+                result:{
+                  ranking:data,
+                  lastPage: lastPage
+                }
+              });
+          } 
+          })
+
+        }
+  }
+});
+    
+}
+}

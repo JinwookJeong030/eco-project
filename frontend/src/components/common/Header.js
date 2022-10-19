@@ -13,13 +13,13 @@ const HeaderBlock = styled.div`
 `;
 
 const HeaderIcon = styled.img`
-width:4rem;
-height:4rem;
+width:2.5rem;
+height:2.5rem;
 margin-right:5px;
 vertical-align: bottom;
 @media (max-width: 1000px) {
-  height:3rem;
-  width:3rem;
+  height:2rem;
+  width:2rem;
   }
 `
 const Wrapper = styled(Responsive)`

@@ -20,6 +20,7 @@ const PaginationContainer =() =>{
    
     if(!posts || loading) return null;
     return(<Pagination
+        type={"post"}
         search_type ={search_type}
         search_contents ={search_contents}
         page={parseInt(page,10)}

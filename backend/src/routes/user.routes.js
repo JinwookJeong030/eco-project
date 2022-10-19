@@ -18,4 +18,8 @@ module.exports = (app) => {
   app.get('/api/auth/refresh',refresh);
   // 비밀번호 변경
   app.post('/api/mypage/changePw',authJwt, user.changePw);
+
+  app.get('/api/ranking',user.ranking);
+
+
 };
