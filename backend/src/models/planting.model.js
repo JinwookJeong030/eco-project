@@ -20,7 +20,6 @@ Planting.createPlanting=({pt_user,pt_plant_cnt},result)=>{
             pt_grow_plant:true,
         }
     )
-
     sql.query(`INSERT INTO planting SET ?`, reqPT, (err, res) => {
         if (err) {
           console.log('error: ', err);
@@ -31,5 +30,16 @@ Planting.createPlanting=({pt_user,pt_plant_cnt},result)=>{
       });
 
 }
+Planting.selectAllPlantFromUser =(user_id, result)=>{
+    sql.query(`SELECT planting.*, plant.*  FROM planting, plant WHERE planting.pt_plant = plant.plant_id AND pt_user = ${user_id}`, (err, res) => {
+        if (err) {
+          console.log('error: ', err);
+          result(err, null);
+        }
+        console.log('plant_cnt: ', res);
+        result(null,  res);
+      });
+}
+
 
 module.exports = Planting;

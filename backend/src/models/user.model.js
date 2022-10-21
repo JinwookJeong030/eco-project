@@ -245,4 +245,16 @@ User.selectUserFromUserEmail = (user_email ,result) => {
   });
 };
 
+User.updateLeaderPlant = ({user_id, user_leader_plant},result) =>{
+  sql.query(`UPDATE user SET user_leader_plant = ${user_leader_plant} WHERE user_id = "${user_id}" ;`, (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+    console.log('updateLeaderPlant: ',  res );
+    result(null,  res);
+  });
+}
+
 module.exports = User;
