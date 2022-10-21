@@ -135,21 +135,21 @@ box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
   }
 `
 
-const FlowerpotItem = ({})=>{
+const FlowerpotItem = ({imgPath})=>{
 
   return(
     <FlowerPotBlock>
-      <FlowerItem />
+      <FlowerItem imgPath={imgPath}/>
     </FlowerPotBlock>
 
   )
 }
 
-const FlowerTotalBlock = ({ totalPoint, point})=>{
+const FlowerTotalBlock = ({growPlant})=>{
 return( 
 <FlowerpotInfoBlock id={"plus"} >
-  <FlowerpotItem/>
-  <FlowerItemInfo totalPoint={totalPoint} point={point}/>
+  <FlowerpotItem imgPath={growPlant.plant_img_path}/>
+  <FlowerItemInfo totalPoint={growPlant.plant_total_point} point={growPlant.pt_point}/>
   </FlowerpotInfoBlock>
 )
   
@@ -173,7 +173,7 @@ const NoFlowerTotalBlock = ({cnt})=>{
   }
 
 
-const Garden = ({user, plant , loading, error}) => {
+const Garden = ({user, growPlant ,loadingGrow, error}) => {
 
   const [deleteFlowerPot, setDeleteFlowerPot]= useState(false);
   const [wateringFlowerPot, setWateringFlowerPot]= useState(false);
@@ -211,27 +211,26 @@ const Garden = ({user, plant , loading, error}) => {
     <FlowerpotsBlock DeleteFlowerPot={deleteFlowerPot} WateringFlowerPot={wateringFlowerPot}>
 
      
-        {user&&plant&&(user.user_id ===plant[0].pt_id)? <HeaderBlock>
+        {user&&growPlant&&(user.user_id ===growPlant[0].pt_id)? <HeaderBlock>
       <TotalPoint >총 보유 포인트: {user.user_total_point}</TotalPoint>
       <PlantDeleteBtn onClick={onClickDelete}  src={ process.env.PUBLIC_URL + "/delete-plant-icon.png" }/>
       <PointUsingBtn onClick={onClickWatering} src={ process.env.PUBLIC_URL + "/watering-icon.png" }/>
       </HeaderBlock>:<></>}
    
- 
+ {growPlant&&(growPlant.length>=1)?
       <FlowerpotsWrapperBlock>
-
       
-        <FlowerTotalBlock  totalPoint={1500} point={point}/>
+        <FlowerTotalBlock  growPlant={growPlant[0]}/>
       
-      {plant_2?
-        <FlowerTotalBlock  totalPoint={1500} point={point}/>:  <NoFlowerTotalBlock cnt={1}/>
+      {(growPlant.length>=2)?
+        <FlowerTotalBlock  growPlant={growPlant[1]}/>:  <NoFlowerTotalBlock cnt={1}/>
       }
-      {plant_3?
-        <FlowerTotalBlock  totalPoint={1500} point={point}/>:  <NoFlowerTotalBlock cnt={2}/>
+      {(growPlant.length>=3)?
+        <FlowerTotalBlock  growPlant={growPlant[2]}/>:  <NoFlowerTotalBlock cnt={2}/>
       }
       
-      </FlowerpotsWrapperBlock>
-      
+      </FlowerpotsWrapperBlock>:(user?<>없는 사용자 입니다...</>:<>로그인하여 식물을 키워보세요!</>)
+    }
     </FlowerpotsBlock>
     
   );

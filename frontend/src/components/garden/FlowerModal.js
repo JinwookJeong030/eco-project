@@ -113,7 +113,7 @@ const FlowerModal = ({
        
         <Contents>
         <PlantItemBlock>
-        <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/sunflower_4.gif" }/>
+        <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/"+plant.plant_img_path+".gif" }/>
         </PlantItemBlock>
         <PlantInfo plant={plant}/>
         </Contents>

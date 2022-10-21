@@ -19,30 +19,12 @@ const GroundBlock = styled.div`
 `
 
 
-const GardenGround = ({ ...props}) => {
+const GardenGround = ({user,completePlant, error ,loadingComplete}) => {
   
-
 
     return (
       <GroundBlock>
-         <FlowerItemContainer
-       marginTop={1}
-       marginLeft={1}
-       />
-         <FlowerItemContainer
-       marginTop={0}
-       marginLeft={0}
-       />
-           <FlowerItemContainer
-       marginTop={0}
-       marginLeft={0}
-       />
-           <FlowerItemContainer
-       marginTop={0}
-       marginLeft={0}
-       />
-     
-
+         {!loadingComplete&&completePlant&&completePlant.map(plant=><FlowerItemContainer plant={plant}/>)}
       </GroundBlock>
     );
 };

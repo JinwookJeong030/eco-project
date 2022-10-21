@@ -22,15 +22,15 @@ margin-bottom:0.5rem;
 `
 
 
-const TotalGarden = () => {
+const Garden = ({user,completePlant, error ,loadingComplete}) => {
 
 
   return (
     <TotalGardenBlock>
       <GardenPaginationContainer/>
-        <GardenGround/>
+        <GardenGround user={user} completePlant={completePlant} error={error} loadingComplete={loadingComplete}/>
     </TotalGardenBlock>
   );
 };
 
-export default TotalGarden;
+export default Garden;

@@ -6,33 +6,52 @@ import * as plantAPI from '../lib/api/plant';
 import { takeLatest } from 'redux-saga/effects';
 
 const [
-  READ_PLANT,
-  READ_PLANT_SUCCESS,
-  READ_PLANT_FAILURE,
+  READ_GROW_PLANT,
+  READ_GROW_PLANT_SUCCESS,
+  READ_GROW_PLANT_FAILURE,
 ] = createRequestActionTypes('plant/READ_PLANT');
+
+const [
+  READ_COMPLETE_PLANT,
+  READ_COMPLETE_PLANT_SUCCESS,
+  READ_COMPLETE_PLANT_FAILURE,
+] = createRequestActionTypes('plant/READ_COMPLETE_PLANT');
+
 const UNLOAD_PLANT = 'plant/UNLOAD_PLANT'; // 포스트 페이지에서 벗어날 때 데이터 비우기
 
 
-export const readPlant = createAction(READ_PLANT, user_id => user_id);
+export const readGrowPlant = createAction(READ_GROW_PLANT, user_id => user_id);
+export const readCompletePlant = createAction(READ_COMPLETE_PLANT, user_id => user_id);
 export const unloadPlant = createAction(UNLOAD_PLANT);
 
-const readPlantSaga = createRequestSaga(READ_PLANT, plantAPI.readPlant);
+const readGrowPlantSaga = createRequestSaga(READ_GROW_PLANT, plantAPI.readGrowPlant);
+const readCompletePlantSaga = createRequestSaga(READ_COMPLETE_PLANT, plantAPI.readCompletePlant);
 export function* plantSaga() {
-  yield takeLatest(READ_PLANT, readPlantSaga);
+  yield takeLatest(READ_GROW_PLANT, readGrowPlantSaga);
+  yield takeLatest(READ_COMPLETE_PLANT, readCompletePlantSaga);
 }
 
 const initialState = {
-  plant: null,
+  growPlant: null,
+  completePlant: null,
   error: null,
 };
 
 const plant = handleActions(
   {
-    [READ_PLANT_SUCCESS]: (state, { payload: plant }) => ({
+    [READ_GROW_PLANT_SUCCESS]: (state, { payload: plant }) => ({
       ...state,
-      plant: plant.result.plant,
+      growPlant: plant.result.plant,
     }),
-    [READ_PLANT_FAILURE]: (state, { payload: error }) => ({
+    [READ_GROW_PLANT_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      error,
+    }),
+    [READ_COMPLETE_PLANT_SUCCESS]: (state, { payload: plant }) => ({
+      ...state,
+      completePlant: plant.result.plant,
+    }),
+    [READ_COMPLETE_PLANT_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
     }),

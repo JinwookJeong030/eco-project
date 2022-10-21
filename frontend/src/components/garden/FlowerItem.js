@@ -50,12 +50,12 @@ width:100%;
     height:25vw; 
 }
 `
-const FlowerItem =({})=>{
-
+const FlowerItem =({imgPath})=>{
+  console.log(imgPath)
     return(
       
       <PlantItemBlock>
-      <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/sunflower_4.gif" }/>
+      <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/"+imgPath+".gif" }/>
       <GroundImage src={ process.env.PUBLIC_URL + "/ground.png" }/>
       </PlantItemBlock>
   
