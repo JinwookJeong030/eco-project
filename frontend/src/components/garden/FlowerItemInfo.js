@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const PlantItemBlock = styled.div`
 
-height:4.5rem; 
+height:4.2rem; 
 width:12.65rem;
 
 border: 2px solid;
@@ -13,7 +13,7 @@ box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 
 @media(max-width:1000px){
     width: 22vw;
-    height:5rem; 
+    
   }
 `
 const PlantName = styled.div`
@@ -24,9 +24,9 @@ const PlantName = styled.div`
   }
 `
 const PlantLevel = styled.div`
-
+margin-left:2px;
 @media(max-width:768px){
-  font-size:3vw;
+  font-size:2vw;
 }
 
 `
@@ -41,19 +41,19 @@ box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
 const PlantPointBackground = styled.div`
 
 height:1.4rem;
-width:%;
+width: ${props => props.point/props.totalPoint*100}%;
 color:green;
 background: repeating-linear-gradient( white,green);
 
 @media(max-width:768px){
-  font-size:3vw;
+  font-size:2.5vw;
 }
 ` 
 const PlantPoint = ({totalPoint,point})=>{
   return(
 
   <PlantTotalPointBlock>
-    <PlantPointBackground poin={point}>
+    <PlantPointBackground point={point} totalPoint={totalPoint}>
     {point}/{totalPoint}
     </PlantPointBackground>
   </PlantTotalPointBlock>
@@ -68,13 +68,12 @@ const PlantRegdate = styled.div`
 const FlowerItemInfo =({plant, point, totalPoint})=>{
 
     return(
-      !plant?<>
+      plant?<>
         <PlantPoint totalPoint={totalPoint} point={point}/>
-        {/* totalPoint={plant.plant_total_point} point={plant.point} */}
         <PlantItemBlock>
-        <PlantName>해바라기</PlantName>
-        <PlantLevel>Level: 1</PlantLevel>
-        <PlantRegdate>시작 날짜: 22-01-02</PlantRegdate>
+        <PlantName>{plant.plant_name}</PlantName>
+        <PlantLevel>Level: {plant.plant_level}</PlantLevel>
+        <PlantRegdate>시작날짜: {new Date(plant.pt_regdate).toLocaleDateString()}</PlantRegdate>
         </PlantItemBlock>
       </>:<></>
     )

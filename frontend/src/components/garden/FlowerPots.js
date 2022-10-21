@@ -7,6 +7,8 @@ import WhiteBox from '../common/WhiteBox';
 import FlowerItem from './FlowerItem';
 import FlowerItemInfo from './FlowerItemInfo';
 import { useEffect, useState } from 'react';
+import AskModal from '../common/AskModal';
+import AskRemoveModal from '../post/AskRemoveModal';
 
 
 
@@ -145,12 +147,14 @@ const FlowerpotItem = ({imgPath})=>{
   )
 }
 
-const FlowerTotalBlock = ({growPlant})=>{
-return( 
-<FlowerpotInfoBlock id={"plus"} >
+const FlowerTotalBlock = ({onClickItem, growPlant})=>{
+ 
+return( <>
+<FlowerpotInfoBlock  onClick ={onClickItem} id={"plus"} >
   <FlowerpotItem imgPath={growPlant.plant_img_path}/>
-  <FlowerItemInfo totalPoint={growPlant.plant_total_point} point={growPlant.pt_point}/>
-  </FlowerpotInfoBlock>
+  <FlowerItemInfo plant={growPlant} totalPoint={growPlant.plant_total_point} point={growPlant.pt_point}/>
+  </FlowerpotInfoBlock> 
+  </>
 )
   
 }
@@ -178,6 +182,10 @@ const Garden = ({user, growPlant ,loadingGrow, error}) => {
   const [deleteFlowerPot, setDeleteFlowerPot]= useState(false);
   const [wateringFlowerPot, setWateringFlowerPot]= useState(false);
 
+  const onClickInit = ()=>{
+        setDeleteFlowerPot(false);
+  }
+
   const onClickDelete = ()=>{
     setWateringFlowerPot(false);
     setDeleteFlowerPot(!deleteFlowerPot);
@@ -186,11 +194,6 @@ const Garden = ({user, growPlant ,loadingGrow, error}) => {
     setDeleteFlowerPot(false);
     setWateringFlowerPot(!wateringFlowerPot);
   }
-
-
-  const plant_1 =true;
-  const plant_2 =false;
-  const plant_3 = false;
   const [point,setPoint] = useState(0);
   
   let plusEle = document.querySelector('#plus');
@@ -204,11 +207,20 @@ const Garden = ({user, growPlant ,loadingGrow, error}) => {
   //   setIsPressed(true);
   //   setPoint(point+100);
   // });
-         
+  const [flowerModal, setFlowerModal] = useState(false);
+  const [flowerSuccessModal, setFlowerSuccessModal] = useState(false);
+  const onCancel = () => {
+      setFlowerModal(false);
+      setDeleteFlowerPot(false);
+  }
+  const onClickItem =()=>{
+    if(deleteFlowerPot){
+      setFlowerModal(true);
+    }
+    }
   return (
-
-
-    <FlowerpotsBlock DeleteFlowerPot={deleteFlowerPot} WateringFlowerPot={wateringFlowerPot}>
+<>
+    <FlowerpotsBlock  DeleteFlowerPot={deleteFlowerPot} WateringFlowerPot={wateringFlowerPot}>
 
      
         {user&&growPlant&&(user.user_id ===growPlant[0].pt_id)? <HeaderBlock>
@@ -220,19 +232,33 @@ const Garden = ({user, growPlant ,loadingGrow, error}) => {
  {growPlant&&(growPlant.length>=1)?
       <FlowerpotsWrapperBlock>
       
-        <FlowerTotalBlock  growPlant={growPlant[0]}/>
+        <FlowerTotalBlock onClickItem={onClickItem}  growPlant={growPlant[0]}/>
       
       {(growPlant.length>=2)?
-        <FlowerTotalBlock  growPlant={growPlant[1]}/>:  <NoFlowerTotalBlock cnt={1}/>
+        <FlowerTotalBlock onClickItem={onClickItem}  growPlant={growPlant[1]}/>:  <NoFlowerTotalBlock cnt={1}/>
       }
       {(growPlant.length>=3)?
-        <FlowerTotalBlock  growPlant={growPlant[2]}/>:  <NoFlowerTotalBlock cnt={2}/>
+        <FlowerTotalBlock onClickItem={onClickItem}  growPlant={growPlant[2]}/>:  <NoFlowerTotalBlock cnt={2}/>
       }
       
       </FlowerpotsWrapperBlock>:(user?<>없는 사용자 입니다...</>:<>로그인하여 식물을 키워보세요!</>)
     }
     </FlowerpotsBlock>
-    
+    {deleteFlowerPot&&<AskRemoveModal
+       title={"다시 키우기"}
+       discription={"정말 다른 식물을 키우시겠습니까?"}
+      visible={flowerModal}
+      confirmText = '확인'
+      onCancel={onCancel}
+      />}
+    <AskModal
+       title={"새로운 씨앗!"}
+       discription={"새로운 씨앗이 지급되었습니다."}
+      visible={flowerSuccessModal}
+      confirmText = '확인'
+      onCancel={onCancel}
+      />
+    </>
   );
 };
 

@@ -88,8 +88,8 @@ const PlantInfo = ({plant})=>{
     return (
         <PlantInfoBlock>
           <PlantName>{plant.plant_name}</PlantName>  
-        <PlantContents>시작 일자: {plant.pt_regdate}</PlantContents>
-        <PlantContents>완료 일자: {plant.pt_complete_date}</PlantContents>
+        <PlantContents>시작 일자: {new Date(plant.pt_regdate).toLocaleDateString()}</PlantContents>
+        <PlantContents>완료 일자: {new Date(plant.pt_complete_date).toLocaleDateString()}</PlantContents>
         </PlantInfoBlock>
     )
 }
