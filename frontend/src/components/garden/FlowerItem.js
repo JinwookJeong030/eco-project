@@ -55,7 +55,7 @@ const FlowerItem =({})=>{
     return(
       
       <PlantItemBlock>
-      <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/sunflower_4.png" }/>
+      <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/sunflower_4.gif" }/>
       <GroundImage src={ process.env.PUBLIC_URL + "/ground.png" }/>
       </PlantItemBlock>
   

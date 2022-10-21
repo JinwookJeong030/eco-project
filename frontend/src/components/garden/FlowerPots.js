@@ -173,7 +173,7 @@ const NoFlowerTotalBlock = ({cnt})=>{
   }
 
 
-const Garden = ({}) => {
+const Garden = ({user, plant , loading, error}) => {
 
   const [deleteFlowerPot, setDeleteFlowerPot]= useState(false);
   const [wateringFlowerPot, setWateringFlowerPot]= useState(false);
@@ -187,9 +187,9 @@ const Garden = ({}) => {
     setWateringFlowerPot(!wateringFlowerPot);
   }
 
-  const totalPoint= 15000;
+
   const plant_1 =true;
-  const plant_2 =true;
+  const plant_2 =false;
   const plant_3 = false;
   const [point,setPoint] = useState(0);
   
@@ -210,22 +210,24 @@ const Garden = ({}) => {
 
     <FlowerpotsBlock DeleteFlowerPot={deleteFlowerPot} WateringFlowerPot={wateringFlowerPot}>
 
-      <HeaderBlock>
-      <TotalPoint >총 보유 포인트: {totalPoint}</TotalPoint>
+     
+        {user&&plant&&(user.user_id ===plant[0].pt_id)? <HeaderBlock>
+      <TotalPoint >총 보유 포인트: {user.user_total_point}</TotalPoint>
       <PlantDeleteBtn onClick={onClickDelete}  src={ process.env.PUBLIC_URL + "/delete-plant-icon.png" }/>
       <PointUsingBtn onClick={onClickWatering} src={ process.env.PUBLIC_URL + "/watering-icon.png" }/>
-      </HeaderBlock>
+      </HeaderBlock>:<></>}
+   
  
       <FlowerpotsWrapperBlock>
 
       
-        <FlowerTotalBlock  totalPoint={totalPoint} point={point}/>
+        <FlowerTotalBlock  totalPoint={1500} point={point}/>
       
       {plant_2?
-        <FlowerTotalBlock  totalPoint={totalPoint} point={point}/>:  <NoFlowerTotalBlock cnt={1}/>
+        <FlowerTotalBlock  totalPoint={1500} point={point}/>:  <NoFlowerTotalBlock cnt={1}/>
       }
       {plant_3?
-        <FlowerTotalBlock  totalPoint={totalPoint} point={point}/>:  <NoFlowerTotalBlock cnt={2}/>
+        <FlowerTotalBlock  totalPoint={1500} point={point}/>:  <NoFlowerTotalBlock cnt={2}/>
       }
       
       </FlowerpotsWrapperBlock>

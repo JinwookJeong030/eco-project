@@ -24,5 +24,4 @@ Plant.selectAllPlantLevel1Cnt =(result)=>{
 
 }
 
-
 module.exports = Plant;

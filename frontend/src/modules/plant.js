@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, {
   createRequestActionTypes,
 } from "../lib/createRequestSaga";
-import * as postsAPI from '../lib/api/plant';
+import * as plantAPI from '../lib/api/plant';
 import { takeLatest } from 'redux-saga/effects';
 
 const [
@@ -10,13 +10,13 @@ const [
   READ_PLANT_SUCCESS,
   READ_PLANT_FAILURE,
 ] = createRequestActionTypes('plant/READ_PLANT');
-const UNLOAD_POST = 'plant/UNLOAD_PLANT'; // 포스트 페이지에서 벗어날 때 데이터 비우기
+const UNLOAD_PLANT = 'plant/UNLOAD_PLANT'; // 포스트 페이지에서 벗어날 때 데이터 비우기
 
 
-export const readPost = createAction(READ_PLANT, id => id);
-export const unloadPost = createAction(UNLOAD_POST);
+export const readPlant = createAction(READ_PLANT, user_id => user_id);
+export const unloadPlant = createAction(UNLOAD_PLANT);
 
-const readPlantSaga = createRequestSaga(READ_PLANT, postsAPI.readPlant);
+const readPlantSaga = createRequestSaga(READ_PLANT, plantAPI.readPlant);
 export function* plantSaga() {
   yield takeLatest(READ_PLANT, readPlantSaga);
 }
@@ -36,7 +36,7 @@ const plant = handleActions(
       ...state,
       error,
     }),
-    [UNLOAD_POST]: () => initialState,
+    [UNLOAD_PLANT]: () => initialState,
   },
   initialState,
 );

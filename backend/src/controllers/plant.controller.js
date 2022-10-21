@@ -8,9 +8,15 @@ const redisClient = require('../modules/redis.js');
 exports.delete =async (req,res) =>{
 
 }
-exports.select =async (req,res) =>{
+exports.selectGrow =async (req,res) =>{
 const user_id = req.params.user_id;
-Planting.selectAllPlantFromUser(user_id,(err,data)=>{
+if(!user_id)
+return res.send({
+  code: 419,
+  message: 'user_id is error!',
+  result:{plant:[]}
+  });
+Planting.selectGrowingPlantFromUser(user_id,(err,data)=>{
     if (!data) {
     return res.status(419).send({
     code: 419,
@@ -20,14 +26,37 @@ Planting.selectAllPlantFromUser(user_id,(err,data)=>{
       return res.send({
         code:200,
         message: 'selectAllPlantFromUser is successful',      
-        planting:data
+        result:{plant:data}
     })
 }}
-    
     )
+};
+exports.selectComplete =async (req,res) =>{
+  const user_id = req.params.user_id;
+  if(!user_id)
+  return res.send({
+    code: 419,
+    message: 'user_id is error!',
+    result:{plant:[]}
+    });
+  Planting.selectCompletePlantFromUser(user_id,(err,data)=>{
+      if (!data) {
+      return res.status(419).send({
+      code: 419,
+      message: 'selectAllPlantFromUser is error!',
+      });
+      } else {
+        return res.send({
+          code:200,
+          message: 'selectAllPlantFromUser is successful',      
+          result:{plant:data}
+      })
+  }}
+      )
+  
+  };
 
 
-}
 exports.point =async (req,res) =>{
 
 }

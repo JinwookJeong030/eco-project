@@ -166,6 +166,11 @@ exports.check =async (req,res) =>{
             user_id: data.user_id,
             user_email : data.user_email,
             user_name : data.user_name,
+            user_admin: data.user_admin,
+            user_regdate: data.user_regdate,
+            user_total_point:data.user_total_point,
+            user_point: data.user_point,
+            user_leader_plant: data.user_leader_plant
         }
       })
     };

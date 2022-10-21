@@ -1,5 +1,5 @@
 import client from './client';
 
-export const readPlant = () => client.get(`/plant`);
+export const readPlant = user_id => client.get(`/plant/select/${user_id}`);
 
 

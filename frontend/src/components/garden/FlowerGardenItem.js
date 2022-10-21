@@ -58,7 +58,7 @@ const FlowerGardenItem =({plant, marginTop,marginLeft})=>{
     return(
       <>
       <PlantItemBlock marginTop={marginTop} marginLeft ={marginLeft} onClick={onClickItem}>
-      <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/sunflower_4.png" }/>
+      <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/sunflower_4.gif" }/>
       <GroundImage src={ process.env.PUBLIC_URL + "/ground.png" }/>
       </PlantItemBlock>
       <PlantModalContainer
