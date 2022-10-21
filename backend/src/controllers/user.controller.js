@@ -1,5 +1,7 @@
 const User = require('../models/user.model.js');
 const jwt = require('../modules/jwt.js');
+const Plant = require('../models/plant.model.js');
+const Planting = require('../models/planting.model.js');
 const redisClient = require('../modules/redis.js');
 exports.register = async (req, res) => {
 
@@ -52,10 +54,43 @@ exports.register = async (req, res) => {
           });
       }
     } else {
-      return res.send({
-        code:200,
-        message: 'register is successful!',
-      });
+    
+      User.selectUserFromUserEmail(user.user_email,(err,data)=>{
+        if (!data)  return res.status(419).send({
+          code: 419,
+          message: 'selectUserFromUserEmail is error!',
+        });
+        const pt_user = data.user_id;
+        //전체 개수 조회
+        Plant.selectAllPlantLevel1Cnt((err,data)=>{
+        if (!data)  return res.status(419).send({
+            code: 419,
+            message: 'selectAllPlantLevel1Cnt is error!',
+          });
+        const pt_plant_cnt =data.plant_cnt;
+        //식물 랜덤 생성
+          Planting.createPlanting({pt_user:1,pt_plant_cnt},(err,data)=>{
+          if (!data) {
+          return res.status(419).send({
+          code: 419,
+          message: 'createPlanting is error!',
+          });
+          } else {
+            return res.send({
+              code:200,
+              message: 'registor &&createPlanting is successful',      
+          });
+  } 
+}
+)
+}
+)
+      })
+      ;
+
+    
+  
+
     }
   });
 };

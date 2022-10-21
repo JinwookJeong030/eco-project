@@ -175,14 +175,24 @@ const NoFlowerTotalBlock = ({cnt})=>{
 
 const Garden = ({}) => {
 
+  const [deleteFlowerPot, setDeleteFlowerPot]= useState(false);
+  const [wateringFlowerPot, setWateringFlowerPot]= useState(false);
 
+  const onClickDelete = ()=>{
+    setWateringFlowerPot(false);
+    setDeleteFlowerPot(!deleteFlowerPot);
+  }
+  const onClickWatering = ()=>{
+    setDeleteFlowerPot(false);
+    setWateringFlowerPot(!wateringFlowerPot);
+  }
 
   const totalPoint= 15000;
   const plant_1 =true;
   const plant_2 =true;
   const plant_3 = false;
   const [point,setPoint] = useState(0);
- 
+  
   let plusEle = document.querySelector('#plus');
   const [isPressed,setIsPressed] = useState(false);
   
@@ -198,12 +208,12 @@ const Garden = ({}) => {
   return (
 
 
-    <FlowerpotsBlock DeleteFlowerPot WateringFlowerPot>
+    <FlowerpotsBlock DeleteFlowerPot={deleteFlowerPot} WateringFlowerPot={wateringFlowerPot}>
 
       <HeaderBlock>
       <TotalPoint >총 보유 포인트: {totalPoint}</TotalPoint>
-      <PlantDeleteBtn  src={ process.env.PUBLIC_URL + "/delete-plant-icon.png" }/>
-      <PointUsingBtn src={ process.env.PUBLIC_URL + "/watering-icon.png" }/>
+      <PlantDeleteBtn onClick={onClickDelete}  src={ process.env.PUBLIC_URL + "/delete-plant-icon.png" }/>
+      <PointUsingBtn onClick={onClickWatering} src={ process.env.PUBLIC_URL + "/watering-icon.png" }/>
       </HeaderBlock>
  
       <FlowerpotsWrapperBlock>

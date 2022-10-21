@@ -10,4 +10,19 @@ const Plant = function (plant) {
     this.plant_total_level = plant.plant_total_level;
     this.plant_total_point = plant.plant_total_point;
 };
+
+//식물레벨1 조회
+Plant.selectAllPlantLevel1Cnt =(result)=>{
+    sql.query(`SELECT COUNT(*) AS plant_cnt FROM plant WHERE plant_level = 1`, (err, res) => {
+        if (err) {
+          console.log('error: ', err);
+          result(err, null);
+        }
+        console.log('plant_cnt: ', res);
+        result(null,  res);
+      });
+
+}
+
+
 module.exports = Plant;

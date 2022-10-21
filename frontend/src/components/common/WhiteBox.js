@@ -6,14 +6,14 @@ const DeleteFlowerPot = css`
 ${(props) =>
   props.DeleteFlowerPot &&
   css`
-  cursor:url(${process.env.PUBLIC_URL + `/mouse-delete-plant-icon.png`})100 100, auto;
+  cursor:url(${process.env.PUBLIC_URL + `/mouse-delete-plant-icon.png`})40 40, auto;
 `}
 `;
 const WateringFlowerPot = css`
 ${(props) =>
   props.WateringFlowerPot &&
   css`
-  cursor:url(${process.env.PUBLIC_URL + `/mouse-watering-icon.png`})100 100, auto;
+  cursor:url(${process.env.PUBLIC_URL + `/mouse-watering-icon.png`})30 30, auto;
 `}
 `;
 const whiteBoxStyle = css`

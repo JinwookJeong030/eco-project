@@ -41,6 +41,7 @@ require('./routes/user.routes.js')(app);
 require('./routes/post.routes.js')(app);
 require('./routes/commu.routes.js')(app);
 require('./routes/mission.routes.js')(app);
+require('./routes/plant.routes.js')(app);
 
 //포트넘버 설정
 app.listen(port, () => {

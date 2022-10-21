@@ -193,7 +193,7 @@ const multer = require('multer'); // 이미지 파일 처리
 else
 {
 
-    Post.selectAllPostsCnt( (err, data) => {
+    Post.selectAllPostsCnt((err, data) => {
       if (!data) {
         return res.status(419).send({
           code: 419,

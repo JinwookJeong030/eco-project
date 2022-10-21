@@ -233,4 +233,16 @@ User.selectAllUsersFromUser = ({start, end, search_contents} ,result) => {
   });
 };
 
+User.selectUserFromUserEmail = (user_email ,result) => {
+  sql.query(`SELECT user.* FROM user WHERE user_email = '"${user_email}"' ;`, (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+    console.log('selectUserFromUserEmail: ',  res );
+    result(null,  res );
+  });
+};
+
 module.exports = User;
