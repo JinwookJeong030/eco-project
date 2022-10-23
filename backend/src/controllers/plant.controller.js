@@ -113,6 +113,8 @@ exports.point =async (req,res) =>{
           code:200,
           message: 'selectAllPlantFromUser is successful',      
       })
+    
+
   }});
 
   }

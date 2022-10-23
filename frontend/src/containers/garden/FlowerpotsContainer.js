@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Flowerpots from '../../components/garden/FlowerPots';
-import {  deletePlant, plusPointPlant, readCompletePlant, readGrowPlant, unloadPlant } from '../../modules/plant';
+import {  deletePlant, plusPointPlant, pointUpPlant, readCompletePlant, readGrowPlant, unloadPlant } from '../../modules/plant';
 
 
 
@@ -23,8 +23,17 @@ const FlowerpotsContainer = () => {
     const onClickWateringItem = (selectPlant,plantPoint)=>{
       dispatch(plusPointPlant({selectPlant,plantPoint}));
     }
+    const onSubmitPoint = (point)=>{
+      const pt_id = growPlant[selectPlant-1].pt_id;
+      const pt_point = growPlant[selectPlant-1].pt_point;
+      const plant_total_point = growPlant[selectPlant-1].plant_total_point;
+
+      dispatch(pointUpPlant({pt_id , point, pt_point ,plant_total_point}));
+    }
+
     const onDeletePlant = ()=>{
-      dispatch(deletePlant({pt_id:growPlant[selectPlant-1].pt_id}));
+      const pt_id = growPlant[selectPlant-1].pt_id;
+      dispatch(deletePlant({pt_id}));
     }
 
     useEffect(() => {
@@ -37,7 +46,9 @@ const FlowerpotsContainer = () => {
   return (
     <>
     <Flowerpots   user={user} growPlant={growPlant} plantPoint={plantPoint} loadingGrow={loadingGrow} error={error} 
-    selectPlant={selectPlant} onClickWateringItem={onClickWateringItem} onDeletePlant={onDeletePlant}/>
+    selectPlant={selectPlant} onClickWateringItem={onClickWateringItem} onDeletePlant={onDeletePlant}
+    onSubmitPoint={onSubmitPoint}
+    />
     </>
   );
 };

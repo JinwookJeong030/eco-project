@@ -23,6 +23,14 @@ const [
   DELETE_PLANT_FAILURE,
 ] = createRequestActionTypes('plant/DELETE_PLANT');
 
+const [
+  POINT_UP_PLANT,
+  POINT_UP_PLANT_SUCCESS,
+  POINT_UP_PLANT_FAILURE,
+] = createRequestActionTypes('plant/POINT_UP_PLANT');
+
+
+
 const UNLOAD_PLANT = 'plant/UNLOAD_PLANT'; // 포스트 페이지에서 벗어날 때 데이터 비우기
 
 const PLUS_POINT_PLANT= 'plant/PLUS_POINT_PLANT';
@@ -34,15 +42,19 @@ export const readCompletePlant = createAction(READ_COMPLETE_PLANT, user_id => us
 export const unloadPlant = createAction(UNLOAD_PLANT);
 export const plusPointPlant = createAction(PLUS_POINT_PLANT);
 export const deletePlant  = createAction(DELETE_PLANT, pt_id => pt_id);
+export const pointUpPlant  = createAction(POINT_UP_PLANT, ({pt_id, pt_point, point , plant_total_point}) => ({pt_id, pt_point, point , plant_total_point}));
+
 
 const readGrowPlantSaga = createRequestSaga(READ_GROW_PLANT, plantAPI.readGrowPlant);
 const readCompletePlantSaga = createRequestSaga(READ_COMPLETE_PLANT, plantAPI.readCompletePlant);
 const deletePlantSaga = createRequestSaga(DELETE_PLANT, plantAPI.deletePlant);
+const pointUpPlantSaga = createRequestSaga(POINT_UP_PLANT, plantAPI.pointUpPlant);
 
 export function* plantSaga() {
   yield takeLatest(READ_GROW_PLANT, readGrowPlantSaga);
   yield takeLatest(READ_COMPLETE_PLANT, readCompletePlantSaga);
   yield takeLatest(DELETE_PLANT, deletePlantSaga);
+  yield takeLatest(POINT_UP_PLANT, pointUpPlantSaga);
 }
 
 const initialState = {
@@ -50,7 +62,7 @@ const initialState = {
   completePlant: null,
   error: null,
   selectPlant: null,
-  plantPoint:0,
+  point:0,
   result:null,
 };
 
@@ -80,10 +92,18 @@ const plant = handleActions(
       ...state,
       error,
     }),
+    [POINT_UP_PLANT_SUCCESS]: (state, { payload: result }) => ({
+      ...state,
+      result:result
+    }),
+    [POINT_UP_PLANT_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      error,
+    }),
     [PLUS_POINT_PLANT]: (state,{payload: plant}) => ({
       ...state,
       selectPlant: plant.selectPlant,
-      plantPoint: plant.plantPoint+1,
+      point: plant.plantPoint,
     }),
 
     [UNLOAD_PLANT]: () => initialState,

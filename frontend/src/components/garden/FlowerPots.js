@@ -195,7 +195,9 @@ const NoFlowerTotalBlock = ({cnt})=>{
   }
 
 
-const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, error,onClickWateringItem, onDeletePlant}) => {
+const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, 
+  error,onClickWateringItem, onDeletePlant,
+  onSubmitPoint}) => {
 
   const location = useLocation();
   const [point,setPoint] = useState(0);
@@ -223,7 +225,7 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, error,onC
   }
 
   const [isPressed,setIsPressed] = useState(false);
-  useInterval(() => {   if(isPressed&&(growPlant[selectPlant-1].plant_total_point>point)){
+  useInterval(() => {   if(isPressed&&(growPlant[selectPlant-1].plant_total_point>point+growPlant[selectPlant-1].pt_point)){
     setPoint(point + 1);
   }
   }, 5);
@@ -257,7 +259,9 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, error,onC
     setIsPressed(false);
     if(wateringFlowerPot){
       onClickWateringItem(selectPlant);
-      setPoint(0);
+      onSubmitPoint(point);
+      
+      
     }
   }
 
