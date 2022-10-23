@@ -19,10 +19,14 @@ const [
 
 const UNLOAD_PLANT = 'plant/UNLOAD_PLANT'; // 포스트 페이지에서 벗어날 때 데이터 비우기
 
+const PLUS_POINT_PLANT= 'plant/PLUS_POINT_PLANT';
+
+
 
 export const readGrowPlant = createAction(READ_GROW_PLANT, user_id => user_id);
 export const readCompletePlant = createAction(READ_COMPLETE_PLANT, user_id => user_id);
 export const unloadPlant = createAction(UNLOAD_PLANT);
+export const plusPointPlant = createAction(PLUS_POINT_PLANT);
 
 const readGrowPlantSaga = createRequestSaga(READ_GROW_PLANT, plantAPI.readGrowPlant);
 const readCompletePlantSaga = createRequestSaga(READ_COMPLETE_PLANT, plantAPI.readCompletePlant);
@@ -35,6 +39,8 @@ const initialState = {
   growPlant: null,
   completePlant: null,
   error: null,
+  selectPlant: null,
+  plantPoint:0,
 };
 
 const plant = handleActions(
@@ -55,6 +61,12 @@ const plant = handleActions(
       ...state,
       error,
     }),
+    [PLUS_POINT_PLANT]: (state,{payload: plant}) => ({
+      ...state,
+      selectPlant: plant.selectPlant,
+      plantPoint: plant.plantPoint+1,
+    }),
+
     [UNLOAD_PLANT]: () => initialState,
   },
   initialState,

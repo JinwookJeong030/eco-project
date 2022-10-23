@@ -6,7 +6,7 @@ import Button from '../common/Button';
 import WhiteBox from '../common/WhiteBox';
 import FlowerItem from './FlowerItem';
 import FlowerItemInfo from './FlowerItemInfo';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AskModal from '../common/AskModal';
 import AskRemoveModal from '../post/AskRemoveModal';
 
@@ -136,7 +136,25 @@ box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.3);
     font-size:1.55vw;
   }
 `
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
 
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
 const FlowerpotItem = ({imgPath})=>{
 
   return(
@@ -147,12 +165,12 @@ const FlowerpotItem = ({imgPath})=>{
   )
 }
 
-const FlowerTotalBlock = ({onClickItem, growPlant})=>{
+const FlowerTotalBlock = ({onClickItem,onMouseDownItem,onMouseUpItem, growPlant , point})=>{
  
 return( <>
-<FlowerpotInfoBlock  onClick ={onClickItem} id={"plus"} >
+<FlowerpotInfoBlock onClick={onClickItem} onTouchStart={onMouseDownItem} onTouchEnd={onMouseDownItem}  onMouseDown ={onMouseDownItem} onMouseUp= {onMouseUpItem} id={"plus"} >
   <FlowerpotItem imgPath={growPlant.plant_img_path}/>
-  <FlowerItemInfo plant={growPlant} totalPoint={growPlant.plant_total_point} point={growPlant.pt_point}/>
+  <FlowerItemInfo plant={growPlant} totalPoint={growPlant.plant_total_point} point={growPlant.pt_point + point}/>
   </FlowerpotInfoBlock> 
   </>
 )
@@ -177,8 +195,9 @@ const NoFlowerTotalBlock = ({cnt})=>{
   }
 
 
-const Garden = ({user, growPlant ,loadingGrow, error}) => {
+const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, error,onClickWateringItem}) => {
 
+  const [point,setPoint] = useState(0);
   const [deleteFlowerPot, setDeleteFlowerPot]= useState(false);
   const [wateringFlowerPot, setWateringFlowerPot]= useState(false);
 
@@ -194,51 +213,65 @@ const Garden = ({user, growPlant ,loadingGrow, error}) => {
     setDeleteFlowerPot(false);
     setWateringFlowerPot(!wateringFlowerPot);
   }
-  const [point,setPoint] = useState(0);
-  
-  let plusEle = document.querySelector('#plus');
+
   const [isPressed,setIsPressed] = useState(false);
-  
-  // plusEle.addEventListener('mouseup', function(event) {
-  //   setIsPressed(false);
-  // });
-  
-  // plusEle.addEventListener('mousedown', function(event) {
-  //   setIsPressed(true);
-  //   setPoint(point+100);
-  // });
+  useInterval(() => {   if(isPressed&&(growPlant[selectPlant-1].plant_total_point>point)){
+    console.log(growPlant[selectPlant].plant_total_point)
+    setPoint(point + 1);
+  }
+  }, 5);
+
+
   const [flowerModal, setFlowerModal] = useState(false);
   const [flowerSuccessModal, setFlowerSuccessModal] = useState(false);
   const onCancel = () => {
       setFlowerModal(false);
       setDeleteFlowerPot(false);
   }
-  const onClickItem =()=>{
+  const onClickItem = (selectPlant)=>{
     if(deleteFlowerPot){
+      onClickWateringItem(selectPlant);
       setFlowerModal(true);
     }
+  }
+   
+  const onMouseDownItem =(selectPlant)=>{
+    if(wateringFlowerPot){
+      onClickWateringItem(selectPlant);
+      setIsPressed(true);
+      
     }
+  }
+  const onMouseUpItem =(selectPlant)=>{
+    setIsPressed(false);
+    if(wateringFlowerPot){
+      onClickWateringItem(selectPlant);
+      setPoint(0);
+    }
+  }
+
+
+
   return (
 <>
     <FlowerpotsBlock  DeleteFlowerPot={deleteFlowerPot} WateringFlowerPot={wateringFlowerPot}>
 
      
         {user&&growPlant&&(user.user_id ===growPlant[0].pt_id)? <HeaderBlock>
-      <TotalPoint >총 보유 포인트: {user.user_total_point}</TotalPoint>
+      <TotalPoint >총 보유 포인트: {user.user_total_point - point}</TotalPoint>
       <PlantDeleteBtn onClick={onClickDelete}  src={ process.env.PUBLIC_URL + "/delete-plant-icon.png" }/>
       <PointUsingBtn onClick={onClickWatering} src={ process.env.PUBLIC_URL + "/watering-icon.png" }/>
       </HeaderBlock>:<></>}
    
  {growPlant&&(growPlant.length>=1)?
       <FlowerpotsWrapperBlock>
-      
-        <FlowerTotalBlock onClickItem={onClickItem}  growPlant={growPlant[0]}/>
+        <FlowerTotalBlock onClickItem={()=>onClickItem(1)} onMouseDownItem={()=>onMouseDownItem(1)} onMouseUpItem={()=>onMouseUpItem(1)}  growPlant={growPlant[0]} point={selectPlant===1?point:0}/>
       
       {(growPlant.length>=2)?
-        <FlowerTotalBlock onClickItem={onClickItem}  growPlant={growPlant[1]}/>:  <NoFlowerTotalBlock cnt={1}/>
+        <FlowerTotalBlock onClickItem={()=>onClickItem(2)} onMouseDownItem={()=>onMouseDownItem(2)} onMouseUpItem={()=>onMouseUpItem(2)}  growPlant={growPlant[1]} point={selectPlant===2?point:0}/>:  <NoFlowerTotalBlock cnt={1}/>
       }
       {(growPlant.length>=3)?
-        <FlowerTotalBlock onClickItem={onClickItem}  growPlant={growPlant[2]}/>:  <NoFlowerTotalBlock cnt={2}/>
+        <FlowerTotalBlock onClickItem={()=>onClickItem(3)} onMouseDownItem={()=>onMouseDownItem(3)} onMouseUpItem={()=>onMouseUpItem(3)}  growPlant={growPlant[2]} point={selectPlant===3?point:0}/>:  <NoFlowerTotalBlock cnt={2}/>
       }
       
       </FlowerpotsWrapperBlock>:(user?<>없는 사용자 입니다...</>:<>로그인하여 식물을 키워보세요!</>)

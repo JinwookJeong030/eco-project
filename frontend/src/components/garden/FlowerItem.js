@@ -16,6 +16,7 @@ margin-top:1.5rem;
     margin-left:0.5vw;
     margin-top:0;
 }
+pointer-events: none;
 `
 //
 const GroundImage = styled.img`
@@ -28,6 +29,7 @@ margin-top:auto;
     width: 21vw;
     height:7vw; 
 }
+pointer-events: none;
 `
 const PlantItemBlock = styled.div`
 position:relative;
@@ -51,7 +53,7 @@ width:100%;
 }
 `
 const FlowerItem =({imgPath})=>{
-  console.log(imgPath)
+
     return(
       
       <PlantItemBlock>
