@@ -18,8 +18,8 @@ Plant.selectAllPlantLevel1Cnt =(result)=>{
           console.log('error: ', err);
           result(err, null);
         }
-        console.log('plant_cnt: ', res);
-        result(null,  res);
+        console.log('plant_cnt: ', res[0]);
+        result(null,  res[0]);
       });
 
 }

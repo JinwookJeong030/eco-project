@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import WhiteBox from '../common/WhiteBox';
@@ -195,14 +195,22 @@ const NoFlowerTotalBlock = ({cnt})=>{
   }
 
 
-const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, error,onClickWateringItem}) => {
+const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, error,onClickWateringItem, onDeletePlant}) => {
 
+  const location = useLocation();
   const [point,setPoint] = useState(0);
   const [deleteFlowerPot, setDeleteFlowerPot]= useState(false);
   const [wateringFlowerPot, setWateringFlowerPot]= useState(false);
-
+  const [flowerModal, setFlowerModal] = useState(false);
+  const [flowerSuccessModal, setFlowerSuccessModal] = useState(false);
   const onClickInit = ()=>{
         setDeleteFlowerPot(false);
+  }
+  const onClickSubmitDelete=()=>{
+    onDeletePlant();
+    setFlowerModal(false);
+    setFlowerSuccessModal(true);
+    setDeleteFlowerPot(false);
   }
 
   const onClickDelete = ()=>{
@@ -216,17 +224,20 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, error,onC
 
   const [isPressed,setIsPressed] = useState(false);
   useInterval(() => {   if(isPressed&&(growPlant[selectPlant-1].plant_total_point>point)){
-    console.log(growPlant[selectPlant].plant_total_point)
     setPoint(point + 1);
   }
   }, 5);
 
+  useEffect(() => {
+  }, [ location ])
 
-  const [flowerModal, setFlowerModal] = useState(false);
-  const [flowerSuccessModal, setFlowerSuccessModal] = useState(false);
   const onCancel = () => {
       setFlowerModal(false);
       setDeleteFlowerPot(false);
+      setFlowerSuccessModal(false);
+  }
+  const onRefresh = ()=>{
+    window.location.replace(location.pathname);
   }
   const onClickItem = (selectPlant)=>{
     if(deleteFlowerPot){
@@ -257,7 +268,7 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, error,onC
     <FlowerpotsBlock  DeleteFlowerPot={deleteFlowerPot} WateringFlowerPot={wateringFlowerPot}>
 
      
-        {user&&growPlant&&(user.user_id ===growPlant[0].pt_id)? <HeaderBlock>
+        {user&&growPlant&&(user.user_id ===growPlant[0].pt_user)? <HeaderBlock>
       <TotalPoint >총 보유 포인트: {user.user_total_point - point}</TotalPoint>
       <PlantDeleteBtn onClick={onClickDelete}  src={ process.env.PUBLIC_URL + "/delete-plant-icon.png" }/>
       <PointUsingBtn onClick={onClickWatering} src={ process.env.PUBLIC_URL + "/watering-icon.png" }/>
@@ -283,6 +294,7 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, error,onC
       visible={flowerModal}
       confirmText = '확인'
       onCancel={onCancel}
+      onConfirm={onClickSubmitDelete}
       />}
     <AskModal
        title={"새로운 씨앗!"}
@@ -290,6 +302,7 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, error,onC
       visible={flowerSuccessModal}
       confirmText = '확인'
       onCancel={onCancel}
+      onConfirm={onRefresh}
       />
     </>
   );

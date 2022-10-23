@@ -67,9 +67,9 @@ exports.register = async (req, res) => {
             code: 419,
             message: 'selectAllPlantLevel1Cnt is error!',
           });
-        const pt_plant_cnt =data.plant_cnt;
+        const pt_plant = Math.floor(Math.random() * data.plant_cnt)+1;
         //식물 랜덤 생성
-          Planting.createPlanting({pt_user:1,pt_plant_cnt},(err,data)=>{
+          Planting.createPlanting({pt_user,pt_plant},(err,data)=>{
           if (!data) {
           return res.status(419).send({
           code: 419,

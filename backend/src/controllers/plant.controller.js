@@ -6,6 +6,42 @@ const redisClient = require('../modules/redis.js');
 
 
 exports.delete =async (req,res) =>{
+  const pt_id = req.body.pt_id;
+  const pt_user = req.user_id;
+  Planting.deletePlanting({pt_id,pt_user} , (err,data)=>{
+    if (!data) {
+    return res.status(419).send({
+    code: 419,
+    message: 'deletePlanting is error!',
+    });
+    } 
+    //전체 개수 조회
+    Plant.selectAllPlantLevel1Cnt((err,data)=>{
+    if (!data)  return res.status(419).send({
+        code: 419,
+        message: 'selectAllPlantLevel1Cnt is error!',
+      });
+    const pt_plant = Math.floor(Math.random() * data.plant_cnt)+1;
+   
+    //식물 랜덤 생성
+      Planting.createPlanting({pt_user,pt_plant},(err,data)=>{
+      if (!data) {
+      return res.status(419).send({
+      code: 419,
+      message: 'createPlanting is error!',
+      });
+      } else {
+        return res.send({
+          code:200,
+          message: 'deletePlanting &&createPlanting is successful',      
+      });
+} 
+}
+)
+}
+)
+})
+
 
 }
 exports.selectGrow =async (req,res) =>{

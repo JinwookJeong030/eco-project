@@ -5,7 +5,7 @@ module.exports = (app) => {
 
 
     //식물 삭제 후 새로고침 planting
-    app.delete('/api/plant/delete',authJwt, plant.delete);
+    app.post('/api/plant/delete',authJwt, plant.delete);
     //유저 식물 조회 planting 
     app.get('/api/plant/selectGrow/:user_id', plant.selectGrow);
     //유저 식물 조회 planting 
