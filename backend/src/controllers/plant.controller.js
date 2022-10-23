@@ -94,6 +94,39 @@ exports.selectComplete =async (req,res) =>{
 
 
 exports.point =async (req,res) =>{
+  const user_id = req.user_id;
+  const pt_id = req.body.pt_id;
+  const pt_point = req.body.pt_point;
+  const point = req.body.point;
+  const plant_total_point = req.body.plant_total_point;
+
+  //전체 포인트보다 적게 부여했을때
+  if(plant_total_point>(point+pt_point)){
+    Planting.plusPointPlant({user_id,pt_id, point},(err,data)=>{
+      if (!data) {
+      return res.status(419).send({
+      code: 419,
+      message: 'updatePlant is error!',
+      });
+      } else {
+        return res.send({
+          code:200,
+          message: 'selectAllPlantFromUser is successful',      
+      })
+  }});
+
+  }
+  else{
+
+    return res.send({
+      code:200,
+      message: '테스트',      
+    })
+  }
+
+  
+
+
 
 }
 exports.leader =async (req,res) =>{

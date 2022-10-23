@@ -67,5 +67,18 @@ Planting.selectCompletePlantFromUser =(user_id, result)=>{
 }
 
 
+Planting.plusPointPlant = ({user_id,pt_id,point}, result)=>{
+  sql.query(`Update planting SET pt_point = pt_point + ${point}  WHERE pt_id = ${pt_id} AND pt_user = ${user_id}`, (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+      }
+      console.log('plant: ', res);
+      result(null,  res);
+    });
+
+}
+
+
 
 module.exports = Planting;

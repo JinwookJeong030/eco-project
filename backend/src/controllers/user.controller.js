@@ -54,7 +54,7 @@ exports.register = async (req, res) => {
           });
       }
     } else {
-    
+      console.log("user email:"+user.user_email)
       User.selectUserFromUserEmail(user.user_email,(err,data)=>{
         if (!data)  return res.status(419).send({
           code: 419,
