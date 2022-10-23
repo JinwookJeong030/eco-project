@@ -9,6 +9,8 @@ import FlowerItemInfo from './FlowerItemInfo';
 import { useEffect, useRef, useState } from 'react';
 import AskModal from '../common/AskModal';
 import AskRemoveModal from '../post/AskRemoveModal';
+import { useDispatch } from 'react-redux';
+import { readGrowPlant, unloadPlant } from '../../modules/plant';
 
 
 
@@ -176,6 +178,7 @@ return( <>
 )
   
 }
+
 const NoFlowerTotalBlock = ({cnt})=>{
 
   return( 
@@ -200,6 +203,7 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow,
   onSubmitPoint}) => {
 
   const location = useLocation();
+  const dispatch = useDispatch();
   const [point,setPoint] = useState(0);
   const [deleteFlowerPot, setDeleteFlowerPot]= useState(false);
   const [wateringFlowerPot, setWateringFlowerPot]= useState(false);
@@ -225,13 +229,15 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow,
   }
 
   const [isPressed,setIsPressed] = useState(false);
-  useInterval(() => {   if(isPressed&&(growPlant[selectPlant-1].plant_total_point>point+growPlant[selectPlant-1].pt_point)){
+  useInterval(() => {   
+    
+    if(isPressed&&(growPlant[selectPlant-1].plant_total_point>point+growPlant[selectPlant-1].pt_point)){
     setPoint(point + 1);
   }
-  }, 5);
+ 
+  }, 10);
 
-  useEffect(() => {
-  }, [ location ])
+
 
   const onCancel = () => {
       setFlowerModal(false);
@@ -260,11 +266,12 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow,
     if(wateringFlowerPot){
       onClickWateringItem(selectPlant);
       onSubmitPoint(point);
-      
-      
+      readGrowPlant(1||0)
+      setPoint(0);
+      dispatch(readGrowPlant(1||0));
+    
     }
   }
-
 
 
   return (

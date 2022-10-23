@@ -80,5 +80,29 @@ Planting.plusPointPlant = ({user_id,pt_id,point}, result)=>{
 }
 
 
+Planting.upgradePlant =({user_id, pt_id, pt_plant},result)=>{
+  sql.query(`Update planting SET pt_point = 0 ,pt_plant = ${pt_plant}  WHERE pt_id = ${pt_id} AND pt_user = ${user_id}`, (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+    }
+    console.log('upgradePlant: ', res);
+    result(null,  res);
+  });
+
+}
+Planting.completePlant =({user_id, pt_id, pt_plant},result)=>{
+   const pt_complete_date = new Date();
+  sql.query(`Update planting SET pt_point = 0 , pt_plant = ${pt_plant},  pt_complete_date = "2022-01-01" , pt_grow_plant = 0 WHERE pt_id = ${pt_id} AND pt_user = ${user_id} ;`, (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+    }
+    console.log('upgradePlant: ', res);
+    result(null,  res);
+  });
+
+}
+
 
 module.exports = Planting;

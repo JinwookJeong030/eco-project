@@ -95,10 +95,13 @@ exports.selectComplete =async (req,res) =>{
 
 exports.point =async (req,res) =>{
   const user_id = req.user_id;
-  const pt_id = req.body.pt_id;
-  const pt_point = req.body.pt_point;
   const point = req.body.point;
-  const plant_total_point = req.body.plant_total_point;
+  const pt_id = req.body.growPlant.pt_id;
+  const pt_point = req.body.growPlant.pt_point;
+  const plant_total_point = req.body.growPlant.plant_total_point;
+  const plant_name = req.body.growPlant.plant_name;
+  const plant_level = req.body.growPlant.plant_level;
+  const plant_total_level = req.body.growPlant.plant_total_level;
 
   //전체 포인트보다 적게 부여했을때
   if(plant_total_point>(point+pt_point)){
@@ -116,14 +119,54 @@ exports.point =async (req,res) =>{
     
 
   }});
-
   }
   else{
 
-    return res.send({
-      code:200,
-      message: '테스트',      
-    })
+    Plant.selectNextPlant({plant_name,plant_level},(err,data)=>{
+      if (!data) {
+      return res.status(419).send({
+      code: 419,
+      message: 'selectNextPlant is error!',
+      });
+      } 
+      if(data.plant_total_level === data.plant_level){
+
+        Planting.completePlant({user_id, pt_id , pt_plant:data.plant_id},(err,data)=>{
+          if (!data) {
+          return res.status(419).send({
+          code: 419,
+          message: 'completePlant is error!',
+          });
+          } else {
+            return res.send({
+              code:200,
+              message: 'completePlant is successful',      
+          })
+          }});
+
+
+      }
+      else{
+      Planting.upgradePlant({user_id, pt_id , pt_plant:data.plant_id},(err,data)=>{
+        if (!data) {
+        return res.status(419).send({
+        code: 419,
+        message: 'updatePlant is error!',
+        });
+        } else {
+          return res.send({
+            code:200,
+            message: 'upgradePlant is successful',      
+        })
+        }});
+      }
+
+
+    });
+
+
+
+    
   }
 
   

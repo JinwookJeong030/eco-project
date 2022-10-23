@@ -23,5 +23,16 @@ Plant.selectAllPlantLevel1Cnt =(result)=>{
       });
 
 }
+Plant.selectNextPlant =({plant_name, plant_level},result)=>{
+  sql.query(`SELECT plant.* FROM plant WHERE plant_name = "${plant_name}" AND plant_level =${plant_level} + 1`, (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+      }
+      console.log('next plant: ', res[0]);
+      result(null,  res[0]);
+    });
+
+}
 
 module.exports = Plant;

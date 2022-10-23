@@ -24,11 +24,7 @@ const FlowerpotsContainer = () => {
       dispatch(plusPointPlant({selectPlant,plantPoint}));
     }
     const onSubmitPoint = (point)=>{
-      const pt_id = growPlant[selectPlant-1].pt_id;
-      const pt_point = growPlant[selectPlant-1].pt_point;
-      const plant_total_point = growPlant[selectPlant-1].plant_total_point;
-
-      dispatch(pointUpPlant({pt_id , point, pt_point ,plant_total_point}));
+      dispatch(pointUpPlant({growPlant: growPlant[selectPlant-1] , point}));
     }
 
     const onDeletePlant = ()=>{

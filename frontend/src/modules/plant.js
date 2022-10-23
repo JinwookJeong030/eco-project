@@ -42,7 +42,7 @@ export const readCompletePlant = createAction(READ_COMPLETE_PLANT, user_id => us
 export const unloadPlant = createAction(UNLOAD_PLANT);
 export const plusPointPlant = createAction(PLUS_POINT_PLANT);
 export const deletePlant  = createAction(DELETE_PLANT, pt_id => pt_id);
-export const pointUpPlant  = createAction(POINT_UP_PLANT, ({pt_id, pt_point, point , plant_total_point}) => ({pt_id, pt_point, point , plant_total_point}));
+export const pointUpPlant  = createAction(POINT_UP_PLANT, ({growPlant, point}) => ({growPlant, point}));
 
 
 const readGrowPlantSaga = createRequestSaga(READ_GROW_PLANT, plantAPI.readGrowPlant);
