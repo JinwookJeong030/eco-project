@@ -111,14 +111,25 @@ exports.point =async (req,res) =>{
       code: 419,
       message: 'updatePlant is error!',
       });
-      } else {
-        return res.send({
-          code:200,
-          message: 'selectAllPlantFromUser is successful',      
-      })
+      } 
+        
+      User.minusPoint({user_id, point},(err,data)=>{
+          if (!data) {
+          return res.status(419).send({
+          code: 419,
+          message: 'minusPoint is error!',
+          });
+          } else {
+            
+            return res.send({
+              code:200,
+              message: 'plusPointPlant && minusPoint is successful',      
+          })
+        
+      }});
     
 
-  }});
+  });
   }
   else{
 
@@ -131,6 +142,38 @@ exports.point =async (req,res) =>{
       } 
       if(data.plant_total_level === data.plant_level){
 
+        Planting.plantingCntFromUser(user_id,(err,data)=>{
+          if (!data) {
+          return res.status(419).send({
+          code: 419,
+          message: 'completePlant is error!',
+          });
+          } else {
+            const pt_cnt = data.pt_cnt;
+            //전체 개수 조회
+            Plant.selectAllPlantLevel1Cnt((err,data)=>{
+              if (!data)  return res.status(419).send({
+                  code: 419,
+                  message: 'selectAllPlantLevel1Cnt is error!',
+                });
+              const pt_plant = Math.floor(Math.random() * data.plant_cnt)+1;
+             
+              //식물 랜덤 생성
+                Planting.createPlanting({pt_user:user_id,pt_plant},(err,data)=>{
+                if (!data) {
+                return res.status(419).send({
+                code: 419,
+                message: 'createPlanting is error!',
+                });
+                }});
+                console.log("*********************************");
+                console.log(pt_cnt);
+                console.log("*********************************");
+         
+          }
+          )
+          }});
+
         Planting.completePlant({user_id, pt_id , pt_plant:data.plant_id},(err,data)=>{
           if (!data) {
           return res.status(419).send({
@@ -138,10 +181,21 @@ exports.point =async (req,res) =>{
           message: 'completePlant is error!',
           });
           } else {
-            return res.send({
-              code:200,
-              message: 'completePlant is successful',      
-          })
+            User.minusPoint({user_id, point},(err,data)=>{
+              if (!data) {
+              return res.status(419).send({
+              code: 419,
+              message: 'minusPoint is error!',
+              });
+              } else {
+                
+                return res.send({
+                  code:200,
+                  message: 'completePlant && minusPoint is successful',      
+              })
+            
+        
+          }});
           }});
 
 
@@ -154,16 +208,27 @@ exports.point =async (req,res) =>{
         message: 'updatePlant is error!',
         });
         } else {
-          return res.send({
-            code:200,
-            message: 'upgradePlant is successful',      
-        })
+          User.minusPoint({user_id, point},(err,data)=>{
+            if (!data) {
+            return res.status(419).send({
+            code: 419,
+            message: 'minusPoint is error!',
+            });
+            } else {
+              
+              return res.send({
+                code:200,
+                message: 'completePlant && minusPoint is successful',      
+            })
+          
+      
+        }});
         }});
       }
 
 
     });
-
+    
 
 
     

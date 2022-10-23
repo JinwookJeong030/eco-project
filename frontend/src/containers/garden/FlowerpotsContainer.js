@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Flowerpots from '../../components/garden/FlowerPots';
 import {  deletePlant, plusPointPlant, pointUpPlant, readCompletePlant, readGrowPlant, unloadPlant } from '../../modules/plant';
+import { check } from '../../modules/user';
 
 
 
@@ -33,6 +34,7 @@ const FlowerpotsContainer = () => {
     }
 
     useEffect(() => {
+      dispatch(check());
       dispatch(readGrowPlant(user_id||0));
       // 언마운트될 때 리덕스에서 포스트 데이터 없애기
       return () => {

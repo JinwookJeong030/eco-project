@@ -183,6 +183,21 @@ User.plusPoint = ({user_id, category}, result)=> {
 
   }
 };
+User.minusPoint = ({user_id, point}, result)=> {
+  sql.query(
+    `UPDATE user SET user_point = user_point - ${point}  WHERE user_id = ${user_id} ;`,
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+      console.log('minusPoint: ', res);
+      result(null, res);
+    },
+  );
+
+};
 
   //user 전체수 조회
 User.selectAllUsersCnt = (result) => {
@@ -256,5 +271,9 @@ User.updateLeaderPlant = ({user_id, user_leader_plant},result) =>{
     result(null,  res);
   });
 }
+
+
+
+
 
 module.exports = User;

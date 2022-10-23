@@ -11,6 +11,7 @@ import AskModal from '../common/AskModal';
 import AskRemoveModal from '../post/AskRemoveModal';
 import { useDispatch } from 'react-redux';
 import { readGrowPlant, unloadPlant } from '../../modules/plant';
+import { check } from '../../modules/user';
 
 
 
@@ -266,9 +267,9 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow,
     if(wateringFlowerPot){
       onClickWateringItem(selectPlant);
       onSubmitPoint(point);
-      readGrowPlant(1||0)
       setPoint(0);
       dispatch(readGrowPlant(1||0));
+      dispatch(check());
     
     }
   }
@@ -279,11 +280,11 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow,
     <FlowerpotsBlock  DeleteFlowerPot={deleteFlowerPot} WateringFlowerPot={wateringFlowerPot}>
 
      
-        {user&&growPlant&&(user.user_id ===growPlant[0].pt_user)? <HeaderBlock>
-      <TotalPoint >총 보유 포인트: {user.user_total_point - point}</TotalPoint>
+        {user&&growPlant&&((user.user_id ===growPlant[0].pt_user)? <HeaderBlock>
+      <TotalPoint >총 보유 포인트: {user.user_point - point}</TotalPoint>
       <PlantDeleteBtn onClick={onClickDelete}  src={ process.env.PUBLIC_URL + "/delete-plant-icon.png" }/>
       <PointUsingBtn onClick={onClickWatering} src={ process.env.PUBLIC_URL + "/watering-icon.png" }/>
-      </HeaderBlock>:<></>}
+      </HeaderBlock>:<></>)}
    
  {growPlant&&(growPlant.length>=1)?
       <FlowerpotsWrapperBlock>

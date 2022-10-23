@@ -93,7 +93,7 @@ Planting.upgradePlant =({user_id, pt_id, pt_plant},result)=>{
 }
 Planting.completePlant =({user_id, pt_id, pt_plant},result)=>{
    const pt_complete_date = new Date();
-  sql.query(`Update planting SET pt_point = 0 , pt_plant = ${pt_plant},  pt_complete_date = "2022-01-01" , pt_grow_plant = 0 WHERE pt_id = ${pt_id} AND pt_user = ${user_id} ;`, (err, res) => {
+  sql.query(`Update planting SET pt_point = 0 , pt_plant = ${pt_plant},  pt_complete_date = "${pt_complete_date}" , pt_grow_plant = 0 WHERE pt_id = ${pt_id} AND pt_user = ${user_id} ;`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -104,5 +104,15 @@ Planting.completePlant =({user_id, pt_id, pt_plant},result)=>{
 
 }
 
+Planting.plantingCntFromUser = (user_id, result) =>{
+  sql.query(`SELECT COUNT(*) AS pt_cnt FROM planting WHERE pt_user = ${user_id} AND pt_grow_plant = 0 ;`, (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+    }
+    console.log('plantingCntFromUser: ', res[0]);
+    result(null,  res[0]);
+  });
+}
 
 module.exports = Planting;
