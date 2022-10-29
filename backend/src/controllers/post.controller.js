@@ -259,26 +259,24 @@ exports.view = async (req, res) =>{
           message: 'selectPostFromId is error!'
         });
       } else {
-        
-        return res.send({
-          code:200,
-          message: 'selectPostFromId is successful',
-          result:{
-           post:{
-           post_id:data.post_id,
-           post_user:data.post_user,
-           post_category:data.post_category,
-           post_title:data.post_title,
-           post_contents:data.post_contents,
-           post_regdate:data.post_regdate,
-           post_update:data.post_update,
-           post_views:data.post_views,
-           post_recommend:data.post_recommend,
-           post_report:data.post_report,
-           user_name:data.user_name,
-           replyCnt: data.replyCnt,
-          }
-        }});
+        const post = data;
+        Post_file.selectFiles(req.params.post_id,(err,data)=>{
+          if(!data)
+          return res.status(419).send({
+            code: 419,
+            message: 'selectFiles is error!'
+          });
+
+          return res.send({
+            code:200,
+            message: 'selectFiles is successful',
+            result:{
+             post:post,
+             postFiles:data,
+          }});
+        })
+
+       
     } 
     });
   
@@ -566,7 +564,34 @@ exports.myReplyList = async(req, res) =>{
 }
 
 exports.postImageUpload = async(req, res) =>{ 
-  console.log("=============================")
-  console.log(req.body.user_id);
-  console.log("=============================")
+
+  const files = req.files;
+  const post_user = req.body.user_id;
+
+  Post.selectOneMyPost(post_user,(err, data)=>{
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'selectOneMyPost is error!'
+      });
+    } else {
+      const post_id = data.post_id;
+      files.map((file)=>(
+          Post_file.insertPostFile({post_id,pf_name: file.key},(err,data)=>{
+            if (!data) {
+              return res.status(419).send({
+                code: 419,
+                message: 'insertPostFile is error!',
+              });
+            } 
+      })
+      ))
+      return res.send({
+        code:200,
+        message: 'insertPostFile is successful',
+      });
+
+    } 
+  })
+
 }

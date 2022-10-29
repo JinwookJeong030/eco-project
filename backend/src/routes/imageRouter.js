@@ -17,15 +17,16 @@ const upload = multer({
         s3:s3,
         bucket:'ecoweb-s3',
         key : function(req, file, cb) {
-            console.log("req:");
-            console.log(req);
+        
             console.log("file:");
             console.log(file);
             var ext = file.mimetype.split('/')[1];
             if(!['png', 'jpg', 'jpeg', 'gif', 'bmp'].includes(ext)) {
                 return cb(new Error('Only images are allowed'));
             }
-            cb(null, `postImg/${Date.now()}` + '.' + file.originalname.split('.').pop());
+           fileName=`postImg/${Date.now()}` + '.' + file.originalname.split('.').pop();
+            cb(null, fileName);
+            
         }
     }),
     acl : 'public-read-write',

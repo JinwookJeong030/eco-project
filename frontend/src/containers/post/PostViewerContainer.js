@@ -9,8 +9,9 @@ const PostViewerContainer = () => {
   // 처음 마운트될 때 포스트 읽기 API 요청
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { post, error, loading } = useSelector(({ post, loading }) => ({
+  const { post,postFiles, error, loading } = useSelector(({ post, loading }) => ({
     post: post.post,
+    postFiles:post.postFiles,
     error: post.error,
     loading: loading['post/READ_POST'],
   }));
@@ -23,7 +24,7 @@ const PostViewerContainer = () => {
     };
   }, [dispatch, id]);
 
-  return <PostViewer post={post} loading={loading} error={error} />;
+  return <PostViewer post={post} postFiles={postFiles} loading={loading} error={error} />;
 };
 
 export default PostViewerContainer;

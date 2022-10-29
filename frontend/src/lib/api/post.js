@@ -25,4 +25,6 @@ import qs from 'qs';
   export const writeReply = ({reply_post,reply_contents,reply_type,reply_order, reply_group_id}) => client.post(`/reply/write`,{reply_post,reply_contents,reply_type,reply_order, reply_group_id});
   export const deleteReply = reply_id=> client.delete(`/reply/delete/${reply_id}`);
   
+
+  export const readPostFiles = (post_id) => client.get('/post/readFiles', post_id);
   export const uploadFile = (file) => client.post('/post/upload', file);

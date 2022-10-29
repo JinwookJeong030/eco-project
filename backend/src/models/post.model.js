@@ -252,7 +252,7 @@ Post.selectAllCategory = (result) => {
 };
 
   //내가 쓴 첫 글 조회
-  Post.selectOneMyPosts = (post_user, result) => {
+  Post.selectOneMyPost = (post_user, result) => {
     sql.query('SELECT * FROM post WHERE post_user = '+post_user+' ORDER BY post_regdate DESC', (err, res) => {
       if (err) {
         console.log('error: ', err);

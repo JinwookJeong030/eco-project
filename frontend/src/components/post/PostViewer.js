@@ -120,17 +120,9 @@ const PostImages =({images, visiblityImg})=>{
   );
 }
 
-const PostImageContents = ()=>{
+const PostImageContents = ({postFiles})=>{
 
-  const images=[{
-    pf_id:1,
-    pf_name:"1667063349370.jpg"
-  },{   pf_id:2,
-    pf_name:"1667063358331.jpg"}
-    ,{   pf_id:3,
-      pf_name:"3"}
-      ,{   pf_id:4,
-        pf_name:"4"}]
+  
 
 
   const [visiblityImg,setVisiblityImg] = useState(0);
@@ -141,7 +133,7 @@ const PostImageContents = ()=>{
     setVisiblityImg(visiblityImg-1);
   }
   const plusImg =()=>{
-    if(visiblityImg>=images.length-1) return;
+    if(visiblityImg>=postFiles.length-1) return;
     setVisiblityImg(visiblityImg+1);
   }
 
@@ -151,7 +143,7 @@ const PostImageContents = ()=>{
            <ImageBtn onClick={minusImg}>
         &lt;
         </ImageBtn>
-        <PostImages images={images} visiblityImg={visiblityImg}/>
+        <PostImages images={postFiles} visiblityImg={visiblityImg}/>
         <ImageBtn onClick={plusImg}>
         &gt;
     </ImageBtn>
@@ -169,7 +161,7 @@ const ContentsButtonBlock = ()=>{
 }
 
 
-const PostViewer = ({ post, error, loading }) => {
+const PostViewer = ({ post,postFiles, error, loading }) => {
   
   // 에러 발생 시
   if (error) {
@@ -202,7 +194,7 @@ const PostViewer = ({ post, error, loading }) => {
           </SubInfoRight>
       </SubInfo>
       </PostHead>
-      <PostImageContents/>
+      <PostImageContents postFiles={postFiles}/>
       <PostContents
         dangerouslySetInnerHTML={{ __html: post_contents }}
       />

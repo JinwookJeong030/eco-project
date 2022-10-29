@@ -12,11 +12,11 @@ const Post_file = function (post_file) {
 
 
 //포스트 이미지 DB 생성
-Post_file.insertPostFile =({post_id, post_path} ,result) =>{
-    const postFileReq = new Post({
+Post_file.insertPostFile =({post_id, pf_name} ,result) =>{
+    const postFileReq = new Post_file({
       pf_post: post_id,
-      pf_path: post_path,
-      pf_name: null, 
+      pf_path: null,
+      pf_name: pf_name, 
       pf_type: "image",
       pf_size: null
     })
@@ -35,7 +35,7 @@ Post_file.insertPostFile =({post_id, post_path} ,result) =>{
   }
 
 //포스트 이미지 조회
-Post_file.selectFiles = ({post_id}, result) => {
+Post_file.selectFiles = (post_id, result) => {
   sql.query(`SELECT post_file.* FROM post_file WHERE post_file.pf_post = ${post_id} ;`, (err, res) => {
     if (err) {
       console.log('selectPostFiles error: ', err);
