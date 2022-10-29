@@ -6,6 +6,7 @@ const Category = require('../models/category.model.js');
 const jwt = require('../modules/jwt.js');
 const redisClient = require('../modules/redis.js');
 const multer = require('multer'); // 이미지 파일 처리
+const Post_file = require('../models/post_file.model.js');
 // 전체 조회
  exports.list = async (req, res) => {
 
@@ -564,9 +565,8 @@ exports.myReplyList = async(req, res) =>{
   });
 }
 
-exports.postImageUpload = async(req, res) =>{
-
-  
-
-
+exports.postImageUpload = async(req, res) =>{ 
+  console.log("=============================")
+  console.log(req.body.user_id);
+  console.log("=============================")
 }

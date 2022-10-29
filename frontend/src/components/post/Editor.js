@@ -235,9 +235,7 @@ const Editor =({categorys,category,  post_mission, mission, post_title,post_cont
       const imageLists = e.target.files;
      
       const filesCnt =imageLists.length;
-      console.log("2-----------------------------")
-      console.log(formData)
-      console.log("-----------------------------")
+
       for(let i = 0 ; i< filesCnt ; i++){
         formData.append('file',imageLists[i]);
       }

@@ -251,6 +251,18 @@ Post.selectAllCategory = (result) => {
   });
 };
 
+  //내가 쓴 첫 글 조회
+  Post.selectOneMyPosts = (post_user, result) => {
+    sql.query('SELECT * FROM post WHERE post_user = '+post_user+' ORDER BY post_regdate DESC', (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+      console.log('Select My Posts: ',  res );
+      result(null,  res[0]);
+    });
+  };
 
   //내가 쓴 글 조회
   Post.selectMyPosts = (post_user, result) => {

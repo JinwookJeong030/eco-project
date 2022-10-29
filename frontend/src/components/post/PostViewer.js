@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { DEFAULT_IMAGE_PATH, POST_IMAGE_PATH } from '../../lib/text/host';
 import Button from '../common/Button';
 
 
@@ -105,11 +106,17 @@ const ImageBtn = styled(Button)`
   margin-top:auto;
   margin-bottom:auto;
 `
-const PostImages =({images})=>{
+const PostImages =({images, visiblityImg})=>{
+  const onErrorImg = (e) => {
+    e.target.src = process.env.PUBLIC_URL + '/eco-icon.png';
+  }
+  const selectedImgName = "1667063349370.jpg"
+  const PostImageArray =()=>{}
 
-
-  return (
-    <PostImage src={"D://GitHub/Capstone/eco-project/backend/uploads/postImg/2.png"}/>
+  return (<>
+    {images.map((image,idx)=>(
+    <PostImage src={DEFAULT_IMAGE_PATH+image.pf_name} style ={visiblityImg===idx?{display:'block'}:{display:'none'}} onError={onErrorImg}/>))}
+    </>
   );
 }
 
@@ -117,13 +124,13 @@ const PostImageContents = ()=>{
 
   const images=[{
     pf_id:1,
-    pf_path:"1"
+    pf_name:"1667063349370.jpg"
   },{   pf_id:2,
-    pf_path:"2"}
+    pf_name:"1667063358331.jpg"}
     ,{   pf_id:3,
-      pf_path:"3"}
+      pf_name:"3"}
       ,{   pf_id:4,
-        pf_path:"4"}]
+        pf_name:"4"}]
 
 
   const [visiblityImg,setVisiblityImg] = useState(0);
@@ -138,7 +145,7 @@ const PostImageContents = ()=>{
     setVisiblityImg(visiblityImg+1);
   }
 
-
+ 
   return (
       <PostImageContentsBlock>
            <ImageBtn onClick={minusImg}>
