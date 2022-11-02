@@ -9,6 +9,7 @@ import  {WhitePostsItemBox} from '../common/WhiteBox';
 import Search from '../common/Search';
 import PaginationContainer from '../../containers/post/PaginationContainer';
 import { useState } from 'react';
+import { DEFAULT_IMAGE_PATH } from '../../lib/text/host';
 const PostListBlock = styled(Responsive)` 
 `;
 
@@ -197,6 +198,10 @@ const Mission = ({hidingMissionState, mission_id, title, contents, onClickMissio
 
 
 const PostItem = ({ post }) => {
+
+  const onErrorImg = (e) => {
+    e.target.src = process.env.PUBLIC_URL + '/eco-icon.png';
+  }
   const extractTextPattern = /(<([^>]+)>)/gi;
  
   const post_contents = post.post_contents.replace(extractTextPattern, '')
@@ -204,7 +209,7 @@ const PostItem = ({ post }) => {
       <Link to={`/post/view/${post.post_id}`}>
       <WhitePostsItemBox whiteBoxStyle>
    
-        <Image src={process.env.PUBLIC_URL + "/eco-icon.png"}/>
+        <Image src={DEFAULT_IMAGE_PATH+post.pf_name} onError={onErrorImg}/>
         <PostItemInfoBlock>
         <Title>{post.post_title}</Title>
         <PostNickName> {post.user_name}</PostNickName>

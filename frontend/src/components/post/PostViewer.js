@@ -110,8 +110,7 @@ const PostImages =({images, visiblityImg})=>{
   const onErrorImg = (e) => {
     e.target.src = process.env.PUBLIC_URL + '/eco-icon.png';
   }
-  const selectedImgName = "1667063349370.jpg"
-  const PostImageArray =()=>{}
+
 
   return (<>
     {images.map((image,idx)=>(
@@ -120,12 +119,8 @@ const PostImages =({images, visiblityImg})=>{
   );
 }
 
-const PostImageContents = ({postFiles})=>{
+const PostImageContents = ({postFiles, visiblityImg, setVisiblityImg})=>{
 
-  
-
-
-  const [visiblityImg,setVisiblityImg] = useState(0);
 
   const minusImg =()=>{
     if(!(visiblityImg>0)) return;
@@ -140,15 +135,27 @@ const PostImageContents = ({postFiles})=>{
  
   return (
       <PostImageContentsBlock>
-           <ImageBtn onClick={minusImg}>
+          {!(postFiles.length===1)?
+          <ImageBtn onClick={minusImg} disabled={0===visiblityImg}>
         &lt;
-        </ImageBtn>
+        </ImageBtn>:<></>}
         <PostImages images={postFiles} visiblityImg={visiblityImg}/>
-        <ImageBtn onClick={plusImg}>
+        {!(postFiles.length===1)?<ImageBtn onClick={plusImg} disabled={visiblityImg===postFiles.length-1}>
         &gt;
-    </ImageBtn>
+    </ImageBtn>:<></>}
       </PostImageContentsBlock>
   )
+}
+const CountImageBlock = styled.div`
+ display: flex;
+ margin-left:auto;
+ margin-right:auto;
+ font-size:1.2rem;
+ 
+`
+
+const CountImage = ({totalCount, count})=>{
+  return <CountImageBlock>{count+1} / {totalCount}</CountImageBlock>
 }
 
 const ContentsButtonBlock = ()=>{
@@ -162,7 +169,7 @@ const ContentsButtonBlock = ()=>{
 
 
 const PostViewer = ({ post,postFiles, error, loading }) => {
-  
+  const [visiblityImg,setVisiblityImg] = useState(0);
   // 에러 발생 시
   if (error) {
     if (error.response && error.response.status === 404) {
@@ -194,7 +201,8 @@ const PostViewer = ({ post,postFiles, error, loading }) => {
           </SubInfoRight>
       </SubInfo>
       </PostHead>
-      <PostImageContents postFiles={postFiles}/>
+      {postFiles.length===0?<></>:<><PostImageContents postFiles={postFiles} visiblityImg={visiblityImg} setVisiblityImg={setVisiblityImg}/>
+      {!(postFiles.length<2)?<CountImage totalCount={postFiles.length} count={visiblityImg}/>:<></>}</>}
       <PostContents
         dangerouslySetInnerHTML={{ __html: post_contents }}
       />

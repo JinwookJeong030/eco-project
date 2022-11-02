@@ -31,7 +31,7 @@ Post.selectAllPostsCnt = (result) => {
 
   //post 전체 조회
 Post.selectAllPosts = ({start, end},result) => {
-  sql.query(`SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
+  sql.query(`SELECT post.*, user.user_name, MAX(post_file.pf_id), post_file.pf_name FROM user, post LEFT OUTER JOIN post_file ON post.post_id = post_file.pf_post WHERE post.post_user = user.user_id GROUP BY post.post_id ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -57,7 +57,7 @@ Post.selectAllPosts = ({start, end},result) => {
 
 // 게시글 제목 조회 
 Post.selectAllPostsFromTitle = ({start, end, search_contents} ,result) => {
-  sql.query(`SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_title LIKE "%${search_contents}%" ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
+  sql.query(`SELECT post.* , user.user_name , MAX(post_file.pf_id), post_file.pf_name FROM user, post LEFT OUTER JOIN post_file ON post.post_id = post_file.pf_post WHERE post.post_user = user.user_id AND post.post_title LIKE "%${search_contents}%" GROUP BY post.post_id ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -81,7 +81,7 @@ Post.selectAllPostsCntFromContents = ({search_contents},result) => {
 
 // 게시글 내용 조회
 Post.selectAllPostsFromContents = ({start, end,search_contents}, result) => {
-  sql.query(`SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_contents LIKE "%${search_contents}%" ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
+  sql.query(`SELECT post.* , user.user_name ,MAX(post_file.pf_id), post_file.pf_name FROM user, post LEFT OUTER JOIN post_file ON post.post_id = post_file.pf_post WHERE post.post_user = user.user_id AND post.post_contents LIKE "%${search_contents}%" GROUP BY post.post_id ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -106,7 +106,7 @@ Post.selectAllPostsCntFromUser = ({search_contents},result) => {
 
 // 게시글 작성자 조회
 Post.selectAllPostsFromUser = ({start, end,search_contents} ,result) => {
-  sql.query(`SELECT post.* , user.user_name FROM post,user WHERE user.user_id = post.post_user AND user.user_name = "${search_contents}" ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
+  sql.query(`SELECT post.* , user.user_name ,MAX(post_file.pf_id), post_file.pf_name FROM user, post LEFT OUTER JOIN post_file ON post.post_id = post_file.pf_post WHERE user.user_id = post.post_user AND user.user_name = "${search_contents}" GROUP BY post.post_id ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -130,7 +130,7 @@ Post.selectAllPostsCntFromCategory = ({search_contents},result) => {
 
 // 게시글 카테고리 조회
 Post.selectAllPostsFromCategory = ({start,end,search_contents}, result) => {
-  sql.query(`SELECT post.* , user.user_name FROM post,user WHERE post.post_user = user.user_id AND post.post_category = ${search_contents} ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
+  sql.query(`SELECT post.* , user.user_name ,MAX(post_file.pf_id), post_file.pf_name FROM user, post LEFT OUTER JOIN post_file ON post.post_id = post_file.pf_post WHERE post.post_user = user.user_id AND post.post_category = ${search_contents} GROUP BY post.post_id ORDER BY post_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
