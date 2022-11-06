@@ -7,7 +7,7 @@ import { readCompletePlant, unloadPlant } from '../../modules/plant';
 
 const GardenContainer = () => {
     // 처음 마운트될 때 포스트 읽기 API 요청
-    const { user_id } = useParams();
+    const { user_id, page} = useParams();
     const dispatch = useDispatch();
     const {user,completePlant, error ,loadingComplete} = useSelector(({ user, plant, loading }) => ({
       user: user.user,
@@ -18,12 +18,12 @@ const GardenContainer = () => {
     }));
     
     useEffect(() => {
-      dispatch(readCompletePlant(user_id||0));
-      // 언마운트될 때 리덕스에서 포스트 데이터 없애기
-      return () => {
-        dispatch(unloadPlant());
-      };
-    }, [dispatch, user_id]);
+      dispatch(readCompletePlant({user_id:user_id||0 , page: page}));
+     
+      // return () => {
+      //   dispatch(unloadPlant());
+      // };
+    }, [dispatch, user_id,page]);
   
 
   return (

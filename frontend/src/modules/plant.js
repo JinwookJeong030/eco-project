@@ -38,7 +38,7 @@ const PLUS_POINT_PLANT= 'plant/PLUS_POINT_PLANT';
 
 
 export const readGrowPlant = createAction(READ_GROW_PLANT, user_id => user_id);
-export const readCompletePlant = createAction(READ_COMPLETE_PLANT, user_id => user_id);
+export const readCompletePlant = createAction(READ_COMPLETE_PLANT, ({user_id,page}) => ({user_id,page}));
 export const unloadPlant = createAction(UNLOAD_PLANT);
 export const plusPointPlant = createAction(PLUS_POINT_PLANT);
 export const deletePlant  = createAction(DELETE_PLANT, pt_id => pt_id);
@@ -60,10 +60,12 @@ export function* plantSaga() {
 const initialState = {
   growPlant: null,
   completePlant: null,
+  lastPage:null,
   error: null,
   selectPlant: null,
   point:0,
   result:null,
+
 };
 
 const plant = handleActions(
@@ -79,6 +81,7 @@ const plant = handleActions(
     [READ_COMPLETE_PLANT_SUCCESS]: (state, { payload: plant }) => ({
       ...state,
       completePlant: plant.result.plant,
+      lastPage: plant.result.lastPage,
     }),
     [READ_COMPLETE_PLANT_FAILURE]: (state, { payload: error }) => ({
       ...state,

@@ -19,21 +19,23 @@ margin-top:auto;
 margin-bottom:auto;
 `
 
-const buildLink = ({page,search_type,search_contents})=>{
+const buildLink = ({user_id,page})=>{
 
-    return; 
+    return `/garden/${user_id}/${page}`;
+
 }
    
 
 
-const GardenPagination = ({page,search_type,search_contents, lastPage}) => {
+const GardenPagination = ({user_id,page,lastPage}) => {
+
     return (
         <PaginationBlock>
-        <Button disabled={page === 1} to={page===1? undefined: buildLink({page:page - 1, search_type,search_contents})}>
+        <Button disabled={page === 1} to={buildLink({user_id,page:page - 1})}>
             &lt;
         </Button>
-        <PageNumber>{page}</PageNumber>
-        <Button disabled={(lastPage===0)||page === lastPage} to={(lastPage===0)||page===lastPage? undefined: buildLink({page:page + 1,search_type,search_contents})}>
+        <PageNumber>{page} 페이지</PageNumber>
+        <Button disabled={(lastPage===0)||page === lastPage} to={(lastPage===0)||page===lastPage? undefined: buildLink({user_id,page:page + 1})}>
             &gt;
         </Button>
     </PaginationBlock>

@@ -68,27 +68,63 @@ Planting.selectGrowingPlantFromUser(user_id,(err,data)=>{
     )
 };
 exports.selectComplete =async (req,res) =>{
+  
   const user_id = req.params.user_id;
-  if(!user_id)
-  return res.send({
-    code: 419,
-    message: 'user_id is error!',
-    result:{plant:[]}
-    });
-  Planting.selectCompletePlantFromUser(user_id,(err,data)=>{
+  const page= req.params.page;
+  const end = 9;
+  let start = 0;
+  
+  if (page <= 0) {
+    start = 0;
+ } else {
+     start = (page - 1) * end;
+ }
+
+ if(!user_id)
+ return res.send({
+   code: 419,
+   message: 'user_id is error!',
+   result:{plant:[]}
+   });
+
+  Planting.selectCompletePlantCnt(user_id, (err, data) => {
+    if (!data) {
+      return res.status(419).send({
+        code: 419,
+        message: 'selectCompletePlantCnt is error!',
+      });
+    } else {
+      const lastPage = Math.ceil(parseInt(data[0].cp_count)/end);
+      console.log(lastPage)
+      if (page > Math.ceil(parseInt(data[0].cp_count) / end)) {
+        return res.send({
+          code:200,
+          message: 'selectCompletePlantCnt is null',
+          result:{
+            plant:[],
+            lastPage: lastPage
+          }
+        })
+      }else{
+  Planting.selectCompletePlantFromUser({start,end,user_id},(err,data)=>{
       if (!data) {
       return res.status(419).send({
       code: 419,
       message: 'selectAllPlantFromUser is error!',
       });
       } else {
+        
         return res.send({
           code:200,
           message: 'selectAllPlantFromUser is successful',      
-          result:{plant:data}
+          result:{plant:data,
+            lastPage: lastPage},
+       
       })
   }}
-      )
+      )   }
+    } 
+    })
   
   };
 

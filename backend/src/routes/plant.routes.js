@@ -9,7 +9,7 @@ module.exports = (app) => {
     //유저 식물 조회 planting 
     app.get('/api/plant/selectGrow/:user_id', plant.selectGrow);
     //유저 식물 조회 planting 
-    app.get('/api/plant/selectComplete/:user_id', plant.selectComplete);
+    app.get('/api/plant/selectComplete/:user_id/:page', plant.selectComplete);
     //식물 포인트 증가 (유저 포인트 소모)
     app.post('/api/plant/point',authJwt, plant.point);
     //유저 대표식물 설정

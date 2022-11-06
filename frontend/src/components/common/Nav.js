@@ -86,7 +86,7 @@ const Nav = ({user, onHidingMenu ,hidingState}) => {
             <Link to='/ranking'> <Menu><Icon src={process.env.PUBLIC_URL +"/ranking-icon.png"}/>{hidingState?'':'랭킹'}</Menu></Link>
     
             {user? <>
-              <Link to={'/garden/'+user.user_id}> <Menu><Icon src={process.env.PUBLIC_URL +"/mission-icon.png"}/>{hidingState?'':'마이 가든'}</Menu></Link>
+              <Link to={'/garden/'+user.user_id+'/1'}> <Menu><Icon src={process.env.PUBLIC_URL +"/mission-icon.png"}/>{hidingState?'':'마이 가든'}</Menu></Link>
                 <Link to='/mypage'>
                   <Menu><Icon src={process.env.PUBLIC_URL +"/mypage-icon.png"}/>{hidingState?'':'마이페이지'}</Menu>
                 </Link>

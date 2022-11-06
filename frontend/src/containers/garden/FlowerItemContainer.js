@@ -1,7 +1,7 @@
 import FlowerGardenItem from "../../components/garden/FlowerGardenItem";
 
 
-const FlowerItemContainer = ({plant}) => {
+const FlowerItemContainer = ({plant,marginTop,marginLeft}) => {
 
  console.log(plant)
   const onClickItem =()=> {
@@ -9,7 +9,7 @@ const FlowerItemContainer = ({plant}) => {
   }
 
   return (
-    <FlowerGardenItem plant={plant}  onClickItem={onClickItem}/>
+    <FlowerGardenItem  plant={plant} marginTop={marginTop} marginLeft={marginLeft} onClickItem={onClickItem}/>
   );
 };
 

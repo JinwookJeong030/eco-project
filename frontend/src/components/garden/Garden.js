@@ -27,8 +27,8 @@ const Garden = ({user,completePlant, error ,loadingComplete}) => {
 
   return (
     <TotalGardenBlock>
-      <GardenPaginationContainer/>
         <GardenGround user={user} completePlant={completePlant} error={error} loadingComplete={loadingComplete}/>
+        <GardenPaginationContainer/>
     </TotalGardenBlock>
   );
 };

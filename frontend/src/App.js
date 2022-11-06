@@ -68,7 +68,7 @@ function App() {
       {/*식물 메뉴*/}
       <Route path="/garden">
         <Route index element={<GardenPage />} />
-        <Route path=":user_id" element={<GardenPage />} />
+        <Route path=":user_id/:page" element={<GardenPage />} />
       </Route>
       {/*마이페이지 메뉴*/}
       <Route path="/mypage" element={<MypagePage />} />

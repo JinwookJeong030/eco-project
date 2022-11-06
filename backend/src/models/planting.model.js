@@ -54,9 +54,24 @@ Planting.selectGrowingPlantFromUser =(user_id, result)=>{
         result(null,  res);
       });
 }
-Planting.selectCompletePlantFromUser =(user_id, result)=>{
-  sql.query(`SELECT planting.*, plant.*  FROM planting, plant WHERE planting.pt_plant = plant.plant_id AND pt_user = ${user_id} 
-  AND pt_grow_plant = 0`, (err, res) => {
+
+  //전체 갯수 조회
+Planting.selectCompletePlantCnt = (user_id,result) => {
+    sql.query(`SELECT COUNT(*) AS cp_count FROM planting WHERE pt_user = ${user_id} ;`, (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+ 
+      }
+    
+      result(null,  res);
+    });
+  };
+
+
+
+Planting.selectCompletePlantFromUser =({start, end, user_id}, result)=>{
+  sql.query(`SELECT planting.*, plant.*  FROM planting, plant WHERE planting.pt_plant = plant.plant_id AND pt_user = ${user_id} AND pt_grow_plant = 0 ORDER BY pt_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
       if (err) {
         console.log('error: ', err);
         result(err, null);
