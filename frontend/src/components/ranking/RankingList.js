@@ -115,7 +115,7 @@ margin-left:5px;
 const TopRankingItem =({user, rank})=>{
   return (
 
-    <Link to={`/garden/${user.user_id}`}>
+    <Link to={`/garden/${user.user_id}/1`}>
       <TopRankingItemBlock >
    
         <TopPlantImage src={process.env.PUBLIC_URL + "/"+user.leaderplant+".png"}/>
@@ -179,15 +179,15 @@ const NoPost =({title})=>{
 const RankingItem = ({user,rank}) => {
  
     return (
-      <Link to={`/garden/${user.user_id}`}>
+      <Link to={`/garden/${user.user_id}/1`}>
       <RankingItemBlock>
    
         <Ranking>{rank}등</Ranking>
         <RankingItemInfoBlock>
         <RankingNickName> {user.user_name}</RankingNickName>
-        <RankingNickName> {user.user_total_point}</RankingNickName>
+        <RankingNickName> 총 포인트: {user.user_total_point}</RankingNickName>
       </RankingItemInfoBlock>
-      <PlantImage src={process.env.PUBLIC_URL + "/"+user.leaderplant+".png"}/>
+      <PlantImage src={process.env.PUBLIC_URL + "/"+user.leaderplant+".gif"}/>
     </RankingItemBlock>
     </Link>
     );

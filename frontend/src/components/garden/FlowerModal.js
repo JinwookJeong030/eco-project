@@ -84,6 +84,7 @@ width:100%;
 height:3rem;
 font-size:1.1rem;
 `
+
 const PlantInfo = ({plant})=>{
     return (
         <PlantInfoBlock>
@@ -98,7 +99,9 @@ const FlowerModal = ({
   visible,
   cancelText ,
   onCancel,
-    plant
+  onLeader,
+    plant,
+    leader
 }) => {
 
 
@@ -116,8 +119,9 @@ const FlowerModal = ({
         <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/"+plant.plant_img_path+".gif" }/>
         </PlantItemBlock>
         <PlantInfo plant={plant}/>
+        <></>
         </Contents>
-        <LeaderPlantBtn cyan>대표 식물로 선정하기</LeaderPlantBtn>
+        <LeaderPlantBtn onClick={onLeader} cyan>{!leader?"대표 식물로 선정하기":"[현재 대표 식물입니다.]"}</LeaderPlantBtn>
     
       </PlantModalBlock>
     </Fullscreen>

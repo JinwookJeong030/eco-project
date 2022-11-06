@@ -27,6 +27,7 @@ const GardenGround = ({user,completePlant, error ,loadingComplete}) => {
       <GroundBlock>
          {/* {!loadingComplete&&completePlant&&completePlant.map((plant,idx)=><FlowerItemContainer plant={plant} 
           marginTop={idx} />)} */}
+          {!loadingComplete&&completePlant&&<>
           <FlowerItemContainer plant={completePlant[0]} marginTop={0} marginLeft={4} />
           <FlowerItemContainer plant={completePlant[1]} marginTop={1} marginLeft={-2.5} />
           <FlowerItemContainer plant={completePlant[2]} marginTop={2} marginLeft={-2.5} />
@@ -36,6 +37,8 @@ const GardenGround = ({user,completePlant, error ,loadingComplete}) => {
           <FlowerItemContainer plant={completePlant[6]} marginTop={2} marginLeft={1.5} />
           <FlowerItemContainer plant={completePlant[7]} marginTop={3} marginLeft={-2.5} />
           <FlowerItemContainer plant={completePlant[8]} marginTop={4} marginLeft={-2.5} />
+          </>
+          }
       </GroundBlock>
     );
 };
