@@ -31,7 +31,7 @@ const GardenPagination = ({user_id,page,lastPage}) => {
 
     return (
         <PaginationBlock>
-        <Button disabled={page === 1} to={buildLink({user_id,page:page - 1})}>
+        <Button disabled={page === 1} to={page===1? undefined:buildLink({user_id,page:page - 1})}>
             &lt;
         </Button>
         <PageNumber>{page} 페이지</PageNumber>

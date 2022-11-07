@@ -32,7 +32,7 @@ width: 7rem;
 height:9rem; 
 
 
-margin-top: calc(1.85rem * ${props => props.marginTop});
+margin-top: calc(1.6rem * ${props => props.marginTop});
 margin-left: calc(4.825rem * ${props => props.marginLeft});
 &:hover{
   opacity: 0.7;

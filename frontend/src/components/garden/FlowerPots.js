@@ -197,6 +197,11 @@ const NoFlowerTotalBlock = ({cnt})=>{
   )
     
   }
+const Title = styled.div`
+font-size:1.3rem;
+font-weight:bold;
+margin-bottom:1rem;
+`
 
 
 const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, 
@@ -279,11 +284,12 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow,
 <>
     <FlowerpotsBlock  DeleteFlowerPot={deleteFlowerPot} WateringFlowerPot={wateringFlowerPot}>
 
-     
+      <Title>키우는 식물</Title>   
         {user&&growPlant&&((user.user_id ===growPlant[0].pt_user)? <HeaderBlock>
-      <TotalPoint >총 보유 포인트: {user.user_point - point}</TotalPoint>
-      <PlantDeleteBtn onClick={onClickDelete}  src={ process.env.PUBLIC_URL + "/delete-plant-icon.png" }/>
-      <PointUsingBtn onClick={onClickWatering} src={ process.env.PUBLIC_URL + "/watering-icon.png" }/>
+  
+        <TotalPoint >총 보유 포인트: {user.user_point - point}</TotalPoint>
+        <PlantDeleteBtn onClick={onClickDelete}  src={ process.env.PUBLIC_URL + "/delete-plant-icon.png" }/>
+        <PointUsingBtn onClick={onClickWatering} src={ process.env.PUBLIC_URL + "/watering-icon.png" }/>
       </HeaderBlock>:<></>)}
    
  {growPlant&&(growPlant.length>=1)?

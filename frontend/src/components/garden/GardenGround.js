@@ -11,7 +11,7 @@ const GroundBlock = styled.div`
     border:2px solid;
     flex-direction: row;
     width:90%;
-    height:20rem;
+    height:18rem;
     margin-left:auto;
     margin-right:auto;
     margin-bottom:1rem;

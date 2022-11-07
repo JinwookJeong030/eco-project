@@ -98,7 +98,7 @@ margin-top:0.5rem;
  }
 `
 const TopRankingNickName = styled.div`
-width: 5rem; 
+width: 90%; 
 height:1rem;
 font-size:1rem;
 font-weight: bold;
@@ -118,7 +118,7 @@ const TopRankingItem =({user, rank})=>{
     <Link to={`/garden/${user.user_id}/1`}>
       <TopRankingItemBlock >
    
-        <TopPlantImage src={process.env.PUBLIC_URL + "/"+user.leaderplant+".png"}/>
+        <TopPlantImage src={user.user_leader_plant?(process.env.PUBLIC_URL + "/plant_img/"+user.user_leader_plant+".png"):(process.env.PUBLIC_URL+"/plant_img/cosmos_1.gif")}/>
         <TopRankingItemInfoBlock>
         <TopRankingNickName> {user.user_name}</TopRankingNickName>
         <TopRankingPoint> 총 포인트: {user.user_total_point}</TopRankingPoint>
@@ -187,7 +187,7 @@ const RankingItem = ({user,rank}) => {
         <RankingNickName> {user.user_name}</RankingNickName>
         <RankingNickName> 총 포인트: {user.user_total_point}</RankingNickName>
       </RankingItemInfoBlock>
-      <PlantImage src={process.env.PUBLIC_URL + "/"+user.leaderplant+".gif"}/>
+      <PlantImage src={user.user_leader_plant?(process.env.PUBLIC_URL + "/plant_img/"+user.user_leader_plant+".png"):(process.env.PUBLIC_URL+"/plant_img/cosmos_1.gif")}/>
     </RankingItemBlock>
     </Link>
     );
