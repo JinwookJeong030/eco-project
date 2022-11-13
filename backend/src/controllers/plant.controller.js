@@ -41,8 +41,6 @@ exports.delete =async (req,res) =>{
 }
 )
 })
-
-
 }
 exports.selectGrow =async (req,res) =>{
 const user_id = req.params.user_id;

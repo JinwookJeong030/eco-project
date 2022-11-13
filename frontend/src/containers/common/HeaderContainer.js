@@ -10,9 +10,6 @@ const HeaderContainer = () => {
   const { user } = useSelector(({ user }) => ({ user: user.user }));
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(check());
-  },[dispatch])
 
   const onLogout = (e) => {
     e.preventDefault();

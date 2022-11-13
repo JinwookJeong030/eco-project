@@ -42,7 +42,7 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
+const AuthForm = ({ type, form, onChange, onSubmit, error,loading }) => {
   const text = textMap[type];
   return (
     <AuthFormBlock>
@@ -84,7 +84,8 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Button cyan fullWidth style={{ marginTop: '1rem' }}>
-          {text}
+          {loading?"로그인 중 입니다...":text}
+          
         </Button>
       </form>
       <Footer>

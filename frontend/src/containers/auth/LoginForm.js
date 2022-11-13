@@ -8,12 +8,12 @@ import { useNavigate } from 'react-router-dom';
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
+  const { form, auth, authError, user,loading } = useSelector(({ auth, user,loading }) => ({
     form: auth.login,
     auth: auth.auth,
     authError: auth.authError,
     user: user.user,
-    
+    loading: loading['user/CHECK'],
   }));
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const LoginForm = () => {
         console.log('localStorage is not working');
       }
     }
-  }, [navigate, user]);
+  }, [navigate, user,auth]);
   return (
     <AuthForm
       type="login"
@@ -72,6 +72,7 @@ const LoginForm = () => {
       onChange={onChange}
       onSubmit={onSubmit}
       error={error}
+      loading={loading}
     />
   );
 };
