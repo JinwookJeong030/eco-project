@@ -24,15 +24,17 @@ font-weight:bold;
 margin-bottom:1rem;
 `
 
-const Garden = ({user,completePlant, error ,loadingComplete}) => {
+const Garden = ({user,completePlant, error ,loading}) => {
 
+ 
 
-  return (
-    <TotalGardenBlock>
-     <Title>보관함</Title>
-        <GardenGround user={user} completePlant={completePlant} error={error} loadingComplete={loadingComplete}/>
-        <GardenPaginationContainer/>
-    </TotalGardenBlock>
+  return (<>
+    {!loading&&completePlant&&completePlant.length===0? 
+     <></>:<TotalGardenBlock><Title>보관함</Title>
+        {!loading&&completePlant&&<GardenGround user={user} completePlant={completePlant} error={error} loading={loading}/>}
+        {!loading&&completePlant&&<GardenPaginationContainer/>}
+    </TotalGardenBlock>}
+    </>
   );
 };
 

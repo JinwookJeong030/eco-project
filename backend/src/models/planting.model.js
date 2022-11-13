@@ -57,13 +57,13 @@ Planting.selectGrowingPlantFromUser =(user_id, result)=>{
 
   //전체 갯수 조회
 Planting.selectCompletePlantCnt = (user_id,result) => {
-    sql.query(`SELECT COUNT(*) AS cp_count FROM planting WHERE pt_user = ${user_id} ;`, (err, res) => {
+    sql.query(`SELECT COUNT(*) AS cp_count FROM planting WHERE pt_grow_plant = 0 AND pt_user = ${user_id} ;`, (err, res) => {
       if (err) {
         console.log('error: ', err);
         result(err, null);
  
       }
-    
+     
       result(null,  res);
     });
   };

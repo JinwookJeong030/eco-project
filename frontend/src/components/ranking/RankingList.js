@@ -176,13 +176,13 @@ const NoPost =({title})=>{
 
 
 
-const RankingItem = ({user,rank}) => {
+const RankingItem = ({user,rank, myRanking}) => {
  
     return (
       <Link to={`/garden/${user.user_id}/1`}>
       <RankingItemBlock>
    
-        <Ranking>{rank}등</Ranking>
+        {!myRanking&&<Ranking>{rank}등</Ranking>}
         <RankingItemInfoBlock>
         <RankingNickName> {user.user_name}</RankingNickName>
         <RankingNickName> 총 포인트: {user.user_total_point}</RankingNickName>
@@ -200,7 +200,7 @@ const RankingItem = ({user,rank}) => {
     return (
       <RankingListBlock>
  
-        {!loading && user && <RankingItem user={user} key={user.user_id} />}
+        {!loading && user && <RankingItem user={user} key={user.user_id} myRanking={true} />}
 
        <RankingHeader>
         
@@ -218,11 +218,11 @@ const RankingItem = ({user,rank}) => {
 
              </Podium>
              {ranking.length>=4?<RankingItem user={ranking[3]} key={4} rank={4}/>:<></>}
-             {ranking.length>=5?<RankingItem user={ranking[4]} key={5} rank={5}/>:<></>}
+          
              </>
              :    
           ranking.map((user,idx) => (
-            <RankingItem user={user} key={user.user_id} rank={1+(pageNum-1)*5+idx} />
+            <RankingItem user={user} key={user.user_id} rank={1+(pageNum-1)*4+idx} />
           ))
           }
         </div>))}

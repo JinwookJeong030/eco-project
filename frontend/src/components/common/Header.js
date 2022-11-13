@@ -73,7 +73,8 @@ const Header = ({ user, onLogout }) => {
           </Link>
           {user ? (
             <div className="right">
-              <UserInfo>{user.user_name}</UserInfo>
+              <UserInfo> 포인트: {user.user_total_point}  {user.user_name} 님 
+              </UserInfo>
               <Button  onClick={onLogout} postWriteBtn> 로그아웃</Button>
             </div>
           ) : (

@@ -44,12 +44,14 @@ exports.delete =async (req,res) =>{
 }
 exports.selectGrow =async (req,res) =>{
 const user_id = req.params.user_id;
-if(!user_id)
+if(!user_id||user_id===0)
 return res.send({
   code: 419,
   message: 'user_id is error!',
   result:{plant:[]}
   });
+
+
 Planting.selectGrowingPlantFromUser(user_id,(err,data)=>{
     if (!data) {
     return res.status(419).send({
@@ -72,13 +74,13 @@ exports.selectComplete =async (req,res) =>{
   const end = 9;
   let start = 0;
   
-  if (page <= 0) {
+if (page <= 0) {
     start = 0;
  } else {
      start = (page - 1) * end;
  }
 
- if(!user_id)
+ if(!user_id||user_id===0)
  return res.send({
    code: 419,
    message: 'user_id is error!',
@@ -93,7 +95,7 @@ exports.selectComplete =async (req,res) =>{
       });
     } else {
       const lastPage = Math.ceil(parseInt(data[0].cp_count)/end);
-      console.log(lastPage)
+      console.log("lastPage:"+lastPage)
       if (page > Math.ceil(parseInt(data[0].cp_count) / end)) {
         return res.send({
           code:200,

@@ -13,7 +13,7 @@ const MypageBlock = styled(Responsive)`
 
 const MypageTemplateBlock = styled(WhitePostsItemBox)`
 display: flex;
- width: 50rem;
+
  display: flex;
 margin-bottom:1.5rem;
 border: thin solid ;

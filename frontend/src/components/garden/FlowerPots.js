@@ -202,7 +202,15 @@ font-size:1.3rem;
 font-weight:bold;
 margin-bottom:1rem;
 `
-
+const NoTitle = styled.div`
+margin-left: auto;
+margin-right:auto;
+color: ${palette.green[0]};
+font-size:2rem;
+font-weight:bold;
+margin-top:3rem;
+margin-bottom:3rem;
+`
 
 const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow, 
   error,onClickWateringItem, onDeletePlant,
@@ -284,13 +292,15 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow,
 <>
     <FlowerpotsBlock  DeleteFlowerPot={deleteFlowerPot} WateringFlowerPot={wateringFlowerPot}>
 
-      <Title>키우는 식물</Title>   
-        {user&&growPlant&&((user.user_id ===growPlant[0].pt_user)? <HeaderBlock>
+      
+        {user&&growPlant&&((user.user_id ===growPlant[0].pt_user)? <>
+        <Title>가든</Title>   
+        <HeaderBlock>
   
         <TotalPoint >총 보유 포인트: {user.user_point - point}</TotalPoint>
         <PlantDeleteBtn onClick={onClickDelete}  src={ process.env.PUBLIC_URL + "/delete-plant-icon.png" }/>
         <PointUsingBtn onClick={onClickWatering} src={ process.env.PUBLIC_URL + "/watering-icon.png" }/>
-      </HeaderBlock>:<></>)}
+      </HeaderBlock></>:<></>)}
    
  {growPlant&&(growPlant.length>=1)?
       <FlowerpotsWrapperBlock>
@@ -303,7 +313,7 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow,
         <FlowerTotalBlock onClickItem={()=>onClickItem(3)} onMouseDownItem={()=>onMouseDownItem(3)} onMouseUpItem={()=>onMouseUpItem(3)}  growPlant={growPlant[2]} point={selectPlant===3?point:0}/>:  <NoFlowerTotalBlock cnt={2}/>
       }
       
-      </FlowerpotsWrapperBlock>:(user?<>없는 사용자 입니다...</>:<>로그인하여 식물을 키워보세요!</>)
+      </FlowerpotsWrapperBlock>:(user?<NoTitle>없는 사용자 입니다...</NoTitle>:<NoTitle>로그인하여 식물을 키워보세요!</NoTitle>)
     }
     </FlowerpotsBlock>
     {deleteFlowerPot&&<AskRemoveModal

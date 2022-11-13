@@ -212,7 +212,7 @@ exports.changePw =async (req,res) =>{
 exports.ranking = async (req,res) =>{
   const {page, search_type,search_contents} = req.query;
 
-  const end = 5;
+  const end = 4;
   let start = 0;
 
   if (page <= 0) {

@@ -20,14 +20,15 @@ const GroundBlock = styled.div`
 `
 
 
-const GardenGround = ({user,completePlant, error ,loadingComplete}) => {
+const GardenGround = ({user,completePlant, error ,loading}) => {
   
 
     return (
       <GroundBlock>
          {/* {!loadingComplete&&completePlant&&completePlant.map((plant,idx)=><FlowerItemContainer plant={plant} 
           marginTop={idx} />)} */}
-          {!loadingComplete&&completePlant&&<>
+         
+          {!loading&&completePlant&&<>
           <FlowerItemContainer plant={completePlant[0]} marginTop={0} marginLeft={4} />
           <FlowerItemContainer plant={completePlant[1]} marginTop={1} marginLeft={-2.5} />
           <FlowerItemContainer plant={completePlant[2]} marginTop={2} marginLeft={-2.5} />
