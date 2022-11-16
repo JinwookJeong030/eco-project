@@ -65,7 +65,7 @@ const TopRankingItemBlock = styled.div`
 display: flex;
 flex-direction:column;
 margin-top:1rem;
-width:100%;
+width:110%;
 height: 17rem;
 border: 2px solid ;
 margin-left:auto;
@@ -112,13 +112,14 @@ margin-left:5px;
   
  }
 `
-const TopRankingItem =({user, rank})=>{
+const TopRankingItem =({user,plant, rank})=>{
   return (
 
     <Link to={`/garden/${user.user_id}/1`}>
       <TopRankingItemBlock >
    
-        <TopPlantImage src={user.user_leader_plant?(process.env.PUBLIC_URL + "/plant_img/"+user.user_leader_plant+".png"):(process.env.PUBLIC_URL+"/plant_img/cosmos_1.gif")}/>
+      {plant&&<TopPlantImage src={user.user_leader_plant?(process.env.PUBLIC_URL + "/plant_img/"+plant.plant_img_path+".gif"):(process.env.PUBLIC_URL+process.env.PUBLIC_URL+"/plant_img/plant_no.png")}/>
+}
         <TopRankingItemInfoBlock>
         <TopRankingNickName> {user.user_name}</TopRankingNickName>
         <TopRankingPoint> 총 포인트: {user.user_total_point}</TopRankingPoint>
@@ -176,7 +177,7 @@ const NoPost =({title})=>{
 
 
 
-const RankingItem = ({user,rank, myRanking}) => {
+const RankingItem = ({user,plant,rank, myRanking}) => {
  
     return (
       <Link to={`/garden/${user.user_id}/1`}>
@@ -187,20 +188,21 @@ const RankingItem = ({user,rank, myRanking}) => {
         <RankingNickName> {user.user_name}</RankingNickName>
         <RankingNickName> 총 포인트: {user.user_total_point}</RankingNickName>
       </RankingItemInfoBlock>
-      <PlantImage src={user.user_leader_plant?(process.env.PUBLIC_URL + "/plant_img/"+user.user_leader_plant+".png"):(process.env.PUBLIC_URL+"/plant_img/cosmos_1.gif")}/>
+      {plant&&<PlantImage src={user.user_leader_plant?(process.env.PUBLIC_URL + "/plant_img/"+plant.plant_img_path+".gif"):(process.env.PUBLIC_URL+"/plant_img/plant_no.png")}/>
+}
     </RankingItemBlock>
     </Link>
     );
   };
-  const RankingList = ({ user, pageNum, ranking, loading, error, search_type, search_contents, onChangeField, onSearch}) => {
-     
+  const RankingList = ({ plant, user, pageNum, ranking, loading, error, search_type, search_contents, onChangeField, onSearch}) => {
+  
     if (error) {
       return     (<RankingListBlock><NoPost title={"서버에서 문제가 발생하였습니다..."} /></RankingListBlock>)
     }
     return (
       <RankingListBlock>
  
-        {!loading && user && <RankingItem user={user} key={user.user_id} myRanking={true} />}
+        {/* {!loading && user &&plant && <RankingItem user={user} key={user.user_id} plant={plant} myRanking={true} />} */}
 
        <RankingHeader>
         
@@ -209,20 +211,19 @@ const RankingItem = ({user,rank, myRanking}) => {
         </RankingHeader>
        
        
-        {!loading && ranking &&(ranking.length===0?<NoPost title={"찾으려는 사용자가 없습니다!"} />:(<div> { pageNum===1?
+        {!loading && ranking&& plant &&(ranking.length===0?<NoPost title={"찾으려는 사용자가 없습니다!"} />:(<div> { pageNum===1?
         <>
             <Podium>
-             {ranking.length>=1?<TopRankingItem user={ranking[0]} key={1} />:<></>}
-             {ranking.length>=2?<TopRankingItem user={ranking[1]} key={2} />:<></>}
-             {ranking.length>=3?<TopRankingItem user={ranking[2]} key={3} />:<></>}
-
+             {ranking.length>=1?<TopRankingItem user={ranking[0]} plant={plant[0]} key={1} />:<></>}
+             {ranking.length>=2?<TopRankingItem user={ranking[1]} plant={plant[1]} key={2} />:<></>}
+             {ranking.length>=3?<TopRankingItem user={ranking[2]} plant={plant[2]} key={3} />:<></>}
              </Podium>
-             {ranking.length>=4?<RankingItem user={ranking[3]} key={4} rank={4}/>:<></>}
-          
+             {ranking.length>=4?<RankingItem user={ranking[3]} plant={plant[3]} key={4} rank={4}/>:<></>}
+             {ranking.length>=5?<RankingItem user={ranking[4]} plant={plant[4]} key={5} rank={5}/>:<></>}
              </>
              :    
           ranking.map((user,idx) => (
-            <RankingItem user={user} key={user.user_id} rank={1+(pageNum-1)*4+idx} />
+            <RankingItem user={user} key={user.user_id} plant={plant[idx]} rank={1+(pageNum-1)*5+idx} />
           ))
           }
         </div>))}

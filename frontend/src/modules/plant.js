@@ -29,6 +29,11 @@ const [
   POINT_UP_PLANT_FAILURE,
 ] = createRequestActionTypes('plant/POINT_UP_PLANT');
 
+const [
+  CHANGE_LEADER_PLANT,
+  CHANGE_LEADER_PLANT_SUCCESS,
+  CHANGE_LEADER_PLANT_FAILURE
+] = createRequestActionTypes('plant/CHANGE_LEADER_PLANT');
 
 
 const UNLOAD_PLANT = 'plant/UNLOAD_PLANT'; // 포스트 페이지에서 벗어날 때 데이터 비우기
@@ -43,18 +48,20 @@ export const unloadPlant = createAction(UNLOAD_PLANT);
 export const plusPointPlant = createAction(PLUS_POINT_PLANT);
 export const deletePlant  = createAction(DELETE_PLANT, pt_id => pt_id);
 export const pointUpPlant  = createAction(POINT_UP_PLANT, ({growPlant, point}) => ({growPlant, point}));
-
+export const changeLeaderPlant  = createAction(CHANGE_LEADER_PLANT, ({user_leader_plant}) => ({user_leader_plant}));
 
 const readGrowPlantSaga = createRequestSaga(READ_GROW_PLANT, plantAPI.readGrowPlant);
 const readCompletePlantSaga = createRequestSaga(READ_COMPLETE_PLANT, plantAPI.readCompletePlant);
 const deletePlantSaga = createRequestSaga(DELETE_PLANT, plantAPI.deletePlant);
 const pointUpPlantSaga = createRequestSaga(POINT_UP_PLANT, plantAPI.pointUpPlant);
+const changeLeaderPlantSaga = createRequestSaga(CHANGE_LEADER_PLANT, plantAPI.changeLeaderPlant);
 
 export function* plantSaga() {
   yield takeLatest(READ_GROW_PLANT, readGrowPlantSaga);
   yield takeLatest(READ_COMPLETE_PLANT, readCompletePlantSaga);
   yield takeLatest(DELETE_PLANT, deletePlantSaga);
   yield takeLatest(POINT_UP_PLANT, pointUpPlantSaga);
+  yield takeLatest(CHANGE_LEADER_PLANT, changeLeaderPlantSaga);
 }
 
 const initialState = {
@@ -100,6 +107,14 @@ const plant = handleActions(
       result:result
     }),
     [POINT_UP_PLANT_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      error,
+    }),
+    [CHANGE_LEADER_PLANT_SUCCESS]: (state, { payload: result }) => ({
+      ...state,
+      result:result
+    }),
+    [CHANGE_LEADER_PLANT_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
     }),

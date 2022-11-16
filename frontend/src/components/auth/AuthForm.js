@@ -84,7 +84,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error,loading }) => {
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Button cyan fullWidth style={{ marginTop: '1rem' }}>
-          {loading?"로그인 중 입니다...":text}
+          {loading?"로그인":text}
           
         </Button>
       </form>

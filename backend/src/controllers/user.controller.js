@@ -212,7 +212,7 @@ exports.changePw =async (req,res) =>{
 exports.ranking = async (req,res) =>{
   const {page, search_type,search_contents} = req.query;
 
-  const end = 4;
+  const end = 5;
   let start = 0;
 
   if (page <= 0) {
@@ -222,13 +222,14 @@ exports.ranking = async (req,res) =>{
   }
 
   if(search_type === "user"){
-    User.selectAllUsersCntFromUser({search_type,search_contents}, (err, data) => {
+    User.selectAllUsersCntFromUser({search_contents}, (err, data) => {
       if (!data) {
         return res.status(419).send({
           code: 419,
           message: 'selectAllUsersCntFromTitle is error!',
         });
       } else {
+
         const lastPage = Math.ceil(parseInt(data[0].user_count)/end);
         if (page > Math.ceil(parseInt(data[0].user_count) / end)) {
           return res.send({
@@ -272,6 +273,7 @@ exports.ranking = async (req,res) =>{
         });
       } else {
         const lastPage = Math.ceil(parseInt(data[0].user_count)/end);
+      
         if (page > Math.ceil(parseInt(data[0].user_count) / end)) {
           return res.send({
             code:200,
@@ -291,14 +293,45 @@ exports.ranking = async (req,res) =>{
                 message: 'selectAllUsers is error!',
               });
             } else {
-              return res.send({
-                code:200,
-                message: 'selectAllUsers is successful',
-                result:{
-                  ranking:data,
-                  lastPage: lastPage
-                }
-              });
+              const ranking_user=data; 
+              console.log("dddddddddddddddddddd")
+                  console.log(data);
+              
+              Planting.selectCompletePlantFromUserId(data,(err,data)=>{
+                  let i=0;
+                  let j=0;
+                  let ranking_plant =[];
+                  
+                  while(i<ranking_user.length){
+                    if(ranking_user[i].user_leader_plant){
+                      ranking_plant[i]=data[j];
+                      j++;
+                    }
+                    else{
+                      ranking_plant[i]={plant_img_path:null,};
+                    }
+                    
+                    i++;
+                  }
+                  console.log("dddddddddddddddddddd")
+                  console.log(ranking_user.length-1);
+
+                  return res.send({
+                    code:200,
+                    message: 'selectCompletePlantFromUserId is successful',
+                    result:{
+                      ranking:ranking_user,
+                      rankingPlant:ranking_plant,
+                      lastPage: lastPage
+                    }
+                  });
+                
+
+              })
+             
+
+
+           
           } 
           })
 

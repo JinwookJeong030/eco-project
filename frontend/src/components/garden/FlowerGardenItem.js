@@ -46,7 +46,7 @@ margin-left: calc(4.825rem * ${props => props.marginLeft});
  
 }
 `
-const FlowerGardenItem =({plant, marginTop,marginLeft})=>{
+const FlowerGardenItem =({myUser,user,plant, marginTop,marginLeft,onLeader})=>{
     const [flowerModal, setFlowerModal] = useState(false);
     
     const onCancel = () => {
@@ -62,9 +62,11 @@ const FlowerGardenItem =({plant, marginTop,marginLeft})=>{
       <GroundImage src={ process.env.PUBLIC_URL + "/ground.png" }/>
       </PlantItemBlock>
       <PlantModalContainer
+      user={user}
       plant={plant}
       visible={flowerModal}
       onCancel={onCancel}
+      onLeader={onLeader}
       />
       </>
     )

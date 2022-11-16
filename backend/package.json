@@ -26,6 +26,19 @@
   },
   "scripts": {
     "start": "nodemon src/App.js",
-    "start:dev": "nodemon src/App.js"
+    "start:dev": "nodemon src/App.js",
+    "build": "pkg ."
+  },
+  "bin": {
+    "app": "src/App.js"
+  },
+  "pkg":{
+    "assets": [
+      "views/**/*",
+      "public/**/*"
+    ]
+  },
+  "devDependencies": {
+    "pkg": "^4.4.0"
   }
 }

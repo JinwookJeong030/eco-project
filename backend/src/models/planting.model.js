@@ -70,6 +70,39 @@ Planting.selectCompletePlantCnt = (user_id,result) => {
 
 
 
+Planting.selectCompletePlantFromUserId =(data, result)=>{
+   
+    let i=0;
+    let array=[];
+    if(!data)
+    return result(null,[]);
+    else
+    while(i<data.length){
+     if(data[i].user_leader_plant)
+     array.push(data[i].user_leader_plant);
+     i++;
+    }
+
+    if(array.length===0)
+    return result(null,[]);
+    sql.query(`SELECT planting.*, plant.*  FROM planting, plant WHERE planting.pt_plant = plant.plant_id AND pt_id in ( ${array} ) ORDER BY FIELD(pt_id, ${array} )`, (err, res) => {
+        
+      if (err) {
+          console.log('error: ', err);
+        }
+      
+        console.log('plant?: ', res);
+        result(null,res);
+      
+        
+      });
+    
+    
+
+
+  }
+  
+
 Planting.selectCompletePlantFromUser =({start, end, user_id}, result)=>{
   sql.query(`SELECT planting.*, plant.*  FROM planting, plant WHERE planting.pt_plant = plant.plant_id AND pt_user = ${user_id} AND pt_grow_plant = 0 ORDER BY pt_regdate DESC LIMIT ${start}, ${end}`, (err, res) => {
       if (err) {

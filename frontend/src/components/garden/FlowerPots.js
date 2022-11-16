@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import AskModal from '../common/AskModal';
 import AskRemoveModal from '../post/AskRemoveModal';
 import { useDispatch } from 'react-redux';
-import { readGrowPlant, unloadPlant } from '../../modules/plant';
+import { readCompletePlant, readGrowPlant, unloadPlant } from '../../modules/plant';
 import { check } from '../../modules/user';
 
 
@@ -245,11 +245,11 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow,
   const [isPressed,setIsPressed] = useState(false);
   useInterval(() => {   
     
-    if(isPressed&&(growPlant[selectPlant-1].plant_total_point>point+growPlant[selectPlant-1].pt_point)){
+    if(isPressed&&(growPlant[selectPlant-1].plant_total_point>point+growPlant[selectPlant-1].pt_point)&&user.user_point-point>0){
     setPoint(point + 1);
   }
  
-  }, 10);
+  }, 0.5);
 
 
 
@@ -269,30 +269,58 @@ const Garden = ({user, growPlant, plantPoint,selectPlant, loadingGrow,
   }
    
   const onMouseDownItem =(selectPlant)=>{
-    if(wateringFlowerPot){
+    if(wateringFlowerPot&&user.user_point>0){
       onClickWateringItem(selectPlant);
-      setIsPressed(true);
-      
+      setIsPressed(true); 
+
     }
+    if(point+growPlant[selectPlant-1].pt_point>=growPlant[selectPlant-1].plant_total_point){
+      setIsPressed(false); 
+      onSubmitPoint(growPlant[selectPlant-1].plant_total_point);
+      dispatch(readGrowPlant(user.user_id||0));
+      dispatch(readCompletePlant({user_id:user.user_id,page:1}));
+   
+    }
+
   }
   const onMouseUpItem =(selectPlant)=>{
     setIsPressed(false);
     if(wateringFlowerPot){
       onClickWateringItem(selectPlant);
       onSubmitPoint(point);
-      setPoint(0);
-      dispatch(readGrowPlant(1||0));
-      dispatch(check());
+      
+
+    if(point+growPlant[selectPlant-1].pt_point>=growPlant[selectPlant-1].plant_total_point){
+        setIsPressed(false); 
+       
+        setTimeout(function() {
+          dispatch(readGrowPlant(user.user_id||0));
+          dispatch(readCompletePlant({user_id:user.user_id,page:1}));
+          setPoint(0);
+          dispatch(check())
+        }, 300);
+    }
+    else{
+      setIsPressed(false); 
+      setTimeout(function() {
+        setPoint(0);
+      dispatch(readGrowPlant(user.user_id||0));
+      dispatch(check())
+      }, 300);
+      
+    }
+
+  
     
     }
   }
-
+  
 
   return (
 <>
     <FlowerpotsBlock  DeleteFlowerPot={deleteFlowerPot} WateringFlowerPot={wateringFlowerPot}>
 
-      
+    
         {user&&growPlant&&((user.user_id ===growPlant[0].pt_user)? <>
         <Title>가든</Title>   
         <HeaderBlock>

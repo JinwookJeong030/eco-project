@@ -69,6 +69,7 @@ const initialState = {
   lastPage:null,
   page:1,
   ranking:null,
+  rankingPlant:null,
   rankingError:null,
   myRanking:null,
   myRankingError:null,
@@ -94,6 +95,7 @@ const classList = handleActions(
     [LIST_RANKING_SUCCESS]: (state, { payload: ranking }) => ({
         ...state,
         ranking: ranking.result.ranking,
+        rankingPlant: ranking.result.rankingPlant,
         lastPage: ranking.result.lastPage,
 
       }),

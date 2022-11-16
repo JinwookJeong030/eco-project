@@ -202,6 +202,13 @@ exports.point =async (req,res) =>{
                 message: 'createPlanting is error!',
                 });
                 }});
+                Planting.createPlanting({pt_user:user_id,pt_plant},(err,data)=>{
+                  if (!data) {
+                  return res.status(419).send({
+                  code: 419,
+                  message: 'createPlanting is error!',
+                  });
+                  }});
                 console.log("*********************************");
                 console.log(pt_cnt);
                 console.log("*********************************");

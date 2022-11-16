@@ -38,7 +38,7 @@ const StyledButton = styled(Button)`
 
 
 const Contents =styled.div`
-margin-top:1rem;
+margin-top:0rem;
 font-size: 1.2rem;
 text-align:center;
 
@@ -84,13 +84,21 @@ width:100%;
 height:3rem;
 font-size:1.1rem;
 `
+const LeaderPlantDiv = styled.div`
+margin-left:auto;
+margin-right:auto;
+font-size:1.2rem;
+margin-bottom:1rem;
+color: red;
+font-weight:bold;
 
+`
 const PlantInfo = ({plant})=>{
     return (
         <PlantInfoBlock>
           <PlantName>{plant.plant_name}</PlantName>  
         <PlantContents>시작 일자: {new Date(plant.pt_regdate).toLocaleDateString()}</PlantContents>
-        <PlantContents>완료 일자: {new Date(plant.pt_complete_date).toLocaleDateString()}</PlantContents>
+        {/* <PlantContents>완료 일자: {new Date(plant.pt_complete_date).toLocaleDateString()}</PlantContents> */}
         </PlantInfoBlock>
     )
 }
@@ -101,7 +109,9 @@ const FlowerModal = ({
   onCancel,
   onLeader,
     plant,
-    leader
+    leader,
+    user,
+    
 }) => {
 
 
@@ -113,16 +123,19 @@ const FlowerModal = ({
       <div className="buttons">
           {cancelText&&<StyledButton onClick={onCancel}>{cancelText}</StyledButton>}
         </div>
-       
+  
         <Contents>
+        {(user.user_leader_plant===plant.pt_id)?<LeaderPlantDiv>[대표 식물]</LeaderPlantDiv>:<></>}
         <PlantItemBlock>
         <PlantImage src={ process.env.PUBLIC_URL + "/plant_img/"+plant.plant_img_path+".gif" }/>
         </PlantItemBlock>
         <PlantInfo plant={plant}/>
         <></>
         </Contents>
-        <LeaderPlantBtn onClick={onLeader} cyan>{!leader?"대표 식물로 선정하기":"[현재 대표 식물입니다.]"}</LeaderPlantBtn>
-    
+        {!(user.user_leader_plant===plant.pt_id)?<LeaderPlantBtn onClick={onLeader}  cyan> 대표 식물로 선정하기</LeaderPlantBtn>:
+       <></>
+        }
+        
       </PlantModalBlock>
     </Fullscreen>
   );

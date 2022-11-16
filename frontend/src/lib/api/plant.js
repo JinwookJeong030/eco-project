@@ -5,3 +5,5 @@ export const readCompletePlant = ({user_id, page}) => client.get(`/plant/selectC
 export const deletePlant = pt_id => client.post(`/plant/delete`,pt_id);
 export const pointUpPlant = ({growPlant, point})=> 
 client.post(`/plant/point`, {growPlant, point});
+export const changeLeaderPlant = ({user_leader_plant})=> 
+client.post(`/plant/leader`, {user_leader_plant});
