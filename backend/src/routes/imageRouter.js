@@ -4,8 +4,8 @@ const multerS3 = require('multer-s3');
 const post = require('../controllers/post.controller.js');
 
 const s3 = new AWS.S3({
-    accessKeyId : "AKIAVCLDUNF7VPTG4Z2X",
-    secretAccessKey: "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",
+    accessKeyId : "AKIAUFDXND6VJNIWQR4J",
+    secretAccessKey: "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",
     region: "ap-northeast-2",
 });
 
@@ -15,7 +15,7 @@ const upload = multer({
     
     storage : multerS3({
         s3:s3,
-        bucket:'ecoweb-s3',
+        bucket:'hs-eco-s3',
         key : function(req, file, cb) {
         
             console.log("file:");
