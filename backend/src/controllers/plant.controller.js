@@ -132,7 +132,7 @@ if (page <= 0) {
 exports.point =async (req,res) =>{
   const user_id = req.user_id;
   const point = req.body.point;
-  const pt_id = req.body.growPlant.pt_id;
+  const pt_id = req.body.growPlant.pt_id||0;
   const pt_point = req.body.growPlant.pt_point;
   const plant_total_point = req.body.growPlant.plant_total_point;
   const plant_name = req.body.growPlant.plant_name;

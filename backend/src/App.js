@@ -7,7 +7,7 @@ let app = express();
 const port = 4000;
 
 const corsOptions ={
-    origin:['http://www.hs-eco-web.link:3000','http://localhost:3000','http://www.hs-eco-web.link',
+    origin:['http://www.hs-ecp-web.link:3000','http://localhost:3000','http://www.hs-ecp-web.link',
     'http://localhost'
   ], 
     credentials:true,            //access-control-allow-credentials:true
