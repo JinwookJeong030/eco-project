@@ -8,8 +8,8 @@
 # /backend/src/config/
 
 #build
-/frontend/build/
-/backend/build/
+# /frontend/build/
+# /backend/build/
 
 # dependencies
 /frontend/node_modules/

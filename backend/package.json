@@ -32,13 +32,13 @@
   "bin": {
     "app": "src/App.js"
   },
-  "pkg":{
+  "pkg": {
     "assets": [
       "views/**/*",
       "public/**/*"
     ]
   },
   "devDependencies": {
-    "pkg": "^4.4.0"
+    "pkg": "^4.5.1"
   }
 }
