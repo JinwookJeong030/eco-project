@@ -37,8 +37,5 @@
       "views/**/*",
       "public/**/*"
     ]
-  },
-  "devDependencies": {
-    "pkg": "^4.5.1"
   }
 }
